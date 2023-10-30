@@ -1,6 +1,6 @@
  const bergerPhotos = {
 
-    try: "../../../images/calling-his-mother.jpg",
+    // try: "../../../images/calling-his-mother.jpg",
     "calling his mother": "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/calling-his-mother.jpe",
     "stabbing himself": "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/stabbing-himself",
     "eating a cracer": "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/eating-a-cracer",

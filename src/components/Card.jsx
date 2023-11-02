@@ -1,12 +1,13 @@
 import React, { useId, useState } from 'react';
 import ReactSelect from "react-select"
-import bergerPhotos from '../shared/photos';
+import {bergerPhotos} from '../shared/photos';
 
-
-export const Card = ({name, status = 'not-active'}) => {
+export const Card = ({name ="calling his mother", status = 'not-active'}) => {
    
-    const itemID = useId()
+    const   cardID = useId()
     const [isChecked, setIsChecked] = useState(false)
+    const [isDeleted,setIsDeleted ] = useState(false)
+    const [isSelected, setIsSelected] = useState(false)
 
     const handleCheck = () => {
         if (isChecked) {
@@ -18,18 +19,47 @@ export const Card = ({name, status = 'not-active'}) => {
     }
     return (
                 
-        <div className="card">
-        <img
-            src={bergerPhotos.try}
-            alt='first image'
-            className="card-image"
-        />
-        <div className="card-body">
-            <h3 className="card-title">Card Title</h3>
-            <p className="card-description">
-            This is a description of the card. You can add more content here.
-            </p>
-        </div>
+        <div className="card" style={ {
+            borderColor : 'black',
+            borderStyle : 'solid',
+            display: 'block',
+            padding: 20,
+            width : 450,
+            height :450,
+        }}>
+            <h3 className="card-title">{name}</h3>
+            <div className="card-body" id={cardID} style={{
+                position: 'relative'
+            }}>
+                <img
+                    src={bergerPhotos[name]}
+                    // alt='first image'
+                    className="card-image"
+                    style= {
+                        {
+                            width : "40%" ,
+                            height :"40%",
+                            position: 'relative',
+                            display : 'center',
+                            padding: 20,
+                        }
+                    }
+
+                />
+                <input className="card-description" type="text" placeholder='card description' style={{
+                    margin:40,
+                }}
+            />
+
+                <label htmlFor = {`${cardID}-checkbox`}> {`is selected item : ${isSelected}`}</label>
+
+                <input type="checkbox" id ={`${cardID}-checkbox`}  name= {`isCheck : ${isChecked} `} onChange={handleCheck} style={{
+             margin:40,    
+            }}
+            /> 
+
+            
+            </div>
         </div>
     )
 }

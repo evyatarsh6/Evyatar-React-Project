@@ -4,7 +4,7 @@ import {bergerPhotos} from '../shared/photos';
 
 export const Card = ({name ="calling his mother", status = 'not-active'}) => {
    
-    const   cardID = useId()
+    const cardID = useId()
     const [isChecked, setIsChecked] = useState(false)
     const [isDeleted,setIsDeleted ] = useState(false)
     const [isSelected, setIsSelected] = useState(false)

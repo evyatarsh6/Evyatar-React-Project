@@ -1,8 +1,3 @@
-import React from "react"
-import { useState } from "react"
-import { useId } from "react";
-
-
 
     //  const TODOStruct = {${action.ID}: ${action.isChoosen} : ${action.isDeleted}}
     //  const TODOExample = {
@@ -14,15 +9,8 @@ import { useId } from "react";
         // }
 
 
-    const filterChoosenTODOS = TODO => {
-        if(Object.keys(TODO)[0].includes('* : true : *')) {
-            return TODO
-        }
-    }
-    
-    const filterDeleteTODOS = TODO => {
-
-        if(Object.keys(TODO)[0].includes('* : * : true')) {
+    const filterTODOSByReg = (TODO, reg) => {
+        if (reg.test(Object.keys(TODO)[0])) {
             return TODO
         }
     }
@@ -32,10 +20,12 @@ import { useId } from "react";
         const filterTODOSObj = Object.keys(TODOS).filter( TODO  => {
 
             if (action.type === "filterChoosenTODOS" ) {
-                filterChoosenTODOS(TODO) 
+                const choosenRegExpre = / * : true : */
+                filterTODOSByReg(TODO, choosenRegExpre ) 
             }
             else if (action.type === "filterDeleteTODOS") {
-                filterDeleteTODOS(TODO)
+                const deleteRegExpre = / * : * : true/
+                filterTODOSByReg(TODO, deleteRegExpre)
             }
         })
         return filterTODOSObj

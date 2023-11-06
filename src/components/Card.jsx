@@ -1,11 +1,13 @@
-import React, { useId, useState } from 'react';
-import ReactSelect from "react-select"
+import React, { useId, useState, useRef } from 'react';
 import {bergerPhotos} from '../shared/photos';
 
-export const Card = ({name ="calling his mother", status = 'not-active'}) => {
+
+export const Card = ({name ="calling his mother", status = false}) => {
    
     const cardID = useId()
+    const currInputValue = useRef(null)
     const [isChecked, setIsChecked] = useState(false)
+    const [isEmpty,setIsEmpty] = useState(true)
     const [isDeleted,setIsDeleted ] = useState(false)
     const [isSelected, setIsSelected] = useState(false)
 
@@ -17,6 +19,22 @@ export const Card = ({name ="calling his mother", status = 'not-active'}) => {
             setIsChecked(true)
         }
     }
+
+    const handleInputType = event => {
+
+        currInputValue.current = event.target.value;
+
+        if ( isEmpty && currInputValue.current !== null) {
+          setIsEmpty(false)
+        }
+        else if (!isEmpty && currInputValue.current === '') {
+          setIsEmpty(true)
+        }
+
+        return event.target.value;
+      }
+
+
     return (
                 
         <div className="card" style={ {
@@ -46,16 +64,14 @@ export const Card = ({name ="calling his mother", status = 'not-active'}) => {
                     }
 
                 />
-                <input className="card-description" type="text" placeholder='card description' style={{
-                    margin:40,
+                <input className="card-description" type="text" placeholder='card description' /*value={handleInputType}*/ onChange={handleInputType} style={{
+                    margin:30,
                 }}
             />
-
-                <label htmlFor = {`${cardID}-checkbox`}> {`is selected item : ${isSelected}`}</label>
-
-                <input type="checkbox" id ={`${cardID}-checkbox`}  name= {`isCheck : ${isChecked} `} onChange={handleCheck} style={{
-             margin:40,    
-            }}
+                <input type="checkbox" id ={`${cardID}-${isChecked}-checkbox`} onChange={handleCheck}
+                style={{
+                    margin:10,
+                }}
             /> 
 
             

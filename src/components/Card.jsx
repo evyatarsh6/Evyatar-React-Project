@@ -8,6 +8,8 @@ export const Card = ({name ="calling his mother", status = false}) => {
     const currInputValue = useRef(null)
     const [isChecked, setIsChecked] = useState(false)
     const [isEmpty,setIsEmpty] = useState(true)
+    const [isFreezeMode,setIsFreezeMode] = useState(true)
+
     const [isDeleted,setIsDeleted ] = useState(false)
     const [isSelected, setIsSelected] = useState(false)
 
@@ -20,19 +22,35 @@ export const Card = ({name ="calling his mother", status = false}) => {
         }
     }
 
-    const handleInputType = event => {
+    const handleInputType =  event => {
 
         currInputValue.current = event.target.value;
 
-        if ( isEmpty && currInputValue.current !== null) {
-          setIsEmpty(false)
-        }
-        else if (!isEmpty && currInputValue.current === '') {
-          setIsEmpty(true)
-        }
+        if (isEmpty) {
 
-        return event.target.value;
+            if (currInputValue.current !== '') {
+              setIsEmpty(false)
+              return currInputValue.current
+            }
+            else {
+                return ''
+            }
+        }
+        else {
+            if (currInputValue.current === '') {
+                setIsEmpty(true)
+                return ''
+            }
+            return currInputValue.current
+
+        }
       }
+
+    const clickFreezeBtn =  event => {
+        event.preventDefault()
+        isFreezeMode ? setIsFreezeMode(false): setIsFreezeMode(true)
+    } 
+    const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
 
 
     return (
@@ -64,18 +82,34 @@ export const Card = ({name ="calling his mother", status = false}) => {
                     }
 
                 />
-                <input className="card-description" type="text" placeholder='card description' /*value={handleInputType}*/ onChange={handleInputType} style={{
+            <div style={{display: 'flex'}}>
+                <input ref = {currInputValue} defaultValue={'avi berger is a god'}
+                className="card-description" type="text" placeholder='card description'
+                onChange={handleInputType} disabled = {isFreezeMode}
+                style={{
+                    textAlign: "center",
                     margin:30,
+                    width: "150%",
+                    height: "60%"
                 }}
             />
+
+                <button className= { `${FreezeBtnStatus()}- btn`}
+                onClick ={clickFreezeBtn}
+                style ={{
+                    display: 'flex',
+                    margin: "auto"
+                    
+                }}>
+                    {`${FreezeBtnStatus()}- btn`}
+                </button>
+
+            </div>
                 <input type="checkbox" id ={`${cardID}-${isChecked}-checkbox`} onChange={handleCheck}
-                style={{
-                    margin:10,
-                }}
-            /> 
+                /> 
 
             
             </div>
         </div>
     )
-}
+}; 

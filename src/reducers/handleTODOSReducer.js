@@ -1,13 +1,46 @@
 import React from "react"
 import { useState } from "react"
 import { useId } from "react";
-import { searchForWorkspaceRoot } from "vite";
 
 
 
-let newMissionid = '12'
-let singleMission = { newTODO.TODOID : { kind : newTODO.TODOKind, isChoosen: false, isDeleted : false }}
-const actionexample = {type: "addTODO", actionProps : {"newTODOMissionid": newMissionid ,"newTODOInfo": singleMission}}
+    //  const TODOStruct = {${action.ID}: ${action.isChoosen} : ${action.isDeleted}}
+    //  const TODOExample = {
+        //{'12': 'false' : 'false'} : 
+        // //{
+        //     kind: action.newTODO.TODOKind,
+        //     isChoosen: false,
+        //     isDeleted: false  
+        // }
+
+
+    const filterChoosenTODOS = TODO => {
+        if(Object.keys(TODO)[0].includes('* : true : *')) {
+            return TODO
+        }
+    }
+    
+    const filterDeleteTODOS = TODO => {
+
+        if(Object.keys(TODO)[0].includes('* : * : true')) {
+            return TODO
+        }
+    }
+
+    const filterTODOS = (TODOS,action) => {
+
+        const filterTODOSObj = Object.keys(TODOS).filter( TODO  => {
+
+            if (action.type === "filterChoosenTODOS" ) {
+                filterChoosenTODOS(TODO) 
+            }
+            else if (action.type === "filterDeleteTODOS") {
+                filterDeleteTODOS(TODO)
+            }
+        })
+        return filterTODOSObj
+    }
+
 
     export const TODOReducer = (state, action) =>  {
 
@@ -15,8 +48,8 @@ const actionexample = {type: "addTODO", actionProps : {"newTODOMissionid": newMi
             case "addTODO":
                 return {
                     ...state,
-                    [action.ID]: {
-                        kind: newTODO.TODOKind,
+                    [`${action.ID}: ${action.isChoosen} : ${action.isDeleted} `]: {
+                        kind: action.newTODO.TODOKind,
                         isChoosen: false,
                         isDeleted: false
                     }
@@ -25,48 +58,16 @@ const actionexample = {type: "addTODO", actionProps : {"newTODOMissionid": newMi
             case "deleteTODO":
                 return {
                     ...state, 
-                    [action.ID]:
-                    isDeleted = true
+                    [state.ID]:
+                    state.ID.isDeleted = true
                 };
 
-                
-            // const singleMission = { newTODO.TODOID : { kind : newTODO.TODOKind, isChoosen: false, isDeleted : false }}
-                
-        
-            // case "filterTODOS":
-            //     return {
-            //         ...state,
-            //         [Object.keys(state).forEach($elem => {
-            //             if (state[$elem].isChoosen) {
-                            
-            //             }
-            //         })]
-                       
-                    
+            case ("filterChoosenTODOS" || "filterDeleteTODOS"):
 
-                // }
+                return filterTODOS(state, action)
 
             default:
                 return state; 
         }
     
     }
-    
-    
-    
-
-
-
-
-
-//     const singleMission = { newTODO.TODOID : { kind : newTODO.TODOKind, isChoosen: false, isDeleted : false }}
-
-//     const action = {type: "addTODO", actionProps : {"newTODOMissionid": newMissionid ,"newTODOInfo": singleMission}}
-
-// const addTODO = (state, action) => {
-
-
-    // return  (...missions, action["actionProps"]["newTODOMissionid"]: { action["newTODOInfo"].newMissionid } )
-
-    // setMissions(...missions, action["actionProps"]["newTODOMissionid"]: { action["newTODOInfo"].newMissionid } )
-// }

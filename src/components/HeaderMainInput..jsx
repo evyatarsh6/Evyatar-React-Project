@@ -61,16 +61,18 @@ export const HeaderInput = () => {
           <ReactSelect
             options={createOptions(bergerPhotos)}
             id = 'main-react-select-field'
+            placeholder = 'Bergers` Actions in the Office'
+
             // value={value}
             // onChange={selected => value = selected}
-            placeholder = 'Bergers` Actions in the Office'
+            // defaultValue={'avi berger is a god'}
                 >
           </ReactSelect>
 
             <div className='buttonContainer'>
           <button
           className='save-btn'
-          onClick ={handleClick} 
+          // onClick ={() => dispatch({ type: 'addTODO' })} 
           disabled = {isEmpty}>
             save Avi Berger
           </button>

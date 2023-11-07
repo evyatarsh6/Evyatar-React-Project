@@ -1,12 +1,14 @@
-import { useContext, useState } from "react"
 import { HeaderInput } from "../components/HeaderMainInput."
-import { ThemeContext } from "../shared/context"
 import { CardList } from "./cardsList"
+import { useState } from "react"
+import { useReducer } from "react"
 
+import { TODOReducer } from "../reducers/handleTODOSReducer"
 
 export const AppWrapper = () => {
-    const appTheme = useContext(ThemeContext)
-   const [status, setStatus] = useState(appTheme)
+
+  const [TODOS, dispatch] = useReducer(TODOReducer, {})
+
     
    return (
         <div className='App-wrapper'>

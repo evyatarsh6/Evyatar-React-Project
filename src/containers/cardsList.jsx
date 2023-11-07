@@ -1,12 +1,14 @@
 import { Card } from "../components/Card"
+import { useReducer } from "react"
+import { TODOReducer } from "../reducers/handleTODOSReducer"
 
 
-export const CardList = ({value ="calling his mother", status = false}) => {
+export let TODOS = {}
+
+export const CardList = ({ status = false}) => {
     
-    let initialTODOS = {}
-    
-    
-    
+    const [TODOS, dispatch] = useReducer(TODOReducer, {})
+
     
     return (
         <Card>

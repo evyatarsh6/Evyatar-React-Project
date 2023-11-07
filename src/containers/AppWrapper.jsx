@@ -1,31 +1,14 @@
 import { useContext, useState } from "react"
 import { HeaderInput } from "../components/HeaderMainInput."
-// import { ItemList } from "./ItemList."
 import { ThemeContext } from "../shared/context"
-import { Card } from "../components/Card"
+import { CardList } from "./cardsList"
 
 
 export const AppWrapper = () => {
     const appTheme = useContext(ThemeContext)
    const [status, setStatus] = useState(appTheme)
-    return (
-        // <div className='App-wrapper'>
-        // <form>
-        //    <header className="Main-input-field">
-        //    <HeaderInput>
-     
-        //    </HeaderInput>
-        //    </header>
-        //    <body>
-        //     <Card>
-        //     </Card>   
-
-        //    </body>
-        //    </form>
-        //  </div>
-
-
-
+    
+   return (
         <div className='App-wrapper'>
            <header className="Main-input-field">
            <HeaderInput>
@@ -34,8 +17,9 @@ export const AppWrapper = () => {
            </header>
            <body>
            <form>
-            <Card>
-            </Card>   
+           <CardList>
+
+           </CardList>
 
             </form>
            </body>

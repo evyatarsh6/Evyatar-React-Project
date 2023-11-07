@@ -55,7 +55,7 @@ export const Card = ({name ="calling his mother", status = false}) => {
 
     return (
                 
-        <div className="card" style={ {
+        <div className ={`card-selected-${isChecked}`} style={ {
             borderColor : 'black',
             borderStyle : 'solid',
             display: 'block',
@@ -69,7 +69,6 @@ export const Card = ({name ="calling his mother", status = false}) => {
             }}>
                 <img
                     src={bergerPhotos[name]}
-                    // alt='first image'
                     className="card-image"
                     style= {
                         {
@@ -77,7 +76,9 @@ export const Card = ({name ="calling his mother", status = false}) => {
                             height :"40%",
                             position: 'relative',
                             display : 'center',
-                            padding: 20,
+                            borderColor : 'black',
+                            borderStyle : 'solid',
+                            backgroundColor: 'black'
                         }
                     }
 

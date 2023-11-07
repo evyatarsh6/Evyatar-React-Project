@@ -39,7 +39,9 @@ export const HeaderInput = () => {
 
     return (
 
-        <>
+        <div style={ {
+          display: 'flex'
+        }}>
         <input
         type= 'text'
         id ='new_todo_input'
@@ -66,7 +68,7 @@ export const HeaderInput = () => {
         >
             Delete Choosen items
         </button>  
-      </>
- 
+
+        </div>
     )
 }

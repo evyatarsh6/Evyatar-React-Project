@@ -51,38 +51,48 @@ export const HeaderInput = () => {
 
     return (
 
-        <>
-        <div
-        id= "header-main-input"
-        >
-      <ReactSelect
+        <div style={{
+          display: 'flex',
+          textAlign: 'center',
+          alignItems : 'center',
+          justifyContent: 'center'
+        }}>
+
+          <ReactSelect
             options={createOptions(bergerPhotos)}
             id = 'main-react-select-field'
             // value={value}
             // onChange={selected => value = selected}
             placeholder = 'Bergers` Actions in the Office'
+                >
+          </ReactSelect>
+
+            <div className='buttonContainer'>
+          <button
+          className='save-btn'
+          onClick ={handleClick} 
+          disabled = {isEmpty}>
+            save Avi Berger
+          </button>
+
+            <button
+            id = {`show-choosen-items-btn`}
+            className= 'mark-choosen-items-btn'
+            onClick={handleMark}
             >
-      </ReactSelect>
+                {` show choosen items - ${isMark}`}
+            </button>
 
-        <div className='buttonContainer'>
-      <button
-      className='save-btn'
-       onClick ={handleClick} 
-       disabled = {isEmpty}>
-        save Avi Berger
-      </button>
+            <button
+            id = {`delete-choosen-items-btn`}
+            className= 'mark-choosen-items-btn'
+            // onClick={handleMark}
+            >
+                {` delete choosen items - ${isMark}`}
+            </button>
 
+            </div>
 
-        <button
-        id = {`mark-choosen-items-btn`}
-        className= 'mark-choosen-items-btn'
-        onClick={handleMark}
-        >
-            {`mark Choosen items - ${isMark}`}
-        </button>  
-        </div>
-      </div>
-      </>
- 
+            </div>
     )
-}
+      }

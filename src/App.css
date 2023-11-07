@@ -11,45 +11,21 @@
   width: 100%;
 }
 
-.card {
+.card-selected-false
+{
   text-align: center;
   justify-content: space-between;
   background-color: aliceblue;
   position: inherit;
-
-  
-
 }
 
-.item {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: flex; /* This makes the container a flex container*/
-  flex-direction: row; /* Items are arranged in a horizontal row */
-  align-items: center; /* Vertically center items within the container */
+.card-selected-true
+{
   text-align: center;
-  justify-content: space-between; /* Items are spaced evenly along the row */
-  
+  justify-content: space-between;
+  background-color: green;
+  position: inherit;
 }
-
-
-.choose-item-checkbox {
-  margin-right: 10px; /* Adjust the value to control the space between items */
-  /* Additional styles for individual items */
-}
-
-.item-body {
-  margin-right: 10px; /* Adjust the value to control the space between items */
-  /* Additional styles for individual items */
-  padding: 10px;
-}
-
-/* input {
-  width: 50%;
-  height: 60%;
-  
-} */
 
 button {
 
@@ -63,16 +39,8 @@ button {
 
 }
 
-#header-main-input {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-}
-
 .buttonContainer{
-  /* align-items: center; */
+  align-items: center;
   display: flex; /* This makes the container a flex container */
   flex-direction: row; /* Items are arranged in a horizontal row */
   align-items: center; /* Vertically center items within the container */
@@ -83,30 +51,9 @@ button {
 
   width: 30%;
   margin-right: 5%;
-  /* margin-right: 50px; */
 }
+
 img {
   z-index: 1;
-  /* max-width: '100%'; */
   display: 'block' ;
-}
-
-.item {
-  border: width 100px;;
-}
-
-.item-checked-true-and-active {
-  background-color: green;
-}
-
-.item-checked-false-and-active {
-  background-color: gray;
-}
-
-.item-checked-true-and-not-active {
-  background-color: red;
-}
-
-.item-checked-false-and-not-active {
-  background-color: blue;
 }

@@ -1,43 +1,29 @@
 import React, {useRef, useState } from 'react';
-import ReactSelect from "react-select"
 import { bergerPhotos } from '../shared/photos';
-import { createOptions } from '../actions/createSelectOptions';
+import {InputLabel} from '@mui/material';
+import Select from '@mui/material/Select';
+import { MenuItem } from '@mui/material';
+import {FormControl} from '@mui/material';
 
-export const HeaderInput = () => {
+
+const headerStyles = {
+    display: 'flex',
+    textAlign: 'center',
+    alignItems : 'center',
+    justifyContent: 'center'
+
+}
+
+const buttonContainerStyle = {}
+
+export const HeaderBar = ({setAppState}) => {
 
     const [isMark,setIsMark] = useState(true)
     const [isEmpty, setIsEmpty] = useState(true)
-    const currInputValue = useRef(null)
+    const [inputValue, setInputValue] = useState('')
+    // const options = createOptions(bergerPhotos)
+    const options = Object.keys(bergerPhotos)
 
-    const handleInputChange = event => {
-
-        currInputValue.current = event.target.value;
-
-        if ( isEmpty && currInputValue.current !== null) {
-          setIsEmpty(false)
-        }
-        else if (!isEmpty && currInputValue.current === '') {
-          setIsEmpty(true)
-        }
-
-        return event.target.value;
-      }
-
-    const handleChooseInputOption = () => {
-      // setChoosenValue(event.target.value)
-    }
-
-
-
-
-
-    
-    const handleClick = () => {
-      
-      console.log(currInputValue.current );
-
-  
-    }
 
     const handleMark= () => {
       if(isMark==='active'){
@@ -49,52 +35,62 @@ export const HeaderInput = () => {
       
     }
 
+    const handleChangeSelect = (e) => {
+      setInputValue(e.target.value)
+    }
+
     return (
+      <FormControl style={ headerStyles}>
+          <InputLabel>choose Avi Berger</InputLabel>
+          <Select
+                id = 'main-react-select-field'
+                style={
+                  {
+                    borderBlockColor: 'black',
+                    borderWidth: 10,
+                    minWidth : 500,
+                    backgroundColor: 'white',
+                    marginRight: 50
+                  }
+                }
+                value={inputValue}
+                onChange={handleChangeSelect}>
+                  {options.map(option => (
+                      <MenuItem value={option} key={option}>
+                       {option}
+                      </MenuItem>
+                  ))
 
-        <div style={{
-          display: 'flex',
-          textAlign: 'center',
-          alignItems : 'center',
-          justifyContent: 'center'
-        }}>
+                }
+                
+        </Select>
 
-          <ReactSelect
-            options={createOptions(bergerPhotos)}
-            id = 'main-react-select-field'
-            placeholder = 'Bergers` Actions in the Office'
+            <div className='buttonContainer' style={ buttonContainerStyle}>
+              <button
+              className='save-btn'
+              onClick={ () => setAppState({type: 'addTODO'})}
+              disabled = {isEmpty}>
+                save Avi Berger
+              </button>
 
-            // value={value}
-            // onChange={selected => value = selected}
-            // defaultValue={'avi berger is a god'}
+                <button
+                id = {`show-choosen-items-btn`}
+                className= 'mark-choosen-items-btn'
+                onClick={ ()=> setAppState({type: 'filterChoosenTODOS'})}
                 >
-          </ReactSelect>
+                    {` show choosen items - ${isMark}`}
+                </button>
 
-            <div className='buttonContainer'>
-          <button
-          className='save-btn'
-          // onClick ={() => dispatch({ type: 'addTODO' })} 
-          disabled = {isEmpty}>
-            save Avi Berger
-          </button>
-
-            <button
-            id = {`show-choosen-items-btn`}
-            className= 'mark-choosen-items-btn'
-            onClick={handleMark}
-            >
-                {` show choosen items - ${isMark}`}
-            </button>
-
-            <button
-            id = {`delete-choosen-items-btn`}
-            className= 'mark-choosen-items-btn'
-            // onClick={handleMark}
-            >
-                {` delete choosen items - ${isMark}`}
-            </button>
+                <button
+                id = {`delete-choosen-items-btn`}
+                className= 'mark-choosen-items-btn'
+                onClick = { ()=> setAppState({type: 'filterDeleteTODOS'})}
+                >
+                    {` delete choosen items - ${isMark}`}
+                </button>
 
             </div>
 
-            </div>
+            </FormControl>
     )
       }

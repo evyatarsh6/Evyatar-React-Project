@@ -1,19 +1,39 @@
 import { Card } from "../components/Card"
-import { useReducer } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { TODOReducer } from "../reducers/handleTODOSReducer"
 
 
-export let TODOS = {}
 
-export const CardList = ({ status = false}) => {
-    
-    const [TODOS, dispatch] = useReducer(TODOReducer, {})
+//  const TODOStruct = {${action.ID}: ${action.isChoosen} : ${action.isDeleted}}
+//  const TODOExample = {
+    //{'12': 'false' : 'false'} : 
+    // //{
+    //     kind: action.newTODO.TODOKind,
+    //     isChoosen: false,
+    //     isDeleted: false  
+    // }
 
+export const TODOS = {}
+
+export const CardList = ({actionTook}) => {
+
+    const [initTODOS,setInitTODOS] = useState(TODOS)
+
+    const [TODOSStsteObj, dispatch] = useReducer(TODOReducer, initTODOS)
     
+    useEffect(() => {
+
+        dispatch(TODOSStsteObj,{actionTook})
+        console.log(TODOSStsteObj)
+    })
+
     return (
-        <Card>
+
+        <>
+        <Card> 
 
         </Card>
+        </>
     )
 
 }

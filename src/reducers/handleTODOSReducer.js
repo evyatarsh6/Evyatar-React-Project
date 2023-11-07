@@ -1,15 +1,6 @@
-import { TODOS } from "../containers/cardsList"
+import { useId } from "react"
 
-
-    //  const TODOStruct = {${action.ID}: ${action.isChoosen} : ${action.isDeleted}}
-    //  const TODOExample = {
-        //{'12': 'false' : 'false'} : 
-        // //{
-        //     kind: action.newTODO.TODOKind,
-        //     isChoosen: false,
-        //     isDeleted: false  
-        // }
-        
+      
             const filterTODOSByReg = (TODO, reg) => {
                 if (reg.test(Object.keys(TODO)[0])) {
                     return TODO
@@ -34,12 +25,13 @@ import { TODOS } from "../containers/cardsList"
         
         
             export const TODOReducer = (state, action) =>  {
-        
+
                 switch (action.type) {
+
                     case "addTODO":
                         return {
                             ...state,
-                            [`${action.ID}: ${action.isChoosen} : ${action.isDeleted} `]: {
+                            [`${Date.now()}: ${false} : ${false} `]: {
                                 kind: action.newTODO.TODOKind,
                                 isChoosen: false,
                                 isDeleted: false

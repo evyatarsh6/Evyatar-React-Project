@@ -2,48 +2,40 @@ import React, { useId, useState, useRef } from 'react';
 import {bergerPhotos} from '../shared/photos';
 
 
-export const Card = ({name ="calling his mother", status = false}) => {
+export const Card = ({title ="calling his mother"}) => {
    
+const cardStyle =  {
+    borderColor : 'black',
+    borderStyle : 'solid',
+    display: 'block',
+    padding: 20,
+    width : 450,
+    height :450,
+}
+
+const imgStyle = {
+    width : "40%" ,
+    height :"40%",
+    position: 'relative',
+    display : 'center',
+    borderColor : 'black',
+    borderStyle : 'solid',
+    backgroundColor: 'black'
+}
+
     const cardID = useId()
     const currInputValue = useRef(null)
     const [isChecked, setIsChecked] = useState(false)
-    const [isEmpty,setIsEmpty] = useState(true)
+    const [isEmpty,setIsEmpty] = useState(false)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
-
+    const [message, setMessage] = useState('avi berger is a god');
     const [isDeleted,setIsDeleted ] = useState(false)
-    const [isSelected, setIsSelected] = useState(false)
 
-    const handleCheck = () => {
-        if (isChecked) {
-            setIsChecked(false)
-        }
-        else {
-            setIsChecked(true)
-        }
-    }
 
     const handleInputType =  event => {
 
-        currInputValue.current = event.target.value;
-
-        if (isEmpty) {
-
-            if (currInputValue.current !== '') {
-              setIsEmpty(false)
-              return currInputValue.current
-            }
-            else {
-                return ''
-            }
-        }
-        else {
-            if (currInputValue.current === '') {
-                setIsEmpty(true)
-                return ''
-            }
-            return currInputValue.current
-
-        }
+        setMessage(event.target.value);
+        
       }
 
     const clickFreezeBtn =  event => {
@@ -55,36 +47,17 @@ export const Card = ({name ="calling his mother", status = false}) => {
 
     return (
                 
-        <div className ={`card-selected-${isChecked}`} style={ {
-            borderColor : 'black',
-            borderStyle : 'solid',
-            display: 'block',
-            padding: 20,
-            width : 450,
-            height :450,
-        }}>
-            <h3 className="card-title">{name}</h3>
-            <div className="card-body" id={cardID} style={{
-                position: 'relative'
-            }}>
+        <div className ={`card-selected-${isChecked}`} id={cardID} style={cardStyle}>
+            <h3 className="card-title">{title}</h3>
                 <img
-                    src={bergerPhotos[name]}
+                    src={bergerPhotos[title]}
                     className="card-image"
-                    style= {
-                        {
-                            width : "40%" ,
-                            height :"40%",
-                            position: 'relative',
-                            display : 'center',
-                            borderColor : 'black',
-                            borderStyle : 'solid',
-                            backgroundColor: 'black'
-                        }
-                    }
+                    style= { imgStyle }
 
                 />
+
             <div style={{display: 'flex'}}>
-                <input ref = {currInputValue} defaultValue={'avi berger is a god'}
+                <input ref = {currInputValue} value={message}
                 className="card-description" type="text" placeholder='card description'
                 onChange={handleInputType} disabled = {isFreezeMode}
                 style={{
@@ -106,11 +79,8 @@ export const Card = ({name ="calling his mother", status = false}) => {
                 </button>
 
             </div>
-                <input type="checkbox" id ={`${cardID}-${isChecked}-checkbox`} onChange={handleCheck}
-                /> 
-
-            
-            </div>
+                <input type="checkbox" id ={`${cardID}-${isChecked}-checkbox`} onChange={ () => setIsChecked(!isChecked)}/> 
+        
         </div>
     )
 }; 

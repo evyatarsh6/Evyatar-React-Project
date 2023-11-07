@@ -2,7 +2,7 @@ import React, {useRef, useState } from 'react';
 import { ItemList } from '../containers/ItemList';
 
 
-export const HeaderInput = () => {
+export const HeaderBar = () => {
 
     const [isEmpty, setIsEmpty] = useState(true)
     const currInputValue = useRef(null)

@@ -1,6 +1,6 @@
 // import { Card } from '../components/Card';
 // import './App.css';
-// import { HeaderInput } from './components/HeaderMainInput';
+// import { HeaderBar } from './components/HeaderMainInput';
 // // import { Item } from './components/Item';
 // // import { ItemList } from './containers/ItemList';
 
@@ -10,9 +10,9 @@
 //    <h1>Avi Berger pressents</h1>
 //       <header className="App-header">
 //       <h1>Avi Berger</h1>
-//       <HeaderInput>``
+//       <HeaderBar>``
 
-//       </HeaderInput>
+//       </HeaderBar>
 //       </header>
 //       <body>
 //         <Card>

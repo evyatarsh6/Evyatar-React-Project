@@ -1,28 +1,19 @@
-import { HeaderInput } from "../components/HeaderMainInput."
+import { HeaderBar } from "../components/HeaderMainInput."
 import { CardList } from "./cardsList"
 import { useState } from "react"
-import { useReducer } from "react"
-
-import { TODOReducer } from "../reducers/handleTODOSReducer"
-
 export const AppWrapper = () => {
 
-  const [TODOS, dispatch] = useReducer(TODOReducer, {})
+  const [action, setAction] = useState(null)
 
     
    return (
         <div className='App-wrapper'>
            <header className="Main-input-field">
-           <HeaderInput>
-     
-           </HeaderInput>
+           <HeaderBar setAppState = {setAction}/>     
            </header>
            <body>
            <form>
-           <CardList>
-
-           </CardList>
-
+           <CardList appStatus = {action}/>
             </form>
            </body>
          </div>

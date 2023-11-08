@@ -1,14 +1,13 @@
 
 #root {
-  margin: 0 auto;
-  padding: 2rem;
+  padding-left: 3rem; 
   text-align: center;
-  background-image: url('https://pic1.calcalist.co.il/picserver3/crop_images/2023/09/21/BJrpnTt1a/BJrpnTt1a_0_0_2443_1629_0_x-large.jpg');
+  background-image: url('https://pic1.calcalist.co.il/picserver3/crop_images/2023/09/21/BJrpnTt1a/BJrpnTt1a_0_0_2443_1629_0_x-large.jpg'); 
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
-  width: 100%;
+  width: 100%; 
 }
 
 .card-selected-false
@@ -29,13 +28,9 @@
 
 button {
 
-  width: 60%;
-  height: 60%;
-  margin-right: 10%;
+  margin-right: 2%;
   text-align: center;
   color: orange;
-  background-color: black;
-  border-color: red;
 
 }
 
@@ -44,14 +39,15 @@ button {
   display: flex; /* This makes the container a flex container */
   flex-direction: row; /* Items are arranged in a horizontal row */
   align-items: center; /* Vertically center items within the container */
-  justify-content: space-between; /* Items are spaced evenly along the row */  
+  justify-content: space-between;
+   /* space-between; Items are spaced evenly along the row   */
 }
 
-#main-react-select-field {
+/* #main-react-select-field {
 
   width: 30%;
   margin-right: 5%;
-}
+} */
 
 img {
   z-index: 1;

@@ -30,8 +30,7 @@ export const CardList = ({actionTook}) => {
     return (
 
         <>
-        <Card> 
-
+        <Card title="calling his mother" isCheckedProp = {false}>
         </Card>
         </>
     )

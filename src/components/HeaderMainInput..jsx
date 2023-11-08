@@ -1,96 +1,104 @@
-import React, {useRef, useState } from 'react';
+import React, {useState } from 'react';
 import { bergerPhotos } from '../shared/photos';
-import {InputLabel} from '@mui/material';
-import Select from '@mui/material/Select';
-import { MenuItem } from '@mui/material';
+import {Autocomplete} from '@mui/material';
 import {FormControl} from '@mui/material';
+import {TextField} from '@mui/material';
+
 
 
 const headerStyles = {
     display: 'flex',
+    flexDirection: 'row',
     textAlign: 'center',
-    alignItems : 'center',
-    justifyContent: 'center'
 
 }
 
-const buttonContainerStyle = {}
+export const HeaderBar = ({setFilterKind, setAction}) => {
 
-export const HeaderBar = ({setAppState}) => {
+  const [isEmpty, setIsEmpty] = useState(true)
+  const [inputValue, setInputValue] = useState('')
 
-    const [isMark,setIsMark] = useState(true)
-    const [isEmpty, setIsEmpty] = useState(true)
-    const [inputValue, setInputValue] = useState('')
-    // const options = createOptions(bergerPhotos)
+    // const [choosenInGreen,setChoosenInGreen] = useState(false)
+
     const options = Object.keys(bergerPhotos)
-
-
-    const handleMark= () => {
-      if(isMark==='active'){
-        setIsMark('not-active')
+    
+    const handleInputChange= (e) => {
+      setInputValue(e.target.value)
+      if (inputValue !== '') {
+        setIsEmpty(false)
       }
       else{
-        setIsMark('active')
+        setIsEmpty(true)
       }
-      
     }
 
-    const handleChangeSelect = (e) => {
-      setInputValue(e.target.value)
+    const handleAddTODO = () => {      
+      setAction(
+        {type: 'add',
+        details : {
+          [`${Date.now()}: ${false} : ${false} `]:
+          {
+            kind: inputValue,
+            isChoosen: false,
+            isDeleted: false
+          }
+        }
+      })
+    } 
+
+
+    const handleFilterTODOS  = () => {
+      setFilterKind('choosen')
     }
+
+    const handleDeleteChoosenTODOS = () => {
+      setFilterKind('delete')
+    }
+
 
     return (
-      <FormControl style={ headerStyles}>
-          <InputLabel>choose Avi Berger</InputLabel>
-          <Select
-                id = 'main-react-select-field'
-                style={
-                  {
-                    borderBlockColor: 'black',
-                    borderWidth: 10,
-                    minWidth : 500,
-                    backgroundColor: 'white',
-                    marginRight: 50
-                  }
-                }
-                value={inputValue}
-                onChange={handleChangeSelect}>
-                  {options.map(option => (
-                      <MenuItem value={option} key={option}>
-                       {option}
-                      </MenuItem>
-                  ))
+      <FormControl style={headerStyles}>
+        <Autocomplete
+        disablePortal
+        id="main-react-select-field"
+        options={options}
+        onKeyUp={e => handleInputChange(e)}
+        onChange = {e => handleInputChange(e)}
+        sx={{ width: "100%", margin: 5}}
+        renderInput={(params) => <TextField {...params} label="Bergers' actions in the office"
+        />}
+        >
+        </Autocomplete>
 
-                }
-                
-        </Select>
+          <div className='buttonContainer' style={{
+            justifyContent: 'space-evenly',
+            width: "100%"
+          }}>
+            <button
+            className='save-btn'
+            onClick={handleAddTODO}
+            disabled = {isEmpty}>
+              save Avi Berger
+            </button>
 
-            <div className='buttonContainer' style={ buttonContainerStyle}>
               <button
-              className='save-btn'
-              onClick={ () => setAppState({type: 'addTODO'})}
-              disabled = {isEmpty}>
-                save Avi Berger
+              id = {`show-choosen-items-btn`}
+              className= 'mark-choosen-items-btn'
+              onClick={handleFilterTODOS}
+              >
+                  {` show choosen items in green - ${true}`}
               </button>
 
-                <button
-                id = {`show-choosen-items-btn`}
-                className= 'mark-choosen-items-btn'
-                onClick={ ()=> setAppState({type: 'filterChoosenTODOS'})}
-                >
-                    {` show choosen items - ${isMark}`}
-                </button>
+              <button
+              id = {`delete-choosen-items-btn`}
+              className= 'mark-choosen-items-btn'
+              onClick={handleDeleteChoosenTODOS}
+              >
+                  {` show delete TODOS - `}
+              </button>
 
-                <button
-                id = {`delete-choosen-items-btn`}
-                className= 'mark-choosen-items-btn'
-                onClick = { ()=> setAppState({type: 'filterDeleteTODOS'})}
-                >
-                    {` delete choosen items - ${isMark}`}
-                </button>
+          </div>
 
-            </div>
-
-            </FormControl>
+           </FormControl>
     )
       }

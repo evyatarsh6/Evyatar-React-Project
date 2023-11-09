@@ -1,6 +1,6 @@
 import { Card } from "../components/Card"
 import { useEffect, useReducer, useState } from "react"
-import { TODOReducer } from "../reducers/handleTODOSReducer"
+import { TODOReducer, filterTODOSByReg } from "../reducers/handleTODOSReducer"
 
 
 
@@ -13,26 +13,74 @@ import { TODOReducer } from "../reducers/handleTODOSReducer"
     //     isDeleted: false  
     // }
 
-export const TODOS = {}
+// export const TODOS = 
+//     {
+//         const TODOExample = {
+//             {'12': 'false' : 'false'} : 
+//             {
+//                 // kind: action.newTODO.TODOKind,
+//                 kind = "calling his mother" 
+//                 isChoosen: false,
+//                 isDeleted: false  
+//             }
+//         }
+//     }
 
-export const CardList = ({actionTook}) => {
 
-    const [initTODOS,setInitTODOS] = useState(TODOS)
+export const CardList = ({appStatus}) => { 
 
-    const [TODOSStsteObj, dispatch] = useReducer(TODOReducer, initTODOS)
-    
-    useEffect(() => {
+    const TODOS = appStatus["TODOList"]
+    const setTODODS = appStatus["TODOListUpdate"]
+    const filterKind = appStatus["filterKind"]
+    const actionDetails = appStatus["actionDetails"]
 
-        dispatch(TODOSStsteObj,{actionTook})
-        console.log(TODOSStsteObj)
-    })
+    //{TODOS,setTODODS, actionDetails}
+    const handleAddTODO = () => {
+        setTODODS({
+            ...TODOS,
+        //    ({actionDetails.details})
+        })
+    }
+
+    // const handleDeleteTODO = () => {
+    //     setTODODS({
+    //         ...TODOS,
+    //     //    ({actionDetails.details})
+    //     })
+
+
+    const handleFilterTODOS = () => {
+
+        const filterTODOSObj = Object.keys(TODOS).filter( TODO  => {
+        
+            if (filterKind === "choose" ) {
+                const choosenRegExpre = / * : true : */
+                filterTODOSByReg(TODO, choosenRegExpre ) 
+            }
+            else if (filterKind === "delete") {
+                const deleteRegExpre = / * : * : true/
+                filterTODOSByReg(TODO, deleteRegExpre)
+            }
+        })
+        return filterTODOSObj
+    }
 
     return (
 
         <>
+
+            {/* <ul>
+                {
+                TODOSList.map((TODOSList, index) => (
+                    <Card key={index} title= {TODOSList.kind} isCheckedProp = {false}>
+                    </Card> 
+                ))
+                }
+            </ul> */}
+
         <Card title="calling his mother" isCheckedProp = {false}>
         </Card>
         </>
     )
-
+    
 }

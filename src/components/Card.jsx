@@ -26,7 +26,6 @@ const imgStyle = {
     const cardID = useId()
     const currInputValue = useRef(null)
     const [isChecked, setIsChecked] = useState(isCheckedProp)
-    const [isEmpty,setIsEmpty] = useState(false)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState('avi berger is a god');
     const [isDeleted,setIsDeleted ] = useState(false)

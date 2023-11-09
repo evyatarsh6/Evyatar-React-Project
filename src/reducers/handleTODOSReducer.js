@@ -1,7 +1,7 @@
 import { useId } from "react"
 
       
-            const filterTODOSByReg = (TODO, reg) => {
+            export const filterTODOSByReg = (TODO, reg) => {
                 if (reg.test(Object.keys(TODO)[0])) {
                     return TODO
                 }

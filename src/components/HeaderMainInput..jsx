@@ -36,7 +36,7 @@ export const HeaderBar = ({setFilterKind, setAction}) => {
       setAction(
         {type: 'add',
         details : {
-          [`${Date.now()}: ${false} : ${false} `]:
+          [`${Date.now()}`]:
           {
             kind: inputValue,
             isChoosen: false,

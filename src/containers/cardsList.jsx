@@ -56,8 +56,8 @@ export const CardList = ({appState}) => {
 
             <ul>
                 {
-                Object.values(() => handleFilterTODOS()).map((TODOS, index) => (
-                    <Card key={index} title= {TODOS.kind} isCheckedProp = {false}>
+                Object.values(() => handleFilterTODOS()).map((TODO, index) => (
+                    <Card key={index} title= {TODO.kind} isCheckedProp = {TODO.isChoosen}>
                     </Card> 
                 ))
                 }

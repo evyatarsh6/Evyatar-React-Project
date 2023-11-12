@@ -25,43 +25,39 @@ export const HeaderBar = ({appState}) => {
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
 
-
-  // const [value,setValue] = useState(null)
-
   // const [choosenInGreen,setChoosenInGreen] = useState(false)
 
     const options = Object.keys(bergerPhotos)
   
-    const handleInputChange= (e) => {
-      setInputValue( e.target.value)
-      if (inputValue !== '') {
+    const handleInputType= (e) => {
+      const newValue = e.target.value
+      setInputValue( newValue)
+      if (newValue !== '') {
         setIsEmpty(false)
-        console.log(inputValue)
+        console.log(newValue)
       }
-      else{
+      else {
         setIsEmpty(true)
       }
     }
 
-
-
-    // const handleInputChange= (event, newValue) => {
-    //   setValue( newValue)
-    //   console.log('Selected Value:', newValue)
-    // }
+    const handleInputChange = () => {
+      const newValue = document.querySelector("input[aria-activedescendant*=option]").value
+      setInputValue(newValue)
+      console.log(newValue)
+    }
 
     const handleAddTODO = () => {
-      console.log(TODOList)
-      setTODOList(
-        {...TODOList ,
-          [Date.now()]: {
-          kind: inputValue,
-          isChoosen: false,
-          isDeleted: false
+      const newTODOList = {
+        ...TODOList ,
+        [Date.now()]: {
+        kind: inputValue,
+        isChoosen: false,
+        isDeleted: false
         }
-        }
-    )
-    // console.log(TODOList)
+      }
+      setTODOList(newTODOList)
+      console.log(newTODOList)
       }
     
     const handleFilterTODOS  = () => {
@@ -73,7 +69,9 @@ export const HeaderBar = ({appState}) => {
     }
 
     useEffect(() => {
-      console.log("filter kind has change and now with value:", filterKind);
+      if (filterKind!=='normal') {
+        console.log("filter kind has change and now with value:", filterKind);   
+      }
     }, [filterKind])
 
 
@@ -83,13 +81,8 @@ export const HeaderBar = ({appState}) => {
         disablePortal
         id="main-react-select-field"
         options={options}
-        // onInput={e => handleInputChange(e)}
-        // onClick= {e => handleInputChange(e)}
-        // onKeyUp={e => handleInputChange(e)}
-        // onKeyDown = {e => handleInputChange(e)}
-        // onChange = {e => handleInputChange(e)}
-        // onChange={e => handleInputChange(e)}
-        // value={value}
+        onInput={e => handleInputType(e)}
+        onChange = {e => handleInputChange(e)}
         sx={{ width: "100%", margin: 5}}
         renderInput={(params) => <TextField {...params} label="Bergers' actions in the office"
         />}

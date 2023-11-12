@@ -11,7 +11,7 @@ export const AppWrapper = () => {
 
   const [TODOSList, setTODOSList] = useState({})
   const [action, setAction] = useState(null)
-  const [filterKind,setFilterKind ] = useState('noramal')
+  const [filterKind,setFilterKind ] = useState('normal')
 
   const appState = {
     "filterKind": filterKind,

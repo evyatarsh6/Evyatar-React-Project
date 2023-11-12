@@ -41,11 +41,40 @@ export const HeaderBar = ({appState}) => {
       }
     }
 
-    const handleInputChange = () => {
-      const newValue = document.querySelector("input[aria-activedescendant*=option]").value
+    const handleInputChange = (e) => {
+      const activeOption = document.querySelector("aria-activedescendant").split('-')[-1]
+      const optionValue = options[activeOption]
+      // const newValue = e.target.value;
+
       setInputValue(newValue)
       console.log(newValue)
     }
+
+
+
+    // const handleKeyDown = (e) => {
+    //   if (e.key === 'ArrowDown') {
+    //     e.preventDefault(); // Prevent the default behavior
+    //     if (activeOption === null || activeOption === options.length - 1) {
+    //       setActiveOption(0);
+    //     } else {
+    //       setActiveOption(activeOption + 1);
+    //     }
+    //   } else if (e.key === 'ArrowUp') {
+    //     e.preventDefault(); // Prevent the default behavior
+    //     if (activeOption === null || activeOption === 0) {
+    //       setActiveOption(options.length - 1);
+    //     } else {
+    //       setActiveOption(activeOption - 1);
+    //     }
+    //   }
+    // };
+
+
+
+
+
+
 
     const handleAddTODO = () => {
       const newTODOList = {
@@ -82,7 +111,12 @@ export const HeaderBar = ({appState}) => {
         id="main-react-select-field"
         options={options}
         onInput={e => handleInputType(e)}
+
+        // onChange={(option) => {
+        //   const change = {option: _find(options) }
+        // }}
         onChange = {e => handleInputChange(e)}
+        // onKeyDown={handleKeyDown}
         sx={{ width: "100%", margin: 5}}
         renderInput={(params) => <TextField {...params} label="Bergers' actions in the office"
         />}

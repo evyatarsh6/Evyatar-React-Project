@@ -12,42 +12,18 @@ export const CardList = ({appState}) => {
     const setAction = appState["setAction"]
     const setTODOList = appState["TODOListUpdate"]
 
-    // const handleAddTODO = () => {
-    //     setTODOList(
-    //         {...TODOList}, actionDetails["details"]
-    //     )
-    // }
-
-    // useEffect(() => {
-
-    // })
-
-    // const handleDeleteTODO = () => {
-    //     setTODODS({
-    //         ...TODOS,
-    //     //    ({actionDetails.details})
-    //     })
-
-
     const handleFilterTODOS = () => {
 
-        if (filterKind!=="normal") {
-            const filterTODOSObj = Object.keys(TODOList).filter( TODO  => {
-                if (filterKind === "choose" ) {
-                    const choosenRegExpre = / * : true : */
-                    filterTODOSByReg(TODO, choosenRegExpre ) 
-                }
-                else if (filterKind === "delete") {
-                    const deleteRegExpre = / * : * : true/
-                    filterTODOSByReg(TODO, deleteRegExpre)
-                }
-                else if(filterKind ==="normal"){
-                    return TODOList
-                }
-            })
-            return filterTODOSObj   
+        switch(filterKind) {
+            
+            case "noramal":
+                return TODOList
+            case "choose":
+                 return Object.values(TODOList).filter( TODO  => TODO.isChoosen)
+            case "delete":
+                return Object.values(TODOList).filter( TODO  => TODO.isDeleted)
+
         }
-        return TODOList
     }
 
     return (

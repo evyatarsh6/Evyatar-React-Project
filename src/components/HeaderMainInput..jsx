@@ -22,12 +22,13 @@ export const HeaderBar = ({appState}) => {
   const setAction = appState["setAction"]
   const setTODOList = appState["TODOListUpdate"]
 
+  const options = Object.keys(bergerPhotos)
+
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
+  const [value, setValue] = useState(options[0]);
 
   // const [choosenInGreen,setChoosenInGreen] = useState(false)
-
-    const options = Object.keys(bergerPhotos)
   
     const handleInputType= (e) => {
       const newValue = e.target.value
@@ -46,8 +47,8 @@ export const HeaderBar = ({appState}) => {
       const optionValue = options[activeOption]
       // const newValue = e.target.value;
 
-      setInputValue(newValue)
-      console.log(newValue)
+      // setInputValue(newValue)
+      // console.log(newValue)
     }
 
 
@@ -106,22 +107,29 @@ export const HeaderBar = ({appState}) => {
 
     return (
       <FormControl style={headerStyles}>
-        <Autocomplete
-        disablePortal
-        id="main-react-select-field"
-        options={options}
-        onInput={e => handleInputType(e)}
+           <div>
+      {/* displaying the state values with template literals */}
+      {/* <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div>
+      <div>{`inputValue: '${inputValue}'`}</div> */}
+      <br />
 
-        // onChange={(option) => {
-        //   const change = {option: _find(options) }
-        // }}
-        onChange = {e => handleInputChange(e)}
-        // onKeyDown={handleKeyDown}
-        sx={{ width: "100%", margin: 5}}
-        renderInput={(params) => <TextField {...params} label="Bergers' actions in the office"
-        />}
-        >
-        </Autocomplete>
+      {/* Calling the Autocomplete component and updating its state features */}
+      <Autocomplete
+        // value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+          console.log(newInputValue)
+        }}
+        id="manageable-states-demo"
+        options={options}
+        sx={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label="Manage State" />}
+      />
+    </div>
 
           <div className='buttonContainer' style={{
             justifyContent: 'space-evenly',

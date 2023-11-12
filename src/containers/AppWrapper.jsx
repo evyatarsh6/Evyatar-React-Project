@@ -13,25 +13,27 @@ export const AppWrapper = () => {
   const [action, setAction] = useState(null)
   const [filterKind,setFilterKind ] = useState('noramal')
 
+  const appState = {
+    "filterKind": filterKind,
+    "actionDetails": action,
+    "TODOList": TODOSList,
+    "setFilterKind": setFilterKind,
+    "setAction": setAction,
+    "TODOListUpdate": setTODOSList
+  }
+
     
    return (
         <div className='App-wrapper'>
            <header className="Main-input-field">
-           <HeaderBar setAppState = {{setFilterKind,setAction}}/>     
+           <HeaderBar appState = {appState}/>     
            </header>
            <body>
            <p>
             {action}
            </p>
            <form>
-           <CardList appStatus = {
-              {
-                "filterKind": filterKind,
-                "actionDetails": action,
-                "TODOList": TODOSList,
-                "TODOListUpdate": setTODOSList
-              }
-           }/>
+           <CardList appState = {appState}/>
             </form>
            </body>
          </div>

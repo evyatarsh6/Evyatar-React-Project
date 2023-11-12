@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { bergerPhotos } from '../shared/photos';
 import {Autocomplete} from '@mui/material';
 import {FormControl} from '@mui/material';
@@ -13,12 +13,18 @@ const headerStyles = {
 
 }
 
-export const HeaderBar = ({setFilterKind, setAction}) => {
+export const HeaderBar = ({appState}) => {
+
+  const filterKind = appState["filterKind"]
+  const actionDetails = appState['actionDetails']
+  const TODOList = appState["TODOList"]
+  const setFilterKind = appState["setFilterKind"]
+  const setAction = appState["setAction"]
+  const setTODOList = appState["TODOListUpdate"]
 
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
-
-    // const [choosenInGreen,setChoosenInGreen] = useState(false)
+  // const [choosenInGreen,setChoosenInGreen] = useState(false)
 
     const options = Object.keys(bergerPhotos)
     
@@ -32,20 +38,31 @@ export const HeaderBar = ({setFilterKind, setAction}) => {
       }
     }
 
-    const handleAddTODO = () => {      
-      setAction(
-        {type: 'add',
-        details : {
-          [`${Date.now()}`]:
-          {
-            kind: inputValue,
-            isChoosen: false,
-            isDeleted: false
-          }
-        }
-      })
-    } 
+    // const handleAddTODO = () => {      
 
+    //   setAction(
+    //     {type: 'add',
+    //     details : {
+    //       id: `${Date.now()}`, 
+    //       kind: inputValue,
+    //       isChoosen: false,
+    //       isDeleted: false
+    //     }
+    //   })
+    //   console.log(actionDetails)
+    // }
+
+
+    const handleAddTODO = () => {
+      setTODOList(
+        {...TODOList}, {
+          id: `${Date.now()}`, 
+          kind: inputValue,
+          isChoosen: false,
+          isDeleted: false
+        }
+    )
+    }
 
     const handleFilterTODOS  = () => {
       setFilterKind('choosen')
@@ -54,6 +71,10 @@ export const HeaderBar = ({setFilterKind, setAction}) => {
     const handleDeleteChoosenTODOS = () => {
       setFilterKind('delete')
     }
+
+    useEffect(() => {
+      console.log("filter kind has change and now with value:", filterKind);
+    }, [filterKind])
 
 
     return (
@@ -76,7 +97,7 @@ export const HeaderBar = ({setFilterKind, setAction}) => {
           }}>
             <button
             className='save-btn'
-            onClick={handleAddTODO}
+            onClick={() => handleAddTODO()}
             disabled = {isEmpty}>
               save Avi Berger
             </button>
@@ -84,7 +105,7 @@ export const HeaderBar = ({setFilterKind, setAction}) => {
               <button
               id = {`show-choosen-items-btn`}
               className= 'mark-choosen-items-btn'
-              onClick={handleFilterTODOS}
+              onClick={() => { handleFilterTODOS()}}
               >
                   {` show choosen items in green - ${true}`}
               </button>
@@ -92,9 +113,9 @@ export const HeaderBar = ({setFilterKind, setAction}) => {
               <button
               id = {`delete-choosen-items-btn`}
               className= 'mark-choosen-items-btn'
-              onClick={handleDeleteChoosenTODOS}
+              onClick={() => handleDeleteChoosenTODOS()}
               >
-                  {` show delete TODOS - `}
+                  {` show delete TODOS`}
               </button>
 
           </div>

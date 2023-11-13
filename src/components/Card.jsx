@@ -2,7 +2,7 @@ import React, { useId, useState, useRef } from 'react';
 import {bergerPhotos} from '../shared/photos';
 
 
-export const Card = ({title ="calling his mother", isCheckedProp = false}) => {
+export const Card = ({key =null, title ="calling his mother", isCheckedProp = false}) => {
    
 const cardStyle =  {
     borderColor : 'black',

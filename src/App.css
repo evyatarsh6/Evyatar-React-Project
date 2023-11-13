@@ -53,3 +53,7 @@ img {
   z-index: 1;
   display: 'block' ;
 }
+
+.flex-container {
+  display: flex;
+}

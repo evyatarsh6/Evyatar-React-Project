@@ -16,34 +16,30 @@ export const CardList = ({appState}) => {
 
         switch(filterKind) {
             
-            case "noramal":
-                return TODOList
             case "choose":
-                 return Object.values(TODOList).filter( TODO  => TODO.isChoosen)
+                 return Object.values(TODOList).filter( TODO  => TODO.isChoosen === true)
             case "delete":
-                return Object.values(TODOList).filter( TODO  => TODO.isDeleted)
+                return Object.values(TODOList).filter( TODO  => TODO.isDeleted === true)
 
         }
+        return Object.values(TODOList)
+
     }
 
     return (
 
         <>
 
-            <ul>
-                {
-                Object.values(() => handleFilterTODOS()).map((TODO, index) => (
-                    <Card key={index} title= {TODO.kind} isCheckedProp = {TODO.isChoosen}>
-                    </Card> 
-                ))
-                }
+            <ul className="flex-container">
+            {
+            handleFilterTODOS().map((TODO, index) => (
+                <Card key={index} title={TODO.kind} isCheckedProp={TODO.isChoosen}/>
+            ))
+            }
             </ul>
-{
-
-        // <Card title="calling his mother" isCheckedProp = {false}>
-        // </Card>
-}
         </>
+
+
     )
     
 }

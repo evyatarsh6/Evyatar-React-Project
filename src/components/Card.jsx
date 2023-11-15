@@ -7,17 +7,21 @@ export const Card = ({key =null, title ="calling his mother", isCheckedProp = fa
 const cardStyle =  {
     borderColor : 'black',
     borderStyle : 'solid',
-    display: 'block',
     padding: 20,
     width : 450,
     height :450,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+    backgroundColor: "aliceblue",
 }
 
 const imgStyle = {
     width : "40%" ,
     height :"40%",
-    position: 'relative',
-    display : 'center',
+    // position: 'relative',
+    // display : 'center',
     borderColor : 'black',
     borderStyle : 'solid',
     backgroundColor: 'black'
@@ -52,40 +56,41 @@ const imgStyle = {
 
     return (
                 
-        <div className ={`card-selected-${isChecked}`} id={cardID} style={cardStyle}>
+        // <div className ={`card-selected-${isChecked}`} id={cardID} style={cardStyle}>
+        <div className ={`card`} id={cardID} style={cardStyle}>
             <h3 className="card-title">{title}</h3>
-                <img
-                    src={bergerPhotos[title]}
-                    className="card-image"
-                    style= { imgStyle }
-
-                />
-
-            <div style={{display: 'flex'}}>
-                <input ref = {currInputValue} value={message}
-                className="card-description" type="text" placeholder='card description'
-                onChange={handleInputType} disabled = {isFreezeMode}
-                style={{
-                    textAlign: "center",
-                    margin:30,
-                    width: "150%",
-                    height: "60%"
-                }}
+            <img
+                src={bergerPhotos[title]}
+                className="card-image"
+                style= { imgStyle }
             />
 
+            <div className='description-edit-Btn-container'>
+                <input ref = {currInputValue} value={message}
+                    className="card-description" type="text" placeholder='card description'
+                    onChange={handleInputType} disabled = {isFreezeMode}
+                    style={{
+                        textAlign: "center",
+                        // margin:30,
+                        width: "150%",
+                        height: "60%",
+                        
+                    }}
+                />
+
                 <button className= { `${FreezeBtnStatus()}- btn`}
-                onClick ={clickFreezeBtn}
-                style ={{
-                    display: 'flex',
-                    margin: "auto"
-                    
-                }}>
+                    onClick ={clickFreezeBtn}
+                    style ={{
+                        width: 200
+                    }}
+                    >
                     {`${FreezeBtnStatus()}- btn`}
                 </button>
 
             </div>
             <div className='chooseDeleteContainer'  >
-                <input type="checkbox" id ={`${cardID}-${isChecked}-checkbox`} onChange={ () => setIsChecked(!isChecked)}/> 
+                <input type="checkbox" id ={`${cardID}-${isChecked}-checkbox`} className='choose-checkbox' 
+                    onChange={ () => setIsChecked(!isChecked)}/> 
                 <button className='delete-btn' onClick={clickDeleteBtn}>
                     delete TODO 
                 </button>

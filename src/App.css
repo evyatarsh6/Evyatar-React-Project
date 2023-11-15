@@ -10,20 +10,12 @@
   width: 100%; 
 }
 
-.card-selected-false
-{
-  text-align: center;
-  justify-content: space-between;
-  background-color: aliceblue;
-  position: inherit;
+.description-edit-Btn-container{
+  display:flex;
+  margin-top: 30px;
 }
-
-.card-selected-true
-{
-  text-align: center;
-  justify-content: space-between;
-  background-color: green;
-  position: inherit;
+.choose-checkbox{
+  margin-top: 20px
 }
 
 button {
@@ -34,7 +26,7 @@ button {
 }
 
 .delete-btn {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .chooseDeleteContainer {

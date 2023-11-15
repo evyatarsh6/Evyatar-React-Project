@@ -18,7 +18,6 @@ export const CardList = ({appState}) => {
         switch(filterKind) {
 
             case "choosen":
-                console
                  return Object.values(TODOList).filter( TODO  => TODO.isChoosen === true)
             case "delete":
                 return Object.values(TODOList).filter( TODO  => TODO.isDeleted === true)
@@ -28,7 +27,9 @@ export const CardList = ({appState}) => {
 
     }
 
-    const TODOSListener = () => {
+    const TODOUpdateFunc = (isChoosen,isDeleted,id) => {
+        TODOList[id].isChoosen = isChoosen
+        TODOList[id].isDeleted = isDeleted
 
     }
 
@@ -41,11 +42,11 @@ export const CardList = ({appState}) => {
             handleFilterTODOS().map((TODO, index) => (
                 <Card
                 key={Object.keys(TODOList)[index]}
+                id={Object.keys(TODOList)[index]}
                 title={TODO.kind}
                 isCheckedProp={TODO.isChoosen}
                 isDeletedProp = {TODO.isDeleted}
-                // isCheckedProp={true}
-                // isDeletedProp = {true}
+                TODOUpdateFunc={(isChoosen,isDeleted,id) => TODOUpdateFunc(isChoosen,isDeleted,id)}
                 />
             ))
             }

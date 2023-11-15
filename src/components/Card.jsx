@@ -2,7 +2,14 @@ import React, { useId, useState, useRef } from 'react';
 import {bergerPhotos} from '../shared/photos';
 
 // export const Card = ({appState}) => {
-export const Card = ({key =null, title ="calling his mother", isCheckedProp = false, isDeletedProp = false}) => {
+export const Card = ({
+    id = null,
+    key =null,
+    title ="calling his mother",
+    isCheckedProp = false,
+    isDeletedProp = false, 
+    TODOUpdateFunc
+}) => {
 
 
 const cardStyle =  {
@@ -24,14 +31,12 @@ const cardStyle =  {
 const imgStyle = {
     width : "40%" ,
     height :"40%",
-    // position: 'relative',
-    // display : 'center',
     borderColor : 'black',
     borderStyle : 'solid',
     backgroundColor: 'black'
 }
 
-    const cardID = useId()
+    // const cardID = useId()
     const currInputValue = useRef(null)
     const [isChecked, setIsChecked] = useState(isCheckedProp)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
@@ -52,16 +57,24 @@ const imgStyle = {
 
     const clickDeleteBtn = event => {
         event.preventDefault()
-        setIsDeleted(!isDeleted)
+        const newDeleteStatus = !isDeleted 
+        setIsDeleted(newDeleteStatus)
+        TODOUpdateFunc(isChecked, newDeleteStatus, id)
 
+    }
+    const checkChoosenCheckbox= () => {
+
+        const newCheckedtatus = !isChecked 
+        setIsChecked(newCheckedtatus)
+        TODOUpdateFunc(newCheckedtatus, isDeleted, id)
     }
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
 
 
     return (
                 
-        // <div className ={`card-selected-${isChecked}`} id={cardID} style={cardStyle}>
-        <div className ={`card`} id={cardID} style={cardStyle}>
+        // <div className ={`card-selected-${isChecked}`} id={id} style={cardStyle}>
+        <div className ={`card`} id={id} style={cardStyle}>
             <h3 className="card-title">{title}</h3>
             <img
                 src={bergerPhotos[title]}
@@ -92,8 +105,8 @@ const imgStyle = {
 
             </div>
             <div className='chooseDeleteContainer'  >
-                <input type="checkbox" id ={`${cardID}-${isChecked}-checkbox`} className='choose-checkbox' 
-                    onChange={ () => setIsChecked(!isChecked)}/> 
+                <input type="checkbox" id ={`${key}-${isChecked}-checkbox`} className='choose-checkbox' 
+                    onChange={checkChoosenCheckbox}/> 
                 <button className='delete-btn' onClick={clickDeleteBtn}>
                     delete TODO 
                 </button>

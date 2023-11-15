@@ -1,13 +1,16 @@
 import React, { useId, useState, useRef } from 'react';
 import {bergerPhotos} from '../shared/photos';
 
+// export const Card = ({appState}) => {
+export const Card = ({key =null, title ="calling his mother", isCheckedProp = false, isDeletedProp = false}) => {
 
-export const Card = ({key =null, title ="calling his mother", isCheckedProp = false}) => {
-   
+
 const cardStyle =  {
     borderColor : 'black',
     borderStyle : 'solid',
     padding: 20,
+    marginLeft: 10,
+    marginRight: 10,
     width : 450,
     height :450,
     display: "flex",
@@ -15,6 +18,7 @@ const cardStyle =  {
     alignItems: "center",
     textAlign: "center",
     backgroundColor: "aliceblue",
+    
 }
 
 const imgStyle = {
@@ -32,7 +36,7 @@ const imgStyle = {
     const [isChecked, setIsChecked] = useState(isCheckedProp)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState('avi berger is a god');
-    const [isDeleted,setIsDeleted ] = useState(false)
+    const [isDeleted,setIsDeleted ] = useState(isDeletedProp)
 
 
     const handleInputType =  event => {
@@ -71,7 +75,6 @@ const imgStyle = {
                     onChange={handleInputType} disabled = {isFreezeMode}
                     style={{
                         textAlign: "center",
-                        // margin:30,
                         width: "150%",
                         height: "60%",
                         
@@ -95,10 +98,6 @@ const imgStyle = {
                     delete TODO 
                 </button>
             </div>
-            </div>
-
-            // </div>
-            // <input type="checkbox" id ={`${cardID}-${isChecked}-checkbox`} onChange={ () => setIsChecked(!isChecked)}/> 
-            // </div>
+        </div>
     )
 }; 

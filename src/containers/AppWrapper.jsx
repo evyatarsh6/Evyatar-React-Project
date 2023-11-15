@@ -3,9 +3,6 @@ import { CardList } from "./cardsList"
 import { useState } from "react"
 export const AppWrapper = () => {
 
-  // const [AddTODO, setAddTODO ] = useState(false)
-  // const [appState, setAppState] = useState()
-
   //action should be add/delete + TODO details
   //filterKind should be noramal/choose/delete
 

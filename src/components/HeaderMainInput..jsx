@@ -46,20 +46,25 @@ export const HeaderBar = ({appState}) => {
         [Date.now()]: {
         kind: inputValue,
         isChoosen: false,
-        isDeleted: false
+        isDeleted:false
         }
       }
       setTODOList(newTODOList)
       console.log(newTODOList)
       }
     
-    const handleFilterTODOS  = () => {
-      setFilterKind('choosen')
+    const clickFilterChoosenTODOS  = () => {
+      (filterKind!== 'choosen') ?  setFilterKind('choosen'): setFilterKind('normal') 
     }
 
-    const handleDeleteChoosenTODOS = () => {
-      setFilterKind('delete')
+    const clickDeleteChoosenTODOS = () => {
+      (filterKind!== 'delete') ?  setFilterKind('delete'): setFilterKind('normal') 
     }
+
+    const FilterChoosenTODOSStatus = () => (filterKind !== 'choosen') ? 'turn on': 'turn off'
+    
+    const FilterDeleteTODOSStatus = () => (filterKind !== 'delete')? 'turn on': 'turn off'
+ 
 
     useEffect(() => {
       if (filterKind!=='normal') {
@@ -95,18 +100,18 @@ export const HeaderBar = ({appState}) => {
 
               <button
               id = {`show-choosen-items-btn`}
-              className= 'mark-choosen-items-btn'
-              onClick={handleFilterTODOS}
+              className= 'show-choosen-items-btn'
+              onClick={clickFilterChoosenTODOS}
               >
-                 {"show only choosen items"}
+                 {`${FilterChoosenTODOSStatus()} filter choosen items`}
               </button>
 
               <button
-              id = {`delete-choosen-items-btn`}
-              className= 'mark-choosen-items-btn'
-              onClick={handleDeleteChoosenTODOS}
+              id = {`show-delete-items-btn`}
+              className= 'show-delete-items-btn'
+              onClick={clickDeleteChoosenTODOS}
               >
-                  {` show delete TODOS`}
+                  {`${FilterDeleteTODOSStatus()} filter delete items`}
               </button>
 
           </div>

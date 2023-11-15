@@ -31,7 +31,17 @@ button {
   margin-right: 2%;
   text-align: center;
   color: orange;
+}
 
+.delete-btn {
+  margin-top: 30px;
+}
+
+.chooseDeleteContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
 }
 
 .buttonContainer{
@@ -43,15 +53,9 @@ button {
    /* space-between; Items are spaced evenly along the row   */
 }
 
-/* #main-react-select-field {
-
-  width: 30%;
-  margin-right: 5%;
-} */
-
 img {
   z-index: 1;
-  display: 'block' ;
+  display: block;
 }
 
 .flex-container {

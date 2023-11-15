@@ -88,7 +88,7 @@ export const HeaderBar = ({appState}) => {
           }}>
             <button
             className='save-btn'
-            onClick={() => handleAddTODO()}
+            onClick={handleAddTODO}
             disabled = {isEmpty}>
               save Avi Berger
             </button>
@@ -96,15 +96,15 @@ export const HeaderBar = ({appState}) => {
               <button
               id = {`show-choosen-items-btn`}
               className= 'mark-choosen-items-btn'
-              onClick={() => handleFilterTODOS()}
+              onClick={handleFilterTODOS}
               >
-                  {` show choosen items in green - ${true}`}
+                 {"show only choosen items"}
               </button>
 
               <button
               id = {`delete-choosen-items-btn`}
               className= 'mark-choosen-items-btn'
-              onClick={() => handleDeleteChoosenTODOS()}
+              onClick={handleDeleteChoosenTODOS}
               >
                   {` show delete TODOS`}
               </button>

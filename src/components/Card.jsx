@@ -40,7 +40,13 @@ const imgStyle = {
     const clickFreezeBtn =  event => {
         event.preventDefault()
         isFreezeMode ? setIsFreezeMode(false): setIsFreezeMode(true)
-    } 
+    }
+
+    const clickDeleteBtn = event => {
+        event.preventDefault()
+        setIsDeleted(!isDeleted)
+
+    }
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
 
 
@@ -78,8 +84,16 @@ const imgStyle = {
                 </button>
 
             </div>
+            <div className='chooseDeleteContainer'  >
                 <input type="checkbox" id ={`${cardID}-${isChecked}-checkbox`} onChange={ () => setIsChecked(!isChecked)}/> 
-        
-        </div>
+                <button className='delete-btn' onClick={clickDeleteBtn}>
+                    delete TODO 
+                </button>
+            </div>
+            </div>
+
+            // </div>
+            // <input type="checkbox" id ={`${cardID}-${isChecked}-checkbox`} onChange={ () => setIsChecked(!isChecked)}/> 
+            // </div>
     )
 }; 

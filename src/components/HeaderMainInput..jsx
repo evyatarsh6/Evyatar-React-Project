@@ -50,6 +50,8 @@ export const HeaderBar = ({appState}) => {
         }
       }
       setTODOList(newTODOList)
+      
+      // localStorage.setItem('TODOLIST', newTODOList )
       console.log(newTODOList)
       }
     

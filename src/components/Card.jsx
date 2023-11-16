@@ -18,6 +18,7 @@ const cardStyle =  {
     padding: 20,
     marginLeft: 10,
     marginRight: 10,
+    marginBottom: 10,
     width : 450,
     height :450,
     display: "flex",

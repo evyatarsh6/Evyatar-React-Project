@@ -50,7 +50,7 @@ export const HeaderBar = ({appState}) => {
         }
       }
       setTODOList(newTODOList)
-      
+
       // localStorage.setItem('TODOLIST', newTODOList )
       console.log(newTODOList)
       }
@@ -105,7 +105,7 @@ export const HeaderBar = ({appState}) => {
               className= 'show-choosen-items-btn'
               onClick={clickFilterChoosenTODOS}
               >
-                 {`${FilterChoosenTODOSStatus()} filter choosen items`}
+                 {`${FilterChoosenTODOSStatus()} show choosen items`}
               </button>
 
               <button
@@ -113,7 +113,7 @@ export const HeaderBar = ({appState}) => {
               className= 'show-delete-items-btn'
               onClick={clickDeleteChoosenTODOS}
               >
-                  {`${FilterDeleteTODOSStatus()} filter delete items`}
+                  {`${FilterDeleteTODOSStatus()} show delete items`}
               </button>
 
           </div>

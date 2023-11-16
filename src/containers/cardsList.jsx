@@ -13,7 +13,7 @@ export const CardList = ({appState}) => {
     const setTODOList = appState["TODOListUpdate"]
 
     const TODOS = TODOList
-    
+
     // const TODOS = localStorage.getItem('TODOLIST')
     // const setTODOS = localStorage.getItem('TODOLIST')
 
@@ -33,7 +33,7 @@ export const CardList = ({appState}) => {
     const TODOUpdateFunc = (isChoosen,isDeleted,id) => {
         TODOS[id].isChoosen = isChoosen
         TODOS[id].isDeleted = isDeleted
-        handleFilterTODOS()
+        console.log(TODOS)
 
     }
 

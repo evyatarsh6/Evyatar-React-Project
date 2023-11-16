@@ -35,8 +35,6 @@ const imgStyle = {
     borderStyle : 'solid',
     backgroundColor: 'black'
 }
-
-    // const cardID = useId()
     const currInputValue = useRef(null)
     const [isChecked, setIsChecked] = useState(isCheckedProp)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
@@ -55,11 +53,12 @@ const imgStyle = {
         isFreezeMode ? setIsFreezeMode(false): setIsFreezeMode(true)
     }
 
-    const clickDeleteBtn = event => {
+    const clickDeleteRestoreBtn = event => {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
         TODOUpdateFunc(isChecked, newDeleteStatus, id)
+        
 
     }
     const checkChoosenCheckbox= () => {
@@ -69,11 +68,11 @@ const imgStyle = {
         TODOUpdateFunc(newCheckedtatus, isDeleted, id)
     }
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
+    const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 
 
 
     return (
-                
-        // <div className ={`card-selected-${isChecked}`} id={id} style={cardStyle}>
+            
         <div className ={`card`} id={id} style={cardStyle}>
             <h3 className="card-title">{title}</h3>
             <img
@@ -107,8 +106,8 @@ const imgStyle = {
             <div className='chooseDeleteContainer'  >
                 <input type="checkbox" id ={`${key}-${isChecked}-checkbox`} className='choose-checkbox' 
                     onChange={checkChoosenCheckbox}/> 
-                <button className='delete-btn' onClick={clickDeleteBtn}>
-                    delete TODO 
+                <button className='delete-restore-btn' onClick={clickDeleteRestoreBtn}>
+                {`${deleteRestoreBtnStatus()}- btn`}
                 </button>
             </div>
         </div>

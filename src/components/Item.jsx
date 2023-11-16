@@ -44,7 +44,7 @@ export const Item = ({name, status = 'not-active'}) => {
             {name}
         </div>
         <button
-            className = "item-delete-btn"
+            className = "item-delete-restore-btn"
         >
         </button>
 

@@ -14,12 +14,11 @@ export const filterTODOListReducer = ( state , action) => {
   }
 
   export const addTODO = (state , action) => {
-    const cardID = Date.now()
     
     const newTODOList = {
       ...state ,
-      [cardID]: {
-      id: cardID,
+      [action.id]: {
+      id: action.id,
       description : 'avi berger is a god', 
       kind: action.type.inputValue,
       isChoosen: false,

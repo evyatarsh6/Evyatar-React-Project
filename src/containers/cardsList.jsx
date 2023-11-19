@@ -25,8 +25,8 @@ export const CardList = ({ appState }) => {
     
 
 
-    const TODOUpdateFunc = ( isChoosen ,isDeleted , id  ) => (
-        setTODOList({...TODOList, [id] : {...TODOList[id], isChoosen, isDeleted}})
+    const TODOUpdateFunc = ( isChoosen ,isDeleted, description , id  ) => (
+        setTODOList({...TODOList, [id] : {...TODOList[id], isChoosen, isDeleted, description}})
     )
 
     return (
@@ -39,6 +39,7 @@ export const CardList = ({ appState }) => {
                     <Card
                     key={TODO.id}
                     id={TODO.id}
+                    description={TODO.description}
                     title={TODO.kind}
                     isCheckedProp={TODO.isChoosen}
                     isDeletedProp = {TODO.isDeleted}

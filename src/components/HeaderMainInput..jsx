@@ -27,7 +27,6 @@ export const HeaderBar = ({appState}) => {
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
   const [value, setValue] = useState(null);
-  // const [choosenInGreen,setChoosenInGreen] = useState(false)
 
     const handleInputType= (e, newValue) => {
       setInputValue(newValue)
@@ -45,7 +44,8 @@ export const HeaderBar = ({appState}) => {
       const newTODOList = {
         ...TODOList ,
         [cardID]: {
-        id: cardID, 
+        id: cardID,
+        description : 'avi berger is a god', 
         kind: inputValue,
         isChoosen: false,
         isDeleted:false

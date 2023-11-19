@@ -9,8 +9,8 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 export const Card = ({
     id ,
-    key,
     title,
+    description,
     isCheckedProp = false,
     isDeletedProp = false, 
     TODOUpdateFunc
@@ -50,7 +50,7 @@ const imgStyle = {
     const [isChecked, setIsChecked] = useState(isCheckedProp)
     const [isDeleted,setIsDeleted ] = useState(isDeletedProp)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
-    const [message, setMessage] = useState('avi berger is a god');
+    const [message, setMessage] = useState(description);
 
 
     const handleInputType =  event => {
@@ -61,14 +61,23 @@ const imgStyle = {
 
     const clickFreezeBtn =  event => {
         event.preventDefault()
-        isFreezeMode ? setIsFreezeMode(false): setIsFreezeMode(true)
+        if (isFreezeMode) {
+            setIsFreezeMode(false)
+        }
+        else {
+
+            setIsFreezeMode(!isFreezeMode)
+            TODOUpdateFunc(isChecked, isDeleted, description, id)
+        }
+            // description
+        
     }
 
     const clickDeleteRestoreBtn = event => {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        TODOUpdateFunc(isChecked, newDeleteStatus, id)
+        TODOUpdateFunc(isChecked, newDeleteStatus, description, id)
         
 
     }
@@ -76,7 +85,7 @@ const imgStyle = {
 
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
-        TODOUpdateFunc(newCheckedtatus, isDeleted, id)
+        TODOUpdateFunc(newCheckedtatus, isDeleted, description, id)
     }
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 
@@ -119,7 +128,7 @@ const imgStyle = {
                 }
             </IconButton>
                 
-            <IconButton id ={`${key}-${deleteRestoreBtnStatus()}`} style={{scale:"1.5"}} 
+            <IconButton id ={`${id}-${deleteRestoreBtnStatus()}`} style={{scale:"1.5"}} 
             onClick={checkChoosenCheckbox}>
                     {
                     isChecked ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>

@@ -67,17 +67,15 @@ const imgStyle = {
         else {
 
             setIsFreezeMode(!isFreezeMode)
-            TODOUpdateFunc(isChecked, isDeleted, description, id)
+            TODOUpdateFunc(isChecked, isDeleted, message, id)
         }
-            // description
-        
     }
 
     const clickDeleteRestoreBtn = event => {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        TODOUpdateFunc(isChecked, newDeleteStatus, description, id)
+        TODOUpdateFunc(isChecked, newDeleteStatus, message, id)
         
 
     }
@@ -85,7 +83,7 @@ const imgStyle = {
 
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
-        TODOUpdateFunc(newCheckedtatus, isDeleted, description, id)
+        TODOUpdateFunc(newCheckedtatus, isDeleted, message, id)
     }
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 

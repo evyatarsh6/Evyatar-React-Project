@@ -16,17 +16,14 @@ const headerStyles = {
 export const HeaderBar = ({appState}) => {
 
   const filterKind = appState["filterKind"]
-  const actionDetails = appState['actionDetails']
   const TODOList = appState["TODOList"]
   const setFilterKind = appState["setFilterKind"]
-  const setAction = appState["setAction"]
   const setTODOList = appState["TODOListUpdate"]
 
   const options = Object.keys(bergerPhotos)
 
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
-  const [value, setValue] = useState(null);
 
     const handleInputType= (e, newValue) => {
       setInputValue(newValue)

@@ -2,10 +2,8 @@ import { Card } from "../components/Card"
 export const CardList = ({ appState }) => { 
 
     const filterKind = appState["filterKind"]
-    const actionDetails = appState['actionDetails']
     const TODOList = appState["TODOList"]
     const setFilterKind = appState["setFilterKind"]
-    const setAction = appState["setAction"]
     const setTODOList = appState["TODOListUpdate"]
     
         const handleFilterTODOS = () => {

@@ -1,11 +1,16 @@
 import React, { useId, useState, useRef } from 'react';
 import {bergerPhotos} from '../shared/photos';
+import { IconButton } from '@mui/material';
+import DeleteIcon  from '@mui/icons-material/Delete';
+import { CheckOutlined, Edit } from '@mui/icons-material';
+import RecyclingIcon from '@mui/icons-material/Recycling';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
-// export const Card = ({appState}) => {
 export const Card = ({
-    id = null,
-    key =null,
-    title ="calling his mother",
+    id ,
+    key,
+    title,
     isCheckedProp = false,
     isDeletedProp = false, 
     TODOUpdateFunc
@@ -25,7 +30,12 @@ const cardStyle =  {
     flexDirection: "column",
     alignItems: "center",
     textAlign: "center",
-    backgroundColor: "aliceblue",
+    // backgroundColor: "aliceblue",
+    background: "rgba(255, 255, 255, 0.2)",
+    borderRadius: 16,   
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(5px)",
+    border:" 1px solid rgba(255, 255, 255, 0.3)",
     
 }
 
@@ -38,9 +48,9 @@ const imgStyle = {
 }
     const currInputValue = useRef(null)
     const [isChecked, setIsChecked] = useState(isCheckedProp)
+    const [isDeleted,setIsDeleted ] = useState(isDeletedProp)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState('avi berger is a god');
-    const [isDeleted,setIsDeleted ] = useState(isDeletedProp)
 
 
     const handleInputType =  event => {
@@ -88,28 +98,34 @@ const imgStyle = {
                     onChange={handleInputType} disabled = {isFreezeMode}
                     style={{
                         textAlign: "center",
-                        width: "150%",
-                        height: "60%",
+                        width: "80%",
+                        height: "20%",
                         
                     }}
                 />
 
-                <button className= { `${FreezeBtnStatus()}- btn`}
-                    onClick ={clickFreezeBtn}
-                    style ={{
-                        width: 200
-                    }}
-                    >
-                    {`${FreezeBtnStatus()}- btn`}
-                </button>
-
+                
+                <IconButton className= { `${FreezeBtnStatus()}- btn`} style={{scale:"1.5"}}
+                    onClick ={clickFreezeBtn}>
+                    <Edit/>
+                </IconButton>
             </div>
-            <div className='chooseDeleteContainer'  >
-                <input type="checkbox" id ={`${key}-${isChecked}-checkbox`} className='choose-checkbox' 
-                    onChange={checkChoosenCheckbox}/> 
-                <button className='delete-restore-btn' onClick={clickDeleteRestoreBtn}>
-                {`${deleteRestoreBtnStatus()}- btn`}
-                </button>
+
+            <div className='chooseDeleteContainer'>
+            
+            <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5"}}>
+                {
+                    isDeleted ? <RecyclingIcon/>: <DeleteIcon/>  
+                }
+            </IconButton>
+                
+            <IconButton id ={`${key}-${deleteRestoreBtnStatus()}`} style={{scale:"1.5"}} 
+            onClick={checkChoosenCheckbox}>
+                    {
+                    isChecked ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
+                    }
+                </IconButton>
+                
             </div>
         </div>
     )

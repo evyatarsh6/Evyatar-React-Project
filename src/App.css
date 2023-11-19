@@ -12,37 +12,33 @@
 
 .description-edit-Btn-container{
   display:flex;
+  align-items: center;
   margin-top: 30px;
-}
-.choose-checkbox{
-  margin-top: 20px
+  height: 100%;
+  width: 100%; 
+  justify-content: space-around;
 }
 
 button {
 
-  margin-right: 2%;
   text-align: center;
   color: orange;
 }
 
-.delete-restore-btn {
-  margin-top: 20px;
-}
-
 .chooseDeleteContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
   width: 100%;
-  align-items: center;
 }
 
 .buttonContainer{
   align-items: center;
-  display: flex; /* This makes the container a flex container */
-  flex-direction: row; /* Items are arranged in a horizontal row */
-  align-items: center; /* Vertically center items within the container */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-   /* space-between; Items are spaced evenly along the row   */
+  
 }
 
 img {

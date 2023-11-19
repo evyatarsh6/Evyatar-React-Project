@@ -41,9 +41,11 @@ export const HeaderBar = ({appState}) => {
     }
 
     const handleAddTODO = () => {
+      const cardID = Date.now()
       const newTODOList = {
         ...TODOList ,
-        [Date.now()]: {
+        [cardID]: {
+        id: cardID, 
         kind: inputValue,
         isChoosen: false,
         isDeleted:false

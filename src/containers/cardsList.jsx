@@ -1,4 +1,9 @@
+import { useCallback, useEffect, useMemo } from "react"
 import { Card } from "../components/Card"
+import { useDispatch,useSelector } from "react-redux"
+import store from "../store"
+
+
 export const CardList = ({ appState }) => { 
 
     const filterKind = appState["filterKind"]
@@ -6,23 +11,29 @@ export const CardList = ({ appState }) => {
     const setFilterKind = appState["setFilterKind"]
     const setTODOList = appState["TODOListUpdate"]
     
-        const handleFilterTODOS = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch({type: "normalTODOS"})
+    },[dispatch])
+
+    const shownTODOS = useSelector((state) => state.reducer);
+
+
+    // const handleFilterTODOS = () => {
+
+    //     switch(filterKind) {
+    //         case "choosen":
+    //             return ( Object.values(TODOList).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted)))
+    //         case "delete":
+    //             return ( Object.values(TODOList).filter( TODO  => TODO.isDeleted))
+    //         case "normal":
+    //             return ( Object.values(TODOList).filter( TODO  => !TODO.isDeleted))
+    //     }
+
+    // }
     
-            switch(filterKind) {
-                case "choosen":
-                    return ( Object.values(TODOList).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted)))
-                case "delete":
-                    return ( Object.values(TODOList).filter( TODO  => TODO.isDeleted))
-                case "normal":
-                    return ( Object.values(TODOList).filter( TODO  => !TODO.isDeleted))
-            }
-
-    }
-
-    const  filteredTODOS = handleFilterTODOS() 
+    // const  filteredTODOS = handleFilterTODOS() 
     
-
-
     const TODOUpdateFunc = ( isChoosen ,isDeleted, description , id  ) => (
         setTODOList({...TODOList, [id] : {...TODOList[id], isChoosen, isDeleted, description}})
     )
@@ -33,8 +44,9 @@ export const CardList = ({ appState }) => {
 
             <ul className="flex-container">
             {
-                filteredTODOS.map((TODO) => (
-                    <Card
+                // filteredTODOS.map((TODO) => (
+                shownTODOS.map((TODO) => (
+                <Card
                     key={TODO.id}
                     id={TODO.id}
                     description={TODO.description}

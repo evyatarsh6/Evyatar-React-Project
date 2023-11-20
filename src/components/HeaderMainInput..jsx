@@ -3,6 +3,7 @@ import { bergerPhotos } from '../shared/photos';
 import {Autocomplete} from '@mui/material';
 import {FormControl} from '@mui/material';
 import {TextField} from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
@@ -20,8 +21,12 @@ export const HeaderBar = ({appState}) => {
   const setFilterKind = appState["setFilterKind"]
   const setTODOList = appState["TODOListUpdate"]
 
-  const options = Object.keys(bergerPhotos)
+    // const dispatch = useDispatch();
+    // const counter = useSelector((state) => state.counter);
+    // dispatch({type: "choosenTODOS"})
 
+
+  const options = Object.keys(bergerPhotos)
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
 

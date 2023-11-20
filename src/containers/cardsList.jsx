@@ -11,9 +11,7 @@ export const CardList = ({ appState }) => {
     const setFilterKind = appState["setFilterKind"]
     const setTODOList = appState["TODOListUpdate"]
 
-    // const shownTODOS = useSelector((state) => state);
     const dispatch = useDispatch();
-
     dispatch({type: "normalTODOS"})
     const shownTODOS = useSelector((state) => state.shownTODOS);
 

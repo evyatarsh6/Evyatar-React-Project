@@ -21,10 +21,6 @@ export const HeaderBar = ({appState}) => {
   const setFilterKind = appState["setFilterKind"]
   const setTODOList = appState["TODOListUpdate"]
 
-    // const dispatch = useDispatch();
-    // const counter = useSelector((state) => state.counter);
-    // dispatch({type: "choosenTODOS"})
-
 
   const options = Object.keys(bergerPhotos)
   const [isEmpty, setIsEmpty] = useState(true)

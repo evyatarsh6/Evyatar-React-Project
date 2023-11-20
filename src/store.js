@@ -4,11 +4,11 @@ import thunkMiddleware from 'redux-thunk'
 
 // const composedEnhancer = applyMiddleware(thunkMiddleware)
 
-let initialState = {}
+// let initialState = {"TODOS": {}}
 
 const store = configureStore({
     reducer: rootReducer,
-    preloadedState : initialState
+    // preloadedState : initialState
     // ,
     // middleware: (getDefaultMiddleware) =>
     // [...getDefaultMiddleware(), composedEnhancer],

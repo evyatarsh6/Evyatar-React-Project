@@ -1,4 +1,8 @@
 
+
+// let initialState = {"TODOS": {}}
+const initialState = {}
+
 export const filterTODOListReducer = ( state , action) => {
 
     switch(action.type) {
@@ -16,7 +20,7 @@ export const filterTODOListReducer = ( state , action) => {
   // export const addTODO = (state , action) => {
     
   //   const newTODOList = {
-  //     {...state} ,
+  //     {...state}["TODOS"] ,
   //     [action.id]: {
   //     id: action.id,
   //     description : 'avi berger is a god', 

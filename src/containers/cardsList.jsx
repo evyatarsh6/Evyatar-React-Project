@@ -10,14 +10,11 @@ export const CardList = ({ appState }) => {
     const TODOList = appState["TODOList"]
     const setFilterKind = appState["setFilterKind"]
     const setTODOList = appState["TODOListUpdate"]
-    
+
+    const shownTODOS = useSelector((state) => state);
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch({type: "normalTODOS"})
-    },[dispatch])
 
-    const shownTODOS = useSelector((state) => state.reducer);
-
+    dispatch({type: "normalTODOS"})
 
     // const handleFilterTODOS = () => {
 

@@ -1,8 +1,7 @@
 import {combineReducers} from "redux";
-import { filterTODOListReducer } from "./reducers/handleTODOSReducer";
+import { filterTODOListReducer, addTODO } from "./reducers/handleTODOSReducer";
 
-const rootReducer = combineReducers( {filterTODOListReducer});
-// const rootReducer = combineReducers( { "shownTODOS" : filterTODOListReducer});
-    // , addTODO: addTODO });
+
+const rootReducer = combineReducers( {shownTODOS : filterTODOListReducer, addNewTODO: addTODO  });
 
 export default rootReducer

@@ -1,19 +1,15 @@
-import { configureStore, applyMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
-import thunkMiddleware from 'redux-thunk'
+import { generatingTODOID } from "./reducers/handleAddTODOMiddleware";
 
-// const composedEnhancer = applyMiddleware(thunkMiddleware)
-
-// let initialState = {"TODOS": {}}
+// Manually create an array of middleware
+const customMiddleware = [generatingTODOID];
 
 const store = configureStore({
-    reducer: rootReducer,
-    // preloadedState : initialState
-    // ,
-    // middleware: (getDefaultMiddleware) =>
-    // [...getDefaultMiddleware(), composedEnhancer],
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(customMiddleware),
 });
-
 
 export default store;
 
@@ -23,6 +19,33 @@ export default store;
 
 
 
+
+
+
+
+
+
+// import { configureStore, applyMiddleware  } from "@reduxjs/toolkit";
+// import rootReducer from "./rootReducer";
+// import { generatingTODOID } from "./reducers/handleAddTODOMiddleware";
+
+
+// const store = configureStore({
+//     reducer: rootReducer,
+//     middleware: [...middleware, generatingTODOID]
+
+// import thunkMiddleware from 'redux-thunk'
+
+// const composedEnhancer = applyMiddleware(thunkMiddleware)
+// const composedEnhancer = applyMiddleware(generatingTODOID)
+
+
+
+// preloadedState : initialState
+// ,
+// middleware: [composedEnhancer]
+// middleware: (getDefaultMiddleware) =>
+// [...getDefaultMiddleware(), composedEnhancer],
 
 // const CounterComponent = () => {
 //     // useDispatch hook to get the dispatch function

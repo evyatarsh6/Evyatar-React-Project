@@ -1,9 +1,7 @@
 
-
-// let initialState = {"TODOS": {}}
 const initialState = {}
 
-export const filterTODOListReducer = ( state , action) => {
+export const filterTODOListReducer = ( state = initialState , action) => {
 
     switch(action.type) {
         case "choosenTODOS":
@@ -13,21 +11,51 @@ export const filterTODOListReducer = ( state , action) => {
         case "normalTODOS":
             return ( Object.values({...state}).filter( TODO  => !TODO.isDeleted))
         default:
-          return (false)
+          return ([])
     }
   }
 
-  // export const addTODO = (state , action) => {
-    
-  //   const newTODOList = {
-  //     {...state}["TODOS"] ,
-  //     [action.id]: {
-  //     id: action.id,
-  //     description : 'avi berger is a god', 
-  //     kind: action.type.inputValue,
-  //     isChoosen: false,
-  //     isDeleted:false
-  //     }
-  //   }
-  //   return (newTODOList)
-  // }
+  export const addTODO = (state = initialState , action) => {
+    let newTODOList = {}
+    switch(action.type) {
+        case "addTODO":
+            newTODOList = {
+                ...state ,
+                [action.id]: {
+                id: action.id,
+                description : 'avi berger is a god', 
+                kind: action.type.inputValue,
+                isChoosen: false,
+                isDeleted:false
+                }
+            }
+            return (newTODOList)
+            
+        default:
+            return state
+  }
+}
+
+
+
+
+  export const editTODO = (state = initialState , action) => {
+    let newTODOList = {}
+       switch(action.type) {
+        case "editTODO": 
+            newTODOList = {
+                ...state,
+                [action.id] : {
+                    ...state[action.id],
+                    isChoosen: action.isChoosen,
+                    isDeleted: action.isDeleted,
+                    description: action.description
+                  }
+                  
+            }
+            return newTODOList
+
+        default:
+            return state
+       }
+  }

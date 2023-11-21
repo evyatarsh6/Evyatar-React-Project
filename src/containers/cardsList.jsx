@@ -12,7 +12,6 @@ export const CardList = ({ appState }) => {
     const setTODOList = appState["TODOListUpdate"]
 
     const dispatch = useDispatch();
-    dispatch({type: "normalTODOS"})
     const shownTODOS = useSelector((state) => state.shownTODOS);
 
     // const handleFilterTODOS = () => {
@@ -31,7 +30,8 @@ export const CardList = ({ appState }) => {
     // const  filteredTODOS = handleFilterTODOS() 
     
     const TODOUpdateFunc = ( isChoosen ,isDeleted, description , id  ) => (
-        setTODOList({...TODOList, [id] : {...TODOList[id], isChoosen, isDeleted, description}})
+        dispatch({type: "editTODO", isChoosen ,isDeleted, description , id})
+        // setTODOList({...TODOList, [id] : {...TODOList[id], isChoosen, isDeleted, description}})
     )
 
     return (

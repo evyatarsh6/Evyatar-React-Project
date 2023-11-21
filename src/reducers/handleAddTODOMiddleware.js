@@ -1,18 +1,18 @@
 
-export const generatingTODOID = storeAPI => next => action => {
+// export const generatingTODOID = storeAPI => next => action => {
         
-    if (action.type  ==='addTODO') {
+//     if (action.type  ==='addTODO') {
 
-        const cardID = Date.now()
-        const actionAdd = {type:  'addTODO', id: cardID }
-        storeAPI.dispatch(actionAdd)            
-    }
-    else {
-        next(action)
-    }
+//         const cardID = Date.now()
+//         const actionAdd = {type:  'addTODO', id: cardID }
+//         storeAPI.dispatch(actionAdd)            
+//     }
+//     else {
+//         next(action)
+//     }
 
 
-}
+// }
 
 // export const updateTODOStatus = storeAPI => next => action => {
         

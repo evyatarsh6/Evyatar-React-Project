@@ -22,9 +22,13 @@ export const HeaderBar = ({appState}) => {
   const setTODOList = appState["TODOListUpdate"]
 
 
-  const options = Object.keys(bergerPhotos)
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
+  
+  const dispatch = useDispatch();
+  const shownTODOS = useSelector((state) => state.shownTODOS);
+  
+  const options = Object.keys(bergerPhotos)
 
     const handleInputType= (e, newValue) => {
       setInputValue(newValue)
@@ -38,29 +42,62 @@ export const HeaderBar = ({appState}) => {
     }
 
     const handleAddTODO = () => {
+
       const cardID = Date.now()
-      const newTODOList = {
-        ...TODOList ,
-        [cardID]: {
-        id: cardID,
-        description : 'avi berger is a god', 
-        kind: inputValue,
-        isChoosen: false,
-        isDeleted:false
-        }
-      }
-      setTODOList(newTODOList)
+      const actionAdd = {type:  'addTODO', id: cardID }
+      dispatch(actionAdd)
+    }
+      // const handleAddTODO = () => {
+      // const cardID = Date.now()
+      // const newTODOList = {
+      //   ...TODOList ,
+      //   [cardID]: {
+      //   id: cardID,
+      //   description : 'avi berger is a god', 
+      //   kind: inputValue,
+      //   isChoosen: false,
+      //   isDeleted:false
+      //   }
+      // }
+      // setTODOList(newTODOList)
 
       // localStorage.setItem('TODOLIST', newTODOList )
-      console.log(newTODOList)
-      }
+      // console.log(newTODOList)
+      // }
+
+
+      // const clickFilterChoosenTODOS  = () => {
+      //   (filterKind!== 'choosen') ?  setFilterKind('choosen'): setFilterKind('normal') 
+      // }
+  
+      // const clickDeleteChoosenTODOS = () => {
+      //   (filterKind!== 'delete') ?  setFilterKind('delete'): setFilterKind('normal') 
+      // }
+  
+      // const FilterChoosenTODOSStatus = () => (filterKind !== 'choosen') ? 'turn on': 'turn off'
+      
+      // const FilterDeleteTODOSStatus = () => (filterKind !== 'delete')? 'turn on': 'turn off'
     
     const clickFilterChoosenTODOS  = () => {
-      (filterKind!== 'choosen') ?  setFilterKind('choosen'): setFilterKind('normal') 
+      if (filterKind!== 'choosen') {
+        setFilterKind('choosen')
+        dispatch({type:"choosenTODOS"})
+      }
+      else{
+        setFilterKind('normal') 
+        dispatch({type:"normalTODOS"})
+      }
     }
 
     const clickDeleteChoosenTODOS = () => {
-      (filterKind!== 'delete') ?  setFilterKind('delete'): setFilterKind('normal') 
+      if (filterKind!== 'delete') {
+        setFilterKind('delete')
+        dispatch({type:"deleteTODOS"})
+      }
+      else{
+        setFilterKind('normal') 
+        dispatch({type:"normalTODOS"})
+      }
     }
 
     const FilterChoosenTODOSStatus = () => (filterKind !== 'choosen') ? 'turn on': 'turn off'

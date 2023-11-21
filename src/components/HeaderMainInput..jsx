@@ -44,7 +44,7 @@ export const HeaderBar = ({appState}) => {
     const handleAddTODO = () => {
 
       const cardID = Date.now()
-      const actionAdd = {type:  'addTODO', id: cardID }
+      const actionAdd = {type:  'addTODO', value: inputValue,  id: cardID }
       dispatch(actionAdd)
     }
       // const handleAddTODO = () => {

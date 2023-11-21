@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo } from "react"
 import { Card } from "../components/Card"
 import { useDispatch,useSelector } from "react-redux"
 import store from "../store"
+import { object } from "prop-types"
 
 
 export const CardList = ({ appState }) => { 
@@ -12,6 +13,7 @@ export const CardList = ({ appState }) => {
     const setTODOList = appState["TODOListUpdate"]
 
     const dispatch = useDispatch();
+    // const shownTODOS = dispatch({type:"normalTODOS"})
     const shownTODOS = useSelector((state) => state.shownTODOS);
 
     // const handleFilterTODOS = () => {
@@ -41,7 +43,8 @@ export const CardList = ({ appState }) => {
             <ul className="flex-container">
             {
                 // filteredTODOS.map((TODO) => (
-                shownTODOS.map((TODO) => (
+                // shownTODOS.map((TODO) => (
+                Object.values(shownTODOS).map((TODO) => (
                 <Card
                     key={TODO.id}
                     id={TODO.id}

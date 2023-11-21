@@ -3,15 +3,27 @@ const initialState = {}
 
 export const filterTODOListReducer = ( state = initialState , action) => {
 
+    const backToStateObj = (TODOListArr = []) => {
+    let newStateObj = {}
+        TODOListArr.forEach(TODO => {
+            newStateObj[TODO.id] = TODO  
+        })
+        return TODOListArr
+    }
+
     switch(action.type) {
         case "choosenTODOS":
-            return ( Object.values({...state}).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted)))
+           return backToStateObj( Object.values({...state}).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted)))
+            // return ( Object.values({...state}).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted)))
         case "deleteTODOS":
-            return ( Object.values({...state}).filter( TODO  => TODO.isDeleted))
+            return backToStateObj( Object.values({...state}).filter( TODO  => TODO.isDeleted))
+            // return ( Object.values({...state}).filter( TODO  => TODO.isDeleted))
         case "normalTODOS":
-            return ( Object.values({...state}).filter( TODO  => !TODO.isDeleted))
+            return backToStateObj( Object.values({...state}).filter( TODO  => !TODO.isDeleted))
+            // return ( Object.values({...state}).filter( TODO  => !TODO.isDeleted))
         default:
-          return ([])
+            return backToStateObj( Object.values({...state}))
+            //   return (Object.values({...state}))
     }
   }
 
@@ -24,7 +36,7 @@ export const filterTODOListReducer = ( state = initialState , action) => {
                 [action.id]: {
                 id: action.id,
                 description : 'avi berger is a god', 
-                kind: action.type.inputValue,
+                kind: action.value,
                 isChoosen: false,
                 isDeleted:false
                 }

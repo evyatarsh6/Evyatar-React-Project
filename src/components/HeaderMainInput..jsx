@@ -17,16 +17,11 @@ const headerStyles = {
 export const HeaderBar = ({appState}) => {
 
   const filterKind = appState["filterKind"]
-  const TODOList = appState["TODOList"]
   const setFilterKind = appState["setFilterKind"]
-  const setTODOList = appState["TODOListUpdate"]
-
-
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
   
   const dispatch = useDispatch();
-  const shownTODOS = useSelector((state) => state.shownTODOS);
   
   const options = Object.keys(bergerPhotos)
 
@@ -47,36 +42,6 @@ export const HeaderBar = ({appState}) => {
       const actionAdd = {type:  'addTODO', value: inputValue,  id: cardID }
       dispatch(actionAdd)
     }
-      // const handleAddTODO = () => {
-      // const cardID = Date.now()
-      // const newTODOList = {
-      //   ...TODOList ,
-      //   [cardID]: {
-      //   id: cardID,
-      //   description : 'avi berger is a god', 
-      //   kind: inputValue,
-      //   isChoosen: false,
-      //   isDeleted:false
-      //   }
-      // }
-      // setTODOList(newTODOList)
-
-      // localStorage.setItem('TODOLIST', newTODOList )
-      // console.log(newTODOList)
-      // }
-
-
-      // const clickFilterChoosenTODOS  = () => {
-      //   (filterKind!== 'choosen') ?  setFilterKind('choosen'): setFilterKind('normal') 
-      // }
-  
-      // const clickDeleteChoosenTODOS = () => {
-      //   (filterKind!== 'delete') ?  setFilterKind('delete'): setFilterKind('normal') 
-      // }
-  
-      // const FilterChoosenTODOSStatus = () => (filterKind !== 'choosen') ? 'turn on': 'turn off'
-      
-      // const FilterDeleteTODOSStatus = () => (filterKind !== 'delete')? 'turn on': 'turn off'
     
     const clickFilterChoosenTODOS  = () => {
       if (filterKind!== 'choosen') {

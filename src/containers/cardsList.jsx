@@ -14,7 +14,7 @@ export const CardList = ({ appState }) => {
 
     const dispatch = useDispatch();
     // const shownTODOS = dispatch({type:"normalTODOS"})
-    const shownTODOS = useSelector((state) => state.shownTODOS);
+    const shownTODOS = useSelector((state) => state.addNewTODO);
 
     // const handleFilterTODOS = () => {
 

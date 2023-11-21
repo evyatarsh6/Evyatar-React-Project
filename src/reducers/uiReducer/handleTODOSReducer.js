@@ -1,29 +1,31 @@
 
-const initialState = {}
+const initialState  = { 
+    id : null,
+    description : 'avi berger is a god',
+    kind :null,
+    isChoosen : false,
+    isDeleted : false
+}
 
 export const filterTODOListReducer = ( state = initialState , action) => {
 
-    const backToStateObj = (TODOListArr = []) => {
+    const backToStateObj = (TODOListArr = [{id :null}]) => {
     let newStateObj = {}
         TODOListArr.forEach(TODO => {
             newStateObj[TODO.id] = TODO  
         })
-        return TODOListArr
+        return newStateObj
     }
 
     switch(action.type) {
         case "choosenTODOS":
-           return backToStateObj( Object.values({...state}).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted)))
-            // return ( Object.values({...state}).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted)))
+           return backToStateObj(Object.values({...state}).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted)))
         case "deleteTODOS":
-            return backToStateObj( Object.values({...state}).filter( TODO  => TODO.isDeleted))
-            // return ( Object.values({...state}).filter( TODO  => TODO.isDeleted))
+            return backToStateObj(Object.values({...state}).filter( TODO  => TODO.isDeleted))
         case "normalTODOS":
-            return backToStateObj( Object.values({...state}).filter( TODO  => !TODO.isDeleted))
-            // return ( Object.values({...state}).filter( TODO  => !TODO.isDeleted))
+            return backToStateObj(Object.values({...state}).filter( TODO  => !TODO.isDeleted))
         default:
-            return backToStateObj( Object.values({...state}))
-            //   return (Object.values({...state}))
+            return backToStateObj(Object.values({...state}))
     }
   }
 
@@ -35,16 +37,15 @@ export const filterTODOListReducer = ( state = initialState , action) => {
                 ...state ,
                 [action.id]: {
                 id: action.id,
-                description : 'avi berger is a god', 
+                description : initialState.description, 
                 kind: action.value,
-                isChoosen: false,
-                isDeleted:false
+                isChoosen: initialState.isChoosen,
+                isDeleted:initialState.isDeleted
                 }
             }
             return (newTODOList)
-            
         default:
-            return state
+            return {...state}
   }
 }
 

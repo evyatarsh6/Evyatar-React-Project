@@ -7,10 +7,6 @@ export const CardList = () => {
     const dispatch = useDispatch();
     const TODOList = useSelector((state) => state.UI.TODOList);
 
-    // const TODOUpdateFunc = ( isChoosen ,isDeleted, description , id  ) => (
-    //     dispatch({type: "editTODO", isChoosen ,isDeleted, description , id})
-    // )
-
     return (
 
         <>

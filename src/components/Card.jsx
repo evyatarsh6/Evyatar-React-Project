@@ -14,7 +14,6 @@ export const Card = ({
     description,
     isCheckedProp = false,
     isDeletedProp = false, 
-    // TODOUpdateFunc
 }) => {
 
 
@@ -77,7 +76,6 @@ const imgStyle = {
                     description: message
                     ,id: id
             })
-            // TODOUpdateFunc(isChecked, isDeleted, message, id)
         }
     }
 
@@ -91,8 +89,6 @@ const imgStyle = {
         description: message
         ,id: id
         })
-        // dispatch({type: "editTODO", isChecked ,newDeleteStatus, message , id})
-        // TODOUpdateFunc(isChecked, newDeleteStatus, message, id)
         
 
     }
@@ -106,8 +102,6 @@ const imgStyle = {
         description: message
         ,id: id
         })
-        // dispatch({type: "editTODO", newCheckedtatus ,isDeleted, message , id})
-        // TODOUpdateFunc(newCheckedtatus, isDeleted, message, id)
     }
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 

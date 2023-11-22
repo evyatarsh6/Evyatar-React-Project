@@ -14,15 +14,13 @@ const headerStyles = {
 
 }
 
-export const HeaderBar = ({appState}) => {
+export const HeaderBar = () => {
 
-  const filterKind = appState["filterKind"]
-  const setFilterKind = appState["setFilterKind"]
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
-  
   const dispatch = useDispatch();
-  
+  const filterKind = useSelector((state) => state.UI.FilterKind);
+
   const options = Object.keys(bergerPhotos)
 
     const handleInputType= (e, newValue) => {
@@ -45,22 +43,22 @@ export const HeaderBar = ({appState}) => {
     
     const clickFilterChoosenTODOS  = () => {
       if (filterKind!== 'choosen') {
-        setFilterKind('choosen')
+        dispatch({type:"switchFilterKind", updateStatus:"choosen" })
         dispatch({type:"choosenTODOS"})
       }
       else{
-        setFilterKind('normal') 
+        dispatch({type:"switchFilterKind", updateStatus:"normal" })
         dispatch({type:"normalTODOS"})
       }
     }
 
     const clickDeleteChoosenTODOS = () => {
       if (filterKind!== 'delete') {
-        setFilterKind('delete')
+        dispatch({type:"switchFilterKind", updateStatus:"delete" })
         dispatch({type:"deleteTODOS"})
       }
       else{
-        setFilterKind('normal') 
+        dispatch({type:"switchFilterKind", updateStatus:"noraml" }) 
         dispatch({type:"normalTODOS"})
       }
     }
@@ -99,7 +97,8 @@ export const HeaderBar = ({appState}) => {
             className='save-btn'
             onClick={handleAddTODO}
             disabled = {isEmpty}>
-              save Avi Berger
+              {/* save Avi Berger */}
+              save Berger
             </button>
 
               <button

@@ -7,9 +7,9 @@ export const CardList = () => {
     const dispatch = useDispatch();
     const TODOList = useSelector((state) => state.UI.TODOList);
 
-    const TODOUpdateFunc = ( isChoosen ,isDeleted, description , id  ) => (
-        dispatch({type: "editTODO", isChoosen ,isDeleted, description , id})
-    )
+    // const TODOUpdateFunc = ( isChoosen ,isDeleted, description , id  ) => (
+    //     dispatch({type: "editTODO", isChoosen ,isDeleted, description , id})
+    // )
 
     return (
 
@@ -25,7 +25,7 @@ export const CardList = () => {
                         title={TODO.kind}
                         isCheckedProp={TODO.isChoosen}
                         isDeletedProp = {TODO.isDeleted}
-                        TODOUpdateFunc={TODOUpdateFunc}
+                        // TODOUpdateFunc={TODOUpdateFunc}
                     />
                     :
                     null

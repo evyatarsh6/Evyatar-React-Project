@@ -1,13 +1,11 @@
 import {combineReducers} from "redux";
 import { TODOS } from "./reducers/uiReducer/handleTODOSReducer";
-// import { filterTODOListReducer, addTODO, editTODO } from "./reducers/uiReducer/handleTODOSReducer";
+import { FilterKind } from "./reducers/uiReducer/handleFilterKindReducer";
 
 
 const uiReducer = combineReducers({
-    TODOList: TODOS
-    // shownTODOS : filterTODOListReducer,
-    // addNewTODO: addTODO,
-    // editExistTODO: editTODO
+    TODOList: TODOS,
+    FilterKind: FilterKind
 })
 
 const dataReducer = combineReducers({})

@@ -1,8 +1,9 @@
-import React, { useId, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
 import {bergerPhotos} from '../shared/photos';
 import { IconButton } from '@mui/material';
 import DeleteIcon  from '@mui/icons-material/Delete';
-import { CheckOutlined, Edit } from '@mui/icons-material';
+import { Edit } from '@mui/icons-material';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
@@ -13,7 +14,7 @@ export const Card = ({
     description,
     isCheckedProp = false,
     isDeletedProp = false, 
-    TODOUpdateFunc
+    // TODOUpdateFunc
 }) => {
 
 
@@ -30,7 +31,6 @@ const cardStyle =  {
     flexDirection: "column",
     alignItems: "center",
     textAlign: "center",
-    // backgroundColor: "aliceblue",
     background: "rgba(255, 255, 255, 0.2)",
     borderRadius: 16,   
     boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
@@ -46,6 +46,10 @@ const imgStyle = {
     borderStyle : 'solid',
     backgroundColor: 'black'
 }
+
+    const dispatch = useDispatch();
+    const TODOList = useSelector((state) => state.UI.TODOList); 
+
     const currInputValue = useRef(null)
     const [isChecked, setIsChecked] = useState(isCheckedProp)
     const [isDeleted,setIsDeleted ] = useState(isDeletedProp)
@@ -67,7 +71,13 @@ const imgStyle = {
         else {
 
             setIsFreezeMode(!isFreezeMode)
-            TODOUpdateFunc(isChecked, isDeleted, message, id)
+            dispatch({type: "editTODO",
+                    isChoosen : isChecked
+                    ,isDeleted: isDeleted,
+                    description: message
+                    ,id: id
+            })
+            // TODOUpdateFunc(isChecked, isDeleted, message, id)
         }
     }
 
@@ -75,7 +85,14 @@ const imgStyle = {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        TODOUpdateFunc(isChecked, newDeleteStatus, message, id)
+        dispatch({type: "editTODO",
+        isChoosen : isChecked
+        ,isDeleted: newDeleteStatus,
+        description: message
+        ,id: id
+        })
+        // dispatch({type: "editTODO", isChecked ,newDeleteStatus, message , id})
+        // TODOUpdateFunc(isChecked, newDeleteStatus, message, id)
         
 
     }
@@ -83,7 +100,14 @@ const imgStyle = {
 
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
-        TODOUpdateFunc(newCheckedtatus, isDeleted, message, id)
+        dispatch({type: "editTODO",
+        isChoosen : newCheckedtatus
+        ,isDeleted: isDeleted,
+        description: message
+        ,id: id
+        })
+        // dispatch({type: "editTODO", newCheckedtatus ,isDeleted, message , id})
+        // TODOUpdateFunc(newCheckedtatus, isDeleted, message, id)
     }
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 

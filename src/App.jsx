@@ -6,9 +6,7 @@ function App() {
   return (
     <div className="App">
       <h1>Avi Akiva Berger Presents - My Dear Son</h1>
-      <AppWrapper>
-
-      </AppWrapper>
+      <AppWrapper/>
     </div>
   );
 }

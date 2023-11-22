@@ -1,12 +1,11 @@
 const initialState  =  'normal'
 
-export const FilterKind = ( state = initialState , action) => {
+export const filterKind = ( state = initialState , action) => {
 
     switch(action.type) {
-        
         case 'switchFilterKind':
-            state = action.updateStatus
+            return action.updateStatus
+        default:
+            return state
     }
-
-    return state
 }

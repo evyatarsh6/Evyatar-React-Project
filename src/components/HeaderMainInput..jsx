@@ -19,7 +19,7 @@ export const HeaderBar = () => {
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch();
-  const filterKind = useSelector((state) => state.UI.FilterKind);
+  const filterKind = useSelector((state) => state.UI.filterKind);
 
   const options = Object.keys(bergerPhotos)
 
@@ -40,23 +40,17 @@ export const HeaderBar = () => {
       const actionAdd = {type:  'addTODO', value: inputValue,  id: cardID }
       dispatch(actionAdd)
     }
+
+    const SwitchFilterKind = filterKind => {
+      dispatch({type:"switchFilterKind", updateStatus: filterKind })
+    }
     
     const clickFilterChoosenTODOS  = () => {
-      if (filterKind!== 'choosen') {
-        dispatch({type:"switchFilterKind", updateStatus:"choosen" })
-      }
-      else{
-        dispatch({type:"switchFilterKind", updateStatus:"normal" })
-      }
+      (filterKind!== 'choosen') ? SwitchFilterKind('choosen') : SwitchFilterKind('normal')
     }
 
     const clickDeleteChoosenTODOS = () => {
-      if (filterKind!== 'delete') {
-        dispatch({type:"switchFilterKind", updateStatus:"delete" })
-      }
-      else{
-        dispatch({type:"switchFilterKind", updateStatus:"noraml" }) 
-      }
+      (filterKind!== 'delete') ? SwitchFilterKind('delete') : SwitchFilterKind('normal')
     }
 
     const FilterChoosenTODOSStatus = () => (filterKind !== 'choosen') ? 'turn on': 'turn off'

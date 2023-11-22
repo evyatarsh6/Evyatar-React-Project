@@ -9,7 +9,7 @@ export const CardList = () => {
 
     const FilterdArr = () => {
         switch(filterKind){
-            case "noraml":
+            case "normal":
                 return Object.values(TODOList).filter( TODO  => !TODO.isDeleted)
             case "delete":
                 return Object.values(TODOList).filter( TODO  => TODO.isDeleted)
@@ -20,6 +20,7 @@ export const CardList = () => {
 
         }
     }
+
     const shownTODOS = FilterdArr()
 
     return (
@@ -28,7 +29,7 @@ export const CardList = () => {
             <ul className="flex-container">
             {
                 shownTODOS.map( TODO => (
-                    (TODO.id !== 0)?      
+                          
                     <Card
                         key={TODO.id}
                         id={TODO.id}
@@ -37,8 +38,6 @@ export const CardList = () => {
                         isCheckedProp={TODO.isChoosen}
                         isDeletedProp = {TODO.isDeleted}
                     />
-                    :
-                    null
                 ))
             }
             

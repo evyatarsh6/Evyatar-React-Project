@@ -44,22 +44,18 @@ export const HeaderBar = () => {
     const clickFilterChoosenTODOS  = () => {
       if (filterKind!== 'choosen') {
         dispatch({type:"switchFilterKind", updateStatus:"choosen" })
-        dispatch({type:"choosenTODOS"})
       }
       else{
         dispatch({type:"switchFilterKind", updateStatus:"normal" })
-        dispatch({type:"normalTODOS"})
       }
     }
 
     const clickDeleteChoosenTODOS = () => {
       if (filterKind!== 'delete') {
         dispatch({type:"switchFilterKind", updateStatus:"delete" })
-        dispatch({type:"deleteTODOS"})
       }
       else{
         dispatch({type:"switchFilterKind", updateStatus:"noraml" }) 
-        dispatch({type:"normalTODOS"})
       }
     }
 
@@ -97,8 +93,7 @@ export const HeaderBar = () => {
             className='save-btn'
             onClick={handleAddTODO}
             disabled = {isEmpty}>
-              {/* save Avi Berger */}
-              save Berger
+              save Avi Berger
             </button>
 
               <button

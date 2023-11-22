@@ -5,16 +5,16 @@ import { FilterKind } from "./reducers/uiReducer/handleFilterKindReducer";
 
 const uiReducer = combineReducers({
     TODOList: TODOS,
-    FilterKind: FilterKind
+    filterKind: FilterKind
 })
 
-const dataReducer = combineReducers({})
+// const dataReducer = combineReducers({})
 
 
 
 const rootReducer = combineReducers({
     UI: uiReducer,
-    Data: dataReducer
+    // Data: dataReducer
 });
 
 export default rootReducer

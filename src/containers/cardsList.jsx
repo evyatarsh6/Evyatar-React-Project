@@ -1,18 +1,33 @@
 import { Card } from "../components/Card"
-import { useDispatch,useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 
 
 export const CardList = () => { 
 
-    const dispatch = useDispatch();
     const TODOList = useSelector((state) => state.UI.TODOList);
+    const filterKind = useSelector((state) => state.UI.filterKind);
+
+    const FilterdArr = () => {
+        switch(filterKind){
+            case "noraml":
+                return Object.values(TODOList).filter( TODO  => !TODO.isDeleted)
+            case "delete":
+                return Object.values(TODOList).filter( TODO  => TODO.isDeleted)
+            case "choosen":
+                return Object.values(TODOList).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted))
+            default:
+                return []
+
+        }
+    }
+    const shownTODOS = FilterdArr()
 
     return (
 
         <>
             <ul className="flex-container">
             {
-                Object.values(TODOList).map( TODO => (
+                shownTODOS.map( TODO => (
                     (TODO.id !== 0)?      
                     <Card
                         key={TODO.id}
@@ -21,7 +36,6 @@ export const CardList = () => {
                         title={TODO.kind}
                         isCheckedProp={TODO.isChoosen}
                         isDeletedProp = {TODO.isDeleted}
-                        // TODOUpdateFunc={TODOUpdateFunc}
                     />
                     :
                     null

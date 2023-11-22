@@ -1,4 +1,4 @@
-const initialState  = 'normal'
+const initialState  =  'normal'
 
 export const FilterKind = ( state = initialState , action) => {
 

@@ -15,16 +15,9 @@ export const TODOS = ( state = initialState , action) => {
         })
         return updateStateObj
     }
-    
-    if(action.type.includes("TODOS") && action.filterKind ==='normal'){
-        return backToStateObj(Object.values(backUpState).filter( TODO  => !TODO.isDeleted))
-    }
-    
-    else if(action.type.includes("TODOS") && action.filterKind ==='choosen'){
-        return backToStateObj(Object.values(backUpState).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted)))
-    }
 
-    else if(action.type.includes("TODOS") && action.filterKind ==='delete'){
+    
+    if(action.type.includes("TODOS") && action.filterKind ==='delete'){
         return backToStateObj(Object.values(backUpState).filter( TODO  => TODO.isDeleted))
     }
 
@@ -47,7 +40,7 @@ export const TODOS = ( state = initialState , action) => {
             kind: action.value,
             isChoosen: initialState.isChoosen,
             isDeleted:initialState.isDeleted
-            }
+        }
         }
         backUpState = TODOListObj
         return shownTODOS
@@ -60,8 +53,8 @@ export const TODOS = ( state = initialState , action) => {
                 isChoosen: action.isChoosen,
                 isDeleted: action.isDeleted,
                 description: action.description
-                }
-                
+            }
+            
         }
         TODOListObj = {
             ...backUpState,
@@ -139,8 +132,3 @@ export const TODOS = ( state = initialState , action) => {
     //             backUpState = TODOListObj
     //             return shownTODOS
     // }
-
-    // return state
-
-// }
-

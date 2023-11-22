@@ -20,7 +20,6 @@ export const HeaderBar = () => {
   const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch();
   const filterKind = useSelector((state) => state.UI.FilterKind);
-  const TODOList = useSelector((state) => state.UI.TODOList);
 
   const options = Object.keys(bergerPhotos)
 
@@ -45,18 +44,22 @@ export const HeaderBar = () => {
     const clickFilterChoosenTODOS  = () => {
       if (filterKind!== 'choosen') {
         dispatch({type:"switchFilterKind", updateStatus:"choosen" })
+        dispatch({type:"choosenTODOS"})
       }
       else{
         dispatch({type:"switchFilterKind", updateStatus:"normal" })
+        dispatch({type:"normalTODOS"})
       }
     }
 
     const clickDeleteChoosenTODOS = () => {
       if (filterKind!== 'delete') {
         dispatch({type:"switchFilterKind", updateStatus:"delete" })
+        dispatch({type:"deleteTODOS"})
       }
       else{
         dispatch({type:"switchFilterKind", updateStatus:"noraml" }) 
+        dispatch({type:"normalTODOS"})
       }
     }
 

@@ -1,18 +1,11 @@
-
-const initialState  = { 
-    id : 0,
-    description : 'avi berger is a god',
-    kind :'avi',
-    isChoosen : false,
-    isDeleted : false
-}
+const initialState  = {}
 
 let backUpState = {} 
 
 export const TODOS = ( state = initialState , action) => {
     
-    let newStateObj = {}
-    let newBackUpStateObj = {}
+    let shownTODOS = {}
+    let TODOListObj = {}
     
 
     const backToStateObj = (TODOListArr = []) => {
@@ -34,7 +27,7 @@ export const TODOS = ( state = initialState , action) => {
                 return backToStateObj(Object.values(backUpState).filter( TODO  => !TODO.isDeleted))
 
             case "addTODO":
-                newStateObj = {
+                shownTODOS = {
                     ...state,
                     [action.id]: {
                     id: action.id,
@@ -44,7 +37,7 @@ export const TODOS = ( state = initialState , action) => {
                     isDeleted:initialState.isDeleted
                     }
                 }
-                newBackUpStateObj = {
+                TODOListObj = {
                     ...backUpState,
                     [action.id]: {
                     id: action.id,
@@ -54,11 +47,11 @@ export const TODOS = ( state = initialState , action) => {
                     isDeleted:initialState.isDeleted
                     }
                 }
-                backUpState = newBackUpStateObj
-                return newStateObj
+                backUpState = TODOListObj
+                return shownTODOS
 
             case "editTODO": 
-                newStateObj = {
+                shownTODOS = {
                         ...state,
                         [action.id] : {
                             ...state[action.id],
@@ -68,7 +61,7 @@ export const TODOS = ( state = initialState , action) => {
                             }
                             
                     }
-                    newBackUpStateObj = {
+                    TODOListObj = {
                         ...backUpState,
                         [action.id] : {
                             ...backUpState[action.id],
@@ -78,153 +71,11 @@ export const TODOS = ( state = initialState , action) => {
                             }
                             
                     }
-                backUpState = newBackUpStateObj
-                return newStateObj
+                backUpState = TODOListObj
+                return shownTODOS
     }
 
     return state
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export const filterTODOListReducer = ( state = initialState , action) => {
-   
-//     let newStateObj = {}
-
-//     const backToStateObj = (TODOListArr = []) => {
-//         TODOListArr.forEach(TODO => {
-//             newStateObj[TODO.id] = TODO  
-//         })
-//         return newStateObj
-//     }
-
-//     switch(action.type) {
-//         case "choosenTODOS":
-//            return backToStateObj(Object.values({...state}).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted)))
-//         case "deleteTODOS":
-//             return backToStateObj(Object.values({...state}).filter( TODO  => TODO.isDeleted))
-//         case "normalTODOS":
-//             return backToStateObj(Object.values({...state}).filter( TODO  => !TODO.isDeleted))
-//         default:
-//             return backToStateObj(Object.values({...state}))
-//     }
-//   }
-
-//   export const addTODO = (state = initialState , action) => {
-//     let newStateObj = {}
-//     switch(action.type) {
-//         case "addTODO":
-//             newStateObj = {
-//                 ...state ,
-//                 [action.id]: {
-//                 id: action.id,
-//                 description : initialState.description, 
-//                 kind: action.value,
-//                 isChoosen: initialState.isChoosen,
-//                 isDeleted:initialState.isDeleted
-//                 }
-//             }
-//             return (newStateObj)
-//         default:
-//             return {...state}
-//   }
-// }
-
-
-
-
-//   export const editTODO = (state = initialState , action) => {
-//     let newStateObj = {}
-//        switch(action.type) {
-//         case "editTODO": 
-//             newStateObj = {
-//                 ...state,
-//                 [action.id] : {
-//                     ...state[action.id],
-//                     isChoosen: action.isChoosen,
-//                     isDeleted: action.isDeleted,
-//                     description: action.description
-//                   }
-                  
-//             }
-//             return newStateObj
-
-//         default:
-//             return state
-//        }
-//   }

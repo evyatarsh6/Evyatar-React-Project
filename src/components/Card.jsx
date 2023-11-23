@@ -63,11 +63,8 @@ const imgStyle = {
         else {
 
             setIsFreezeMode(!isFreezeMode)
-            dispatch({type: "editTODO",
-                    isChoosen : isChecked
-                    ,isDeleted: isDeleted,
-                    description: message
-                    ,id: props.id
+            dispatch({
+                type: "editTODO", props: {...props,[props.description] : message } 
             })
         }
     }
@@ -76,13 +73,9 @@ const imgStyle = {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        dispatch({type: "editTODO", props: {
-            isChoosen : isChecked
-            ,isDeleted: newDeleteStatus,
-            description: message
-            ,id:  props.id
-        }
-        })
+        dispatch({
+            type: "editTODO", props: {...props,[props.isDeleted] : newDeleteStatus } 
+                })
         
 
     }
@@ -90,12 +83,9 @@ const imgStyle = {
 
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
-        dispatch({type: "editTODO",
-        isChoosen : newCheckedtatus
-        ,isDeleted: isDeleted,
-        description: message
-        ,id:  props.id
-        })
+        dispatch({
+            type: "editTODO", props: {...props,[props.isChoosen] : newCheckedtatus } 
+                })
     }
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 

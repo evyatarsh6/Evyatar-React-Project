@@ -7,6 +7,7 @@ import { Edit } from '@mui/icons-material';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import { editTODO } from '../actions/actions';
 
 export const Card = ({ props }) => {
 
@@ -63,9 +64,7 @@ const imgStyle = {
         else {
 
             setIsFreezeMode(!isFreezeMode)
-            dispatch({
-                type: "editTODO", props: {...props, ["description"] : message } 
-            })
+            dispatch(editTODO( {...props, ["description"] : message }))
         }
     }
 
@@ -73,9 +72,7 @@ const imgStyle = {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        dispatch({
-            type: "editTODO", props: {...props, ["isDeleted"] : newDeleteStatus } 
-                })
+        dispatch(editTODO( {...props, ["isDeleted"] : newDeleteStatus } ))
         
 
     }
@@ -83,10 +80,9 @@ const imgStyle = {
 
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
-        dispatch({
-            type: "editTODO", props: {...props, ["isChoosen"] : newCheckedtatus } 
-                })
+        dispatch(editTODO( {...props, ["isChoosen"] : newCheckedtatus } ))
     }
+    
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 
 

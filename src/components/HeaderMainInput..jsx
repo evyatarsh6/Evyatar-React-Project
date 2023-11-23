@@ -3,6 +3,7 @@ import { bergerPhotos } from '../shared/photos';
 import {Autocomplete} from '@mui/material';
 import {FormControl} from '@mui/material';
 import {TextField} from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
@@ -13,20 +14,14 @@ const headerStyles = {
 
 }
 
-export const HeaderBar = ({appState}) => {
-
-  const filterKind = appState["filterKind"]
-  const actionDetails = appState['actionDetails']
-  const TODOList = appState["TODOList"]
-  const setFilterKind = appState["setFilterKind"]
-  const setAction = appState["setAction"]
-  const setTODOList = appState["TODOListUpdate"]
-
-  const options = Object.keys(bergerPhotos)
+export const HeaderBar = () => {
 
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
-  const [value, setValue] = useState(null);
+  const dispatch = useDispatch();
+  const filterKind = useSelector((state) => state.UI.filterKind);
+
+  const options = Object.keys(bergerPhotos)
 
     const handleInputType= (e, newValue) => {
       setInputValue(newValue)
@@ -40,29 +35,22 @@ export const HeaderBar = ({appState}) => {
     }
 
     const handleAddTODO = () => {
-      const cardID = Date.now()
-      const newTODOList = {
-        ...TODOList ,
-        [cardID]: {
-        id: cardID,
-        description : 'avi berger is a god', 
-        kind: inputValue,
-        isChoosen: false,
-        isDeleted:false
-        }
-      }
-      setTODOList(newTODOList)
 
-      // localStorage.setItem('TODOLIST', newTODOList )
-      console.log(newTODOList)
-      }
+      const cardID = Date.now()
+      const actionAdd = {type:  'addTODO', value: inputValue,  id: cardID }
+      dispatch(actionAdd)
+    }
+
+    const SwitchFilterKind = filterKind => {
+      dispatch({type:"switchFilterKind", updateStatus: filterKind })
+    }
     
     const clickFilterChoosenTODOS  = () => {
-      (filterKind!== 'choosen') ?  setFilterKind('choosen'): setFilterKind('normal') 
+      (filterKind!== 'choosen') ? SwitchFilterKind('choosen') : SwitchFilterKind('normal')
     }
 
     const clickDeleteChoosenTODOS = () => {
-      (filterKind!== 'delete') ?  setFilterKind('delete'): setFilterKind('normal') 
+      (filterKind!== 'delete') ? SwitchFilterKind('delete') : SwitchFilterKind('normal')
     }
 
     const FilterChoosenTODOSStatus = () => (filterKind !== 'choosen') ? 'turn on': 'turn off'

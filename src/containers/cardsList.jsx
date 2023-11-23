@@ -1,49 +1,42 @@
 import { Card } from "../components/Card"
-export const CardList = ({ appState }) => { 
+import { useSelector } from "react-redux"
 
-    const filterKind = appState["filterKind"]
-    const actionDetails = appState['actionDetails']
-    const TODOList = appState["TODOList"]
-    const setFilterKind = appState["setFilterKind"]
-    const setAction = appState["setAction"]
-    const setTODOList = appState["TODOListUpdate"]
-    
-        const handleFilterTODOS = () => {
-    
-            switch(filterKind) {
-                case "choosen":
-                    return ( Object.values(TODOList).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted)))
-                case "delete":
-                    return ( Object.values(TODOList).filter( TODO  => TODO.isDeleted))
-                case "normal":
-                    return ( Object.values(TODOList).filter( TODO  => !TODO.isDeleted))
-            }
 
+export const CardList = () => { 
+
+    const TODOList = useSelector((state) => state.UI.TODOList);
+    const filterKind = useSelector((state) => state.UI.filterKind);
+
+    const FilterdArr = () => {
+        switch(filterKind){
+            case "normal":
+                return Object.values(TODOList).filter( TODO  => !TODO.isDeleted)
+            case "delete":
+                return Object.values(TODOList).filter( TODO  => TODO.isDeleted)
+            case "choosen":
+                return Object.values(TODOList).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted))
+            default:
+                return []
+
+        }
     }
 
-    const  filteredTODOS = handleFilterTODOS() 
-    
-
-
-    const TODOUpdateFunc = ( isChoosen ,isDeleted, description , id  ) => (
-        setTODOList({...TODOList, [id] : {...TODOList[id], isChoosen, isDeleted, description}})
-    )
+    const shownTODOS = FilterdArr()
 
     return (
 
         <>
-
             <ul className="flex-container">
             {
-                filteredTODOS.map((TODO) => (
+                shownTODOS.map( TODO => (
+                          
                     <Card
-                    key={TODO.id}
-                    id={TODO.id}
-                    description={TODO.description}
-                    title={TODO.kind}
-                    isCheckedProp={TODO.isChoosen}
-                    isDeletedProp = {TODO.isDeleted}
-                    TODOUpdateFunc={TODOUpdateFunc}
+                        key={TODO.id}
+                        id={TODO.id}
+                        description={TODO.description}
+                        title={TODO.kind}
+                        isCheckedProp={TODO.isChoosen}
+                        isDeletedProp = {TODO.isDeleted}
                     />
                 ))
             }

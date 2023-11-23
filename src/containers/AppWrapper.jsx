@@ -3,17 +3,11 @@ import { CardList } from "./cardsList"
 import { useState } from "react"
 export const AppWrapper = () => {
 
-  const [TODOSList, setTODOSList] = useState({})
-  const [action, setAction] = useState(null)
   const [filterKind,setFilterKind ] = useState('normal')
 
   const appState = {
     "filterKind": filterKind,
-    "actionDetails": action,
-    "TODOList": TODOSList,
     "setFilterKind": setFilterKind,
-    "setAction": setAction,
-    "TODOListUpdate": setTODOSList
   }
 
     
@@ -23,11 +17,8 @@ export const AppWrapper = () => {
            <HeaderBar appState = {appState}/>     
            </header>
            <body>
-           <p>
-            {action}
-           </p>
            <form>
-           <CardList appState = {appState}/>
+           <CardList/>
             </form>
            </body>
          </div>

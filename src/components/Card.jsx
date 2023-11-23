@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import React, { useState, useRef, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {bergerPhotos} from '../shared/photos';
 import { IconButton } from '@mui/material';
 import DeleteIcon  from '@mui/icons-material/Delete';
@@ -8,6 +8,7 @@ import RecyclingIcon from '@mui/icons-material/Recycling';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { editTODO } from '../actions/actions';
+import { generateChangeValueLogs, generateUpdateCardLogs } from '../constans/generalLogs';
 
 export const Card = ({ props }) => {
 
@@ -83,6 +84,15 @@ const imgStyle = {
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 
+
+
+    useEffect(() => {
+        console.log(generateUpdateCardLogs(props))
+    }, [props])
+
+    useEffect(() => {
+        console.log(generateChangeValueLogs('the description field' , message))
+    }, [message])
 
 
     return (

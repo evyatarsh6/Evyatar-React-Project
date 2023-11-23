@@ -63,7 +63,7 @@ const imgStyle = {
         else {
 
             setIsFreezeMode(!isFreezeMode)
-            dispatch(editTODO( {...props, ["description"] : message }))
+            dispatch(editTODO( {...props, description : message }))
         }
     }
 
@@ -71,14 +71,14 @@ const imgStyle = {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        dispatch(editTODO( {...props, ["isDeleted"] : newDeleteStatus } ))
+        dispatch(editTODO( {...props, isDeleted : newDeleteStatus } ))
     }
 
     const checkChoosenCheckbox= () => {
 
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
-        dispatch(editTODO( {...props, ["isChoosen"] : newCheckedtatus } ))
+        dispatch(editTODO( {...props, isChoosen : newCheckedtatus } ))
     }
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 

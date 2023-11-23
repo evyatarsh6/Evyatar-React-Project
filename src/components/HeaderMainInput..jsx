@@ -28,10 +28,21 @@ export const HeaderBar = () => {
 
   const options = Object.keys(bergerPhotos)
 
+    // const handleInputType= (e, newValue) => {
+    //   (newValue !== '') ? setIsEmpty(false) : setIsEmpty(true)
+    //   setInputValue(newValue)
+    // }
     const handleInputType= (e, newValue) => {
-      (newValue !== '') ? setIsEmpty(false) : setIsEmpty(true)
       setInputValue(newValue)
+      if (newValue !== '') {
+        setIsEmpty(false)
+        console.log(newValue)
+      }
+      else {
+        setIsEmpty(true)
+      }
     }
+
 
     const handleAddTODO = () => {
       const cardID = Date.now()
@@ -40,7 +51,10 @@ export const HeaderBar = () => {
 
     const SwitchFilterKind = filterKind => dispatch(changeFilterKind(filterKind))
 
-    const clickWantedFilterKindBtn = wantedFilterKind =>  (filterKind!== wantedFilterKind) ? SwitchFilterKind(wantedFilterKind) : SwitchFilterKind(normalFilterKind)
+    const clickWantedFilterKindBtn = wantedFilterKind => () =>  {
+
+      (filterKind!== wantedFilterKind) ? SwitchFilterKind(wantedFilterKind) : SwitchFilterKind(normalFilterKind)
+    }
     
     const filterKindBtnStatus = wantedFilterKind  => (filterKind !== wantedFilterKind)? 'turn on': 'turn off'
  
@@ -58,11 +72,11 @@ export const HeaderBar = () => {
       <FormControl style={headerStyles}>
         <Autocomplete
         disablePortal
-        id="main-react-select-field"
+        id='main-react-select-field'
         options={options}
         onInputChange={(event, newInputValue) => handleInputType(event, newInputValue)}
         inputValue={inputValue}
-        sx={{ width: "100%", margin: 5}}
+        sx={{ width: '100%', margin: 5}}
         renderInput={(params) => <TextField {...params} label= {mainInputPlaceHolder}
         />}
         >
@@ -70,7 +84,7 @@ export const HeaderBar = () => {
         
           <div className='buttonContainer' style={{
             justifyContent: 'space-evenly',
-            width: "100%"
+            width: '100%'
           }}>
             <button
             className='save-btn'

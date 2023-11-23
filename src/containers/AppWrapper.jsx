@@ -14,7 +14,7 @@ export const AppWrapper = () => {
    return (
         <div className='App-wrapper'>
            <header className="Main-input-field">
-           <HeaderBar appState = {appState}/>     
+           <HeaderBar/>     
            </header>
            <body>
            <form>

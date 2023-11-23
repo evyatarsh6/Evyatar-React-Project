@@ -7,14 +7,9 @@ import { Edit } from '@mui/icons-material';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import { editTODO } from '../actions/actions';
 
-export const Card = ({
-    id ,
-    title,
-    description,
-    isCheckedProp = false,
-    isDeletedProp = false, 
-}) => {
+export const Card = ({ props }) => {
 
 
 const cardStyle =  {
@@ -45,36 +40,30 @@ const imgStyle = {
     borderStyle : 'solid',
     backgroundColor: 'black'
 }
-
     const dispatch = useDispatch();
-
     const currInputValue = useRef(null)
-    const [isChecked, setIsChecked] = useState(isCheckedProp)
-    const [isDeleted,setIsDeleted ] = useState(isDeletedProp)
+    const [isChecked, setIsChecked] = useState(props.isChoosen)
+    const [isDeleted,setIsDeleted ] = useState(props.isDeleted)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
-    const [message, setMessage] = useState(description);
+    const [message, setMessage] = useState(props.description);
 
-
-    const handleInputType =  event => {
-
-        setMessage(event.target.value);
-        
-      }
+    
+    const handleInputType =  event => setMessage(event.target.value);
 
     const clickFreezeBtn =  event => {
         event.preventDefault()
+        
+        // isFreezeMode ? setIsFreezeMode(false) :
+        // setIsFreezeMode(!isFreezeMode) &&
+        // dispatch(editTODO( {...props, ["description"] : message }))
+        
         if (isFreezeMode) {
             setIsFreezeMode(false)
         }
         else {
 
             setIsFreezeMode(!isFreezeMode)
-            dispatch({type: "editTODO",
-                    isChoosen : isChecked
-                    ,isDeleted: isDeleted,
-                    description: message
-                    ,id: id
-            })
+            dispatch(editTODO( {...props, description : message }))
         }
     }
 
@@ -82,36 +71,26 @@ const imgStyle = {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        dispatch({type: "editTODO",
-        isChoosen : isChecked
-        ,isDeleted: newDeleteStatus,
-        description: message
-        ,id: id
-        })
-        
-
+        dispatch(editTODO( {...props, isDeleted : newDeleteStatus } ))
     }
+
     const checkChoosenCheckbox= () => {
 
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
-        dispatch({type: "editTODO",
-        isChoosen : newCheckedtatus
-        ,isDeleted: isDeleted,
-        description: message
-        ,id: id
-        })
+        dispatch(editTODO( {...props, isChoosen : newCheckedtatus } ))
     }
+
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 
 
 
     return (
             
-        <div className ={`card`} id={id} style={cardStyle}>
-            <h3 className="card-title">{title}</h3>
+        <div className ={`card`} id={props.id} style={cardStyle}>
+            <h3 className="card-title">{props.kind}</h3>
             <img
-                src={bergerPhotos[title]}
+                src={bergerPhotos[props.kind]}
                 className="card-image"
                 style= { imgStyle }
             />
@@ -143,7 +122,7 @@ const imgStyle = {
                 }
             </IconButton>
                 
-            <IconButton id ={`${id}-${deleteRestoreBtnStatus()}`} style={{scale:"1.5"}} 
+            <IconButton id ={`${props.id}-${deleteRestoreBtnStatus()}`} style={{scale:"1.5"}} 
             onClick={checkChoosenCheckbox}>
                     {
                     isChecked ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>

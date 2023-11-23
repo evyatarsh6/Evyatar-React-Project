@@ -4,6 +4,7 @@ import {Autocomplete} from '@mui/material';
 import {FormControl} from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { addTODO } from '../actions/actions';
 
 
 
@@ -37,8 +38,7 @@ export const HeaderBar = () => {
     const handleAddTODO = () => {
 
       const cardID = Date.now()
-      const actionAdd = {type:  'addTODO', value: inputValue,  id: cardID }
-      dispatch(actionAdd)
+      dispatch(addTODO(inputValue,cardID))
     }
 
     const SwitchFilterKind = filterKind => {

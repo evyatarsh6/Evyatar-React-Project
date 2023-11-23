@@ -1,14 +1,14 @@
 import { useMemo } from "react";
 import { Card } from "../components/Card"
 import { useSelector } from "react-redux"
+import { GetTodoList, GetFilterKind } from "../selectors";
+
 
 
 export const CardList = () => { 
 
-    // const getTodoList = state => state.UI.todoList
-
-    const TODOList = useSelector((state) => state.UI.TODOList);
-    const filterKind = useSelector((state) => state.UI.filterKind);
+    const TODOList = useSelector(GetTodoList)
+    const filterKind = useSelector(GetFilterKind)
 
     const FilterdArr = useMemo(() => {
         switch(filterKind){
@@ -22,7 +22,7 @@ export const CardList = () => {
                 return []
 
         }
-    },[filterKind, TODOList])
+    },[ filterKind, TODOList])
 
     return (
 
@@ -32,12 +32,8 @@ export const CardList = () => {
                 FilterdArr.map( TODO => (
                           
                     <Card
+                        props = {TODO}
                         key={TODO.id}
-                        id={TODO.id}
-                        description={TODO.description}
-                        title={TODO.kind}
-                        isCheckedProp={TODO.isChoosen}
-                        isDeletedProp = {TODO.isDeleted}
                     />
                 ))
             }

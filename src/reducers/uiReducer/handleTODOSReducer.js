@@ -19,11 +19,11 @@ export const TODOS = ( state = initialState , action) => {
     else if(action.type ==="editTODO"){
         const TODOS = {
             ...state,
-            [action.id] : {
-                ...state[action.id],
-                isChoosen: action.isChoosen,
-                isDeleted: action.isDeleted,
-                description: action.description
+            [action.props.id] : {
+                ...state[action.props.id],
+                isChoosen: action.props.isChoosen,
+                isDeleted: action.props.isDeleted,
+                description: action.props.description
             }
             
         }

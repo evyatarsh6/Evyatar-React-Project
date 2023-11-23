@@ -21,6 +21,7 @@ export const TODOS = ( state = initialState , action) => {
             ...state,
             [action.props.id] : {
                 ...state[action.props.id],
+                id : action.props.id,
                 isChoosen: action.props.isChoosen,
                 isDeleted: action.props.isDeleted,
                 description: action.props.description

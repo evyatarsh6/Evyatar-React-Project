@@ -40,24 +40,23 @@ const imgStyle = {
     borderStyle : 'solid',
     backgroundColor: 'black'
 }
-
     const dispatch = useDispatch();
-
     const currInputValue = useRef(null)
     const [isChecked, setIsChecked] = useState(props.isChoosen)
     const [isDeleted,setIsDeleted ] = useState(props.isDeleted)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState(props.description);
 
-
-    const handleInputType =  event => {
-
-        setMessage(event.target.value);
-        
-      }
+    
+    const handleInputType =  event => setMessage(event.target.value);
 
     const clickFreezeBtn =  event => {
         event.preventDefault()
+        
+        // isFreezeMode ? setIsFreezeMode(false) :
+        // setIsFreezeMode(!isFreezeMode) &&
+        // dispatch(editTODO( {...props, ["description"] : message }))
+        
         if (isFreezeMode) {
             setIsFreezeMode(false)
         }
@@ -73,16 +72,15 @@ const imgStyle = {
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
         dispatch(editTODO( {...props, ["isDeleted"] : newDeleteStatus } ))
-        
-
     }
+
     const checkChoosenCheckbox= () => {
 
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
         dispatch(editTODO( {...props, ["isChoosen"] : newCheckedtatus } ))
     }
-    
+
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 
 

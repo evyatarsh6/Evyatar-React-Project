@@ -1,10 +1,14 @@
+/* eslint-disable no-unexpected-multiline */
 import React, {useEffect, useState } from 'react';
 import { bergerPhotos } from '../shared/photos';
 import {Autocomplete} from '@mui/material';
 import {FormControl} from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTODO } from '../actions/actions';
+import { addTODO, changeFilterKind } from '../actions/actions';
+import { choosenFilterKind, deleteFilterKind, mainInputPlaceHolder, normalFilterKind } from '../constans/cardConstans';
+import { generateChangeValueLogs } from '../constans/generalLogs';
+import { GetFilterKind } from '../selectors';
 
 
 
@@ -20,49 +24,34 @@ export const HeaderBar = () => {
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch();
-  const filterKind = useSelector((state) => state.UI.filterKind);
+  const filterKind = useSelector(GetFilterKind);
 
   const options = Object.keys(bergerPhotos)
 
     const handleInputType= (e, newValue) => {
+      (newValue !== '') ? setIsEmpty(false) : setIsEmpty(true)
       setInputValue(newValue)
-      if (newValue !== '') {
-        setIsEmpty(false)
-        console.log(newValue)
-      }
-      else {
-        setIsEmpty(true)
-      }
     }
 
     const handleAddTODO = () => {
-
       const cardID = Date.now()
       dispatch(addTODO(inputValue,cardID))
     }
 
-    const SwitchFilterKind = filterKind => {
-      dispatch({type:"switchFilterKind", updateStatus: filterKind })
-    }
-    
-    const clickFilterChoosenTODOS  = () => {
-      (filterKind!== 'choosen') ? SwitchFilterKind('choosen') : SwitchFilterKind('normal')
-    }
+    const SwitchFilterKind = filterKind => dispatch(changeFilterKind(filterKind))
 
-    const clickDeleteChoosenTODOS = () => {
-      (filterKind!== 'delete') ? SwitchFilterKind('delete') : SwitchFilterKind('normal')
-    }
-
-    const FilterChoosenTODOSStatus = () => (filterKind !== 'choosen') ? 'turn on': 'turn off'
+    const clickWantedFilterKindBtn = wantedFilterKind =>  (filterKind!== wantedFilterKind) ? SwitchFilterKind(wantedFilterKind) : SwitchFilterKind(normalFilterKind)
     
-    const FilterDeleteTODOSStatus = () => (filterKind !== 'delete')? 'turn on': 'turn off'
+    const filterKindBtnStatus = wantedFilterKind  => (filterKind !== wantedFilterKind)? 'turn on': 'turn off'
  
 
     useEffect(() => {
-      if (filterKind!=='normal') {
-        console.log("filter kind has change and now with value:", filterKind);   
-      }
+      console.log(generateChangeValueLogs('filter kind', filterKind))   
     }, [filterKind])
+
+    useEffect(() => {
+      console.log(generateChangeValueLogs('input value', inputValue))
+  }, [inputValue])
 
 
     return (
@@ -74,7 +63,7 @@ export const HeaderBar = () => {
         onInputChange={(event, newInputValue) => handleInputType(event, newInputValue)}
         inputValue={inputValue}
         sx={{ width: "100%", margin: 5}}
-        renderInput={(params) => <TextField {...params} label="Bergers' actions in the office"
+        renderInput={(params) => <TextField {...params} label= {mainInputPlaceHolder}
         />}
         >
         </Autocomplete>
@@ -93,17 +82,17 @@ export const HeaderBar = () => {
               <button
               id = {`show-choosen-items-btn`}
               className= 'show-choosen-items-btn'
-              onClick={clickFilterChoosenTODOS}
+              onClick={clickWantedFilterKindBtn(choosenFilterKind)}
               >
-                 {`${FilterChoosenTODOSStatus()} show choosen items`}
+                 {`${filterKindBtnStatus(choosenFilterKind)} show choosen items`}
               </button>
 
               <button
               id = {`show-delete-items-btn`}
               className= 'show-delete-items-btn'
-              onClick={clickDeleteChoosenTODOS}
+              onClick={clickWantedFilterKindBtn(deleteFilterKind)}
               >
-                  {`${FilterDeleteTODOSStatus()} show delete items`}
+                  {`${filterKindBtnStatus(deleteFilterKind)} show delete items`}
               </button>
 
           </div>

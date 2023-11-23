@@ -47,7 +47,6 @@ const imgStyle = {
 }
 
     const dispatch = useDispatch();
-    const TODOList = useSelector((state) => state.UI.TODOList); 
 
     const currInputValue = useRef(null)
     const [isChecked, setIsChecked] = useState(isCheckedProp)

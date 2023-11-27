@@ -26,20 +26,24 @@ export const CardList = () => {
 
     return (
 
-        <>
+       
+        <div style={{
+            display:"flex",
+            flexDirection:"column"
+        }}>
             <ul className="flex-container">
             {
                 FilterdArr.map( TODO => (
-                          
+                    
                     <Card
-                        props = {TODO}
-                        key={TODO.id}
+                    props = {TODO}
+                    key={TODO.id}
                     />
-                ))
-            }
+                    ))
+                }
             
             </ul>
-        </>
+        </div>
 
 
     )

@@ -1,6 +1,7 @@
-import { HeaderBar } from "../components/HeaderMainInput."
+import { HeaderBar } from './components/HeaderBar';
 import { CardList } from "./cardsList"
-import { useState } from "react"
+
+
 export const AppWrapper = () => {
 
     

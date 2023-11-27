@@ -72,7 +72,14 @@ const imgStyle = {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        dispatch(editTODO( {...props, isDeleted : newDeleteStatus } ))
+        dispatch(editTODO( {...props, ["isDeleted"] : newDeleteStatus } ))
+        
+//         dispatch({type: "editTODO",
+//         isChoosen : isChecked
+//         ,isDeleted: isDeleted,
+//         description: message
+//         ,id: id
+// })
     }
 
     const checkChoosenCheckbox= () => {

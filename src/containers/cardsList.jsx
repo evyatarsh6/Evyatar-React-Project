@@ -1,13 +1,16 @@
+import { useMemo } from "react";
 import { Card } from "../components/Card"
 import { useSelector } from "react-redux"
+import { GetTodoList, GetFilterKind } from "../selectors";
+
 
 
 export const CardList = () => { 
 
-    const TODOList = useSelector((state) => state.UI.TODOList);
-    const filterKind = useSelector((state) => state.UI.filterKind);
+    const TODOList = useSelector(GetTodoList)
+    const filterKind = useSelector(GetFilterKind)
 
-    const FilterdArr = () => {
+    const FilterdArr = useMemo(() => {
         switch(filterKind){
             case "normal":
                 return Object.values(TODOList).filter( TODO  => !TODO.isDeleted)
@@ -19,30 +22,25 @@ export const CardList = () => {
                 return []
 
         }
-    }
-
-    const shownTODOS = FilterdArr()
+    },[ filterKind, TODOList])
 
     return (
 
-        <>
+       
+        <div>
             <ul className="flex-container">
             {
-                shownTODOS.map( TODO => (
-                          
+                FilterdArr.map( TODO => (
+                    
                     <Card
-                        key={TODO.id}
-                        id={TODO.id}
-                        description={TODO.description}
-                        title={TODO.kind}
-                        isCheckedProp={TODO.isChoosen}
-                        isDeletedProp = {TODO.isDeleted}
+                    props = {TODO}
+                    key={TODO.id}
                     />
-                ))
-            }
+                    ))
+                }
             
             </ul>
-        </>
+        </div>
 
 
     )

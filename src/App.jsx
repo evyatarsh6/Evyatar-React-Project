@@ -1,13 +1,21 @@
 import './App.css';
-import { AppWrapper } from './containers/AppWrapper';
+import { HeaderBar } from './components/HeaderBar';
+import { CardList } from './containers/cardsList';
 
 function App() {
 
   return (
-    <div className="App">
-      <h1>Avi Akiva Berger Presents - My Dear Son</h1>
-      <AppWrapper/>
+
+    <div className='App'>
+      <body style={{
+        width:"100%",
+        flexDirection: 'column',
+      }}>
+          <HeaderBar/>
+          <CardList/> 
+      </body>
     </div>
+
   );
 }
 export default App;

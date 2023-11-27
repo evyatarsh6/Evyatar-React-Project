@@ -1,6 +1,6 @@
 
 #root {
-  padding-left: 3rem; 
+  padding: 5rem; 
   text-align: center;
   background-image: url('https://pic1.calcalist.co.il/picserver3/crop_images/2023/09/21/BJrpnTt1a/BJrpnTt1a_0_0_2443_1629_0_x-large.jpg'); 
   background-position: center;
@@ -10,18 +10,16 @@
   width: 100%; 
 }
 
+body{
+  display: flex;
+  width: 100%;
+}
 .description-edit-Btn-container{
   display:flex;
   align-items: center;
   height: 100%;
   width: 100%; 
   justify-content: space-around;
-}
-
-button {
-
-  text-align: center;
-  color: orange;
 }
 
 .chooseDeleteContainer {
@@ -32,7 +30,7 @@ button {
 }
 
 .buttonContainer{
-  align-items: center;
+
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -40,7 +38,7 @@ button {
   
 }
 
-img {
+ img {
   z-index: 1;
   display: block;
 }

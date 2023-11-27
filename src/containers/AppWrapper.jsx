@@ -3,13 +3,6 @@ import { CardList } from "./cardsList"
 import { useState } from "react"
 export const AppWrapper = () => {
 
-  const [filterKind,setFilterKind ] = useState('normal')
-
-  const appState = {
-    "filterKind": filterKind,
-    "setFilterKind": setFilterKind,
-  }
-
     
    return (
         <div className='App-wrapper'>

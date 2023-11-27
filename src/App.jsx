@@ -1,5 +1,6 @@
 import './App.css';
 import { HeaderBar } from './components/HeaderBar';
+import { MapContainer } from './containers/OpenLayersMap/MapContainer';
 import { CardList } from './containers/cardsList';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       }}> 
           <HeaderBar/>
           <CardList/> 
+          <MapContainer/>
       </body>
     </div>
 

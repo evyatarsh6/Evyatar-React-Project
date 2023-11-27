@@ -1,4 +1,3 @@
-// import GeoJSON from 'ol/format/GeoJSON';
 import Map from 'ol/Map';
 import TileLayer from 'ol/layer/Tile';
 import View from 'ol/View';
@@ -18,9 +17,6 @@ new Map({
     }),
     target: 'map', 
 });
-
-// var scaleLineControl = new ol.control.ScaleLine();
-// Map.addControl(scaleLineControl );
 
 export const MapContainer = () => {
     

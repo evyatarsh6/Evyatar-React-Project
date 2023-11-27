@@ -2,7 +2,6 @@
 import React, {useEffect, useState } from 'react';
 import { bergerPhotos } from '../shared/photos';
 import {Autocomplete} from '@mui/material';
-import {FormControl} from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTODO, changeFilterKind } from '../actions/actions';
@@ -62,7 +61,6 @@ export const HeaderBar = () => {
         width: "100%"
       }}>
         <h1>Avi Akiva Berger Presents - My Dear Son</h1>
-        {/* <FormControl style={headerStyles}> */}
         <div style={{
         display:"flex",
         flexDirection: 'row',

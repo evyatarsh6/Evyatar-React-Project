@@ -28,6 +28,7 @@ export const CardList = () => {
 
        
         <div style={{
+            // width:"100%",
             display:"flex",
             flexDirection:"column"
         }}>

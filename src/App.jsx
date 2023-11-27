@@ -7,13 +7,14 @@ function App() {
   return (
 
     <div className='App'>
-    <body style={{
-      width:"100%"
-    }}>
-    <HeaderBar/>
-    <CardList/> 
-    </body>
-  </div>
+      <body style={{
+        width:"100%",
+        flexDirection: 'column',
+      }}>
+          <HeaderBar/>
+          <CardList/> 
+      </body>
+    </div>
 
   );
 }

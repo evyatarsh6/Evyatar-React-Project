@@ -10,7 +10,7 @@ function App() {
       <body style={{
         width:"100%",
         flexDirection: 'column',
-      }}>
+      }}> 
           <HeaderBar/>
           <CardList/> 
       </body>

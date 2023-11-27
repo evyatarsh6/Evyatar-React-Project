@@ -13,6 +13,10 @@ import {Button} from '@mui/material';
 
 export const HeaderBar = () => {
 
+  const muiButtonStyle = {
+    margin: 10,
+    width:200
+  }
   const [isEmpty, setIsEmpty] = useState(true)
   const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch();
@@ -92,10 +96,7 @@ export const HeaderBar = () => {
                     id = {`show-choosen-items-btn`}
                     className= 'show-choosen-items-btn'
                     onClick={clickWantedFilterKindBtn(choosenFilterKind)}
-                    style={{
-                      margin: 10,
-                      width:200
-                    }}>
+                    style={muiButtonStyle}>
                     {`${filterKindBtnStatus(choosenFilterKind)} show choosen items`}
             </Button>
 
@@ -103,10 +104,7 @@ export const HeaderBar = () => {
                     id = {`show-delete-items-btn`}
                     className= 'show-delete-items-btn'
                     onClick={clickWantedFilterKindBtn(deleteFilterKind)}
-                    style={{
-                      margin: 10,
-                      width:200
-                    }}
+                    style={muiButtonStyle}
                     >
                     {`${filterKindBtnStatus(deleteFilterKind)} show delete items`}
             </Button>

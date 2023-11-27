@@ -54,10 +54,6 @@ const imgStyle = {
     const clickFreezeBtn =  event => {
         event.preventDefault()
         
-        // isFreezeMode ? setIsFreezeMode(false) :
-        // setIsFreezeMode(!isFreezeMode) &&
-        // dispatch(editTODO( {...props, ["description"] : message }))
-        
         if (isFreezeMode) {
             setIsFreezeMode(false)
         }
@@ -72,7 +68,7 @@ const imgStyle = {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        dispatch(editTODO( {...props, ["isDeleted"] : newDeleteStatus } ))
+        dispatch(editTODO( {...props, isDeleted : newDeleteStatus } ))
         
     }
 
@@ -98,7 +94,7 @@ const imgStyle = {
 
     return (
             
-        <div className ={`card`} id={props.id} style={cardStyle}>
+        <div className ={"card"} id={props.id} style={cardStyle}>
             <h3 className="card-title">{props.kind}</h3>
             <img
                 src={bergerPhotos[props.kind]}

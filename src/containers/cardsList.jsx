@@ -27,11 +27,7 @@ export const CardList = () => {
     return (
 
        
-        <div style={{
-            // width:"100%",
-            display:"flex",
-            flexDirection:"column"
-        }}>
+        <div>
             <ul className="flex-container">
             {
                 FilterdArr.map( TODO => (

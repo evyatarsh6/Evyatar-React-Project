@@ -26,8 +26,6 @@ export const CardList = () => {
 
     return (
 
-       
-        <div>
             <ul className="flex-container">
             {
                 FilterdArr.map( TODO => (
@@ -40,7 +38,6 @@ export const CardList = () => {
                 }
             
             </ul>
-        </div>
 
 
     )

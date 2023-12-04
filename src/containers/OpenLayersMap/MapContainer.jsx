@@ -3,51 +3,58 @@ import TileLayer from 'ol/layer/Tile';
 import View from 'ol/View';
 import OSM from 'ol/source/OSM';
 import { useMemo, useState } from 'react';
-import { useRef } from 'react';
+import {defaults as defaultControls } from 'ol/control'
+import {defaults as defaultinteraction } from 'ol/interaction'
 import { useEffect } from 'react';
+import { useRef } from 'react';
 
 export const MapContainer = () => {
+  
+  const [mapState, setMapState] = useState(null) 
+  const mapRef = useRef();
+  const layer = useMemo(() => new TileLayer({ source: new OSM() }),[])
 
-    const [currLayer, setCurrLayer] = useState('non')
-    const [wantedLayer, setWantedLayer] = useState('OSM')
-    const [prevLayer, setPrevLayer] = useState('non')
-
-    const layersObj =  {
-      'OSM': new TileLayer({ source: new OSM()})
-    } 
-
-    const map = useMemo(() => {
-      return new Map({
-        target: 'mainMap',
-        layers: [],
-        view: new View({
-          center: [0, 0], 
-          zoom: 1,
-        }),
-      });
-    }, []);
-
-       map.addLayer(layersObj.OSM)
-
-
-    // useEffect(() => {
-
-    //     map.addLayer(wantedLayer);
-    //     // wantedLayer.setVisible(true);
+  // useEffect(() => {
     
-    //     if (currLayer !== 'non') {
-    
-    //         // map.removeLayer(currLayer);
-    //         setPrevLayer(currLayer)
-    //     }
-    
-    //     setCurrLayer(wantedLayer)
+  //   if (!mapState) {      
+  //     setMapState(new Map({
+  //       target: mapRef.current, 
+  //       layers: [],
+  //       controls: defaultControls(),
+  //       interactions : defaultinteraction(),
+  //       view: new View({ 
+  //         center: [0, 0], 
+  //         zoom: 1,
+  //         rotation:0, 
+  //         minZoom:2,
+  //         maxZoom:10
+  //       })
+  //     }));
+  //   }
+  // }, [mapState]);
 
-    // },
-    // [map ,wantedLayer, prevLayer, currLayer])
+  // // useEffect(() => {
+  // //   if (layerState !== mapState.getLayers().item(0)) {
+  // //       mapState.getLayers().clear();
+  // //       mapState.addLayer(layerState);
+  // //       layerState.setVisible(true);
+  // //   }
+  // // },[mapState , layerState])
+
+  // useEffect(() => {
+
+  //   if (!mapState) return
+
+  //   mapState.addLayer(layer)
+
+  //   return () => {
+  //     mapState.removeLayer(layer)
+  //   }
+  // }, [mapState, layer])
+
 
     return (
-            <div id= 'mainMap' style={{ 
+            <div ref={mapRef.current} style={{ 
                 margin: 0,
                 width: "100%",
                 fontFamily:" sans-serif",
@@ -57,3 +64,5 @@ export const MapContainer = () => {
         </div>
     )
 }
+
+

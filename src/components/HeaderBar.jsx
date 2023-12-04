@@ -15,6 +15,7 @@ export const HeaderBar = () => {
 
   const muiButtonStyle = {
     margin: 10,
+    height: 75,
     width:200
   }
   const [isEmpty, setIsEmpty] = useState(true)
@@ -87,9 +88,7 @@ export const HeaderBar = () => {
                     className='save-btn'
                     onClick={handleAddTODO}
                     disabled = {isEmpty}
-                    style={{
-                      margin: 10
-                    }}>
+                    style={muiButtonStyle}>
                     save Avi Berger
             </Button>
             <Button variant="contained"

@@ -13,8 +13,8 @@ function App() {
         flexDirection: 'column',
       }}> 
           <HeaderBar/>
-          <CardList/> 
           <MapContainer/>
+          <CardList/> 
       </body>
     </div>
 

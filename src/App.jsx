@@ -5,8 +5,6 @@ import { CardList } from './containers/cardsList';
 
 function App() {
 
-  const mapProps = {mapID : 'mainMap'}
-
   return (
 
     <div className='App'>

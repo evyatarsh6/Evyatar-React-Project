@@ -9,43 +9,31 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 
 export const MapContainer = () => {
-  
-  const [mapState, setMapState] = useState(null) 
-  const mapRef = useRef();
-  const layer = useMemo(() => new TileLayer({ source: new OSM() }),[])
+  const mapRef = useRef(null);
+  const layerRef = useRef(null);
+  const mapInstance = useRef(null);
+  const viewlayRef = useRef(null);
 
   useEffect(() => {
-    
-    if (!mapState) {      
-      setMapState( new Map({
-       target: mapRef.current, 
-        layers: [layer],
-        controls: defaultControls(),
-        interactions : defaultinteraction(),
-        view: new View({ 
-          center: [0, 0], 
-          zoom: 1,
-          rotation:0, 
-          minZoom:2,
-          maxZoom:10
-        })
-      }));
+    if (!mapInstance.current) {
+      mapInstance.current = new Map({
+        target: mapRef.current,
+        layers: [
+          new TileLayer({
+            source: new OSM(),
+          }),
+        ],
+        view: new View({
+          center: [0, 0],
+          zoom: 2,
+        }),
+      })
     }
-  }, [mapState,setMapState, layer]);
-
-  
-
-  useEffect(() => {
-    if (!mapRef) {
-      mapState.addLayer(layer)
-      mapRef.current = mapState
-    }
-
-  }, [mapState,layer])
+  }, []);
   
   
   return (
-            <div ref={mapRef.current} style={{ 
+            <div ref={mapRef} style={{ 
                 margin: 0,
                 width: "100%",
                 fontFamily:" sans-serif",
@@ -55,15 +43,3 @@ export const MapContainer = () => {
         </div>
     )
 }
-
-
-      //   if (!mapRef) return
-    
-      //   mapState.addLayer(layer)
-    
-      //   return () => {
-      //     mapState.removeLayer(layer)
-      //   }
-      
-      // }, [mapState,layer]
-      

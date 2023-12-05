@@ -9,92 +9,72 @@ import {toLonLat} from 'ol/proj.js';
 import {toStringHDMS} from 'ol/coordinate.js';
 import { Overlay } from 'ol';
 
+export const BaseMap = (props) => {
 
-export const BaseMap = () => {
   const mapRef = useRef(null);
-  const layerRef = useRef(null);
   const mapInstance = useRef(null);
-  const viewlayRef = useRef(null);
+//   const layerRef = useRef(null);
+//   const viewlayRef = useRef(null);
 
-  const container = document.getElementById('popup');
-  const content = document.getElementById('popup-content');
-  const closer = document.getElementById('popup-closer')
+  useEffect(() => {
+    if (!mapInstance.current) {
+      mapInstance.current = new Map({
+        target: mapRef.current,
+        layers: [
+          new TileLayer({
+            source: new OSM(),
+          }),
+        ],
+        controls: defaultControls(),
+        interactions : defaultinteraction(),
+        view: new View({ 
+          center: [0, 0], 
+          zoom: 1,
+          rotation:0, 
+          minZoom:2,
+          maxZoom:10
+      }),
+        overlays: []
+    })
+    }
 
-//   let container
-//   let content
-//   let closer
+  }, []);
 
-//   document.addEventListener('DOMContentLoaded', function () {
-//      container = document.getElementById('popup');
-//      content = document.getElementById('popup-content');
-//      closer = document.getElementById('popup-closer')
-//     })
+  const overlay = useMemo(() => new Overlay({
+    element: props.container,
+    autoPan: {
+      animation: {
+        duration: 250,
+      },
+    },
+  }), [props.container]);
 
-// mapInstance.current.on('click', handleMapClick)
-
-  const handleMapClick = useCallback(evnt) =>
-  {
+   const handleMapClick = useCallback((evnt) => {
         const coordinate = evnt.coordinate;
         const hdms = toStringHDMS(toLonLat(coordinate));
         console.log(hdms)
-        // content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
+        props.container.current = <input id="popup-input-content" ref={props.content} />;
         overlay.setPosition(coordinate)
-  } 
+
+    } ,[overlay, props.container, props.content])
     
-      const overlay = useMemo(() => new Overlay({
-        element: container,
-        autoPan: {
-          animation: {
-            duration: 250,
-          },
-        },
-      }), [container]);
-      useEffect(() => {
-        if (!mapInstance.current) {
-          mapInstance.current = new Map({
-            target: mapRef.current,
-            layers: [
-              new TileLayer({
-                source: new OSM(),
-              }),
-            ],
-            controls: defaultControls(),
-            interactions : defaultinteraction(),
-            view: new View({ 
-              center: [0, 0], 
-              zoom: 1,
-              rotation:0, 
-              minZoom:2,
-              maxZoom:10
-          }),
-            overlays: []
-        })
-        }
-    
-      }, []);
     
       useEffect(() => {
-        if (mapRef.current) {
+        if (mapInstance.current) {
 
             mapInstance.current.on('click', handleMapClick)            
-            // mapInstance.current.on('click', (evnt) => {
-            //     const coordinate = evnt.coordinate;
-            //     const hdms = toStringHDMS(toLonLat(coordinate));
-            //     content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
-            //     overlay.setPosition(coordinate)
-            // })
         }
     }, [handleMapClick])
     
         useEffect(() => {
-            if (closer) {
-                closer.onclick =  () => {
+            if (props.closer) {
+                props.closer.currentonclick =  () => {
                     overlay.setPosition(undefined);
-                    closer.blur();
+                    props.closer.blur();
                     return false;
                 }
             }
-        }, [closer,overlay])
+        }, [props.closer,overlay])
 
   return (
             <div ref={mapRef} style={{ 

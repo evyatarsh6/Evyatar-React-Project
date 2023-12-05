@@ -1,20 +1,11 @@
+import { useEffect } from "react";
 
-export const PopUp = () => {
+export const PopUp = (props) => {
 
     return (
-        <div id="popup" className="ol-popup" style={
-            {display: "none"}
-            }>
-            <a href="#" id="popup-closer" className="ol-popup-closer" style={
-            {display: "none"}
-            }>
-
-            </a>
-            <div id="popup-content" style={
-            {display: "none"}
-            }>
-
-            </div>
+        <div ref = {props.container} id="popup" className="ol-popup">
+            <a href="#" ref = {props.closer} id="popup-closer" className="ol-popup-closer"/>
+            <div id="popup-content" ref ={props.content}/>
         </div>
     )
 }

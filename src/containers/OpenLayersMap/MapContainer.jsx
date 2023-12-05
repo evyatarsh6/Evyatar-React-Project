@@ -14,46 +14,37 @@ export const MapContainer = () => {
   const mapRef = useRef();
   const layer = useMemo(() => new TileLayer({ source: new OSM() }),[])
 
-  // useEffect(() => {
+  useEffect(() => {
     
-  //   if (!mapState) {      
-  //     setMapState(new Map({
-  //       target: mapRef.current, 
-  //       layers: [],
-  //       controls: defaultControls(),
-  //       interactions : defaultinteraction(),
-  //       view: new View({ 
-  //         center: [0, 0], 
-  //         zoom: 1,
-  //         rotation:0, 
-  //         minZoom:2,
-  //         maxZoom:10
-  //       })
-  //     }));
-  //   }
-  // }, [mapState]);
+    if (!mapState) {      
+      setMapState( new Map({
+       target: mapRef.current, 
+        layers: [layer],
+        controls: defaultControls(),
+        interactions : defaultinteraction(),
+        view: new View({ 
+          center: [0, 0], 
+          zoom: 1,
+          rotation:0, 
+          minZoom:2,
+          maxZoom:10
+        })
+      }));
+    }
+  }, [mapState,setMapState, layer]);
 
-  // // useEffect(() => {
-  // //   if (layerState !== mapState.getLayers().item(0)) {
-  // //       mapState.getLayers().clear();
-  // //       mapState.addLayer(layerState);
-  // //       layerState.setVisible(true);
-  // //   }
-  // // },[mapState , layerState])
+  
 
-  // useEffect(() => {
+  useEffect(() => {
+    if (!mapRef) {
+      mapState.addLayer(layer)
+      mapRef.current = mapState
+    }
 
-  //   if (!mapState) return
-
-  //   mapState.addLayer(layer)
-
-  //   return () => {
-  //     mapState.removeLayer(layer)
-  //   }
-  // }, [mapState, layer])
-
-
-    return (
+  }, [mapState,layer])
+  
+  
+  return (
             <div ref={mapRef.current} style={{ 
                 margin: 0,
                 width: "100%",
@@ -66,3 +57,13 @@ export const MapContainer = () => {
 }
 
 
+      //   if (!mapRef) return
+    
+      //   mapState.addLayer(layer)
+    
+      //   return () => {
+      //     mapState.removeLayer(layer)
+      //   }
+      
+      // }, [mapState,layer]
+      

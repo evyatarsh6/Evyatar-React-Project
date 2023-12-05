@@ -1,6 +1,6 @@
 import './App.css';
 import { HeaderBar } from './components/HeaderBar';
-import { MapContainer } from './containers/OpenLayersMap/MapContainer';
+import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
 
 function App() {

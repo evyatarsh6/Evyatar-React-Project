@@ -4,7 +4,7 @@ import View from 'ol/View';
 import OSM from 'ol/source/OSM';
 import {defaults as defaultControls } from 'ol/control'
 import {defaults as defaultinteraction } from 'ol/interaction'
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import {toLonLat} from 'ol/proj.js';
 import {toStringHDMS} from 'ol/coordinate.js';
 import { Overlay } from 'ol';
@@ -15,6 +15,19 @@ export const BaseMap = () => {
   const layerRef = useRef(null);
   const mapInstance = useRef(null);
   const viewlayRef = useRef(null);
+
+  const container = document.getElementById('popup');
+  const content = document.getElementById('popup-content');
+  const closer = document.getElementById('popup-closer') 
+
+  const overlay = useMemo(() => new Overlay({
+    element: container,
+    autoPan: {
+      animation: {
+        duration: 250,
+      },
+    },
+  }), [container]);
 
   useEffect(() => {
     if (!mapInstance.current) {
@@ -40,42 +53,27 @@ export const BaseMap = () => {
 
   }, []);
 
-
   useEffect(() => {
+    if (mapRef.current) {
+        
+        mapRef.current.on('click', (evnt) => {
+            const coordinate = evnt.coordinate;
+            const hdms = toStringHDMS(toLonLat(coordinate));
+            content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
+            overlay.setPosition(coordinate)
+        })
+    }
+}, [content,overlay])
 
-    const container = document.getElementById('popup');
-    const content = document.getElementById('popup-content');
-    const closer = document.getElementById('popup-closer') 
-
-    const overlay = new Overlay({
-      element: container,
-      autoPan: {
-        animation: {
-          duration: 250,
-        },
-      },
-    });
-    closer.onclick = function () {
-      overlay.setPosition(undefined);
-      closer.blur();
-      return false;
-    };
-  
-    mapRef.on('click', (evnt) => {
-      const coordinate = evnt.coordinate;
-      const hdms = toStringHDMS(toLonLat(coordinate));
-  
-    content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
-    overlay.setPosition(coordinate);
-  });
-
-  },[])
-
-    // layerRef.current = new VectorLayer({
-  //   source: new VectorSource(),
-  // });
-  // mapInstance.current.addLayer(layerRef.current);
-
+    useEffect(() => {
+        if (closer) {
+            closer.onclick =  () => {
+                overlay.setPosition(undefined);
+                closer.blur();
+                return false;
+            }
+        }
+    }, [closer,overlay])
 
   return (
             <div ref={mapRef} style={{ 

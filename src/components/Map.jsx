@@ -8,16 +8,11 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import {toLonLat} from 'ol/proj.js';
 import {toStringHDMS} from 'ol/coordinate.js';
 import { Overlay } from 'ol';
-// import Control from 'ol/control/Control.js';
-// import { ControlBtns } from '../containers/ControlBtns';
 
 export const BaseMap = (props) => {
 
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
-//   const controlBtnsRef = useRef(null);
-//   const layerRef = useRef(null);
-//   const viewlayRef = useRef(null);
 
   useEffect(() => {
     if (!mapInstance.current) {
@@ -29,7 +24,6 @@ export const BaseMap = (props) => {
           }),
         ],
         controls: defaultControls(),
-        // controls: [new Control({element: controlBtnsRef.current})],
         interactions : defaultinteraction(),
         view: new View({ 
           center: [0, 0], 
@@ -44,6 +38,7 @@ export const BaseMap = (props) => {
 })
 
   const overlay = useMemo(() => new Overlay({
+    position: [100,100],
     element: props.container,
     autoPan: {
       animation: {
@@ -52,25 +47,13 @@ export const BaseMap = (props) => {
     },
   }), [props.container]);
 
-   const handleMapClick = useCallback((evnt) => {
-        const coordinate = evnt.coordinate;
-        const hdms = toStringHDMS(toLonLat(coordinate));
-        console.log(hdms)
-        props.container.current = <input id="popup-input-content" ref={props.content} />;
-        overlay.setPosition(coordinate)
+   const handleMapClick = useCallback((evt) => {
+    const coordinate = evt.coordinate;
+    const hdms = toStringHDMS(toLonLat(coordinate));
+    console.log(hdms)
+    overlay.setPosition(coordinate);
 
-    } ,[overlay, props.container, props.content])
-
-    useEffect(() => {
-        document.querySelector('div[class*="ol-control"]').style = {
-    // pointer-events: 'auto',
-    // position: 'absolute',
-    // display: 'flex',
-    // flex-direction: 'column',
-    // margin-top: '5px'
-        }
-    },[])
-
+    } ,[overlay])
 
     useEffect(() => {
         if (mapInstance.current) {

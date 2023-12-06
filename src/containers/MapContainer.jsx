@@ -7,7 +7,7 @@ export const MapContainer = () => {
   const content = useRef(null);
   const closer = useRef(null);
   
-  const popUpProps = {container: container.current, content: content.current, closer: closer.current}
+  const popUpProps = {container: container, content: content, closer: closer}
 
   return (
     <div id='map-container'>

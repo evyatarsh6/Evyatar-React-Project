@@ -102,6 +102,7 @@ body{
 }
 
 div[class*="ol-zoom"]{
+  width: 10;
   pointer-events: auto;
   position: absolute;
   display: flex;
@@ -120,6 +121,7 @@ div[class*="ol-rotate"]{
   flex-direction: column;
   margin: 5px;
   margin-top: 100px;
+  width: 10;
 }
 
 div[class*="ol-control ol-uncollapsible"]{
@@ -127,6 +129,7 @@ div[class*="ol-control ol-uncollapsible"]{
   display: flex;
   margin: 5px;
   margin-top: 150px;
+  width: 10;
 }
 
 div[class*="ol-control ol-uncollapsible"]>ul{

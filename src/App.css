@@ -100,3 +100,37 @@ body{
 .ol-popup-closer:after {
   content: "✖";
 }
+
+
+div[class*="ol-control"]{
+  pointer-events: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+
+div[class*="ol-zoom"]{
+  pointer-events: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+
+}
+
+button[class*="ol-zoom"]{
+  margin: 5px; 
+
+}
+
+/* div[class*="ol-rotate"]{
+  pointer-events: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+button[class="ol-rotate-reset"]{
+  margin: 5px;
+} */

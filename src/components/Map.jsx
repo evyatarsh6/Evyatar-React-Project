@@ -8,11 +8,14 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import {toLonLat} from 'ol/proj.js';
 import {toStringHDMS} from 'ol/coordinate.js';
 import { Overlay } from 'ol';
+// import Control from 'ol/control/Control.js';
+// import { ControlBtns } from '../containers/ControlBtns';
 
 export const BaseMap = (props) => {
 
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
+//   const controlBtnsRef = useRef(null);
 //   const layerRef = useRef(null);
 //   const viewlayRef = useRef(null);
 
@@ -26,6 +29,7 @@ export const BaseMap = (props) => {
           }),
         ],
         controls: defaultControls(),
+        // controls: [new Control({element: controlBtnsRef.current})],
         interactions : defaultinteraction(),
         view: new View({ 
           center: [0, 0], 
@@ -33,12 +37,11 @@ export const BaseMap = (props) => {
           rotation:0, 
           minZoom:2,
           maxZoom:10
-      }),
+        }),
         overlays: []
-    })
+      })
     }
-
-  }, []);
+})
 
   const overlay = useMemo(() => new Overlay({
     element: props.container,
@@ -57,24 +60,34 @@ export const BaseMap = (props) => {
         overlay.setPosition(coordinate)
 
     } ,[overlay, props.container, props.content])
-    
-    
-      useEffect(() => {
+
+    useEffect(() => {
+        document.querySelector('div[class*="ol-control"]').style = {
+    // pointer-events: 'auto',
+    // position: 'absolute',
+    // display: 'flex',
+    // flex-direction: 'column',
+    // margin-top: '5px'
+        }
+    },[])
+
+
+    useEffect(() => {
         if (mapInstance.current) {
 
             mapInstance.current.on('click', handleMapClick)            
         }
     }, [handleMapClick])
     
-        useEffect(() => {
-            if (props.closer) {
-                props.closer.currentonclick =  () => {
-                    overlay.setPosition(undefined);
-                    props.closer.blur();
-                    return false;
-                }
+    useEffect(() => {
+        if (props.closer) {
+            props.closer.currentonclick =  () => {
+                overlay.setPosition(undefined);
+                props.closer.blur();
+                return false;
             }
-        }, [props.closer,overlay])
+        }
+    }, [props.closer,overlay])
 
   return (
             <div ref={mapRef} style={{ 

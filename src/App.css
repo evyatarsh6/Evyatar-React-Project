@@ -101,36 +101,30 @@ body{
   content: "✖";
 }
 
-
-div[class*="ol-control"]{
-  pointer-events: auto;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-}
-
 div[class*="ol-zoom"]{
   pointer-events: auto;
   position: absolute;
   display: flex;
   flex-direction: column;
   margin: 5px;
-
 }
 
-button[class*="ol-zoom"]{
-  margin: 5px; 
-
+div[class*="ol-zoom"] button{
+  margin-top: 5px;
 }
 
-/* div[class*="ol-rotate"]{
+div[class*="ol-rotate"]{
   pointer-events: auto;
   position: absolute;
   display: flex;
   flex-direction: column;
   margin: 5px;
+  margin-top: 100px;
 }
 
-button[class="ol-rotate-reset"]{
+div[class*="ol-control ol-uncollapsible"]{
+  pointer-events: auto;
+  display: flex;
   margin: 5px;
-} */
+  margin-top: 100px;
+}

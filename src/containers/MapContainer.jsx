@@ -12,7 +12,7 @@ export const MapContainer = () => {
   return (
     <div id='map-container'>
       <BaseMap props = {popUpProps}/>
-      <PopUp props = {popUpProps}/>
+      {/* <PopUp props = {popUpProps}/> */}
     </div>
 
     )

@@ -7,10 +7,14 @@ import { Edit } from '@mui/icons-material';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { editTODO, focusWantedTODO, pinWantedTODO } from '../actions/actions';
+import { editTODO, focusWantedTODO, jumpILBtn, pinWantedTODO } from '../actions/actions';
 import { generateChangeValueLogs, generateUpdateCardLogs } from '../constans/generalLogs';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import CenterFocusWeakIcon from '@mui/icons-material/CenterFocusWeak';
+import SaveIcon from '@mui/icons-material/Save';
+import ClearIcon from '@mui/icons-material/Clear';
+import ParaglidingIcon from '@mui/icons-material/Paragliding';
+
 
 
 export const Card = ({ props }) => {
@@ -50,8 +54,8 @@ const imgStyle = {
     const [isDeleted,setIsDeleted ] = useState(props.isDeleted)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState(props.description);
-
-    
+    const [isPinActive, setIsPinActive] = useState(false);
+   
     const handleInputType =  event => setMessage(event.target.value);
 
     const clickFreezeBtn =  event => {
@@ -81,15 +85,56 @@ const imgStyle = {
         setIsChecked(newCheckedtatus)
         dispatch(editTODO( {...props, isChoosen : newCheckedtatus } ))
     }
-
-    const clickPinBtn = () => {
-        dispatch(pinWantedTODO(props.id))
-    }
-
     const clickFocusBtn = () => {
         dispatch(focusWantedTODO(props.id))
     }
 
+    const clickPinBtn = () => {
+            setIsPinActive(true)
+    
+    }
+
+    const clickCancelPin = () => {
+        setIsPinActive(!isPinActive)
+    }
+
+    const clickSavePin = () => {
+        setIsPinActive(!isPinActive)
+        // dispatch(edit..)
+    }
+
+    const mapPinBtns = () => (  
+        isPinActive ? (
+            <div className='handle-pin-btns'>
+                <IconButton className='clear-pin-btn' style={{ scale: "1.5" }} 
+                onClick={clickCancelPin}
+                >
+                    <ClearIcon />
+                </IconButton>
+
+                <IconButton className='save-pin-btn' style={{ scale: "1.5" }} 
+                onClick={clickSavePin}
+                >
+                    <SaveIcon />
+                </IconButton>
+            </div>
+        )
+        :
+        (
+            <div className='handle-pin-btns'>
+                <IconButton className= 'pin-btn' style={{scale:"1.5"}}
+                onClick={clickPinBtn}>
+                    <PushPinIcon/>
+                </IconButton>
+            </div>
+        )
+)
+    const isLocation = () => {
+        if (props.location) {
+            return true
+        }
+        return false
+    } 
 
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
@@ -108,15 +153,16 @@ const imgStyle = {
     return (
             
         <div className ={"card"} id={props.id} style={cardStyle}>
-            <div className='maps-btns'>    
-                <IconButton className= 'pin-btn' style={{scale:"1.5"}}
-                onClick={clickPinBtn}>
-                    <PushPinIcon/>
-                </IconButton>
-                <IconButton className= 'focus-btn' style={{scale:"1.5"}}
-                onClick={clickFocusBtn}>
-                    <CenterFocusWeakIcon/>
-                </IconButton>
+            <div className='map-btns'> 
+                {mapPinBtns()}
+                
+                <div className= 'handle-focus-btns'>
+                    <IconButton className= 'focus-btn' style={{scale:"1.5"}}
+                    onClick={clickFocusBtn} disabled = {isLocation}>
+                        <ParaglidingIcon/>
+                    </IconButton>
+                    
+                </div>
             </div>
             <h3 className="card-title">{props.kind}</h3>
             <img

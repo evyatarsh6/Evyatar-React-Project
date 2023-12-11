@@ -14,10 +14,15 @@ export const changeFilterKind = (filterKind) => {
 
 export const pinWantedTODO = (ID) => {
 
-    return {type:"pin-TODO", TODOID: ID }
+    return {type:"pinTODO", TODOID: ID }
 }
 
 export const focusWantedTODO = (ID) => {
 
-    return {type:"focus-TODO", TODOID: ID }
+    return {type:"focusTODO", TODOID: ID }
+}
+
+export const jumpILBtn = (ID) => {
+
+    return {type:"jumpILTODO", TODOID: ID }
 }

@@ -10,7 +10,8 @@ export const TODOS = ( state = initialState , action) => {
             description : "Avi Berger is a god", 
             kind: action.value,
             isChoosen: false,
-            isDeleted:false
+            isDeleted:false, 
+            location: null
             }
         }
         return TODOList
@@ -24,7 +25,8 @@ export const TODOS = ( state = initialState , action) => {
                 id: action.props.id,
                 isChoosen: action.props.isChoosen,
                 isDeleted: action.props.isDeleted,
-                description: action.props.description
+                description: action.props.description,
+                location: action.props.location
             }
             
         }

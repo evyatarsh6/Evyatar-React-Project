@@ -90,16 +90,18 @@ const imgStyle = {
 
     const clickPinBtn = () => {
             setIsPinActive(true)
-    
+            dispatch({type: 'pinTODO'})
+
     }
 
     const clickCancelPin = () => {
-        setIsPinActive(!isPinActive)
+        setIsPinActive(false)
+        dispatch({type: 'regular'})
     }
 
     const clickSavePin = () => {
+        setIsPinActive(false)
         setIsPinActive(!isPinActive)
-        // dispatch(edit..)
     }
 
     const mapPinBtns = () => (  

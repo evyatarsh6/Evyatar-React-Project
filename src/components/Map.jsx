@@ -10,7 +10,8 @@ import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { GetMapState } from '../selectors';
-
+import { current } from "@reduxjs/toolkit";
+import {unByKey} from 'ol/Observable';
 
 export const BaseMap = () => {
   const mapRef = useRef(null);
@@ -18,6 +19,7 @@ export const BaseMap = () => {
   const featuresRef = useRef(null);
   const layerRef = useRef(null);
   const mapState = useSelector(GetMapState) 
+  const clickEventKeyRef = useRef();
   const dispatch = useDispatch();
 
   const iconStyle = useMemo(() => new Style({
@@ -26,6 +28,16 @@ export const BaseMap = () => {
       anchor: [0.5, 1],
     }),
   }), []);
+
+  
+  const createPoint = useCallback((evt) => {
+    featuresRef.current = new Feature({
+      geometry: new Point(evt.coordinate),
+      });
+
+    featuresRef.current.setStyle(iconStyle);
+    layerRef.current.getSource().addFeature(featuresRef.current);
+    },[iconStyle])
 
   useEffect(() => {
     if (!mapInstance.current) {
@@ -54,23 +66,51 @@ export const BaseMap = () => {
     }
   }, [iconStyle]);
 
+
+
   useEffect(() => {
-
-    if (mapInstance.current && mapState.action === 'pin') {
-      
-      mapInstance.current.on('click', (evt) => {
-        layerRef.current.getSource().clear();
-
-        featuresRef.current = new Feature({
-          geometry: new Point(evt.coordinate),
-        });
-  
-      featuresRef.current.setStyle(iconStyle);
-      layerRef.current.setSource(new VectorSource())
-      layerRef.current.getSource().addFeature(featuresRef.current);
-      });
+    if (mapInstance.current) {
+      if (mapState.action === 'pin') {
+        clickEventKeyRef.current = mapInstance.current.on('click', (evt) => createPoint(evt));
+      } else {
+        if (clickEventKeyRef.current) {
+          console.log(layerRef.current)
+          console.log(clickEventKeyRef.current)
+          layerRef.current.removeEventListner( 'click',clickEventKeyRef.current)
+        }
+      }
     }
-  },[mapState.action, iconStyle])
+  },[mapState.action, iconStyle, createPoint])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // let event = null
+    // if (mapInstance.current && mapState.action === 'pin') {
+    //   event = mapInstance.current.on('click', (evt) => {
+    //     featuresRef.current = new Feature({
+    //     geometry: new Point(evt.coordinate),
+    //     });
+  
+    //   featuresRef.current.setStyle(iconStyle);
+    //   layerRef.current.getSource().addFeature(featuresRef.current);
+    //   });
+    // }
+
+    // return () => { }
+  // },[mapState.action, iconStyle])
 
 
   return (

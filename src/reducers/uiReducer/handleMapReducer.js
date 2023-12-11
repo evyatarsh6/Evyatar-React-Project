@@ -20,6 +20,10 @@ export const mapTODOActions = ( state = initialState , action) => {
             }
             
         default:
-            return state;
+            return {
+                action: 'regular',
+                id: null
+            
+            };
     }
 }

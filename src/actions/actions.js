@@ -11,3 +11,13 @@ export const changeFilterKind = (filterKind) => {
 
     return {type:"switchFilterKind", updateStatus: filterKind }
 } 
+
+export const pinWantedTODO = (ID) => {
+
+    return {type:"pin-TODO", TODOID: ID }
+}
+
+export const focusWantedTODO = (ID) => {
+
+    return {type:"focus-TODO", TODOID: ID }
+}

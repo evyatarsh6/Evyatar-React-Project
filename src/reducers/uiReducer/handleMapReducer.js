@@ -1,13 +1,12 @@
 const initialState  = null
 
-export const map = ( state = initialState , action) => {
+export const mapTODOActions = ( state = initialState , action) => {
     switch (action.type) {
-        case 'updateMap':
+        case 'pin-TODO':
             // return updateMap(action.info)
             return null
-        case 'removeMap':
+        case 'focus-TODO':
             // const updateMap = null
-            // return updateMap
             return null
         default:
             return state;

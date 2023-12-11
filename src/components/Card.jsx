@@ -7,11 +7,10 @@ import { Edit } from '@mui/icons-material';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { editTODO } from '../actions/actions';
+import { editTODO, focusWantedTODO, pinWantedTODO } from '../actions/actions';
 import { generateChangeValueLogs, generateUpdateCardLogs } from '../constans/generalLogs';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import CenterFocusWeakIcon from '@mui/icons-material/CenterFocusWeak';
-
 
 
 export const Card = ({ props }) => {
@@ -83,6 +82,16 @@ const imgStyle = {
         dispatch(editTODO( {...props, isChoosen : newCheckedtatus } ))
     }
 
+    const clickPinBtn = () => {
+        dispatch(pinWantedTODO(props.id))
+    }
+
+    const clickFocusBtn = () => {
+        dispatch(focusWantedTODO(props.id))
+    }
+
+
+
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 
 
@@ -100,10 +109,12 @@ const imgStyle = {
             
         <div className ={"card"} id={props.id} style={cardStyle}>
             <div className='maps-btns'>    
-                <IconButton className= 'pin-btn' style={{scale:"1.5"}}>
+                <IconButton className= 'pin-btn' style={{scale:"1.5"}}
+                onClick={clickPinBtn}>
                     <PushPinIcon/>
                 </IconButton>
-                <IconButton className= 'focus-btn' style={{scale:"1.5"}}>
+                <IconButton className= 'focus-btn' style={{scale:"1.5"}}
+                onClick={clickFocusBtn}>
                     <CenterFocusWeakIcon/>
                 </IconButton>
             </div>

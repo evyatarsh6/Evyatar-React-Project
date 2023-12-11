@@ -5,15 +5,20 @@ import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import { OSM, Vector as VectorSource } from "ol/source";
 import Point from 'ol/geom/Point';
 import Feature from 'ol/Feature';
-import { Projection, fromLonLat } from 'ol/proj';
 import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useDispatch } from "react-redux";
+import { GetMapState } from '../selectors';
+
 
 export const BaseMap = () => {
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
   const featuresRef = useRef(null);
   const layerRef = useRef(null);
+  const mapState = useSelector(GetMapState) 
+  const dispatch = useDispatch();
 
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
@@ -49,11 +54,12 @@ export const BaseMap = () => {
     }
   }, [iconStyle]);
 
-
   useEffect(() => {
 
-    const handleMapClick = (evt) => {
-      layerRef.current.getSource().clear();
+    if (mapInstance.current && mapState.action === 'pin') {
+      
+      mapInstance.current.on('click', (evt) => {
+        layerRef.current.getSource().clear();
 
         featuresRef.current = new Feature({
           geometry: new Point(evt.coordinate),
@@ -62,14 +68,31 @@ export const BaseMap = () => {
       featuresRef.current.setStyle(iconStyle);
       layerRef.current.setSource(new VectorSource())
       layerRef.current.getSource().addFeature(featuresRef.current);
-      console.log(featuresRef.current.getGeometry().getCoordinates())
-
+      });
     }
+  },[mapState.action, iconStyle])
 
-    if (mapInstance.current) {
-      mapInstance.current.on('click', handleMapClick);
-    }
-  }, [iconStyle]);
+
+  // useEffect(() => {
+
+  //   const handleMapClick = (evt) => {
+  //     layerRef.current.getSource().clear();
+
+  //       featuresRef.current = new Feature({
+  //         geometry: new Point(evt.coordinate),
+  //       });
+  
+  //     featuresRef.current.setStyle(iconStyle);
+  //     layerRef.current.setSource(new VectorSource())
+  //     layerRef.current.getSource().addFeature(featuresRef.current);
+  //     console.log(featuresRef.current.getGeometry().getCoordinates())
+
+  //   }
+
+  //   if (mapInstance.current) {
+  //     mapInstance.current.on('click', handleMapClick);
+  //   }
+  // }, [iconStyle]);
   
   return (
     <div

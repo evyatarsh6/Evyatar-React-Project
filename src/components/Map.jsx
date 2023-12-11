@@ -73,27 +73,6 @@ export const BaseMap = () => {
   },[mapState.action, iconStyle])
 
 
-  // useEffect(() => {
-
-  //   const handleMapClick = (evt) => {
-  //     layerRef.current.getSource().clear();
-
-  //       featuresRef.current = new Feature({
-  //         geometry: new Point(evt.coordinate),
-  //       });
-  
-  //     featuresRef.current.setStyle(iconStyle);
-  //     layerRef.current.setSource(new VectorSource())
-  //     layerRef.current.getSource().addFeature(featuresRef.current);
-  //     console.log(featuresRef.current.getGeometry().getCoordinates())
-
-  //   }
-
-  //   if (mapInstance.current) {
-  //     mapInstance.current.on('click', handleMapClick);
-  //   }
-  // }, [iconStyle]);
-  
   return (
     <div
       ref={mapRef}

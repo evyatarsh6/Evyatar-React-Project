@@ -22,16 +22,25 @@ body{
   justify-content: space-around;
 }
 
-.chooseDeleteContainer, .map-btns, .buttonContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.chooseDeleteContainer, .buttonContainer, .map-btns {
+display: flex;
+flex-direction: row;
 }
 
-.chooseDeleteContainer, .map-btns {
 
+.chooseDeleteContainer, .buttonContainer {
+  align-items: center;
   justify-content: space-around;
-  /* justify-content: flex-start; */
+}
+
+.map-btns{
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+.chooseDeleteContainer {
+
   width: 100%;
 }
 

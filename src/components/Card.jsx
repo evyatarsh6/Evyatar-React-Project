@@ -10,7 +10,6 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { editTODO, focusWantedTODO, jumpILBtn, pinWantedTODO } from '../actions/actions';
 import { generateChangeValueLogs, generateUpdateCardLogs } from '../constans/generalLogs';
 import PushPinIcon from '@mui/icons-material/PushPin';
-import CenterFocusWeakIcon from '@mui/icons-material/CenterFocusWeak';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
 import ParaglidingIcon from '@mui/icons-material/Paragliding';
@@ -130,16 +129,14 @@ const imgStyle = {
         )
 )
     const isLocation = () => {
-        if (props.location) {
+        if (!props.location) {
             return true
         }
         return false
     } 
 
-
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 
-
 
     useEffect(() => {
         console.log(generateUpdateCardLogs(props))
@@ -158,7 +155,7 @@ const imgStyle = {
                 
                 <div className= 'handle-focus-btns'>
                     <IconButton className= 'focus-btn' style={{scale:"1.5"}}
-                    onClick={clickFocusBtn} disabled = {isLocation}>
+                    onClick={clickFocusBtn} disabled = {isLocation()}>
                         <ParaglidingIcon/>
                     </IconButton>
                     

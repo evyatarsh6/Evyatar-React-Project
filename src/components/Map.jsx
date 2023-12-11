@@ -1,37 +1,26 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Map from 'ol/Map';
-import TileLayer from 'ol/layer/Tile';
-import View from 'ol/View';
-import OSM from 'ol/source/OSM';
-import { defaults as defaultControls } from 'ol/control';
-import { defaults as defaultinteraction } from 'ol/interaction';
-import { Overlay } from 'ol';
-import PlaceIcon from '@mui/icons-material/Place';
-import { toLonLat } from 'ol/proj';
-import { toStringHDMS } from 'ol/coordinate';
-import Feature from 'ol/Feature.js';
-import Polygon from 'ol/geom/Polygon.js';
-import Point from 'ol/geom/Point.js';
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import "ol/ol.css";
+import { Map, View } from "ol";
+import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
+import { OSM, Vector as VectorSource } from "ol/source";
+import Point from 'ol/geom/Point';
+import Feature from 'ol/Feature';
+import { Projection, fromLonLat } from 'ol/proj';
+import { Icon, Style } from "ol/style";
+import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 
 export const BaseMap = () => {
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
-  const pointRef = useRef(null);
-  const [showPoint, setShowPoint] = useState(false)
+  const featuresRef = useRef(null);
+  const layerRef = useRef(null);
 
-  const overlay = useMemo(
-    () =>
-      new Overlay({
-        stopEvent: false,
-        element: pointRef.current,
-        autoPan: {
-          animation: {
-            duration: 250,
-          },
-        },
-      }),
-    []
-  );
+  const iconStyle = useMemo(() => new Style({
+    image: new Icon({
+      src: LocationPin,
+      anchor: [0.5, 1],
+    }),
+  }), []);
 
   useEffect(() => {
     if (!mapInstance.current) {
@@ -49,44 +38,37 @@ export const BaseMap = () => {
           minZoom: 2,
           maxZoom: 10,
         }),
-        overlays: [overlay],
+        overlays: [],
       });
+
+      layerRef.current = new VectorLayer({
+        source: new VectorSource()
+      });
+
+      mapInstance.current.addLayer(layerRef.current);
     }
-  }, [overlay]);
+  }, [iconStyle]);
 
-  const addOverlay = useCallback((coordinate) => {
-    overlay.setPosition(coordinate);
-  }, [overlay]);
-
-
-  const handleMapClick = useCallback((evt) => {
-    const coordinate = evt.coordinate;
-    const hdms = toStringHDMS(toLonLat(coordinate));
-    console.log(hdms)
-    
-
-const feature = new Feature({
-  // geometry: new Polygon(polyCoords),
-  labelPoint: new Point(parseFloat(coordinate[0]), parseFloat(coordinate[0])),
-  name: 'My Label',
-});
-
-// get the polygon geometry
-// const poly = feature.getGeometry();
-
-// Render the feature as a point using the coordinates from labelPoint
-feature.setGeometryName('labelPoint');
-
-// get the point geometry
-const point = feature.getGeometry();
-
-},[]);
 
   useEffect(() => {
+
+    const handleMapClick = (evt) => {
+      layerRef.current.getSource().clear();
+
+        const markerFeature = new Feature({
+          geometry: new Point(evt.coordinate),
+        });
+  
+      markerFeature.setStyle(iconStyle);
+      layerRef.current.setSource(new VectorSource())
+      layerRef.current.getSource().addFeature(markerFeature);
+
+    }
+
     if (mapInstance.current) {
       mapInstance.current.on('click', handleMapClick);
     }
-  }, [handleMapClick]);
+  }, [iconStyle]);
   
   return (
     <div
@@ -98,12 +80,6 @@ const point = feature.getGeometry();
         height: '400px',
       }}
     > 
-    <PointOverlay pointRef = {pointRef} />
     </div>
   );
-};
-
-const PointOverlay = (propPointRef) => {
-  const pointRef = useRef(propPointRef)
-  return <PlaceIcon id="coordinate-point" ref={pointRef} />;
 };

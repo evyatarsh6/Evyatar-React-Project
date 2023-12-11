@@ -114,7 +114,7 @@ div[class*="ol-zoom"] button{
   margin-top: 5px;
 }
 
-div[class*="ol-rotate"]{
+/* div[class*="ol-rotate"]{
   pointer-events: auto;
   position: absolute;
   display: flex;
@@ -134,4 +134,4 @@ div[class*="ol-control ol-uncollapsible"]{
 
 div[class*="ol-control ol-uncollapsible"]>ul{
   display: none;
-}
+} */

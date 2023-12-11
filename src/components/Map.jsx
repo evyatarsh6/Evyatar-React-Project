@@ -55,13 +55,14 @@ export const BaseMap = () => {
     const handleMapClick = (evt) => {
       layerRef.current.getSource().clear();
 
-        const markerFeature = new Feature({
+        featuresRef.current = new Feature({
           geometry: new Point(evt.coordinate),
         });
   
-      markerFeature.setStyle(iconStyle);
+      featuresRef.current.setStyle(iconStyle);
       layerRef.current.setSource(new VectorSource())
-      layerRef.current.getSource().addFeature(markerFeature);
+      layerRef.current.getSource().addFeature(featuresRef.current);
+      console.log(featuresRef.current.getGeometry().getCoordinates())
 
     }
 

@@ -9,6 +9,10 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { editTODO } from '../actions/actions';
 import { generateChangeValueLogs, generateUpdateCardLogs } from '../constans/generalLogs';
+import PushPinIcon from '@mui/icons-material/PushPin';
+import CenterFocusWeakIcon from '@mui/icons-material/CenterFocusWeak';
+
+
 
 export const Card = ({ props }) => {
 
@@ -95,6 +99,14 @@ const imgStyle = {
     return (
             
         <div className ={"card"} id={props.id} style={cardStyle}>
+            <div className='maps-btns'>    
+                <IconButton className= 'pin-btn' style={{scale:"1.5"}}>
+                    <PushPinIcon/>
+                </IconButton>
+                <IconButton className= 'focus-btn' style={{scale:"1.5"}}>
+                    <CenterFocusWeakIcon/>
+                </IconButton>
+            </div>
             <h3 className="card-title">{props.kind}</h3>
             <img
                 src={bergerPhotos[props.kind]}

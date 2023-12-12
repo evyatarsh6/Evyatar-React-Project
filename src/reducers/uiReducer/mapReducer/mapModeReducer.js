@@ -5,7 +5,7 @@ const initialState = {
 
 export const mapModeReducer = (state = initialState, action) => {
     switch (action.type) {
-      case 'changeMapMode':
+      case 'changeMapPinMode':
         return {...state, ['PinMode']: action.pinMode}
       default:
         return state;

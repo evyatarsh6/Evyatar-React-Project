@@ -7,7 +7,7 @@ import { Edit } from '@mui/icons-material';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { changeMapMode, editTODO} from '../actions/actions';
+import { changeMapPinMode, editTODO} from '../actions/actions';
 import { generateChangeValueLogs, generateUpdateCardLogs } from '../constans/generalLogs';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
@@ -75,11 +75,9 @@ const imgStyle = {
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
         dispatch(editTODO( {...props, isDeleted : newDeleteStatus } ))
-        
     }
 
     const checkChoosenCheckbox= () => {
-
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
         dispatch(editTODO( {...props, isChoosen : newCheckedtatus } ))
@@ -90,21 +88,21 @@ const imgStyle = {
 
     const clickPinBtn = () => {
             setIsPinActive(true)
-            dispatch(changeMapMode(true))
+            dispatch(changeMapPinMode(true))
 
     }
 
     const clickCancelPin = () => {
         setIsPinActive(!isPinActive)
-        dispatch(changeMapMode(false))
+        dispatch(changeMapPinMode(false))
     }
 
     
 
     const clickSavePin = () => {
         setIsPinActive(!isPinActive)
-        dispatch(changeMapMode(false))
-        // dispatch(editTODO( {...props, location : 'location' } )) 
+        dispatch(changeMapPinMode(false))
+        dispatch(editTODO( {...props, location : 'location' } )) 
     }
 
     const showLocation = () => {

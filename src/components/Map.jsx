@@ -38,13 +38,15 @@ export const BaseMap = () => {
 
     featuresRef.current = new Feature({
       geometry: new Point(evt.coordinate),
-      });
+    });
 
     featuresRef.current.setStyle(iconStyle);
     layerRef.current.getSource().addFeature(featuresRef.current);
     setPointLocation(getLongLat(evt.coordinate))
+    // dispatch(createPoint(pointLocation))
     
     },[iconStyle])
+      // ,dispatch,pointLocation])
 
   useEffect(() => {
     if (!mapInstance.current) {

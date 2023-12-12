@@ -96,14 +96,14 @@ const imgStyle = {
 
     const clickCancelPin = () => {
         setIsPinActive(!isPinActive)
-        dispatch({type: 'regular'})
+        dispatch(changeMapMode(false))
     }
 
     
 
     const clickSavePin = () => {
         setIsPinActive(!isPinActive)
-        dispatch({type: 'regular'})
+        dispatch(changeMapMode(false))
         // dispatch(editTODO( {...props, location : 'location' } )) 
     }
 

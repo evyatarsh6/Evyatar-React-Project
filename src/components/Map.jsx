@@ -17,7 +17,7 @@ export const BaseMap = () => {
   const mapInstance = useRef(null);
   const featuresRef = useRef(null);
   const layerRef = useRef(null);
-  const mapState = useSelector(GetMapAction) 
+  const mapSelector = useSelector(GetMapAction) 
   const clickEventKeyRef = useRef();
   const dispatch = useDispatch();
 
@@ -77,7 +77,7 @@ export const BaseMap = () => {
 
   useEffect(() => {
     if (mapInstance.current) {
-      if (mapState.action === 'PinMode' && !pointLocation) {
+      if (mapSelector.pin && !pointLocation) {
         clickEventKeyRef.current = mapInstance.current.on('click', createPoint);
       } 
       else if(pointLocation || clickEventKeyRef.current) {
@@ -85,38 +85,7 @@ export const BaseMap = () => {
       }
 
     }
-  },[mapState.action, iconStyle, createPoint, pointLocation])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // let event = null
-    // if (mapInstance.current && mapState.action === 'pin') {
-    //   event = mapInstance.current.on('click', (evt) => {
-    //     featuresRef.current = new Feature({
-    //     geometry: new Point(evt.coordinate),
-    //     });
-  
-    //   featuresRef.current.setStyle(iconStyle);
-    //   layerRef.current.getSource().addFeature(featuresRef.current);
-    //   });
-    // }
-
-    // return () => { }
-  // },[mapState.action, iconStyle])
-
+  },[mapSelector.pin, iconStyle, createPoint, pointLocation])
 
   return (
     <div

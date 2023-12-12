@@ -10,8 +10,8 @@ export const changeFilterKind = (filterKind) => {
     return {type:"switchFilterKind", updateStatus: filterKind }
 } 
 
-export const changeMapMode = (pinMode) => {
-    return {type:"changeMapMode", updateStatus: pinMode }
+export const changeMapPinMode = (pinMode) => {
+    return {type:"changeMapPinMode", pinMode: pinMode }
 }
 
 export const createPoint = (Long,Lat) => {

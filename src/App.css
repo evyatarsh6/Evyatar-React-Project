@@ -38,6 +38,15 @@ flex-direction: row;
   width: 100%;
 }
 
+.card-title{
+  margin-top: 0px;
+}
+
+.location-description{
+  margin: 1px;
+  margin-bottom: 10px;
+}
+
 
 .chooseDeleteContainer {
 
@@ -59,7 +68,18 @@ flex-direction: row;
   flex-flow: row wrap;
 }
 
+div[class*="ol-zoom"]{
+  width: 10;
+  pointer-events: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
 
+div[class*="ol-zoom"] button{
+  margin-top: 5px;
+}
 
 
 
@@ -110,17 +130,4 @@ flex-direction: row;
 }
 .ol-popup-closer:after {
   content: "✖";
-}
-
-div[class*="ol-zoom"]{
-  width: 10;
-  pointer-events: auto;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
-}
-
-div[class*="ol-zoom"] button{
-  margin-top: 5px;
 }

@@ -7,7 +7,7 @@ import { Edit } from '@mui/icons-material';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { editTODO, focusWantedTODO, jumpILBtn, pinWantedTODO } from '../actions/actions';
+import { changeMapMode, editTODO} from '../actions/actions';
 import { generateChangeValueLogs, generateUpdateCardLogs } from '../constans/generalLogs';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
@@ -85,23 +85,36 @@ const imgStyle = {
         dispatch(editTODO( {...props, isChoosen : newCheckedtatus } ))
     }
     const clickFocusBtn = () => {
-        dispatch(focusWantedTODO(props.id))
+        // dispatch(focusWantedTODO(props.id))
     }
 
     const clickPinBtn = () => {
             setIsPinActive(true)
-            dispatch({type: 'pinTODO'})
+            dispatch(changeMapMode(true))
 
     }
 
     const clickCancelPin = () => {
-        setIsPinActive(false)
+        setIsPinActive(!isPinActive)
         dispatch({type: 'regular'})
     }
 
+    
+
     const clickSavePin = () => {
-        setIsPinActive(false)
         setIsPinActive(!isPinActive)
+        dispatch({type: 'regular'})
+        // dispatch(editTODO( {...props, location : 'location' } )) 
+    }
+
+    const showLocation = () => {
+        if (isLocationExist()) {
+            return (
+                <p className='location-description'>
+                    {props.location}
+                </p>
+            )
+        }
     }
 
     const mapPinBtns = () => (  
@@ -130,11 +143,11 @@ const imgStyle = {
             </div>
         )
 )
-    const isLocation = () => {
+    const isLocationExist = () => {
         if (!props.location) {
-            return true
+            return false
         }
-        return false
+        return true
     } 
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
@@ -154,16 +167,16 @@ const imgStyle = {
         <div className ={"card"} id={props.id} style={cardStyle}>
             <div className='map-btns'> 
                 {mapPinBtns()}
-                
                 <div className= 'handle-focus-btns'>
                     <IconButton className= 'focus-btn' style={{scale:"1.5"}}
-                    onClick={clickFocusBtn} disabled = {isLocation()}>
+                    onClick={clickFocusBtn} disabled = {!isLocationExist()}>
                         <ParaglidingIcon/>
                     </IconButton>
                     
                 </div>
             </div>
             <h3 className="card-title">{props.kind}</h3>
+            {showLocation()}
             <img
                 src={bergerPhotos[props.kind]}
                 className="card-image"

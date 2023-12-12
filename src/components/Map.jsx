@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "ol/ol.css";
 import { Map, View } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
@@ -9,18 +9,19 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapState } from '../selectors';
-import { current } from "@reduxjs/toolkit";
-import {unByKey} from 'ol/Observable';
+import { GetMapAction } from '../selectors';
 
 export const BaseMap = () => {
+
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
   const featuresRef = useRef(null);
   const layerRef = useRef(null);
-  const mapState = useSelector(GetMapState) 
+  const mapState = useSelector(GetMapAction) 
   const clickEventKeyRef = useRef();
   const dispatch = useDispatch();
+
+  const [pointLocation,setPointLocation] = useState(null)
 
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
@@ -29,14 +30,20 @@ export const BaseMap = () => {
     }),
   }), []);
 
+  const getLongLat = coordinate => {
+    return {getLong: coordinate[0], getLat: coordinate[1]}
+  }
   
   const createPoint = useCallback((evt) => {
+
     featuresRef.current = new Feature({
       geometry: new Point(evt.coordinate),
       });
 
     featuresRef.current.setStyle(iconStyle);
     layerRef.current.getSource().addFeature(featuresRef.current);
+    setPointLocation(getLongLat(evt.coordinate))
+    
     },[iconStyle])
 
   useEffect(() => {
@@ -70,15 +77,15 @@ export const BaseMap = () => {
 
   useEffect(() => {
     if (mapInstance.current) {
-      if (mapState.action === 'pin') {
+      if (mapState.action === 'PinMode' && !pointLocation) {
         clickEventKeyRef.current = mapInstance.current.on('click', createPoint);
-      } else {
-        if (clickEventKeyRef.current) {
+      } 
+      else if(pointLocation || clickEventKeyRef.current) {
           clickEventKeyRef.current = mapInstance.current.un('click', createPoint);
-        }
       }
+
     }
-  },[mapState.action, iconStyle, createPoint])
+  },[mapState.action, iconStyle, createPoint, pointLocation])
 
 
 

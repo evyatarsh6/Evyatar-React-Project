@@ -71,12 +71,10 @@ export const BaseMap = () => {
   useEffect(() => {
     if (mapInstance.current) {
       if (mapState.action === 'pin') {
-        clickEventKeyRef.current = mapInstance.current.on('click', (evt) => createPoint(evt));
+        clickEventKeyRef.current = mapInstance.current.on('click', createPoint);
       } else {
         if (clickEventKeyRef.current) {
-          console.log(layerRef.current)
-          console.log(clickEventKeyRef.current)
-          layerRef.current.removeEventListner( 'click',clickEventKeyRef.current)
+          clickEventKeyRef.current = mapInstance.current.un('click', createPoint);
         }
       }
     }

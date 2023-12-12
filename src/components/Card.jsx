@@ -7,7 +7,7 @@ import { Edit } from '@mui/icons-material';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { changeMapPinMode, editTODO} from '../actions/actions';
+import { changeMapPinMode, editTODO, editAllTODOS} from '../actions/actions';
 import { generateChangeValueLogs, generateUpdateCardLogs } from '../constans/generalLogs';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
@@ -53,7 +53,7 @@ const imgStyle = {
     const [isDeleted,setIsDeleted ] = useState(props.isDeleted)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState(props.description);
-    const [isPinActive, setIsPinActive] = useState(false);
+    const [isPinActive, setIsPinActive] = useState(props.isPinBtnDisable);
    
     const handleInputType =  event => setMessage(event.target.value);
 
@@ -82,27 +82,29 @@ const imgStyle = {
         setIsChecked(newCheckedtatus)
         dispatch(editTODO( {...props, isChoosen : newCheckedtatus } ))
     }
-    const clickFocusBtn = () => {
-        // dispatch(focusWantedTODO(props.id))
-    }
+
 
     const clickPinBtn = () => {
             setIsPinActive(true)
             dispatch(changeMapPinMode(true))
+            dispatch(editAllTODOS({name: 'isPinBtnDisable', value: true}))
 
     }
-
     const clickCancelPin = () => {
         setIsPinActive(!isPinActive)
         dispatch(changeMapPinMode(false))
-    }
+        dispatch(editAllTODOS({name: 'isPinBtnDisable', value: false}))
 
-    
+    }
 
     const clickSavePin = () => {
         setIsPinActive(!isPinActive)
         dispatch(changeMapPinMode(false))
-        dispatch(editTODO( {...props, location : 'location' } )) 
+        dispatch(editAllTODOS({name: 'isPinBtnDisable', value: false}))
+    }
+
+    const clickFocusBtn = () => {
+        console.log('avi focus')
     }
 
     const showLocation = () => {
@@ -119,7 +121,8 @@ const imgStyle = {
         isPinActive ? (
             <div className='handle-pin-btns'>
                 <IconButton className='clear-pin-btn' style={{ scale: "1.5" }} 
-                onClick={clickCancelPin}
+                onClick={clickCancelPin} 
+                disabled ={!isLocationExist()}
                 >
                     <ClearIcon />
                 </IconButton>
@@ -135,7 +138,7 @@ const imgStyle = {
         (
             <div className='handle-pin-btns'>
                 <IconButton className= 'pin-btn' style={{scale:"1.5"}}
-                onClick={clickPinBtn}>
+                onClick={clickPinBtn} disabled={props.isPinBtnDisable}>
                     <PushPinIcon/>
                 </IconButton>
             </div>
@@ -147,6 +150,7 @@ const imgStyle = {
         }
         return true
     } 
+
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 

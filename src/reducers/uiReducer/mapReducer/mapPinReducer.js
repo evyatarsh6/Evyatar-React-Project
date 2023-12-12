@@ -1,23 +1,23 @@
-const initialState = {
-    isVisible: false,
-    Long: null,
-    Lat: null,
-    TODOID: null
-}
+const initialState = {}
 
-export const mapPinReducer = ( state = initialState , action) => {
+export const mapPointsReducer = ( state = initialState , action) => {
     
     switch (action.type) {
-        case "createPoint": {
+        case "createNewPoint": {
             return {...state,
-                ['isVisible']:true,
-                ['Long']: action.Long,
-                ['Lat']: action.Lat, 
-                ['TODOID'] : action.ID
+                [action.TODOID]:
+                {
+                    ['isVisible']:true,
+                    ['Long']: action.Long,
+                    ['Lat']: action.Lat, 
+                }
             }
         }
         case "cancelPoint": {
-            return initialState
+            return {...state,
+                [action.TODOID]: null
+            }
+            
         }
         default:
             return state

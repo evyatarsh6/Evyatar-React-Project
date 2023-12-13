@@ -127,7 +127,7 @@ export const Card = ({ id }) => {
             <div className='handle-pin-btns'>
                 <IconButton className='clear-pin-btn' style={{ scale: "1.5" }} 
                 onClick={clickCancelPin} 
-                disabled ={!isLocationExist()}
+                // disabled ={!isLocationExist()}
                 >
                     <ClearIcon />
                 </IconButton>

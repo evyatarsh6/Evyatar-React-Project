@@ -9,6 +9,7 @@ import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { GetMapAction } from '../selectors';
+import { Point } from "ol/geom";
 
 export const BaseMap = () => {
 
@@ -16,9 +17,10 @@ export const BaseMap = () => {
   const mapInstance = useRef(null);
   const featuresRef = useRef(null);
   const layerRef = useRef(null);
-  const clickEventKeyRef = useRef();
-  
+  const clickEventRef = useRef(null);
+
   const mapSelector = useSelector(GetMapAction) 
+  const pinModeStatus = mapSelector.mode.PinMode
   // const dispatch = useDispatch();
 
   const iconStyle = useMemo(() => new Style({
@@ -28,9 +30,9 @@ export const BaseMap = () => {
     }),
   }), []);
 
-  // const getLongLat = coordinate => {
-  //   return {getLong: coordinate[0], getLat: coordinate[1]}
-  // }
+  const getLongLat = coordinate => {
+    return {getLong: coordinate[0], getLat: coordinate[1]}
+  }
   
   useEffect(() => {
     if (!mapInstance.current) {
@@ -60,30 +62,29 @@ export const BaseMap = () => {
   }, [iconStyle]);
 
   
-  const createPoint = useCallback( (evt) => {
-    const Point = new Feature({
+  const createPoint = useCallback((evt) => {
+    featuresRef.current  = new Feature({
       geometry: new Point(evt.coordinate),
     });
-  
-    featuresRef.current = Point
     featuresRef.current.setStyle(iconStyle);
     layerRef.current.getSource().addFeature(featuresRef.current);
   }, [iconStyle]);
 
-  useEffect((TODOID) => {
-    
-    if (mapInstance.current && featuresRef.current) {
-      const TODOPointExist = Object.keys(featuresRef.current).includes(TODOID)
-
-
-      if (!TODOPointExist) {
-        clickEventKeyRef.current = mapInstance.current.on('click', createPoint); 
+  useEffect(() => {
+    if (mapInstance.current) {
+      if (pinModeStatus) {
+        if (!clickEventRef.current) {
+          clickEventRef.current  = mapInstance.current.on('click', createPoint); 
+        }
+        else{
+          clickEventRef.current = mapInstance.current.un('click', createPoint);  
+        }
       }
-      else if (TODOPointExist) {
-        clickEventKeyRef.current = mapInstance.current.un('click', createPoint); 
+      else{
+        clickEventRef.current = mapInstance.current.un('click', createPoint);  
       }
     }
-  },[mapSelector.points, iconStyle, createPoint])
+  },[mapSelector.points, iconStyle, createPoint, pinModeStatus])
 
   return (
     <div

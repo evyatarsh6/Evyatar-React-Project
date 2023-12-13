@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useSelector } from "react-redux"
+import { GetTodoList } from "../selectors";
 import {bergerPhotos} from '../shared/photos';
 import { IconButton } from '@mui/material';
 import DeleteIcon  from '@mui/icons-material/Delete';
@@ -47,6 +49,9 @@ const imgStyle = {
     borderStyle : 'solid',
     backgroundColor: 'black'
 }
+    
+    
+    const TODOList = useSelector(GetTodoList)
     const dispatch = useDispatch();
     const currInputValue = useRef(null)
     const [isChecked, setIsChecked] = useState(props.isChoosen)

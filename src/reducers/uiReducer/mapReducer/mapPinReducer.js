@@ -1,15 +1,14 @@
 const initialState = {}
 
-export const mapPointsReducer = ( state = initialState , action) => {
+export const mapPoint = ( state = initialState , action) => {
     
     switch (action.type) {
         case "createNewPoint": {
             return {...state,
                 [action.TODOID]:
                 {
-                    ['isVisible']:true,
-                    ['Long']: action.Long,
-                    ['Lat']: action.Lat, 
+                    ['Long']: action.location.Long,
+                    ['Lat']: action.location.Lat, 
                 }
             }
         }

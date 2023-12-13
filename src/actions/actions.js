@@ -26,22 +26,23 @@ export const changeMapPinMode = (pinMode, id) => {
 }
 
 
-export const getPointValues = (Long,Lat, TODOID) => {
+export const createNewPoint = (TODOID, Long,Lat) => {
+    
     return {
-        [TODOID]: {
-            type:"createNewPoint",
+        type:"changeMapPinMode",
+        TODOID:TODOID,
+        location: {
             Long: Long,
-            Lat: Lat,
-
+            Lat: Lat
         }
     }
 }
 
-export const cancelPoint = TODOID => {
+export const DeletePoint = TODOID => {
 
     return {
         [TODOID]: {
-            type:"cancelPoint",
+            type:"cancelPoint"
         }
     }
 }

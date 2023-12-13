@@ -8,8 +8,9 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapAction, GetTodoList } from '../selectors';
+import { GetMapMode, GetTodoList } from '../selectors';
 import { Point } from "ol/geom";
+import { createNewPoint } from "../actions/actions";
 
 export const BaseMap = () => {
 
@@ -20,15 +21,10 @@ export const BaseMap = () => {
   const clickEventRef = useRef(null);
   
   const TODOS = useSelector(GetTodoList)
-  const mapSelector = useSelector(GetMapAction) 
-  const pinModeStatus = mapSelector.mode.PinMode
-  const selectedTODOID =  mapSelector.mode.activeTODOID
-  
-  // const TODOSID =  Object.keys(useSelector(GetTodoList))
-  // const TODOSLen =  Object.keys(useSelector(GetTodoList)).length
-  // const dispatch = useDispatch();
-
-
+  const mapModeSelector = useSelector(GetMapMode) 
+  const pinModeStatus = mapModeSelector.PinMode
+  const selectedTODOID = mapModeSelector.activeTODOID
+  const dispatch = useDispatch();
 
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
@@ -75,12 +71,16 @@ export const BaseMap = () => {
     });
     featuresRef.current.setStyle(iconStyle);
     layerRef.current.getSource().addFeature(featuresRef.current);
-  }, [iconStyle]);
+
+    const coordinateObj = getLongLat(evt.coordinate)
+    dispatch(createNewPoint(selectedTODOID, coordinateObj.getLong, coordinateObj.getLat  ))
+  
+  }, 
+    [iconStyle, dispatch, selectedTODOID]);
 
   useEffect(() => {
     if (mapInstance.current) {
       if (pinModeStatus) {
-        if (pinModeStatus) {
           if (!TODOS[selectedTODOID].location && !clickEventRef.current) {
             clickEventRef.current = mapInstance.current.on('click', createPoint)
           }
@@ -92,8 +92,8 @@ export const BaseMap = () => {
           clickEventRef.current = mapInstance.current.un('click', createPoint);  
         }
       }
-    }
-  },[mapSelector.points, iconStyle, createPoint, pinModeStatus, TODOS, selectedTODOID])
+  },
+    [iconStyle, createPoint, pinModeStatus, TODOS, selectedTODOID])
 
   return (
     <div

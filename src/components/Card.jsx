@@ -105,7 +105,7 @@ export const Card = ({ id }) => {
 
     const clickSavePin = () => {
         clickCancelPin()
-        dispatch(editTODO( {...currCardInfo, isPinBtnDisable: false , location : 'location' } ))
+        dispatch(editTODO( {...currCardInfo, isPinBtnDisable: false} ))
     }
 
     const clickFocusBtn = () => {

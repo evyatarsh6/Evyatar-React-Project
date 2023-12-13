@@ -31,7 +31,7 @@ export const CardList = () => {
                 FilterdArr.map( TODO => (
                     
                     <Card
-                    props = {TODO}
+                    id = {TODO.id}
                     key={TODO.id}
                     />
                     ))

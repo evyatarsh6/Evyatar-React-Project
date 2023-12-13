@@ -32,7 +32,6 @@ export const CardList = () => {
                     
                     <Card
                     id = {TODO.id}
-                    // props = {TODO}
                     key={TODO.id}
                     />
                     ))

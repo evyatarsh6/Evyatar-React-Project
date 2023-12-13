@@ -18,7 +18,7 @@ import ParaglidingIcon from '@mui/icons-material/Paragliding';
 
 
 
-export const Card = ({ props }) => {
+export const Card = ({ id }) => {
 
 
 const cardStyle =  {
@@ -54,11 +54,11 @@ const imgStyle = {
     const TODOList = useSelector(GetTodoList)
     const dispatch = useDispatch();
     const currInputValue = useRef(null)
-    const [isChecked, setIsChecked] = useState(props.isChoosen)
-    const [isDeleted,setIsDeleted ] = useState(props.isDeleted)
+    const [isChecked, setIsChecked] = useState(TODOList[id].isChoosen)
+    const [isDeleted,setIsDeleted ] = useState(TODOList[id].isDeleted)
     const [isFreezeMode,setIsFreezeMode] = useState(true)
-    const [message, setMessage] = useState(props.description);
-    const [isPinActive, setIsPinActive] = useState(props.isPinBtnDisable);
+    const [message, setMessage] = useState(TODOList[id].description);
+    const [isPinActive, setIsPinActive] = useState(TODOList[id].isPinBtnDisable);
    
     const handleInputType =  event => setMessage(event.target.value);
 
@@ -71,7 +71,7 @@ const imgStyle = {
         else {
 
             setIsFreezeMode(!isFreezeMode)
-            dispatch(editTODO( {...props, description : message }))
+            dispatch(editTODO( {...TODOList[id], description : message }))
         }
     }
 
@@ -79,13 +79,13 @@ const imgStyle = {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        dispatch(editTODO( {...props, isDeleted : newDeleteStatus } ))
+        dispatch(editTODO( {...TODOList[id], isDeleted : newDeleteStatus } ))
     }
 
     const checkChoosenCheckbox= () => {
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
-        dispatch(editTODO( {...props, isChoosen : newCheckedtatus } ))
+        dispatch(editTODO( {...TODOList[id], isChoosen : newCheckedtatus } ))
     }
 
 
@@ -116,7 +116,7 @@ const imgStyle = {
         if (isLocationExist()) {
             return (
                 <p className='location-description'>
-                    {props.location}
+                    {TODOList[id].location}
                 </p>
             )
         }
@@ -143,14 +143,14 @@ const imgStyle = {
         (
             <div className='handle-pin-btns'>
                 <IconButton className= 'pin-btn' style={{scale:"1.5"}}
-                onClick={clickPinBtn} disabled={props.isPinBtnDisable}>
+                onClick={clickPinBtn} disabled={TODOList[id].isPinBtnDisable}>
                     <PushPinIcon/>
                 </IconButton>
             </div>
         )
 )
     const isLocationExist = () => {
-        if (!props.location) {
+        if (!TODOList[id].location) {
             return false
         }
         return true
@@ -161,8 +161,8 @@ const imgStyle = {
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 
 
     useEffect(() => {
-        console.log(generateUpdateCardLogs(props))
-    }, [props])
+        console.log(generateUpdateCardLogs(TODOList[id]))
+    }, [TODOList[id]])
 
     useEffect(() => {
         console.log(generateChangeValueLogs('the description field' , message))
@@ -171,7 +171,7 @@ const imgStyle = {
 
     return (
             
-        <div className ={"card"} id={props.id} style={cardStyle}>
+        <div className ={"card"} id={TODOList[id].id} style={cardStyle}>
             <div className='map-btns'> 
                 {mapPinBtns()}
                 <div className= 'handle-focus-btns'>
@@ -182,10 +182,10 @@ const imgStyle = {
                     
                 </div>
             </div>
-            <h3 className="card-title">{props.kind}</h3>
+            <h3 className="card-title">{TODOList[id].kind}</h3>
             {showLocation()}
             <img
-                src={bergerPhotos[props.kind]}
+                src={bergerPhotos[TODOList[id].kind]}
                 className="card-image"
                 style= { imgStyle }
             />
@@ -217,7 +217,7 @@ const imgStyle = {
                 }
             </IconButton>
                 
-            <IconButton id ={`${props.id}-${deleteRestoreBtnStatus()}`} style={{scale:"1.5"}} 
+            <IconButton id ={`${TODOList[id].id}-${deleteRestoreBtnStatus()}`} style={{scale:"1.5"}} 
             onClick={checkChoosenCheckbox}>
                     {
                     isChecked ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>

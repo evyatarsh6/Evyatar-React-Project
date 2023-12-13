@@ -83,7 +83,6 @@ export const BaseMap = () => {
         if (pinModeStatus) {
           if (!TODOS[selectedTODOID].location && !clickEventRef.current) {
             clickEventRef.current = mapInstance.current.on('click', createPoint)
-            TODOS[selectedTODOID].location = 'avi'
           }
           else{
             clickEventRef.current = mapInstance.current.un('click', createPoint);
@@ -92,17 +91,6 @@ export const BaseMap = () => {
         else{
           clickEventRef.current = mapInstance.current.un('click', createPoint);  
         }
-
-    //   //   if (!clickEventRef.current) {
-    //   //     console.log(TODOS[selectedTODOID])
-    //   //     clickEventRef.current = mapInstance.current.on('click', createPoint); 
-    //   //   }
-    //   //   else{
-    //   //     clickEventRef.current = mapInstance.current.un('click', createPoint);  
-    //   //   }
-    //   // }
-    //   // else{
-    //   //   clickEventRef.current = mapInstance.current.un('click', createPoint);  
       }
     }
   },[mapSelector.points, iconStyle, createPoint, pinModeStatus, TODOS, selectedTODOID])

@@ -8,7 +8,7 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapAction } from '../selectors';
+import { GetMapAction, GetTodoList } from '../selectors';
 import { Point } from "ol/geom";
 
 export const BaseMap = () => {
@@ -18,10 +18,17 @@ export const BaseMap = () => {
   const featuresRef = useRef(null);
   const layerRef = useRef(null);
   const clickEventRef = useRef(null);
-
+  
+  const TODOS = useSelector(GetTodoList)
   const mapSelector = useSelector(GetMapAction) 
   const pinModeStatus = mapSelector.mode.PinMode
+  const selectedTODOID =  mapSelector.mode.activeTODOID
+  
+  // const TODOSID =  Object.keys(useSelector(GetTodoList))
+  // const TODOSLen =  Object.keys(useSelector(GetTodoList)).length
   // const dispatch = useDispatch();
+
+
 
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
@@ -73,18 +80,32 @@ export const BaseMap = () => {
   useEffect(() => {
     if (mapInstance.current) {
       if (pinModeStatus) {
-        if (!clickEventRef.current) {
-          clickEventRef.current  = mapInstance.current.on('click', createPoint); 
+        if (pinModeStatus) {
+          if (!TODOS[selectedTODOID].location && !clickEventRef.current) {
+            clickEventRef.current = mapInstance.current.on('click', createPoint)
+            TODOS[selectedTODOID].location = 'avi'
+          }
+          else{
+            clickEventRef.current = mapInstance.current.un('click', createPoint);
+          }
         }
         else{
           clickEventRef.current = mapInstance.current.un('click', createPoint);  
         }
-      }
-      else{
-        clickEventRef.current = mapInstance.current.un('click', createPoint);  
+
+    //   //   if (!clickEventRef.current) {
+    //   //     console.log(TODOS[selectedTODOID])
+    //   //     clickEventRef.current = mapInstance.current.on('click', createPoint); 
+    //   //   }
+    //   //   else{
+    //   //     clickEventRef.current = mapInstance.current.un('click', createPoint);  
+    //   //   }
+    //   // }
+    //   // else{
+    //   //   clickEventRef.current = mapInstance.current.un('click', createPoint);  
       }
     }
-  },[mapSelector.points, iconStyle, createPoint, pinModeStatus])
+  },[mapSelector.points, iconStyle, createPoint, pinModeStatus, TODOS, selectedTODOID])
 
   return (
     <div

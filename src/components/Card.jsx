@@ -92,13 +92,13 @@ export const Card = ({ id }) => {
 
     const clickPinBtn = () => {
             setIsPinActive(true)
-            dispatch(changeMapPinMode(true))
+            dispatch(changeMapPinMode(true, currCardInfo.id))
             dispatch(editAllTODOS({name: 'isPinBtnDisable', value: true}))
 
     }
     const clickCancelPin = () => {
         setIsPinActive(!isPinActive)
-        dispatch(changeMapPinMode(false))
+        dispatch(changeMapPinMode(true, currCardInfo.id))
         dispatch(editAllTODOS({name: 'isPinBtnDisable', value: false}))
 
     }
@@ -126,8 +126,7 @@ export const Card = ({ id }) => {
         isPinActive ? (
             <div className='handle-pin-btns'>
                 <IconButton className='clear-pin-btn' style={{ scale: "1.5" }} 
-                onClick={clickCancelPin} 
-                // disabled ={!isLocationExist()}
+                onClick={clickCancelPin}
                 >
                     <ClearIcon />
                 </IconButton>
@@ -176,7 +175,9 @@ export const Card = ({ id }) => {
                 {mapPinBtns()}
                 <div className= 'handle-focus-btns'>
                     <IconButton className= 'focus-btn' style={{scale:"1.5"}}
-                    onClick={clickFocusBtn} disabled = {!isLocationExist()}>
+                    onClick={clickFocusBtn} 
+                    disabled = {!isLocationExist()}
+                    >
                         <ParaglidingIcon/>
                     </IconButton>
                     

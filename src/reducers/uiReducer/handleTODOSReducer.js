@@ -1,3 +1,4 @@
+import { GetMapPoint } from "../../selectors"
 import { mapPoint } from "./mapReducer/mapPinReducer"
 
 const initialState  = {}
@@ -22,13 +23,14 @@ export const TODOS = ( state = initialState , action) => {
 
     else if(action.type ==="editTODO"){
 
-        let updateLocation = null
-        const currPointCoord = Object.value(mapPoint.getState()[action.props.id])
-        if (Object.keys(mapPoint.getState() &&
-        currPointCoord !==state[action.props.id].location)) {
+        let updateLocation = {}
+        const pointsLen =  Object.keys(GetMapPoint).length
+        const currTODOPoint = Object.values(GetMapPoint[action.props.id])
+        
+        if ( !pointsLen && currTODOPoint !== state[action.props.id].location) {
             updateLocation =  {
-                Long: mapPoint.getState()[action.props.id].Long,
-                Lat: mapPoint.getState()[action.props.id].Lat
+                Long: GetMapPoint[action.props.id].Long,
+                Lat: GetMapPoint[action.props.id].Lat
             }
         }
         const TODOList = {

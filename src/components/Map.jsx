@@ -72,11 +72,11 @@ export const BaseMap = () => {
     featuresRef.current.setStyle(iconStyle);
     layerRef.current.getSource().addFeature(featuresRef.current);
 
+    console.log(getLongLat(evt.coordinate))
     const coordinateObj = getLongLat(evt.coordinate)
-    dispatch(createNewPoint(selectedTODOID, coordinateObj.getLong, coordinateObj.getLat  ))
-  
+    dispatch(createNewPoint(selectedTODOID, coordinateObj.getLong, coordinateObj.getLat))
   }, 
-    [iconStyle, dispatch, selectedTODOID]);
+    [iconStyle, selectedTODOID, dispatch]);
 
   useEffect(() => {
     if (mapInstance.current) {
@@ -89,7 +89,7 @@ export const BaseMap = () => {
           }
         }
         else{
-          clickEventRef.current = mapInstance.current.un('click', createPoint);  
+          clickEventRef.current = mapInstance.current.un('click', createPoint);
         }
       }
   },

@@ -112,6 +112,13 @@ export const Card = ({ id }) => {
         console.log('avi focus')
     }
 
+    const isLocationExist = () => {
+        if (!currCardInfo.location) {
+            return false
+        }
+        return true
+    } 
+    
     const showLocation = () => {
         if (isLocationExist()) {
             return (
@@ -148,12 +155,6 @@ export const Card = ({ id }) => {
             </div>
         )
 )
-    const isLocationExist = () => {
-        if (!currCardInfo.location) {
-            return false
-        }
-        return true
-    } 
 
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 

@@ -17,7 +17,7 @@ export const BaseMap = () => {
   const featuresRef = useRef(null);
   const layerRef = useRef(null);
   const clickEventKeyRef = useRef();
-
+  
   const mapSelector = useSelector(GetMapAction) 
   // const dispatch = useDispatch();
 

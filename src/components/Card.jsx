@@ -104,9 +104,8 @@ export const Card = ({ id }) => {
     }
 
     const clickSavePin = () => {
-        setIsPinActive(!isPinActive)
-        dispatch(changeMapPinMode(false))
-        dispatch(editAllTODOS({name: 'isPinBtnDisable', value: false}))
+        clickCancelPin()
+        dispatch(editTODO( {...currCardInfo, isPinBtnDisable: false , location : 'location' } ))
     }
 
     const clickFocusBtn = () => {

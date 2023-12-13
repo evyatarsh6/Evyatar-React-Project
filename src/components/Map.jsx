@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import "ol/ol.css";
 import { Map, View } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
@@ -9,7 +9,6 @@ import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { GetMapAction } from '../selectors';
-import { getPointValues } from "../actions/actions";
 
 export const BaseMap = () => {
 
@@ -20,7 +19,7 @@ export const BaseMap = () => {
   const clickEventKeyRef = useRef();
 
   const mapSelector = useSelector(GetMapAction) 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
@@ -29,9 +28,9 @@ export const BaseMap = () => {
     }),
   }), []);
 
-  const getLongLat = coordinate => {
-    return {getLong: coordinate[0], getLat: coordinate[1]}
-  }
+  // const getLongLat = coordinate => {
+  //   return {getLong: coordinate[0], getLat: coordinate[1]}
+  // }
   
   useEffect(() => {
     if (!mapInstance.current) {
@@ -73,7 +72,7 @@ export const BaseMap = () => {
 
   useEffect((TODOID) => {
     
-    if (mapInstance.current) {
+    if (mapInstance.current && featuresRef.current) {
       const TODOPointExist = Object.keys(featuresRef.current).includes(TODOID)
 
 

@@ -1,11 +1,11 @@
 import {combineReducers} from "redux";
 import { TODOS } from "./reducers/uiReducer/handleTODOSReducer";
 import { filterKind } from "./reducers/uiReducer/handleFilterKindReducer";
-import { mapPoint } from "./reducers/uiReducer/mapReducer/mapPinReducer";
+import { mapPoints } from "./reducers/uiReducer/mapReducer/mapPinReducer";
 import {mapMode} from "./reducers/uiReducer/mapReducer/mapModeReducer";
 const mapReducer = combineReducers({
     mode: mapMode,
-    points: mapPoint
+    points: mapPoints
 })
 
 const uiReducer = combineReducers({

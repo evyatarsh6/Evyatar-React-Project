@@ -113,17 +113,29 @@ export const Card = ({ id }) => {
     }
 
     const isLocationExist = () => {
-        if (!currCardInfo.location) {
-            return false
+        const LocationValues = Object.values(currCardInfo.location)
+        if (LocationValues.length) {
+            return true
         }
-        return true
+        return false
     } 
-    
+
+    const showLocationAsString = () => {
+
+        let locationString
+        const LocationValues = Object.values(currCardInfo.location)
+        if (LocationValues.length) {
+            locationString = ` ${LocationValues.Long}  : ${LocationValues.Lat}  `
+            return locationString 
+        } 
+        return null
+    }
+
     const showLocation = () => {
         if (isLocationExist()) {
             return (
                 <p className='location-description'>
-                    {currCardInfo.location}
+                    {showLocationAsString()}
                 </p>
             )
         }

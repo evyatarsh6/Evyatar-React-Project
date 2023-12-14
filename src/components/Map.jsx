@@ -8,9 +8,9 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapMode, GetTodoList } from '../selectors';
+import { GetMapMode, GetMapPoints, GetTodoList } from '../selectors';
 import { Point } from "ol/geom";
-import { createNewPoint } from "../actions/actions";
+import { updatePoint, editTODO } from "../actions/actions";
 
 export const BaseMap = () => {
 
@@ -72,11 +72,10 @@ export const BaseMap = () => {
     featuresRef.current.setStyle(iconStyle);
     layerRef.current.getSource().addFeature(featuresRef.current);
 
-    console.log(getLongLat(evt.coordinate))
     const coordinateObj = getLongLat(evt.coordinate)
-    dispatch(createNewPoint(selectedTODOID, coordinateObj.getLong, coordinateObj.getLat))
-  }, 
-    [iconStyle, selectedTODOID, dispatch]);
+    dispatch(updatePoint(selectedTODOID, coordinateObj.getLong, coordinateObj.getLat))
+  },
+  [iconStyle, selectedTODOID, dispatch]);
 
   useEffect(() => {
     if (mapInstance.current) {

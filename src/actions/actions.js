@@ -26,10 +26,10 @@ export const changeMapPinMode = (pinMode, id) => {
 }
 
 
-export const createNewPoint = (TODOID, Long,Lat) => {
+export const updatePoint = (TODOID, Long,Lat) => {
     
     return {
-        type:"createNewPoint",
+        type:"updatePoint",
         TODOID:TODOID,
         location: {
             Long: Long,

@@ -1,9 +1,9 @@
 const initialState = {}
 
-export const mapPoint = ( state = initialState , action) => {
+export const mapPoints = ( state = initialState , action) => {
     
     switch (action.type) {
-        case "createNewPoint": {
+        case "updatePoint": {
             return {...state,
                 [action.TODOID]:
                 {

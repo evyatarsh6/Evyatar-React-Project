@@ -66,21 +66,24 @@ export const BaseMap = () => {
 
   
   const createPoint = useCallback((evt) => {
-    featuresRef.current  = new Feature({
-      geometry: new Point(evt.coordinate),
-    });
-    featuresRef.current.setStyle(iconStyle);
-    layerRef.current.getSource().addFeature(featuresRef.current);
-
-    const coordinateObj = getLongLat(evt.coordinate)
-    dispatch(updatePoint(selectedTODOID, coordinateObj.getLong, coordinateObj.getLat))
+    const isPointExist = Object.keys(TODOS[selectedTODOID].location).length !== 0
+    if (!isPointExist) {
+      featuresRef.current  = new Feature({
+        geometry: new Point(evt.coordinate),
+      });
+      featuresRef.current.setStyle(iconStyle);
+      layerRef.current.getSource().addFeature(featuresRef.current);
+  
+      const coordinateObj = getLongLat(evt.coordinate)
+      dispatch(updatePoint(selectedTODOID, coordinateObj.getLong, coordinateObj.getLat))  
+    }
   },
-  [iconStyle, selectedTODOID, dispatch]);
+  [iconStyle, selectedTODOID, dispatch, TODOS]);
 
   useEffect(() => {
     if (mapInstance.current) {
       if (pinModeStatus) {
-          if (!TODOS[selectedTODOID].location && !clickEventRef.current) {
+          if (!clickEventRef.current) {
             clickEventRef.current = mapInstance.current.on('click', createPoint)
           }
           else{

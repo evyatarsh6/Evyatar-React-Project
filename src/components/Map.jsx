@@ -14,11 +14,11 @@ import { updatePoint, editTODO } from "../actions/actions";
 
 export const BaseMap = () => {
 
-  const mapRef = useRef(null);
-  const mapInstance = useRef(null);
-  const featuresRef = useRef(null);
-  const layerRef = useRef(null);
-  const clickEventRef = useRef(null);
+  const mapRef = useRef();
+  const mapInstance = useRef();
+  const featuresRef = useRef();
+  const layerRef = useRef();
+  const clickEventRef = useRef();
   
   const TODOS = useSelector(GetTodoList)
   const mapModeSelector = useSelector(GetMapMode) 

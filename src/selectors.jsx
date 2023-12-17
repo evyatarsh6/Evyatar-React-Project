@@ -7,8 +7,6 @@ export const GetMapMode = state => state.UI.Map.mode
 
 export const GetMapPoints = state => state.UI.Map.points
 
-export const GetMainInputValue = state => state.UI.mainInput.inputValue
-
-export const GetMainInputIsEmpty = state => state.UI.mainInput.isEmpty
+export const GetMainInput = state => state.UI.mainInput
 
 

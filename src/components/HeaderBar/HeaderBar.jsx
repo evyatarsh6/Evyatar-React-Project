@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState } from 'react';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
-import { GetFilterKind, GetMainInputValue } from '../../selectors';
+import { GetFilterKind, GetMainInput } from '../../selectors';
 import { MainInput } from './MainInput';
 import { ButtonsContainer } from './ButtonsContainer';
 import { useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 export const HeaderBar = () => {
 
-  const inputValue = useSelector(GetMainInputValue)
+  const inputVal = useSelector(GetMainInput).inputValue
   const filterKind = useSelector(GetFilterKind)
 
     useEffect(() => {
@@ -16,8 +16,8 @@ export const HeaderBar = () => {
     }, [filterKind])
 
     useEffect(() => {
-      console.log(generateChangeValueLogs('input value', inputValue))
-  }, [inputValue])
+      console.log(generateChangeValueLogs('input value', inputVal))
+  }, [inputVal])
 
 
     return (

@@ -34,7 +34,6 @@ export const handleInputType = updateInputValue => {
         type:'handleInputType',
         updateInputValue: updateInputValue
     }
-
 }
 
 export const activeMapPinTODOMode = (pinMode, id) => {

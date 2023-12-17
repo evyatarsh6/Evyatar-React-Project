@@ -5,12 +5,12 @@ import {TextField} from '@mui/material'
 import { mainInputPlaceHolder } from '../../constans/cardConstans';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleInputType } from '../../actions/actions';
-import { GetMainInputValue } from '../../selectors';
+import { GetMainInput } from '../../selectors';
 
 
 export const MainInput = () => {
   const dispatch = useDispatch();
-  const inputValue = useSelector(GetMainInputValue)
+  const inputVal = useSelector(GetMainInput).inputValue
 
   const options = Object.keys(bergerPhotos)
 
@@ -24,7 +24,7 @@ export const MainInput = () => {
         id='main-react-select-field'
         options={options}
         onInputChange={(event, newInputValue) => InputType(event, newInputValue)}
-        inputValue={inputValue}
+        inputValue={inputVal}
         sx={{ width: '60%', margin:5}}
         renderInput={(params) => <TextField {...params} label= {mainInputPlaceHolder}
         />}

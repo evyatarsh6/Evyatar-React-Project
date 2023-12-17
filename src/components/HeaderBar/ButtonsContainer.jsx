@@ -1,20 +1,16 @@
 /* eslint-disable no-unexpected-multiline */
 import React, {useEffect, useMemo, useState } from 'react';
-import { bergerPhotos } from '../../shared/photos';
-import {Autocomplete} from '@mui/material';
-import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { activeMapShowPointsMode, addTODO, changeFilterKind } from '../../actions/actions';
-import { choosenFilterKind, deleteFilterKind, mainInputPlaceHolder, normalFilterKind } from '../../constans/cardConstans';
-import { generateChangeValueLogs } from '../../constans/generalLogs';
-import { GetFilterKind, GetMainInputIsEmpty, GetMainInputValue, GetMapMode } from '../../selectors';
+import { choosenFilterKind, deleteFilterKind, normalFilterKind } from '../../constans/cardConstans';
+import { GetFilterKind, GetMainInput, GetMapMode } from '../../selectors';
 import {Button} from '@mui/material';
 
 
 export const ButtonsContainer = () => {
 
-  const inputValue = useSelector(GetMainInputValue)
-  const isEmpty = useSelector(GetMainInputIsEmpty)
+  const inputVal = useSelector(GetMainInput).inputValue
+  const isEmpty = useSelector(GetMainInput).isEmpty
     
   const muiButtonStyle = {
     margin: 10,
@@ -29,7 +25,7 @@ export const ButtonsContainer = () => {
 
     const handleAddTODO = () => {
         const cardID = Date.now()
-        dispatch(addTODO(inputValue,cardID))
+        dispatch(addTODO(inputVal,cardID))
       }
 
       const SwitchFilterKind = filterKind => dispatch(changeFilterKind(filterKind))

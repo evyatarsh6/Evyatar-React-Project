@@ -3,13 +3,7 @@ import { TODOS } from "./reducers/uiReducer/handleTODOSReducer";
 import { filterKind } from "./reducers/uiReducer/handleFilterKindReducer";
 import { mapPoints } from "./reducers/uiReducer/mapReducer/mapPoints";
 import {mapMode} from "./reducers/uiReducer/mapReducer/mapMode";
-import { inputValue } from "./reducers/uiReducer/mainInputReducer/inputValue";
-import { isEmpty } from "./reducers/uiReducer/mainInputReducer/isEmpty";
-
-const mainInputReducer = combineReducers({
-    inputValue : inputValue,
-    isEmpty : isEmpty
-})
+import { mainInput } from "./reducers/uiReducer/mainInputReducer/mainInput";
 
 const mapReducer = combineReducers({
     mode: mapMode,
@@ -20,7 +14,7 @@ const uiReducer = combineReducers({
     TODOList: TODOS,
     filterKind: filterKind,
     Map : mapReducer,
-    mainInput: mainInputReducer
+    mainInput: mainInput
 })
 
 

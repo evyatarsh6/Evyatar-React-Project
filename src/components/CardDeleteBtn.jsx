@@ -20,7 +20,13 @@ export const CardDeleteBtn = ({id}) => {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        dispatch(editTODO( {...currCardInfo, isDeleted : newDeleteStatus } ))
+        dispatch(editTODO(
+            {
+            id : currCardInfo.id,
+            fieldKey : 'isDeleted',
+            fieldUpdateValue: newDeleteStatus 
+            }
+        ))
     }
     return (
         <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5"}}>

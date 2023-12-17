@@ -23,32 +23,17 @@ export const TODOS = ( state = initialState , action) => {
 
     else if(action.type ==="editTODO"){
 
-        let updateLocation = {}
-        let isHasPoint = false
-        const pointsIDS =  Object.keys(GetMapPoints)
-        pointsIDS.forEach(ID => {
-            if (ID ===action.props.id) {
-                isHasPoint = true
-            }
-        })
-
-        if (isHasPoint) { 
-            updateLocation =  {
-                Long: GetMapPoints[action.props.id].Long,
-                Lat: GetMapPoints[action.props.id].Lat
-            }
-        }
-
         const TODOList = {
             ...state,
             [action.props.id] : {
                 ...state[action.props.id],
-                id: action.props.id,
-                isChoosen: action.props.isChoosen,
-                isDeleted: action.props.isDeleted,
-                description: action.props.description,
-                location: updateLocation,
-                isPinBtnDisable : action.props.isPinBtnDisable,
+                [action.props.fieldKey] : action.props.fieldUpdateValue, 
+                // id: action.props.id,
+                // isChoosen: action.props.isChoosen,
+                // isDeleted: action.props.isDeleted,
+                // description: action.props.description,
+                // location: action.props.location,
+                // isPinBtnDisable : action.props.isPinBtnDisable,
             }
             
         }

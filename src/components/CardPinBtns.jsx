@@ -32,7 +32,14 @@ export const CardPinBtn = ({id}) => {
 
     const clickSavePin = () => {
         clickCancelPin()
-        dispatch(editTODO( {...currCardInfo, isPinBtnDisable: false, location: {Long: 'avi', Lat: 'berger'}} ))
+        dispatch(editTODO(
+            {
+            id : currCardInfo.id,
+            fieldKey : 'isPinBtnDisable',
+            fieldUpdateValue: false
+            }
+        ))
+        // dispatch(editTODO( {...currCardInfo, isPinBtnDisable: false, location: {Long: 'avi', Lat: 'berger'}} ))
     }
 
        return (  

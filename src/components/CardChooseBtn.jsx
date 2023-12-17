@@ -20,7 +20,13 @@ export const CardChooseBtn = ({id}) => {
     const checkChoosenCheckbox= () => {
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
-        dispatch(editTODO( {...currCardInfo, isChoosen : newCheckedtatus } ))
+        dispatch(editTODO(
+            {
+            id : currCardInfo.id,
+            fieldKey : 'isChoosen',
+            fieldUpdateValue: newCheckedtatus 
+            }
+        ))
     }
 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 

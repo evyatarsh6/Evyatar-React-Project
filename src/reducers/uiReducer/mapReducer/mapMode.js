@@ -1,5 +1,6 @@
 const initialState = {
     PinMode: false,
+    ShowPointsMode: false,
     activeTODOID: null
 }
 

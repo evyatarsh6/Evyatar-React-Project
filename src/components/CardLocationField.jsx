@@ -14,7 +14,7 @@ export const CardLocationField = ({id}) => {
         let locationString
         const LocationValues = Object.values(currCardInfo.location)
         if (LocationValues.length) {
-            locationString = ` ${LocationValues.Long}  : ${LocationValues.Lat}  `
+            locationString = ` ${currCardInfo.location.Long}  : ${currCardInfo.location.Lat}  `
             return locationString 
         } 
         return null

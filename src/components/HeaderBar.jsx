@@ -48,6 +48,10 @@ export const HeaderBar = () => {
 
       (filterKind!== wantedFilterKind) ? SwitchFilterKind(wantedFilterKind) : SwitchFilterKind(normalFilterKind)
     }
+
+    // clickShowPointsBtn = () => {
+
+    // }
     
     const filterKindBtnStatus = wantedFilterKind  => (filterKind !== wantedFilterKind)? 'turn on': 'turn off'
  
@@ -106,6 +110,16 @@ export const HeaderBar = () => {
                     style={muiButtonStyle}
                     >
                     {`${filterKindBtnStatus(deleteFilterKind)} show delete items`}
+            </Button>
+
+            <Button variant="contained"
+                    id = {`show-all-points-btn`}
+                    className= 'show-all-points-btn'
+                    // onClick={}
+                    // onClick={clickWantedFilterKindBtn(deleteFilterKind)}
+                    style={muiButtonStyle}
+                    >
+                    {`${filterKindBtnStatus(deleteFilterKind)} show all points on map`}
             </Button>
           </div>
         </div>

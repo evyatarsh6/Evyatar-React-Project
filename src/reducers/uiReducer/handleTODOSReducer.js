@@ -42,9 +42,6 @@ export const TODOS = ( state = initialState , action) => {
         const relavantAttrName = action.fieldKey
         const relavantAttrValue = action.fieldUpdateValue
 
-        // const relavantAttrName = action.attr.name
-        // const relavantAttrValue = action.attr.value
-
         let TODOList = {...state}
 
         TODOListIDS.forEach(ID => {

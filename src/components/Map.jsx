@@ -24,6 +24,9 @@ export const BaseMap = () => {
   const mapModeSelector = useSelector(GetMapMode) 
   const pinModeStatus = mapModeSelector.PinMode
   const selectedTODOID = mapModeSelector.activeTODOID
+  const showPointsMode = mapModeSelector.ShowPointsMode
+
+
   const dispatch = useDispatch();
 
   const iconStyle = useMemo(() => new Style({
@@ -64,38 +67,59 @@ export const BaseMap = () => {
     }
   }, [iconStyle]);
 
+  const showAllPoints = useCallback(() => {
+    if (showPointsMode) {
+      layerRef.current.getSource().clear();
+       Object.values(GetMapPoints).forEach(coordinateObj => {
+        featuresRef.current  = new Feature({
+          geometry: new Point([coordinateObj.Long, coordinateObj.Lat]),
+        });
+        featuresRef.current.setStyle(iconStyle);
+        layerRef.current.getSource().addFeature(featuresRef.current);
+       });
+      
+    }
+
+  },[iconStyle, mapModeSelector.ShowPointsMode])
+
   
   const createPoint = useCallback((evt) => {
-    const isPointExist = Object.keys(TODOS[selectedTODOID].location).length !== 0
-    if (!isPointExist) {
+    layerRef.current.getSource().clear();
       featuresRef.current  = new Feature({
         geometry: new Point(evt.coordinate),
       });
       featuresRef.current.setStyle(iconStyle);
       layerRef.current.getSource().addFeature(featuresRef.current);
-  
+
       const coordinateObj = getLongLat(evt.coordinate)
       dispatch(updatePoint(selectedTODOID, coordinateObj.getLong, coordinateObj.getLat))  
-    }
-  },
-  [iconStyle, selectedTODOID, dispatch, TODOS]);
+    },
+  [iconStyle, selectedTODOID, dispatch]);
 
   useEffect(() => {
     if (mapInstance.current) {
-      if (pinModeStatus) {
-          if (!clickEventRef.current) {
-            clickEventRef.current = mapInstance.current.on('click', createPoint)
-          }
-          else{
-            clickEventRef.current = mapInstance.current.un('click', createPoint);
-          }
-        }
-        else{
-          clickEventRef.current = mapInstance.current.un('click', createPoint);
-        }
+      if (pinModeStatus && !showPointsMode ) {
+        clickEventRef.current = mapInstance.current.on('click', createPoint)
+      }
+      else if(showPointsMode ){
+        showAllPoints()
+      }
+
+      else{
+        clickEventRef.current = mapInstance.current.un('click', createPoint);
+      }
       }
   },
-    [iconStyle, createPoint, pinModeStatus, TODOS, selectedTODOID])
+    [
+      iconStyle,
+      createPoint,
+      pinModeStatus,
+      TODOS,
+      selectedTODOID,
+      showAllPoints,
+      showPointsMode
+    ]
+  )
 
   return (
     <div

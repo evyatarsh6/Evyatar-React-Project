@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
-import { GetTodoList } from "../selectors";
+import { GetMapPoints, GetTodoList } from "../selectors";
 import { IconButton } from '@mui/material';
 import { changeMapPinMode, editTODO, editAllTODOS} from '../actions/actions';
 import PushPinIcon from '@mui/icons-material/PushPin';
@@ -12,6 +12,7 @@ export const CardPinBtn = ({id}) => {
 
     const dispatch = useDispatch();
     const TODOList = useSelector(GetTodoList)
+    const mapPoints = useSelector(GetMapPoints)
     const currCardInfo = TODOList[id]
 
     const [isPinActive, setIsPinActive] = useState(currCardInfo.isPinBtnDisable);
@@ -43,8 +44,8 @@ export const CardPinBtn = ({id}) => {
         dispatch(editTODO(
             {
             id : currCardInfo.id,
-            fieldKey : 'isPinBtnDisable',
-            fieldUpdateValue: false
+            fieldKey : 'location',
+            fieldUpdateValue: mapPoints[currCardInfo.id]
             }
         ))
     }

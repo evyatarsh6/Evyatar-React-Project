@@ -28,12 +28,6 @@ export const TODOS = ( state = initialState , action) => {
             [action.props.id] : {
                 ...state[action.props.id],
                 [action.props.fieldKey] : action.props.fieldUpdateValue, 
-                // id: action.props.id,
-                // isChoosen: action.props.isChoosen,
-                // isDeleted: action.props.isDeleted,
-                // description: action.props.description,
-                // location: action.props.location,
-                // isPinBtnDisable : action.props.isPinBtnDisable,
             }
             
         }

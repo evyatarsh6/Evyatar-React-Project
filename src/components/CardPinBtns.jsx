@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
 import { GetMapPoints, GetTodoList } from "../selectors";
 import { IconButton } from '@mui/material';
-import { changeMapPinMode, editTODO, editAllTODOS} from '../actions/actions';
+import { activeMapPinTODOMode, editTODO, editAllTODOS} from '../actions/actions';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -20,7 +20,7 @@ export const CardPinBtn = ({id}) => {
 
     const clickPinBtn = () => {
         setIsPinActive(true)
-        dispatch(changeMapPinMode(true, currCardInfo.id))
+        dispatch(activeMapPinTODOMode(true, currCardInfo.id))
         dispatch(editAllTODOS(
             {
                 fieldKey: 'isPinBtnDisable', fieldUpdateValue: true
@@ -30,7 +30,7 @@ export const CardPinBtn = ({id}) => {
     }
     const clickCancelPin = () => {
         setIsPinActive(!isPinActive)
-        dispatch(changeMapPinMode(false, currCardInfo.id))
+        dispatch(activeMapPinTODOMode(false, currCardInfo.id))
         dispatch(editAllTODOS(
                 {
                     fieldKey: 'isPinBtnDisable', fieldUpdateValue: false

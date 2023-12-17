@@ -4,12 +4,24 @@ const initialState = {
     activeTODOID: null
 }
 
-
 export const mapMode = (state = initialState, action) => {
     switch (action.type) {
-      case 'changeMapPinMode':
-        return {...state, PinMode: action.pinMode, activeTODOID: action.activeTODOID}
-      default:
+      case 'activeMapPinTODOMode':
+        return (
+          {...state,
+            PinMode: action.pinMode,
+            ShowPointsMode: false,
+            activeTODOID: action.activeTODOID
+          })
+      case 'activeMapShowPointsMode':
+        return (
+          {...state,
+            PinMode: state.ShowPointsMode,
+            ShowPointsMode: !state.ShowPointsMode,
+            activeTODOID: null
+
+          }) 
+        default:
         return state;
     }
   };

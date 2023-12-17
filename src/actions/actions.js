@@ -19,8 +19,12 @@ export const changeFilterKind = (filterKind) => {
     return {type:"switchFilterKind", updateStatus: filterKind }
 } 
 
-export const changeMapPinMode = (pinMode, id) => {
-    return {type:"changeMapPinMode", pinMode: pinMode, activeTODOID: id}
+export const activeMapPinTODOMode = (pinMode, id) => {
+    return {type:"activeMapPinTODOMode", pinMode: pinMode, activeTODOID: id}
+}
+
+export const activeMapShowPointsMode = () => {
+    return {type:"activeMapShowPointsMode"}
 }
 
 

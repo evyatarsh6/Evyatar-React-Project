@@ -80,7 +80,7 @@ export const BaseMap = () => {
       
     }
 
-  },[iconStyle, mapModeSelector.ShowPointsMode])
+  },[iconStyle,showPointsMode])
 
   
   const createPoint = useCallback((evt) => {

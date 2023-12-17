@@ -1,14 +1,15 @@
 /* eslint-disable no-unexpected-multiline */
-import React, {useEffect, useState } from 'react';
+import React, {useEffect, useMemo, useState } from 'react';
 import { bergerPhotos } from '../shared/photos';
 import {Autocomplete} from '@mui/material';
 import {TextField} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTODO, changeFilterKind } from '../actions/actions';
+import { activeMapShowPointsMode, addTODO, changeFilterKind } from '../actions/actions';
 import { choosenFilterKind, deleteFilterKind, mainInputPlaceHolder, normalFilterKind } from '../constans/cardConstans';
 import { generateChangeValueLogs } from '../constans/generalLogs';
-import { GetFilterKind } from '../selectors';
+import { GetFilterKind, GetMapMode } from '../selectors';
 import {Button} from '@mui/material';
+import { ResetTv } from '@mui/icons-material';
 
 
 export const HeaderBar = () => {
@@ -22,6 +23,8 @@ export const HeaderBar = () => {
   const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch();
   const filterKind = useSelector(GetFilterKind);
+  const mapModeSelector = useSelector(GetMapMode);
+  const showPointsMode = mapModeSelector.ShowPointsMode
 
   const options = Object.keys(bergerPhotos)
 
@@ -49,12 +52,20 @@ export const HeaderBar = () => {
       (filterKind!== wantedFilterKind) ? SwitchFilterKind(wantedFilterKind) : SwitchFilterKind(normalFilterKind)
     }
 
-    // clickShowPointsBtn = () => {
-
-    // }
+    const clickPointsBtn = () => {
+      dispatch(activeMapShowPointsMode())
+    }
+    
     
     const filterKindBtnStatus = wantedFilterKind  => (filterKind !== wantedFilterKind)? 'turn on': 'turn off'
- 
+
+    const pointsOnMapStatus = () => {
+      if (!showPointsMode) {
+        return 'Show'
+      }
+      return 'Hide'
+    }
+    
 
     useEffect(() => {
       console.log(generateChangeValueLogs('filter kind', filterKind))   
@@ -113,13 +124,12 @@ export const HeaderBar = () => {
             </Button>
 
             <Button variant="contained"
-                    id = {`show-all-points-btn`}
-                    className= 'show-all-points-btn'
-                    // onClick={}
-                    // onClick={clickWantedFilterKindBtn(deleteFilterKind)}
+                    id = {`all-points-on-map-btn`}
+                    className= 'all-points-on-map-btn'
+                    onClick={clickPointsBtn}
                     style={muiButtonStyle}
                     >
-                    {`${filterKindBtnStatus(deleteFilterKind)} show all points on map`}
+                    {` ${pointsOnMapStatus()} points on map`}
             </Button>
           </div>
         </div>

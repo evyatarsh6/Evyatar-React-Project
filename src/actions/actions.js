@@ -31,6 +31,7 @@ export const changeFilterKind = (filterKind) => {
 
 export const handleInputType = updateInputValue => {
     return {
+        type:'handleInputType',
         updateInputValue: updateInputValue
     }
 

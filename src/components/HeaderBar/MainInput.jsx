@@ -12,23 +12,23 @@ export const MainInput = () => {
   const dispatch = useDispatch();
   const inputValue = useSelector(GetMainInputValue)
 
-    const options = Object.keys(bergerPhotos)
+  const options = Object.keys(bergerPhotos)
 
-    const InputType= newValue => {
-      dispatch(handleInputType(newValue))
-      }
+  const InputType= (e, newValue) => {
+    dispatch(handleInputType(newValue))
+  }
 
-    return (
-        <Autocomplete
-          disablePortal
-          id='main-react-select-field'
-          options={options}
-          onInputChange={(event, newInputValue) => InputType(newInputValue)}
-          inputValue={inputValue}
-          sx={{ width: '60%', margin:5}}
-          renderInput={(params) => <TextField {...params} label= {mainInputPlaceHolder}
-          />}
-          >
-          </Autocomplete>
-    )
+  return (
+      <Autocomplete
+        disablePortal
+        id='main-react-select-field'
+        options={options}
+        onInputChange={(event, newInputValue) => InputType(event, newInputValue)}
+        inputValue={inputValue}
+        sx={{ width: '60%', margin:5}}
+        renderInput={(params) => <TextField {...params} label= {mainInputPlaceHolder}
+        />}
+        >
+        </Autocomplete>
+  )
 }

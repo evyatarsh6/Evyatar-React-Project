@@ -7,4 +7,6 @@ export const GetMapMode = state => state.UI.Map.mode
 
 export const GetMapPoints = state => state.UI.Map.points
 
+export const GetMainInput = state => state.UI.mainInput
+
 

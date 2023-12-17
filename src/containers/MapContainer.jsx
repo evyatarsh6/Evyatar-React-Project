@@ -1,4 +1,4 @@
-import { BaseMap } from '../components/Map';
+import { BaseMap } from '../components/Map/Map';
 import { PopUp } from '../components/PopUp';
 import { useRef } from 'react';
 

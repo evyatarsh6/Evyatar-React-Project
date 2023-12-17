@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Card } from "../components/Card"
+import { Card } from "../components/Cards/Card";
 import { useSelector } from "react-redux"
 import { GetTodoList, GetFilterKind } from "../selectors";
 

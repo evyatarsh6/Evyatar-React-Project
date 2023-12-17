@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
-import { GetMapPoints, GetTodoList } from "../selectors";
-import { isLocationExist } from '../utils/generalUtils';
+import { GetMapPoints, GetTodoList } from "../../selectors";
+import { isLocationExist } from '../../utils/generalUtils';
 import { useMemo } from 'react';
 
 

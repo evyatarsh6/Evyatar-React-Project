@@ -1,5 +1,5 @@
 import './App.css';
-import { HeaderBar } from './components/HeaderBar';
+import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
 

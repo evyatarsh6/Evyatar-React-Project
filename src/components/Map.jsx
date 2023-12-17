@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { GetMapMode, GetMapPoints, GetTodoList } from '../selectors';
 import { Point } from "ol/geom";
 import { updatePoint, editTODO } from "../actions/actions";
-import { getLongLat } from "../utils/cardUtils";
+import { getLongLat } from "../utils/generalUtils";
 
 export const BaseMap = () => {
 

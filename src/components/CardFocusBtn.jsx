@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import { GetTodoList } from "../selectors";
 import { IconButton } from '@mui/material';
 import ParaglidingIcon from '@mui/icons-material/Paragliding';
-import { isLocationExist } from '../utils/cardUtils';
+import { isLocationExist } from '../utils/generalUtils';
 
 export const CardFocusBtn = ({id}) => {
 

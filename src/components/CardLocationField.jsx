@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
 import { GetTodoList } from "../selectors";
-import { isLocationExist } from '../utils/cardUtils';
+import { isLocationExist } from '../utils/generalUtils';
 
 
 export const CardLocationField = ({id}) => {

@@ -4,7 +4,8 @@ export const mapPoints = ( state = initialState , action) => {
     
     switch (action.type) {
         case "updatePoint": {
-            return {...state,
+            return {
+                ...state,
                 [action.TODOID]:
                 {
                     ['Long']: action.location.Long,

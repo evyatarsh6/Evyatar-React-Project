@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { GetMapMode, GetMapPoints, GetTodoList } from '../selectors';
 import { Point } from "ol/geom";
 import { updatePoint, editTODO } from "../actions/actions";
+import { getLongLat } from "../utils/cardUtils";
 
 export const BaseMap = () => {
 
@@ -35,10 +36,6 @@ export const BaseMap = () => {
       anchor: [0.5, 1],
     }),
   }), []);
-
-  const getLongLat = coordinate => {
-    return {getLong: coordinate[0], getLat: coordinate[1]}
-  }
   
   useEffect(() => {
     if (!mapInstance.current) {
@@ -70,6 +67,7 @@ export const BaseMap = () => {
   const showAllPoints = useCallback(() => {
     if (showPointsMode) {
       layerRef.current.getSource().clear();
+      
        Object.values(GetMapPoints).forEach(coordinateObj => {
         featuresRef.current  = new Feature({
           geometry: new Point([coordinateObj.Long, coordinateObj.Lat]),
@@ -92,7 +90,7 @@ export const BaseMap = () => {
       layerRef.current.getSource().addFeature(featuresRef.current);
 
       const coordinateObj = getLongLat(evt.coordinate)
-      dispatch(updatePoint(selectedTODOID, coordinateObj.getLong, coordinateObj.getLat))  
+      dispatch(updatePoint(selectedTODOID, coordinateObj.Long, coordinateObj.Lat))  
     },
   [iconStyle, selectedTODOID, dispatch]);
 

@@ -5,3 +5,7 @@ export const isLocationExist = (currCardInfo) => {
     }
     return false
 }
+
+export const getLongLat = coordinate => {
+    return {Long: coordinate[0], Lat: coordinate[1]}
+  }

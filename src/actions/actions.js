@@ -1,9 +1,16 @@
 export const addTODO = (inputValue, cardID) => {
-    return {type:  'addTODO', value: inputValue,  id: cardID}
+    return {
+        type:  'addTODO',
+        value: inputValue,
+        id: cardID
+    }
 } 
 
 export const editTODO = (props) => {
-    return {type: "editTODO", props}
+    return {
+        type: "editTODO",
+        props
+    }
 } 
 
 export const editAllTODOS = (props) => {
@@ -16,15 +23,24 @@ export const editAllTODOS = (props) => {
 
 
 export const changeFilterKind = (filterKind) => {
-    return {type:"switchFilterKind", updateStatus: filterKind }
+    return {
+        type:"switchFilterKind",
+        updateStatus: filterKind
+    }
 } 
 
 export const activeMapPinTODOMode = (pinMode, id) => {
-    return {type:"activeMapPinTODOMode", pinMode: pinMode, activeTODOID: id}
+    return {
+        type:"activeMapPinTODOMode",
+        pinMode: pinMode,
+        activeTODOID: id
+    }
 }
 
 export const activeMapShowPointsMode = () => {
-    return {type:"activeMapShowPointsMode"}
+    return {
+        type:"activeMapShowPointsMode"
+    }
 }
 
 

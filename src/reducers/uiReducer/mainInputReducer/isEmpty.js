@@ -3,7 +3,7 @@ import { inputValue } from "./inputValue"
 const initialState  = true
 
 export const isEmpty = () => {
-    if (inputValue !== '') {
+    if (inputValue.length !== 0) {
         return false
     }
     else{

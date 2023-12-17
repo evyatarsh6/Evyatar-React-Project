@@ -14,7 +14,7 @@ export const MainInput = () => {
 
     const options = Object.keys(bergerPhotos)
 
-    const InputType= (e, newValue) => {
+    const InputType= newValue => {
       dispatch(handleInputType(newValue))
       }
 
@@ -23,7 +23,7 @@ export const MainInput = () => {
           disablePortal
           id='main-react-select-field'
           options={options}
-          onInputChange={(event, newInputValue) => InputType(event, newInputValue)}
+          onInputChange={(event, newInputValue) => InputType(newInputValue)}
           inputValue={inputValue}
           sx={{ width: '60%', margin:5}}
           renderInput={(params) => <TextField {...params} label= {mainInputPlaceHolder}

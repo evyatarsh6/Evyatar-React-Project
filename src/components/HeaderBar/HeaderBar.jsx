@@ -1,16 +1,9 @@
-/* eslint-disable no-unexpected-multiline */
 import React, {useEffect, useMemo, useState } from 'react';
-import { bergerPhotos } from '../../shared/photos';
-import {Autocomplete} from '@mui/material';
-import {TextField} from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { activeMapShowPointsMode, addTODO, changeFilterKind } from '../../actions/actions';
-import { choosenFilterKind, deleteFilterKind, mainInputPlaceHolder, normalFilterKind } from '../../constans/cardConstans';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
-import { GetFilterKind, GetMainInputIsEmpty, GetMainInputValue, GetMapMode } from '../../selectors';
-import {Button} from '@mui/material';
+import { GetFilterKind, GetMainInputValue } from '../../selectors';
 import { MainInput } from './MainInput';
 import { ButtonsContainer } from './ButtonsContainer';
+import { useSelector } from 'react-redux';
 
 
 export const HeaderBar = () => {

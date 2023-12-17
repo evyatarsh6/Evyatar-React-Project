@@ -9,7 +9,6 @@ export const CardLocationField = ({id}) => {
    
     const dispatch = useDispatch();
     const TODOList = useSelector(GetTodoList)
-    const mapPoints = useSelector(GetMapPoints)
 
     
     const currCardInfo = TODOList[id]

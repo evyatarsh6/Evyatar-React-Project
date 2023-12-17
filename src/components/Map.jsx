@@ -21,6 +21,7 @@ export const BaseMap = () => {
   const layerRef = useRef();
   const clickEventRef = useRef();
   
+  const mapPoints = useSelector(GetMapPoints)
   const TODOS = useSelector(GetTodoList)
   const mapModeSelector = useSelector(GetMapMode) 
   const pinModeStatus = mapModeSelector.PinMode
@@ -68,17 +69,16 @@ export const BaseMap = () => {
     if (showPointsMode) {
       layerRef.current.getSource().clear();
       
-       Object.values(GetMapPoints).forEach(coordinateObj => {
+       Object.values(mapPoints).forEach(coordinateObj => {
         featuresRef.current  = new Feature({
           geometry: new Point([coordinateObj.Long, coordinateObj.Lat]),
         });
         featuresRef.current.setStyle(iconStyle);
         layerRef.current.getSource().addFeature(featuresRef.current);
-       });
-      
+       }); 
     }
 
-  },[iconStyle,showPointsMode])
+  },[iconStyle,showPointsMode, mapPoints])
 
   
   const createPoint = useCallback((evt) => {

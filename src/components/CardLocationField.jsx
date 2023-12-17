@@ -1,16 +1,20 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
-import { GetTodoList } from "../selectors";
+import { GetMapPoints, GetTodoList } from "../selectors";
 import { isLocationExist } from '../utils/generalUtils';
+import { useMemo } from 'react';
 
 
 export const CardLocationField = ({id}) => {
    
     const dispatch = useDispatch();
     const TODOList = useSelector(GetTodoList)
-    const currCardInfo = TODOList[id]
+    const mapPoints = useSelector(GetMapPoints)
 
-    const showLocationAsString = () => {
+    
+    const currCardInfo = TODOList[id]
+    
+    const showLocationAsString = useMemo(() => {
         let locationString
         const LocationValues = Object.values(currCardInfo.location)
         if (LocationValues.length) {
@@ -18,12 +22,12 @@ export const CardLocationField = ({id}) => {
             return locationString 
         } 
         return null
-    }
+    },[currCardInfo.location])
 
-    if (!isLocationExist(currCardInfo)) {
+    if (isLocationExist(currCardInfo.location)) {
             return (
                 <p className='location-description'>
-                    {showLocationAsString()}
+                    {showLocationAsString}
                 </p>
             )
         }

@@ -13,12 +13,6 @@ export const mapPoints = ( state = initialState , action) => {
                 }
             }
         }
-        case "cancelPoint": {
-            return {...state,
-                [action.TODOID]: null
-            }
-            
-        }
         default:
             return state
      }

@@ -20,7 +20,7 @@ export const CardFocusBtn = ({id}) => {
         <div className= 'handle-focus-btns'>
                     <IconButton className= 'focus-btn' style={{scale:"1.5"}}
                     onClick={clickFocusBtn} 
-                    disabled = {!isLocationExist(currCardInfo)}
+                    disabled = {!isLocationExist(currCardInfo.location)}
                     >
                         <ParaglidingIcon/>
                     </IconButton>

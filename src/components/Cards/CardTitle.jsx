@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
-import { GetTodoList } from "../selectors";
+import { GetTodoList } from "../../selectors";
 
 
 export const CardTitle = ({id}) => {

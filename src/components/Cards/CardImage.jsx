@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
-import { GetTodoList } from "../selectors";
-import {bergerPhotos} from '../shared/photos';
+import { GetTodoList } from "../../selectors";
+import {bergerPhotos} from '../../shared/photos';
 
 export const CardImage = ({id}) => {
 

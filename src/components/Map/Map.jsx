@@ -8,10 +8,10 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapMode, GetMapPoints, GetTodoList } from '../selectors';
+import { GetMapMode, GetMapPoints, GetTodoList } from '../../selectors';
 import { Point } from "ol/geom";
-import { updatePoint, editTODO } from "../actions/actions";
-import { getLongLat } from "../utils/generalUtils";
+import { updatePoint, editTODO } from "../../actions/actions";
+import { getLongLat } from "../../utils/generalUtils";
 
 export const BaseMap = () => {
 

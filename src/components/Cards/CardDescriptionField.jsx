@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
-import { GetTodoList } from "../selectors";
+import { GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
-import { editTODO } from '../actions/actions';
-import { generateChangeValueLogs } from '../constans/generalLogs';
+import { editTODO } from '../../actions/actions';
+import { generateChangeValueLogs } from '../../constans/generalLogs';
 
 
 

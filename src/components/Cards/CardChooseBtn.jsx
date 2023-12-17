@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
-import { GetTodoList } from "../selectors";
+import { GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import {  editTODO} from '../actions/actions';
+import {  editTODO} from '../../actions/actions';
 
 
 export const CardChooseBtn = ({id}) => {

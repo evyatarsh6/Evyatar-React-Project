@@ -27,7 +27,14 @@ export const changeFilterKind = (filterKind) => {
         type:"switchFilterKind",
         updateStatus: filterKind
     }
-} 
+}
+
+export const handleInputType = updateInputValue => {
+    return {
+        updateInputValue: updateInputValue
+    }
+
+}
 
 export const activeMapPinTODOMode = (pinMode, id) => {
     return {

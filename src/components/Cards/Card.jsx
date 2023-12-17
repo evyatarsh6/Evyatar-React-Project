@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
-import { GetTodoList } from "../selectors";
-import { generateUpdateCardLogs } from '../constans/generalLogs';
+import { GetTodoList } from "../../selectors";
+import { generateUpdateCardLogs } from '../../constans/generalLogs';
 import { CardDescriptionField } from './CardDescriptionField';
 import { CardMapBtns } from './CardMapBtns';
 import { CardTitle } from './CardTitle';

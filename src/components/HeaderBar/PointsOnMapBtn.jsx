@@ -17,8 +17,10 @@ export const PointsOnMapBtn = ({style}) => {
       }
     
       const pointsOnMapStatus = () => {
-
-        (!showPointsMode)? 'Show' : 'Hide'
+        if (!showPointsMode) {
+            return 'Show'
+        }
+        return 'Hide'
       }
     
       

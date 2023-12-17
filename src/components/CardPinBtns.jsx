@@ -20,13 +20,21 @@ export const CardPinBtn = ({id}) => {
     const clickPinBtn = () => {
         setIsPinActive(true)
         dispatch(changeMapPinMode(true, currCardInfo.id))
-        dispatch(editAllTODOS({name: 'isPinBtnDisable', value: true}))
+        dispatch(editAllTODOS(
+            {
+                fieldKey: 'isPinBtnDisable', fieldUpdateValue: true
+            }
+        ))
 
     }
     const clickCancelPin = () => {
         setIsPinActive(!isPinActive)
         dispatch(changeMapPinMode(false, currCardInfo.id))
-        dispatch(editAllTODOS({name: 'isPinBtnDisable', value: false}))
+        dispatch(editAllTODOS(
+                {
+                    fieldKey: 'isPinBtnDisable', fieldUpdateValue: false
+                }
+        ))
 
     }
 
@@ -39,7 +47,6 @@ export const CardPinBtn = ({id}) => {
             fieldUpdateValue: false
             }
         ))
-        // dispatch(editTODO( {...currCardInfo, isPinBtnDisable: false, location: {Long: 'avi', Lat: 'berger'}} ))
     }
 
        return (  

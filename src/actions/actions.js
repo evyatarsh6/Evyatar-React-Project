@@ -9,10 +9,8 @@ export const editTODO = (props) => {
 export const editAllTODOS = (props) => {
     return {
         type: "editAllTODOS",
-        attr: {
-            name: props.name,
-            value: props.value
-        }
+        fieldUpdateValue: props.fieldUpdateValue,
+        fieldKey: props.fieldKey
     } 
 }
 

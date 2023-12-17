@@ -39,8 +39,11 @@ export const TODOS = ( state = initialState , action) => {
         
         const TODOListIDS = Object.keys(state)
 
-        const relavantAttrName = action.attr.name
-        const relavantAttrValue = action.attr.value
+        const relavantAttrName = action.fieldKey
+        const relavantAttrValue = action.fieldUpdateValue
+
+        // const relavantAttrName = action.attr.name
+        // const relavantAttrValue = action.attr.value
 
         let TODOList = {...state}
 

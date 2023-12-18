@@ -6,7 +6,6 @@ const useMap = () => {
 
     const createPoint = (layerRef,featuresRef, coordinate, style) => {
 
-        layerRef.current.getSource().clear();
         featuresRef.current  = new Feature({
             geometry: new Point(coordinate),
         });

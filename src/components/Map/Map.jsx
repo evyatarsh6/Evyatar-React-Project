@@ -71,20 +71,14 @@ export const BaseMap = () => {
   const showAllPoints = useCallback(() => {
     if (showPointsMode) {
       layerRef.current.getSource().clear();
-      
-       Object.values(mapPoints).forEach(coordinateObj => {
+        Object.values(mapPoints).forEach(coordinateObj => {
         createPointOnMap(
           layerRef,
           featuresRef,
           [coordinateObj.Long, coordinateObj.Lat],
           iconStyle
           )
-        // featuresRef.current  = new Feature({
-        //   geometry: new Point([coordinateObj.Long, coordinateObj.Lat]),
-        // });
-        // featuresRef.current.setStyle(iconStyle);
-        // layerRef.current.getSource().addFeature(featuresRef.current);
-       }); 
+        }); 
     }
 
   },[iconStyle,showPointsMode, mapPoints, createPointOnMap])
@@ -98,9 +92,8 @@ export const BaseMap = () => {
       evt.coordinate,
       iconStyle
       )
-
       const coordinateObj = getLongLat(evt.coordinate)
-      dispatch(updatePoint(selectedTODOID, coordinateObj.Long, coordinateObj.Lat))  
+      dispatch(updatePoint(selectedTODOID, coordinateObj.Long, coordinateObj.Lat)) 
     },
   [iconStyle, selectedTODOID, dispatch, createPointOnMap]);
 
@@ -111,10 +104,6 @@ export const BaseMap = () => {
       }
       else if(showPointsMode ){
         showAllPoints()
-      }
-
-      else{
-        clickEventRef.current = mapInstance.current.un('click', createPoint);
       }
       }
   },

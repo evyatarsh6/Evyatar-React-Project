@@ -1,8 +1,8 @@
 export const isLocationExist = location => {
-    const LocationValues = Object.values(location)
-    if (LocationValues.length) {
-        return true
-    }
+        const LocationValues = Object.values(location)
+        if (LocationValues.length) {
+            return true
+        }
     return false
 }
 

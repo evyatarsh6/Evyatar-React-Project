@@ -50,6 +50,13 @@ export const activeMapShowPointsMode = () => {
     }
 }
 
+export const activeMapClearMapMode = () => {
+
+    return {
+        type:"activeMapClearMapMode"
+    }
+}
+
 
 export const updatePoint = (TODOID, Long,Lat) => {
     

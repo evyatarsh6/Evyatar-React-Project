@@ -10,8 +10,9 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { GetMapMode, GetMapPoints, GetTodoList } from '../../selectors';
 import { Point } from "ol/geom";
-import { updatePoint, editTODO } from "../../actions/actions";
+import { updatePoint } from "../../actions/actions";
 import { getLongLat } from "../../utils/generalUtils";
+import useMap from "../../hooks/useMap";
 
 export const BaseMap = () => {
 
@@ -28,7 +29,6 @@ export const BaseMap = () => {
   const selectedTODOID = mapModeSelector.activeTODOID
   const showPointsMode = mapModeSelector.ShowPointsMode
 
-
   const dispatch = useDispatch();
 
   const iconStyle = useMemo(() => new Style({
@@ -37,6 +37,9 @@ export const BaseMap = () => {
       anchor: [0.5, 1],
     }),
   }), []);
+  
+  const createPointOnMap = useMap().createPointOnMap
+
   
   useEffect(() => {
     if (!mapInstance.current) {
@@ -70,29 +73,36 @@ export const BaseMap = () => {
       layerRef.current.getSource().clear();
       
        Object.values(mapPoints).forEach(coordinateObj => {
-        featuresRef.current  = new Feature({
-          geometry: new Point([coordinateObj.Long, coordinateObj.Lat]),
-        });
-        featuresRef.current.setStyle(iconStyle);
-        layerRef.current.getSource().addFeature(featuresRef.current);
+        createPointOnMap(
+          layerRef,
+          featuresRef,
+          [coordinateObj.Long, coordinateObj.Lat],
+          iconStyle
+          )
+        // featuresRef.current  = new Feature({
+        //   geometry: new Point([coordinateObj.Long, coordinateObj.Lat]),
+        // });
+        // featuresRef.current.setStyle(iconStyle);
+        // layerRef.current.getSource().addFeature(featuresRef.current);
        }); 
     }
 
-  },[iconStyle,showPointsMode, mapPoints])
+  },[iconStyle,showPointsMode, mapPoints, createPointOnMap])
 
   
   const createPoint = useCallback((evt) => {
     layerRef.current.getSource().clear();
-      featuresRef.current  = new Feature({
-        geometry: new Point(evt.coordinate),
-      });
-      featuresRef.current.setStyle(iconStyle);
-      layerRef.current.getSource().addFeature(featuresRef.current);
+    createPointOnMap(
+      layerRef,
+      featuresRef,
+      evt.coordinate,
+      iconStyle
+      )
 
       const coordinateObj = getLongLat(evt.coordinate)
       dispatch(updatePoint(selectedTODOID, coordinateObj.Long, coordinateObj.Lat))  
     },
-  [iconStyle, selectedTODOID, dispatch]);
+  [iconStyle, selectedTODOID, dispatch, createPointOnMap]);
 
   useEffect(() => {
     if (mapInstance.current) {

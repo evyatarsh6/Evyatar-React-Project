@@ -38,7 +38,7 @@ export const BaseMap = () => {
     }),
   }), []);
   
-  const createPointOnMap = useMap().createPointOnMap
+  const createMapPoint = useMap().createPointOnMap 
 
   
   useEffect(() => {
@@ -71,7 +71,7 @@ export const BaseMap = () => {
   const showAllPoints = useCallback(() => {
       layerRef.current.getSource().clear();
         Object.values(mapPoints).forEach(coordinateObj => {
-        createPointOnMap(
+        createMapPoint(
           layerRef,
           featuresRef,
           [coordinateObj.Long, coordinateObj.Lat],
@@ -79,12 +79,13 @@ export const BaseMap = () => {
           )
         }); 
     }
-    ,[iconStyle, mapPoints, createPointOnMap])
+    // ,[])
+    ,[iconStyle, mapPoints, createMapPoint])
 
   
   const createPoint = useCallback((evt) => {
     layerRef.current.getSource().clear();
-    createPointOnMap(
+    createMapPoint(
       layerRef,
       featuresRef,
       evt.coordinate,
@@ -93,7 +94,7 @@ export const BaseMap = () => {
       const coordinateObj = getLongLat(evt.coordinate)
       dispatch(updatePoint(selectedTODOID, coordinateObj.Long, coordinateObj.Lat)) 
     },
-  [iconStyle, selectedTODOID, dispatch, createPointOnMap]);
+  [iconStyle, selectedTODOID, dispatch, createMapPoint]);
 
   useEffect(() => {
     if (mapInstance.current) {

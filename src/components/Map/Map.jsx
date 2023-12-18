@@ -69,7 +69,6 @@ export const BaseMap = () => {
   }, [iconStyle]);
 
   const showAllPoints = useCallback(() => {
-    if (showPointsMode) {
       layerRef.current.getSource().clear();
         Object.values(mapPoints).forEach(coordinateObj => {
         createPointOnMap(
@@ -80,8 +79,7 @@ export const BaseMap = () => {
           )
         }); 
     }
-
-  },[iconStyle,showPointsMode, mapPoints, createPointOnMap])
+    ,[iconStyle, mapPoints, createPointOnMap])
 
   
   const createPoint = useCallback((evt) => {
@@ -99,11 +97,14 @@ export const BaseMap = () => {
 
   useEffect(() => {
     if (mapInstance.current) {
-      if (pinModeStatus && !showPointsMode ) {
+      if (pinModeStatus && !showPointsMode) {
         clickEventRef.current = mapInstance.current.on('click', createPoint)
       }
-      else if(showPointsMode ){
+      else if(showPointsMode){
         showAllPoints()
+      }
+      else{
+        clickEventRef.current = mapInstance.current.un('click', createPoint)
       }
       }
   },

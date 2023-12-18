@@ -9,19 +9,19 @@ export const mapMode = (state = initialState, action) => {
       case 'activeMapPinTODOMode':
         return (
           {...state,
-            PinMode: action.pinMode,
+            PinMode: true,
             ShowPointsMode: false,
             activeTODOID: action.activeTODOID
           })
       case 'activeMapShowPointsMode':
         return (
           {...state,
-            PinMode: state.ShowPointsMode,
-            ShowPointsMode: !state.ShowPointsMode,
+            PinMode: false,
+            ShowPointsMode: true,
             activeTODOID: null
 
           }) 
-        case 'activeMapClearMapMode':
+        case 'activeClearMapMode':
           return (
             {...state,
               PinMode: false,

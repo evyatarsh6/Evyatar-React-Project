@@ -39,7 +39,6 @@ export const handleInputType = updateInputValue => {
 export const activeMapPinTODOMode = (pinMode, id) => {
     return {
         type:"activeMapPinTODOMode",
-        pinMode: pinMode,
         activeTODOID: id
     }
 }
@@ -50,10 +49,10 @@ export const activeMapShowPointsMode = () => {
     }
 }
 
-export const activeMapClearMapMode = () => {
+export const activeClearMapMode = () => {
 
     return {
-        type:"activeMapClearMapMode"
+        type:"activeClearMapMode"
     }
 }
 

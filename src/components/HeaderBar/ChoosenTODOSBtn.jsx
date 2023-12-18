@@ -1,34 +1,22 @@
-import { useDispatch, useSelector } from "react-redux"
-import { GetFilterKind } from "../../selectors"
 import {Button} from '@mui/material';
-import { changeFilterKind } from "../../actions/actions";
-import { choosenFilterKind, normalFilterKind } from "../../constans/cardConstans";
+import {choosenFilterKind} from "../../constans/cardConstans";
+import useFilterKind from "../../hooks/useFilterKind";
 
 
 export const ChoosenTODOSBtn = ({style}) => {
 
-    const dispatch = useDispatch();
-    const filterKind = useSelector(GetFilterKind);
+    const updateFilterChoosenTODOS = useFilterKind(choosenFilterKind).updateFilterKind
+    const filterChoosenTODOSStatus = useFilterKind(choosenFilterKind).filterKindStatus
 
-
-    const SwitchFilterKind = filterKind => dispatch(changeFilterKind(filterKind))
-
-    const clickWantedFilterKindBtn = wantedFilterKind => () =>  {
-        (filterKind!== wantedFilterKind) ? SwitchFilterKind(wantedFilterKind) : SwitchFilterKind(normalFilterKind)
-    }
-
-    const filterKindBtnStatus = wantedFilterKind  => (filterKind !== wantedFilterKind)? 'turn on': 'turn off'
-
-    
     return (
 
         <Button
         variant="contained"
         id = {`show-choosen-items-btn`}
         className= 'show-choosen-items-btn'
-        onClick={clickWantedFilterKindBtn(choosenFilterKind)}
+        onClick={updateFilterChoosenTODOS}
         style={style}>
-        {`${filterKindBtnStatus(choosenFilterKind)} show choosen items`}
+        {`${filterChoosenTODOSStatus} show choosen items`}
         </Button>
     )
 }

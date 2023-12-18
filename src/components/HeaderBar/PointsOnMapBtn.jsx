@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
-import { GetFilterKind, GetMapMode } from "../../selectors"
+import {GetMapMode } from "../../selectors"
 import {Button} from '@mui/material';
-import { activeMapShowPointsMode, changeFilterKind } from "../../actions/actions";
-import { choosenFilterKind, normalFilterKind } from "../../constans/cardConstans";
+import { activeMapShowPointsMode} from "../../actions/actions";
 
 
 export const PointsOnMapBtn = ({style}) => {

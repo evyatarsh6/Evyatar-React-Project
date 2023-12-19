@@ -16,8 +16,7 @@ export const BaseMap = () => {
   const mapRef = useRef();
   const mapInstance = useRef();
   const featuresRef = useRef();
-  const layerRef = useRef();
-  const clickableAction = useRef()
+  const layerRef = useRef()
 
   const mapPoints = useSelector(GetMapPoints)
   const mapModeSelector = useSelector(GetMapMode) 
@@ -109,11 +108,14 @@ export const BaseMap = () => {
   useEffect(() => {
     if (mapInstance.current) {
       if (pinModeStatus) {
-        clickableAction.current = mapInstance.current.on('click', createPointByClick)
+
+        mapInstance.current.on('click', createPointByClick)
       }
       else{
-        clickableAction.current = mapInstance.current.un('click', createPointByClick)
+
+        mapInstance.current.un('click', createPointByClick);
       }
+
       if(clearPointsMode){
         layerRef.current.getSource().clear()
       }
@@ -122,13 +124,13 @@ export const BaseMap = () => {
       }
       }
   },
-    [
-      clearPointsMode,
-      handleShowPointsMode,
-      showPointsMode,
-      createPointByClick,
-      pinModeStatus
-    ]
+  [
+    clearPointsMode,
+    handleShowPointsMode,
+    showPointsMode,
+    createPointByClick,
+    pinModeStatus
+  ]
   )
 
   return (

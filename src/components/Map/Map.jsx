@@ -20,7 +20,6 @@ export const BaseMap = () => {
   const layerRef = useRef();
   
   const mapPoints = useSelector(GetMapPoints)
-  // const TODOS = useSelector(GetTodoList)
   const mapModeSelector = useSelector(GetMapMode) 
   const pinModeStatus = mapModeSelector.PinMode
   const selectedTODOID = mapModeSelector.activeTODOID
@@ -72,6 +71,7 @@ export const BaseMap = () => {
             createMapPoint(
             layerRef,
             featuresRef,
+            // coordinateObj,
             [coordinateObj.Long, coordinateObj.Lat],
             iconStyle
             )

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
 import { GetMapPoints, GetTodoList } from "../../selectors";

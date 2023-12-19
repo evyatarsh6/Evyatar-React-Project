@@ -3,13 +3,11 @@ import "ol/ol.css";
 import { Map, View } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import { OSM, Vector as VectorSource } from "ol/source";
-import Feature from 'ol/Feature';
 import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapMode, GetMapPoints, GetTodoList } from '../../selectors';
-import { Point } from "ol/geom";
+import { GetMapMode, GetMapPoints } from '../../selectors';
 import { updatePoint } from "../../actions/actions";
 import { getLongLat } from "../../utils/generalUtils";
 import useMap from "../../hooks/useMap";
@@ -22,7 +20,7 @@ export const BaseMap = () => {
   const layerRef = useRef();
   
   const mapPoints = useSelector(GetMapPoints)
-  const TODOS = useSelector(GetTodoList)
+  // const TODOS = useSelector(GetTodoList)
   const mapModeSelector = useSelector(GetMapMode) 
   const pinModeStatus = mapModeSelector.PinMode
   const selectedTODOID = mapModeSelector.activeTODOID

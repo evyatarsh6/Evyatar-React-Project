@@ -57,15 +57,12 @@ export const activeClearMapMode = () => {
 }
 
 
-export const updatePoint = (TODOID, Long,Lat) => {
+export const updatePoint = (TODOID, location) => {
     
     return {
         type:"updatePoint",
         TODOID:TODOID,
-        location: {
-            Long: Long,
-            Lat: Lat
-        }
+        location: location
     }
 }
 

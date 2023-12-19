@@ -47,7 +47,7 @@ export const CardPinBtn = ({id}) => {
             {
             id : currCardInfo.id,
             fieldKey : 'location',
-            fieldUpdateValue: mapPoints[currCardInfo.id]
+            fieldUpdateValue: mapPoints[currCardInfo.id].location
             }
         ))
     }   

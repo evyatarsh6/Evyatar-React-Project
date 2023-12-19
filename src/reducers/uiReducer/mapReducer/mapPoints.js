@@ -8,8 +8,7 @@ export const mapPoints = ( state = initialState , action) => {
                 ...state,
                 [action.TODOID]:
                 {
-                    ['Long']: action.location.Long,
-                    ['Lat']: action.location.Lat, 
+                    location: action.location
                 }
             }
         }

@@ -71,8 +71,7 @@ export const BaseMap = () => {
             createMapPoint(
             layerRef,
             featuresRef,
-            // coordinateObj,
-            [coordinateObj.Long, coordinateObj.Lat],
+            coordinateObj.location,
             iconStyle
             )
           });  
@@ -88,8 +87,9 @@ export const BaseMap = () => {
       evt.coordinate,
       iconStyle
       )
-      const coordinateObj = getLongLat(evt.coordinate)
-      dispatch(updatePoint(selectedTODOID, coordinateObj.Long, coordinateObj.Lat)) 
+      // const coordinateObj = getLongLat(evt.coordinate)
+      // dispatch(updatePoint(selectedTODOID, coordinateObj.Long, coordinateObj.Lat))
+      dispatch(updatePoint(selectedTODOID, evt.coordinate))  
     },
     [
       iconStyle,

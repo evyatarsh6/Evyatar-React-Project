@@ -25,7 +25,6 @@ export const mapMode = (state = initialState, action) => {
         case 'activeClearMapMode':
           return (
             {...state,
-              PinMode: false,
               ShowPointsMode: false,
               ClearPointsMode: true,
               activeTODOID: null

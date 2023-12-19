@@ -36,7 +36,6 @@ export const BaseMap = () => {
   const createMapPoint = useMap().createPointOnMap 
 
   const createPointByClick = useCallback((evt) => {
-    layerRef.current.getSource().clear();
     createMapPoint(
       layerRef,
       featuresRef,
@@ -108,11 +107,9 @@ export const BaseMap = () => {
   useEffect(() => {
     if (mapInstance.current) {
       if (pinModeStatus) {
-
         mapInstance.current.on('click', createPointByClick)
       }
-      else{
-
+      else if(!pinModeStatus) {
         mapInstance.current.un('click', createPointByClick);
       }
 
@@ -122,6 +119,7 @@ export const BaseMap = () => {
       if (showPointsMode) {
         handleShowPointsMode()
       }
+
       }
   },
   [

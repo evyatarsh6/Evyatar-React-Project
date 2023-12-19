@@ -9,7 +9,6 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { GetMapMode, GetMapPoints } from '../../selectors';
 import { updatePoint } from "../../actions/actions";
-import { getLongLat } from "../../utils/generalUtils";
 import useMap from "../../hooks/useMap";
 
 export const BaseMap = () => {
@@ -24,6 +23,8 @@ export const BaseMap = () => {
   const pinModeStatus = mapModeSelector.PinMode
   const selectedTODOID = mapModeSelector.activeTODOID
   const showPointsMode = mapModeSelector.ShowPointsMode
+  const clearPointsMode = mapModeSelector.ClearPointsMode
+  
 
   const dispatch = useDispatch();
 
@@ -35,6 +36,48 @@ export const BaseMap = () => {
   }), []);
   
   const createMapPoint = useMap().createPointOnMap 
+
+  const createPointByClick = useCallback((evt) => {
+    layerRef.current.getSource().clear();
+    createMapPoint(
+      layerRef,
+      featuresRef,
+      evt.coordinate,
+      iconStyle
+      )
+      
+      dispatch(updatePoint(selectedTODOID, evt.coordinate))  
+    },
+    [
+      iconStyle,
+      selectedTODOID,
+      dispatch,
+      createMapPoint
+    ]
+    );
+
+    const handleClearPointsMode =  useCallback(() => {
+      layerRef.current.getSource().clear();
+    },[])
+
+    const handleShowPointsMode = useCallback(() => {
+      layerRef.current.getSource().clear();
+        Object.values(mapPoints).forEach(coordinateObj => {
+          createMapPoint(
+          layerRef,
+          featuresRef,
+          coordinateObj.location,
+          iconStyle
+          )
+        });  
+      },
+      [
+        iconStyle,
+        createMapPoint,
+        mapPoints
+      ]
+      );
+
 
   
   useEffect(() => {
@@ -65,52 +108,35 @@ export const BaseMap = () => {
   }, [iconStyle]);
 
   useEffect(() => {
-    if(showPointsMode){
-      layerRef.current.getSource().clear();
-          Object.values(mapPoints).forEach(coordinateObj => {
-            createMapPoint(
-            layerRef,
-            featuresRef,
-            coordinateObj.location,
-            iconStyle
-            )
-          });  
+    if (mapInstance.current) {
+      if(showPointsMode){
+        handleShowPointsMode() 
+      }
     }
-  },[iconStyle, mapPoints, createMapPoint, showPointsMode])
+  },[showPointsMode, handleShowPointsMode])
 
-  
-  const createPoint = useCallback((evt) => {
-    layerRef.current.getSource().clear();
-    createMapPoint(
-      layerRef,
-      featuresRef,
-      evt.coordinate,
-      iconStyle
-      )
-      // const coordinateObj = getLongLat(evt.coordinate)
-      // dispatch(updatePoint(selectedTODOID, coordinateObj.Long, coordinateObj.Lat))
-      dispatch(updatePoint(selectedTODOID, evt.coordinate))  
-    },
-    [
-      iconStyle,
-      selectedTODOID,
-      dispatch,
-      createMapPoint
-    ]
-    );
+
+  useEffect(() => {
+    if (mapInstance.current) {
+      if(clearPointsMode){
+        handleClearPointsMode() 
+      }
+    }
+  },[clearPointsMode, handleClearPointsMode])
+
 
   useEffect(() => {
     if (mapInstance.current) {
       if (pinModeStatus) {
-        mapInstance.current.on('click', createPoint)
+        mapInstance.current.on('click', createPointByClick)
       }
       else{
-        mapInstance.current.un('click', createPoint)
+        mapInstance.current.un('click', createPointByClick)
       }
       }
   },
     [
-      createPoint,
+      createPointByClick,
       pinModeStatus
     ]
   )

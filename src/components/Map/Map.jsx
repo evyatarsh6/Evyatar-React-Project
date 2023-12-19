@@ -17,15 +17,14 @@ export const BaseMap = () => {
   const mapInstance = useRef();
   const featuresRef = useRef();
   const layerRef = useRef();
-  
+  const clickableAction = useRef()
+
   const mapPoints = useSelector(GetMapPoints)
   const mapModeSelector = useSelector(GetMapMode) 
   const pinModeStatus = mapModeSelector.PinMode
   const selectedTODOID = mapModeSelector.activeTODOID
   const showPointsMode = mapModeSelector.ShowPointsMode
   const clearPointsMode = mapModeSelector.ClearPointsMode
-  
-
   const dispatch = useDispatch();
 
   const iconStyle = useMemo(() => new Style({
@@ -45,20 +44,20 @@ export const BaseMap = () => {
       evt.coordinate,
       iconStyle
       )
-      
-      dispatch(updatePoint(selectedTODOID, evt.coordinate))  
+      dispatch(updatePoint(selectedTODOID, evt.coordinate))
+
+      if (clearPointsMode) {
+        layerRef.current.getSource().clear();
+      }
     },
     [
       iconStyle,
       selectedTODOID,
       dispatch,
-      createMapPoint
+      createMapPoint,
+      clearPointsMode
     ]
     );
-
-    const handleClearPointsMode =  useCallback(() => {
-      layerRef.current.getSource().clear();
-    },[])
 
     const handleShowPointsMode = useCallback(() => {
       layerRef.current.getSource().clear();
@@ -109,33 +108,24 @@ export const BaseMap = () => {
 
   useEffect(() => {
     if (mapInstance.current) {
-      if(showPointsMode){
-        handleShowPointsMode() 
-      }
-    }
-  },[showPointsMode, handleShowPointsMode])
-
-
-  useEffect(() => {
-    if (mapInstance.current) {
-      if(clearPointsMode){
-        handleClearPointsMode() 
-      }
-    }
-  },[clearPointsMode, handleClearPointsMode])
-
-
-  useEffect(() => {
-    if (mapInstance.current) {
       if (pinModeStatus) {
-        mapInstance.current.on('click', createPointByClick)
+        clickableAction.current = mapInstance.current.on('click', createPointByClick)
       }
       else{
-        mapInstance.current.un('click', createPointByClick)
+        clickableAction.current = mapInstance.current.un('click', createPointByClick)
+      }
+      if(clearPointsMode){
+        layerRef.current.getSource().clear()
+      }
+      if (showPointsMode) {
+        handleShowPointsMode()
       }
       }
   },
     [
+      clearPointsMode,
+      handleShowPointsMode,
+      showPointsMode,
       createPointByClick,
       pinModeStatus
     ]

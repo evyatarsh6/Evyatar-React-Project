@@ -31,7 +31,6 @@ export const CardPinBtn = ({id}) => {
     }
     const clickCancelPin = () => {
         setIsPinActive(!isPinActive)
-        dispatch(activeClearMapMode())
         dispatch(editAllTODOS(
                 {
                     fieldKey: 'isPinBtnDisable',

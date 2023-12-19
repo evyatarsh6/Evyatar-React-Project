@@ -20,7 +20,6 @@ export const BaseMap = () => {
   const mapInstance = useRef();
   const featuresRef = useRef();
   const layerRef = useRef();
-  const clickEventRef = useRef();
   
   const mapPoints = useSelector(GetMapPoints)
   const TODOS = useSelector(GetTodoList)
@@ -68,19 +67,19 @@ export const BaseMap = () => {
     }
   }, [iconStyle]);
 
-  const showAllPoints = useCallback(() => {
+  useEffect(() => {
+    if(showPointsMode){
       layerRef.current.getSource().clear();
-        Object.values(mapPoints).forEach(coordinateObj => {
-        createMapPoint(
-          layerRef,
-          featuresRef,
-          [coordinateObj.Long, coordinateObj.Lat],
-          iconStyle
-          )
-        }); 
+          Object.values(mapPoints).forEach(coordinateObj => {
+            createMapPoint(
+            layerRef,
+            featuresRef,
+            [coordinateObj.Long, coordinateObj.Lat],
+            iconStyle
+            )
+          });  
     }
-    // ,[])
-    ,[iconStyle, mapPoints, createMapPoint])
+  },[iconStyle, mapPoints, createMapPoint, showPointsMode])
 
   
   const createPoint = useCallback((evt) => {
@@ -94,29 +93,27 @@ export const BaseMap = () => {
       const coordinateObj = getLongLat(evt.coordinate)
       dispatch(updatePoint(selectedTODOID, coordinateObj.Long, coordinateObj.Lat)) 
     },
-  [iconStyle, selectedTODOID, dispatch, createMapPoint]);
+    [
+      iconStyle,
+      selectedTODOID,
+      dispatch,
+      createMapPoint
+    ]
+    );
 
   useEffect(() => {
     if (mapInstance.current) {
-      if (pinModeStatus && !showPointsMode) {
-        clickEventRef.current = mapInstance.current.on('click', createPoint)
-      }
-      else if(showPointsMode){
-        showAllPoints()
+      if (pinModeStatus) {
+        mapInstance.current.on('click', createPoint)
       }
       else{
-        clickEventRef.current = mapInstance.current.un('click', createPoint)
+        mapInstance.current.un('click', createPoint)
       }
       }
   },
     [
-      iconStyle,
       createPoint,
-      pinModeStatus,
-      TODOS,
-      selectedTODOID,
-      showAllPoints,
-      showPointsMode
+      pinModeStatus
     ]
   )
 

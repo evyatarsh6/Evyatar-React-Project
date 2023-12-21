@@ -113,12 +113,11 @@ export const BaseMap = () => {
 
   useEffect(() => {
     if (mapInstance.current) {
-      if(!showPointsMode){
-        layerRef.current.getSource().clear()
-      }
-
       if (showPointsMode) {
         handleShowPointsMode()
+      }
+      else{
+        layerRef.current.getSource().clear()
       }
 
       }
@@ -126,7 +125,7 @@ export const BaseMap = () => {
   [handleShowPointsMode,showPointsMode,])
 
 
-  
+
   return (
     <div
       ref={mapRef}

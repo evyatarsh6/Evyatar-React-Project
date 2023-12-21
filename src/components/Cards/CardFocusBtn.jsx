@@ -5,6 +5,7 @@ import { GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
 import ParaglidingIcon from '@mui/icons-material/Paragliding';
 import { isLocationExist } from '../../utils/generalUtils';
+import { focusWantedTODO } from '../../actions/actions';
 
 export const CardFocusBtn = ({id}) => {
 
@@ -12,9 +13,8 @@ export const CardFocusBtn = ({id}) => {
     const TODOList = useSelector(GetTodoList)
     const currCardInfo = TODOList[id]
 
-    const clickFocusBtn = () => {
-        console.log('avi focus')
-    }
+    const clickFocusBtn = () => dispatch(focusWantedTODO())
+    
 
        return (  
         <div className= 'handle-focus-btns'>

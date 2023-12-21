@@ -7,8 +7,8 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints } from '../../selectors';
-import { updatePoint } from "../../actions/actions";
+import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo } from '../../selectors';
+import { focusWantedTODO, updatePoint } from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 
 export const BaseMap = () => {
@@ -114,6 +114,11 @@ export const BaseMap = () => {
   
     }
   },[createPointByClick,PinMode])
+
+
+  useEffect(()=> {
+  },[])
+
 
   useEffect(() => {
     if (mapInstance.current) {

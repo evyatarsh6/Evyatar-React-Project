@@ -73,11 +73,11 @@ export const updatePoint = (TODOID, location) => {
     }
 }
 
-// export const DeletePoint = TODOID => {
+export const focusWantedTODO = (location) => {
+    
+    return {
+        type:"focusWantedTODO",
+        location: location
+    }
+}
 
-//     return {
-//         [TODOID]: {
-//             type:"cancelPoint"
-//         }
-//     }
-// }

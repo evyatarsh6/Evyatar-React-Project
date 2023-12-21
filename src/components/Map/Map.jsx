@@ -109,7 +109,7 @@ export const BaseMap = () => {
       if (PinMode) {
          mapInstance.current.on('click', createPointByClick)
       }
-      
+
       return () => mapInstance.current.un('click', createPointByClick);
   
     }
@@ -126,7 +126,7 @@ export const BaseMap = () => {
 
       }
   },
-  [handleShowPointsMode,showPointsMode,])
+  [handleShowPointsMode,showPointsMode, mapPoints])
 
 
 

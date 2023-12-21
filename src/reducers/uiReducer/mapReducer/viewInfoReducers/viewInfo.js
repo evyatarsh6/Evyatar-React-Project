@@ -13,7 +13,7 @@ export const currViewInfo = (state = initialState, action) => {
                 {
                     ...state,
                     center: action.location,
-                    zoom: 4,
+                    zoom: 6,
                 }
             )
 

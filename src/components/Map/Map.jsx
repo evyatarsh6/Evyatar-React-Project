@@ -24,6 +24,8 @@ export const BaseMap = () => {
   const selectedTODOID = pinModeStatus.activeTODOID
   const PinMode = pinModeStatus.PinMode
 
+  const currViewInfo = useSelector(GetCurrViewInfo)
+
 
   const showPointsMode = useSelector(GetMapShowPointsMode)
   const dispatch = useDispatch();
@@ -117,7 +119,11 @@ export const BaseMap = () => {
 
 
   useEffect(()=> {
-  },[])
+
+    mapInstance.current.getView().setCenter(currViewInfo.center)
+    mapInstance.current.getView().setZoom(currViewInfo.zoom)
+  
+  },[currViewInfo])
 
 
   useEffect(() => {

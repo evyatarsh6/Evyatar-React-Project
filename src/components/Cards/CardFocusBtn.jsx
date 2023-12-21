@@ -13,7 +13,7 @@ export const CardFocusBtn = ({id}) => {
     const TODOList = useSelector(GetTodoList)
     const currCardInfo = TODOList[id]
 
-    const clickFocusBtn = () => dispatch(focusWantedTODO())
+    const clickFocusBtn = () => dispatch(focusWantedTODO(currCardInfo.location))
     
 
        return (  

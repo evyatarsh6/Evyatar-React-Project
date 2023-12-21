@@ -10,27 +10,52 @@ export const TODOS = ( state = initialState , action) => {
             description : "Avi Berger is a god", 
             kind: action.value,
             isChoosen: false,
-            isDeleted:false
+            isDeleted:false, 
+            location: {},
+            isPinBtnDisable : false
             }
         }
         return TODOList
     }
 
     else if(action.type ==="editTODO"){
-        const TODOS = {
+
+        const TODOList = {
             ...state,
             [action.props.id] : {
                 ...state[action.props.id],
-                id: action.props.id,
-                isChoosen: action.props.isChoosen,
-                isDeleted: action.props.isDeleted,
-                description: action.props.description
+                [action.props.fieldKey] : action.props.fieldUpdateValue, 
             }
             
         }
 
-        return TODOS
+        return TODOList
     }
+
+    else if(action.type === "editAllTODOS"){
+        
+        const TODOListIDS = Object.keys(state)
+
+        const relavantAttrName = action.fieldKey
+        const relavantAttrValue = action.fieldUpdateValue
+
+        let TODOList = {...state}
+
+        TODOListIDS.forEach(ID => {
+            TODOList = {
+                ...TODOList,
+                [ID] : {
+                    ...TODOList[ID],
+                    [relavantAttrName]: relavantAttrValue
+                }
+            }
+        });
+    
+        return TODOList
+    }
+
+
+
 
     else{
         return state

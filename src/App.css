@@ -22,22 +22,42 @@ body{
   justify-content: space-around;
 }
 
-.chooseDeleteContainer {
-  display: flex;
-  flex-direction: row;
+.chooseDeleteContainer, .buttonContainer, .map-btns {
+display: flex;
+flex-direction: row;
+}
+
+
+.chooseDeleteContainer, .buttonContainer {
+  align-items: center;
   justify-content: space-around;
+}
+
+.map-btns{
+  justify-content: space-between;
+  width: 100%;
+}
+
+.card-title{
+  margin-top: 0px;
+}
+
+.location-description{
+  margin: 1px;
+  margin-bottom: 10px;
+}
+
+
+.chooseDeleteContainer {
+
   width: 100%;
 }
 
 .buttonContainer{
 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: space-between;
   
 }
-
  img {
   z-index: 1;
   display: block;
@@ -46,4 +66,68 @@ body{
 .flex-container {
   display: flex;
   flex-flow: row wrap;
+}
+
+div[class*="ol-zoom"]{
+  width: 10;
+  pointer-events: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+div[class*="ol-zoom"] button{
+  margin-top: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 280px;
+}
+.ol-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+.ol-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+.ol-popup-closer:after {
+  content: "✖";
 }

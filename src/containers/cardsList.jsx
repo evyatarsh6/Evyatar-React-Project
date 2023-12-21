@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Card } from "../components/Card"
+import { Card } from "../components/Cards/Card";
 import { useSelector } from "react-redux"
 import { GetTodoList, GetFilterKind } from "../selectors";
 
@@ -26,21 +26,18 @@ export const CardList = () => {
 
     return (
 
-       
-        <div>
             <ul className="flex-container">
             {
                 FilterdArr.map( TODO => (
                     
                     <Card
-                    props = {TODO}
+                    id = {TODO.id}
                     key={TODO.id}
                     />
                     ))
                 }
             
             </ul>
-        </div>
 
 
     )

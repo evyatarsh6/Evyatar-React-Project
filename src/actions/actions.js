@@ -38,10 +38,17 @@ export const handleInputType = updateInputValue => {
 
 export const activeMapPinTODOMode = (id) => {
     return {
-        type:"activeMapPinTODOMode",
+        type:"activeMapPinMode",
         activeTODOID: id
     }
 }
+
+export const cancrlMapPinTODOMode = () => {
+    return {
+        type:"cancelMapPinMode",
+    }
+}
+
 
 export const activeMapShowPointsMode = () => {
     return {

@@ -1,6 +1,3 @@
-import { GetMapPoints } from "../../selectors"
-import { mapPoints } from "./mapReducer/mapPoints"
-
 const initialState  = {}
 
 export const TODOS = ( state = initialState , action) => {

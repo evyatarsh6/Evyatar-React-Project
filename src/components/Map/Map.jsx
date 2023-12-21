@@ -7,7 +7,7 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapMode, GetMapPoints } from '../../selectors';
+import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints } from '../../selectors';
 import { updatePoint } from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 
@@ -19,11 +19,13 @@ export const BaseMap = () => {
   const layerRef = useRef()
 
   const mapPoints = useSelector(GetMapPoints)
-  const mapModeSelector = useSelector(GetMapMode) 
-  const pinModeStatus = mapModeSelector.PinMode
-  const selectedTODOID = mapModeSelector.activeTODOID
-  const showPointsMode = mapModeSelector.ShowPointsMode
-  const clearPointsMode = mapModeSelector.ClearPointsMode
+
+  const pinModeStatus = useSelector(GetMapPinMode)
+  const selectedTODOID = pinModeStatus.activeTODOID
+  const PinMode = pinModeStatus.PinMode
+
+
+  const showPointsMode = useSelector(GetMapShowPointsMode)
   const dispatch = useDispatch();
 
   const iconStyle = useMemo(() => new Style({
@@ -44,7 +46,7 @@ export const BaseMap = () => {
       )
       dispatch(updatePoint(selectedTODOID, evt.coordinate))
 
-      if (clearPointsMode) {
+      if (!showPointsMode) {
         layerRef.current.getSource().clear();
       }
     },
@@ -53,29 +55,27 @@ export const BaseMap = () => {
       selectedTODOID,
       dispatch,
       createMapPoint,
-      clearPointsMode
+      showPointsMode
     ]
     );
 
     const handleShowPointsMode = useCallback(() => {
       layerRef.current.getSource().clear();
-        Object.values(mapPoints).forEach(coordinateObj => {
-          createMapPoint(
-          layerRef,
-          featuresRef,
-          coordinateObj.location,
-          iconStyle
-          )
-        });  
-      },
-      [
-        iconStyle,
-        createMapPoint,
-        mapPoints
-      ]
-      );
-
-
+      Object.values(mapPoints).forEach(coordinateObj => {
+        createMapPoint(
+        layerRef,
+        featuresRef,
+        coordinateObj.location,
+        iconStyle
+        )
+      });  
+    },
+    [
+      iconStyle,
+      createMapPoint,
+      mapPoints
+    ]
+    );
   
   useEffect(() => {
     if (!mapInstance.current) {
@@ -106,30 +106,29 @@ export const BaseMap = () => {
 
   useEffect(() => {
     if (mapInstance.current) {
-      if (pinModeStatus) {
-        mapInstance.current.on('click', createPointByClick)
-      }
-      else if(!pinModeStatus) {
-        mapInstance.current.un('click', createPointByClick);
+      if (PinMode) {
+         mapInstance.current.on('click', createPointByClick)
       }
 
-      if(clearPointsMode){
-        layerRef.current.getSource().clear()
-      }
-      if (showPointsMode) {
+      return () => mapInstance.current.un('click', createPointByClick);
+  
+    }
+  },[createPointByClick,PinMode])
+
+  useEffect(() => {
+    if (mapInstance.current) {
+      if (showPointsMode && Object.keys(mapPoints).length ) {
         handleShowPointsMode()
+      }
+      else{
+        layerRef.current.getSource().clear()
       }
 
       }
   },
-  [
-    clearPointsMode,
-    handleShowPointsMode,
-    showPointsMode,
-    createPointByClick,
-    pinModeStatus
-  ]
-  )
+  [handleShowPointsMode,showPointsMode, mapPoints])
+
+
 
   return (
     <div

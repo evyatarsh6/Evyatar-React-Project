@@ -57,23 +57,21 @@ export const BaseMap = () => {
 
     const handleShowPointsMode = useCallback(() => {
       layerRef.current.getSource().clear();
-        Object.values(mapPoints).forEach(coordinateObj => {
-          createMapPoint(
-          layerRef,
-          featuresRef,
-          coordinateObj.location,
-          iconStyle
-          )
-        });  
-      },
-      [
-        iconStyle,
-        createMapPoint,
-        mapPoints
-      ]
-      );
-
-
+      Object.values(mapPoints).forEach(coordinateObj => {
+        createMapPoint(
+        layerRef,
+        featuresRef,
+        coordinateObj.location,
+        iconStyle
+        )
+      });  
+    },
+    [
+      iconStyle,
+      createMapPoint,
+      mapPoints
+    ]
+    );
   
   useEffect(() => {
     if (!mapInstance.current) {
@@ -110,25 +108,25 @@ export const BaseMap = () => {
       else if(!pinModeStatus) {
         mapInstance.current.un('click', createPointByClick);
       }
+    }
+  },[createPointByClick,pinModeStatus])
 
+  useEffect(() => {
+    if (mapInstance.current) {
       if(!showPointsMode){
         layerRef.current.getSource().clear()
       }
+
       if (showPointsMode) {
         handleShowPointsMode()
       }
 
       }
   },
-  [
-    showPointsMode,
-    handleShowPointsMode,
-    showPointsMode,
-    createPointByClick,
-    pinModeStatus
-  ]
-  )
+  [handleShowPointsMode,showPointsMode,])
 
+
+  
   return (
     <div
       ref={mapRef}

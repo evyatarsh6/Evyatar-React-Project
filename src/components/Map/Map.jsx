@@ -7,8 +7,8 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints } from '../../selectors';
-import { updatePoint } from "../../actions/actions";
+import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo } from '../../selectors';
+import { focusWantedTODO, updatePoint } from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 
 export const BaseMap = () => {
@@ -23,6 +23,8 @@ export const BaseMap = () => {
   const pinModeStatus = useSelector(GetMapPinMode)
   const selectedTODOID = pinModeStatus.activeTODOID
   const PinMode = pinModeStatus.PinMode
+
+  const currViewInfo = useSelector(GetCurrViewInfo)
 
 
   const showPointsMode = useSelector(GetMapShowPointsMode)
@@ -114,6 +116,15 @@ export const BaseMap = () => {
   
     }
   },[createPointByClick,PinMode])
+
+
+  useEffect(()=> {
+
+    mapInstance.current.getView().setCenter(currViewInfo.center)
+    mapInstance.current.getView().setZoom(currViewInfo.zoom)
+  
+  },[currViewInfo])
+
 
   useEffect(() => {
     if (mapInstance.current) {

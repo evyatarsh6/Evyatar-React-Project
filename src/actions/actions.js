@@ -36,30 +36,30 @@ export const handleInputType = updateInputValue => {
     }
 }
 
-export const activeMapPinTODOMode = (id) => {
+export const activeMapPinTODOMode = id => {
     return {
         type:"activeMapPinMode",
         activeTODOID: id
     }
 }
 
-export const cancrlMapPinTODOMode = () => {
+export const cancelMapPinTODOMode = () => {
     return {
         type:"cancelMapPinMode",
     }
 }
 
 
-export const activeMapShowPointsMode = () => {
+export const activeShowMapPointsMode = () => {
     return {
-        type:"activeMapShowPointsMode"
+        type:"activeShowMapPointsMode"
     }
 }
 
-export const activeClearMapMode = () => {
+export const activeClearMapPointsMode = () => {
 
     return {
-        type:"activeClearMapMode"
+        type:"activeClearMapPointsMode"
     }
 }
 
@@ -73,11 +73,11 @@ export const updatePoint = (TODOID, location) => {
     }
 }
 
-export const DeletePoint = TODOID => {
+// export const DeletePoint = TODOID => {
 
-    return {
-        [TODOID]: {
-            type:"cancelPoint"
-        }
-    }
-}
+//     return {
+//         [TODOID]: {
+//             type:"cancelPoint"
+//         }
+//     }
+// }

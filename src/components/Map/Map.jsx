@@ -7,7 +7,7 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapMode, GetMapPoints } from '../../selectors';
+import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints } from '../../selectors';
 import { updatePoint } from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 
@@ -19,11 +19,9 @@ export const BaseMap = () => {
   const layerRef = useRef()
 
   const mapPoints = useSelector(GetMapPoints)
-  const mapModeSelector = useSelector(GetMapMode) 
-  const pinModeStatus = mapModeSelector.PinMode
-  const selectedTODOID = mapModeSelector.activeTODOID
-  const showPointsMode = mapModeSelector.ShowPointsMode
-  const clearPointsMode = mapModeSelector.ClearPointsMode
+  const pinModeStatus = useSelector(GetMapPinMode)
+  const selectedTODOID = pinModeStatus.activeTODOID
+  const showPointsMode = useSelector(GetMapShowPointsMode)
   const dispatch = useDispatch();
 
   const iconStyle = useMemo(() => new Style({
@@ -44,7 +42,7 @@ export const BaseMap = () => {
       )
       dispatch(updatePoint(selectedTODOID, evt.coordinate))
 
-      if (clearPointsMode) {
+      if (!showPointsMode) {
         layerRef.current.getSource().clear();
       }
     },
@@ -53,7 +51,7 @@ export const BaseMap = () => {
       selectedTODOID,
       dispatch,
       createMapPoint,
-      clearPointsMode
+      showPointsMode
     ]
     );
 
@@ -113,7 +111,7 @@ export const BaseMap = () => {
         mapInstance.current.un('click', createPointByClick);
       }
 
-      if(clearPointsMode){
+      if(!showPointsMode){
         layerRef.current.getSource().clear()
       }
       if (showPointsMode) {
@@ -123,7 +121,7 @@ export const BaseMap = () => {
       }
   },
   [
-    clearPointsMode,
+    showPointsMode,
     handleShowPointsMode,
     showPointsMode,
     createPointByClick,

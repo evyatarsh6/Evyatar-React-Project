@@ -6,14 +6,15 @@ import { mapPinMode } from "./reducers/uiReducer/mapReducer/mapPinModeReducers.j
 import { mainInput } from "./reducers/uiReducer/mainInputReducer/mainInput";
 import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPointsModeReducers.js/mapShowPointsMode";
 
-const mapReducer = combineReducers({
-    mode: mapModeReducer,
-    points: mapPoints
-})
 
 const mapModeReducer = combineReducers({
     pinMode: mapPinMode,
     showPointsMode: mapShowPointsMode
+})
+
+const mapReducer = combineReducers({
+    mode: mapModeReducer,
+    points: mapPoints
 })
 
 const uiReducer = combineReducers({

@@ -4,7 +4,7 @@ import { Point } from "ol/geom";
 
 const useMap = () => {
 
-    const createPoint = useCallback( (layerRef,featuresRef, coordinate, style) => {
+    const createPoint = useCallback((layerRef,featuresRef, coordinate, style) => {
 
         featuresRef.current  = new Feature({
             geometry: new Point(coordinate),

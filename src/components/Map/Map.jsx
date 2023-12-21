@@ -19,8 +19,12 @@ export const BaseMap = () => {
   const layerRef = useRef()
 
   const mapPoints = useSelector(GetMapPoints)
+
   const pinModeStatus = useSelector(GetMapPinMode)
   const selectedTODOID = pinModeStatus.activeTODOID
+  const PinMode = pinModeStatus.PinMode
+
+
   const showPointsMode = useSelector(GetMapShowPointsMode)
   const dispatch = useDispatch();
 
@@ -102,18 +106,18 @@ export const BaseMap = () => {
 
   useEffect(() => {
     if (mapInstance.current) {
-      if (pinModeStatus) {
-        mapInstance.current.on('click', createPointByClick)
+      if (PinMode) {
+         mapInstance.current.on('click', createPointByClick)
       }
-      else if(!pinModeStatus) {
-        mapInstance.current.un('click', createPointByClick);
-      }
+      
+      return () => mapInstance.current.un('click', createPointByClick);
+  
     }
-  },[createPointByClick,pinModeStatus])
+  },[createPointByClick,PinMode])
 
   useEffect(() => {
     if (mapInstance.current) {
-      if (showPointsMode) {
+      if (showPointsMode && Object.keys(mapPoints).length ) {
         handleShowPointsMode()
       }
       else{

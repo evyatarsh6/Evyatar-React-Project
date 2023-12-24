@@ -11,6 +11,7 @@ import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo } fr
 import { currMapLocation, hideTooltip, showTooltip, updatePoint } from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
+import { positions } from "@mui/system";
 
 export const BaseMap = ({PopUpRef}) => {
 
@@ -38,18 +39,12 @@ export const BaseMap = ({PopUpRef}) => {
     }),
   }), []);
 
-  const popUpOverlay = useMemo(() => {
-    return new Overlay({
-      element: PopUpRef.current
-    });
-  }, [PopUpRef])
-
-
-      // const popup = new Overlay({
-    //   // element: document.getElementById('popup'),
-    //   element: PopUpRef.current
-    //   //switch to ref instead
-    // });
+  // const popUpOverlay = useMemo((coordinate) => {
+  //   return new Overlay({
+  //     element: PopUpRef.current,
+  //     position: coordinate
+  //   });
+  // }, [PopUpRef])
 
   
   const createMapPoint = useMap().createPointOnMap 
@@ -57,19 +52,15 @@ export const BaseMap = ({PopUpRef}) => {
   
   const createTooltip = useCallback(coordinate => {
     dispatch(showTooltip())
-    const popup = popUpOverlay()
+    const popup =new Overlay({
+      element: PopUpRef.current,
+      position: coordinate
+    });
+    // const popup = popUpOverlay(coordinate)
     popup.setPosition(coordinate);
     mapInstance.current.addOverlay(popup);
 
-  },[dispatch, popUpOverlay])
-
-
-  const removeTooltip = useCallback( () => {
-    dispatch(hideTooltip())
-    const popup = popUpOverlay()
-    mapInstance.current.removeOverlay(popup);
-
-  },[dispatch, popUpOverlay])
+  },[dispatch, PopUpRef])
 
   const createPointByClick = useCallback((evt) => {
     createMapPoint(

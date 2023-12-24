@@ -9,12 +9,11 @@ export const PopUp = () => {
             <a href="#"
             //  ref = {props.closer}
               id="popup-closer" className="ol-popup-closer"/>
-              <div>
+              <div id="popup-content" 
+              // ref ={props.content}
+              >
                 avi
               </div>
-            {/* <div id="popup-content" ref ={props.content}>
-               avi 
-            <div/> */}
 
         </div>
     )

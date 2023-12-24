@@ -4,19 +4,20 @@ import { GetMapPinMode, GetTodoList } from '../../selectors';
 
 
 export const PopUpContent = () => {
-
     const pinModeStatus = useSelector(GetMapPinMode)
-    const selectedTODOID = pinModeStatus.activeTODOID
-
     const TODOList = useSelector(GetTodoList)
-    const currCardInfo = TODOList[selectedTODOID]
 
-    const locationValues = Object.values(currCardInfo.location)
-    const locationLong = locationValues[0]
-    const locationLat =  locationValues[1]
+    if (pinModeStatus.PinMode) {
+        const selectedTODOID = pinModeStatus.activeTODOID
+        const currCardInfo = TODOList[selectedTODOID]
+        if (Object.values(currCardInfo.location)) {
 
-    return (
-              <div id="popup-content">
+            const locationValues = Object.values(currCardInfo.location)
+            const locationLong = locationValues[0]
+            const locationLat =  locationValues[1]
+        
+            return (
+                <div id="popup-content">
                 <h1 id = "popup-TODO-kind">
                 TODO type: {currCardInfo.kind}
                 </h1>
@@ -26,6 +27,8 @@ export const PopUpContent = () => {
                 <h2 id = "popup-TODO-location">
                 location: {` ${locationLong}: ${locationLat} `}
                 </h2>
-              </div>
-    )
+                </div>
+            )
+        }
+    }
 }

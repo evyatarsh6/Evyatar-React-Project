@@ -8,11 +8,11 @@ import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo } from '../../selectors';
-import { currMapLocation, updatePoint } from "../../actions/actions";
+import { currMapLocation, hideTooltip, showTooltip, updatePoint } from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
 
-export const BaseMap = () => {
+export const BaseMap = ({PopUpRef}) => {
 
   const mapRef = useRef();
   const mapInstance = useRef();
@@ -37,22 +37,39 @@ export const BaseMap = () => {
       anchor: [0.5, 1],
     }),
   }), []);
+
+  const popUpOverlay = useMemo(() => {
+    return new Overlay({
+      element: PopUpRef.current
+    });
+  }, [PopUpRef])
+
+
+      // const popup = new Overlay({
+    //   // element: document.getElementById('popup'),
+    //   element: PopUpRef.current
+    //   //switch to ref instead
+    // });
+
   
   const createMapPoint = useMap().createPointOnMap 
 
   
   const createTooltip = useCallback(coordinate => {
-      
-    const popup = new Overlay({
-      element: document.getElementById('popup'),
-      //switch to ref instead
-    });
-
+    dispatch(showTooltip())
+    const popup = popUpOverlay()
     popup.setPosition(coordinate);
     mapInstance.current.addOverlay(popup);
 
-  },[])
+  },[dispatch, popUpOverlay])
 
+
+  const removeTooltip = useCallback( () => {
+    dispatch(hideTooltip())
+    const popup = popUpOverlay()
+    mapInstance.current.removeOverlay(popup);
+
+  },[dispatch, popUpOverlay])
 
   const createPointByClick = useCallback((evt) => {
     createMapPoint(

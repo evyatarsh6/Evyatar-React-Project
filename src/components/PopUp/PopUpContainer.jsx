@@ -4,7 +4,7 @@ import { PopUpContent } from "./PopUpContent"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 
-export const PopUp = () => {
+export const PopUp = ({PopUpRef}) => {
 
     const tooltipExist = useSelector(GetTooltipExist)
     const dispatch = useDispatch()
@@ -12,10 +12,10 @@ export const PopUp = () => {
     const handleCloseTooltip = () => {
         dispatch(hideTooltip())
     }
-
+    
     if (tooltipExist) {
         return (
-            <div id="popup" className="ol-popup">
+            <div id="popup" className="ol-popup" ref={PopUpRef}>
                 <a href="#" id="popup-closer" className="ol-popup-closer" onClick={handleCloseTooltip}/>
                   <PopUpContent/>
             </div>

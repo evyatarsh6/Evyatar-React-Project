@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { PopUpContent } from "./PopUpContent"
 
 export const PopUp = () => {
 
@@ -9,11 +9,7 @@ export const PopUp = () => {
             <a href="#"
             //  ref = {props.closer}
               id="popup-closer" className="ol-popup-closer"/>
-              <div id="popup-content" 
-              // ref ={props.content}
-              >
-                avi
-              </div>
+              <PopUpContent/>
 
         </div>
     )

@@ -7,12 +7,13 @@ import { mainInput } from "./reducers/uiReducer/mainInputReducer/mainInput";
 import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPointsMode";
 import { currViewInfo } from "./reducers/uiReducer/mapReducer/viewInfo";
 import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation";
+import { tooltipExist } from "./reducers/uiReducer/mapReducer/mapTooltipExist";
 
 
 const mapModeReducer = combineReducers({
     pinMode: mapPinMode,
     showPointsMode: mapShowPointsMode,
-    // tooltipExist:tooltipExist,
+    tooltipExist: tooltipExist,
 })
 
 const mapReducer = combineReducers({

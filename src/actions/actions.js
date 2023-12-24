@@ -73,12 +73,6 @@ export const updatePoint = (TODOID, location) => {
     }
 }
 
-export const focusWantedTODO = (location) => {
-    return {
-        type:"focusWantedTODO",
-        location: location
-    }
-}
 
 export const currMapLocation = (location) => {
     return {
@@ -86,4 +80,24 @@ export const currMapLocation = (location) => {
         location: location
     }
 }
+
+export const focusWantedTODO = (location) => {
+    return {
+        type:"focusWantedTODO",
+        location: location
+    }
+}
+
+export const showTooltip = () => {
+    return {
+        type:"showTooltip",
+    }
+}
+
+export const hideTooltip = () => {
+    return {
+        type:"hideTooltip",
+    }
+}
+
 

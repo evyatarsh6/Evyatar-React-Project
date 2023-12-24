@@ -12,14 +12,15 @@ import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation.js
 const mapModeReducer = combineReducers({
     pinMode: mapPinMode,
     showPointsMode: mapShowPointsMode,
-    currViewInfo: currViewInfo,
+    // currViewInfo: currViewInfo,
     currLocation: currLocation
 })
 
 const mapReducer = combineReducers({
     mode: mapModeReducer,
     points: mapPoints,
-    currViewInfo: currViewInfo
+    currViewInfo: currViewInfo,
+    currLocation: currLocation
 })
 
 const uiReducer = combineReducers({

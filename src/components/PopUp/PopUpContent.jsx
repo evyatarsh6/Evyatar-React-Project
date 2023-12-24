@@ -13,7 +13,7 @@ export const PopUpContent = () => {
         const currCardInfo = TODOList[selectedTODOID]
 
         if (currLocation.length) {
-            
+
             const locationLong = currLocation[0]
             const locationLat =  currLocation[1]
         

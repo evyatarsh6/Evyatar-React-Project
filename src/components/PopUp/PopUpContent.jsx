@@ -1,32 +1,33 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { GetMapPinMode, GetTodoList } from '../../selectors';
+import { GetMapPinMode, GetTodoList, GetMapLocation} from '../../selectors';
 
 
 export const PopUpContent = () => {
     const pinModeStatus = useSelector(GetMapPinMode)
     const TODOList = useSelector(GetTodoList)
+    const currLocation = useSelector(GetMapLocation).location
 
     if (pinModeStatus.PinMode) {
         const selectedTODOID = pinModeStatus.activeTODOID
         const currCardInfo = TODOList[selectedTODOID]
-        if (Object.values(currCardInfo.location)) {
 
-            const locationValues = Object.values(currCardInfo.location)
-            const locationLong = locationValues[0]
-            const locationLat =  locationValues[1]
+        if (currLocation.length) {
+            
+            const locationLong = currLocation[0]
+            const locationLat =  currLocation[1]
         
             return (
                 <div id="popup-content">
-                <h1 id = "popup-TODO-kind">
+                <div id = "popup-TODO-kind">
                 TODO type: {currCardInfo.kind}
-                </h1>
-                <h2 id = "popup-TODO-description">
+                </div>
+                <div id = "popup-TODO-description">
                 description: {currCardInfo.description}
-                </h2>
-                <h2 id = "popup-TODO-location">
+                </div>
+                <div id = "popup-TODO-location">
                 location: {` ${locationLong}: ${locationLat} `}
-                </h2>
+                </div>
                 </div>
             )
         }

@@ -74,9 +74,15 @@ export const updatePoint = (TODOID, location) => {
 }
 
 export const focusWantedTODO = (location) => {
-    
     return {
         type:"focusWantedTODO",
+        location: location
+    }
+}
+
+export const currMapLocation = (location) => {
+    return {
+        type:"currMapLocation",
         location: location
     }
 }

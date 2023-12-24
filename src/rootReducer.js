@@ -6,11 +6,14 @@ import { mapPinMode } from "./reducers/uiReducer/mapReducer/mapPinModeReducers.j
 import { mainInput } from "./reducers/uiReducer/mainInputReducer/mainInput";
 import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPointsModeReducers.js/mapShowPointsMode";
 import { currViewInfo } from "./reducers/uiReducer/mapReducer/viewInfoReducers/viewInfo";
+import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation.js/mapCurrLocation";
+
 
 const mapModeReducer = combineReducers({
     pinMode: mapPinMode,
     showPointsMode: mapShowPointsMode,
-    currViewInfo: currViewInfo, 
+    currViewInfo: currViewInfo,
+    currLocation: currLocation
 })
 
 const mapReducer = combineReducers({

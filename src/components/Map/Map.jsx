@@ -8,7 +8,7 @@ import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo } from '../../selectors';
-import { updatePoint } from "../../actions/actions";
+import { currMapLocation, updatePoint } from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
 
@@ -45,9 +45,12 @@ export const BaseMap = () => {
       
     const popup = new Overlay({
       element: document.getElementById('popup'),
+      //switch to ref instead
     });
+
     popup.setPosition(coordinate);
     mapInstance.current.addOverlay(popup);
+
   },[])
 
 
@@ -58,7 +61,9 @@ export const BaseMap = () => {
       evt.coordinate,
       iconStyle
       )
+
       dispatch(updatePoint(selectedTODOID, evt.coordinate))
+      dispatch(currMapLocation(evt.coordinate))
 
       if (!showPointsMode) {
         layerRef.current.getSource().clear();

@@ -7,7 +7,7 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo } from '../../selectors';
+import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, GetTooltipExist } from '../../selectors';
 import { currMapLocation, hideTooltip, showTooltip, updatePoint } from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
@@ -26,6 +26,8 @@ export const BaseMap = ({PopUpRef}) => {
   const selectedTODOID = pinModeStatus.activeTODOID
   const PinMode = pinModeStatus.PinMode
 
+  const isTooltipExist = useSelector(GetTooltipExist)
+
   const currViewInfo = useSelector(GetCurrViewInfo)
 
 
@@ -39,12 +41,12 @@ export const BaseMap = ({PopUpRef}) => {
     }),
   }), []);
 
-  // const popUpOverlay = useMemo((coordinate) => {
-  //   return new Overlay({
-  //     element: PopUpRef.current,
-  //     position: coordinate
-  //   });
-  // }, [PopUpRef])
+  const popUpOverlay = useMemo((coordinate) => {
+    return new Overlay({
+      element: PopUpRef.current,
+      positions: coordinate
+    });
+  }, [PopUpRef])
 
   
   const createMapPoint = useMap().createPointOnMap 
@@ -52,15 +54,11 @@ export const BaseMap = ({PopUpRef}) => {
   
   const createTooltip = useCallback(coordinate => {
     dispatch(showTooltip())
-    const popup =new Overlay({
-      element: PopUpRef.current,
-      position: coordinate
-    });
-    // const popup = popUpOverlay(coordinate)
+    const popup = popUpOverlay(coordinate)
     popup.setPosition(coordinate);
     mapInstance.current.addOverlay(popup);
 
-  },[dispatch, PopUpRef])
+  },[dispatch, popUpOverlay])
 
   const createPointByClick = useCallback((evt) => {
     createMapPoint(
@@ -76,11 +74,16 @@ export const BaseMap = ({PopUpRef}) => {
       if (!showPointsMode) {
         layerRef.current.getSource().clear();
       }
-      else{
+      if(isTooltipExist){
         createTooltip(evt.coordinate)
+      }
+      else{
+        mapInstance.current.removeOverlay(popUpOverlay)
       }
     },
     [
+      popUpOverlay,
+      isTooltipExist,
       createTooltip,
       iconStyle,
       selectedTODOID,

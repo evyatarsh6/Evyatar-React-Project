@@ -26,7 +26,10 @@ export const PopUpContent = () => {
                 description: {currCardInfo.description}
                 </div>
                 <div id = "popup-TODO-location">
-                location: {` ${locationLong}: ${locationLat} `}
+                location:
+                    <div>
+                    {` ${locationLong}: ${locationLat} `}
+                    </div>
                 </div>
                 </div>
             )

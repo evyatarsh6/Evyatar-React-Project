@@ -8,8 +8,9 @@ import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo } from '../../selectors';
-import { focusWantedTODO, updatePoint } from "../../actions/actions";
+import { updatePoint } from "../../actions/actions";
 import useMap from "../../hooks/useMap";
+import Overlay from 'ol/Overlay.js';
 
 export const BaseMap = () => {
 
@@ -39,6 +40,17 @@ export const BaseMap = () => {
   
   const createMapPoint = useMap().createPointOnMap 
 
+  
+  const createTooltip = useCallback(coordinate => {
+      
+    const popup = new Overlay({
+      element: document.getElementById('popup'),
+    });
+    popup.setPosition(coordinate);
+    mapInstance.current.addOverlay(popup);
+  },[])
+
+
   const createPointByClick = useCallback((evt) => {
     createMapPoint(
       layerRef,
@@ -51,8 +63,12 @@ export const BaseMap = () => {
       if (!showPointsMode) {
         layerRef.current.getSource().clear();
       }
+      else{
+        createTooltip(evt.coordinate)
+      }
     },
     [
+      createTooltip,
       iconStyle,
       selectedTODOID,
       dispatch,
@@ -60,6 +76,7 @@ export const BaseMap = () => {
       showPointsMode
     ]
     );
+
 
     const handleShowPointsMode = useCallback(() => {
       layerRef.current.getSource().clear();

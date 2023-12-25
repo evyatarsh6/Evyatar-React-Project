@@ -47,6 +47,7 @@ export const BaseMap = ({PopUpRef}) => {
       position: coordinate
       
     });
+
   }, [PopUpRef]);
 
   
@@ -60,7 +61,7 @@ export const BaseMap = ({PopUpRef}) => {
       mapInstance.current.addOverlay(newTooltip());
     }  
     else{
-      // tooltipLocat.setPosition(coordinate)
+      tooltipLocat.setPosition(coordinate)
       dispatch(updateTooltipLocation(coordinate))
 
     }

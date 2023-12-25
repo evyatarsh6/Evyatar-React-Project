@@ -58,9 +58,7 @@ export const BaseMap = ({PopUpRef}) => {
     if (!isTooltipExist) {
       const newTooltip = popUpOverlay(coordinate) 
       dispatch(updateTooltipLocation(coordinate))
-      // dispatch(updateTooltipLocation(newTooltip.getPosition()))
-      setTooltip(newTooltip)
-      mapInstance.current.addOverlay(newTooltip);
+      mapInstance.current.addOverlay(newTooltip());
     }  
     else{
       tooltipLocat.setPosition(coordinate)

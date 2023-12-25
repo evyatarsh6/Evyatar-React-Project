@@ -26,7 +26,6 @@ export const BaseMap = ({PopUpRef}) => {
   const PinMode = pinModeStatus.PinMode
 
   const tooltipLocat = useSelector(GetTooltipCurrLocat)
-
   const isTooltipExist = (tooltipLocat.length !== 0)
 
   const currViewInfo = useSelector(GetCurrViewInfo)
@@ -55,10 +54,27 @@ export const BaseMap = ({PopUpRef}) => {
 
   const createTooltipLogic = useCallback((coordinate) => {
 
+    // if (isTooltipExist) {
+    //   mapInstance.current.removeOverlay(mapInstance.current.getOverlays()[0])
+    //   dispatch(updateTooltipLocation([]))
+    // }
+
+    // const newTooltip = popUpOverlay(coordinate) 
+    // mapInstance.current.addOverlay(newTooltip());
+    // dispatch(updateTooltipLocation(coordinate))
+    // }
+    // ,[
+    //   popUpOverlay,
+    //   dispatch,
+    //   isTooltipExist
+    // ])
+
+
     if (!isTooltipExist) {
       const newTooltip = popUpOverlay(coordinate) 
       dispatch(updateTooltipLocation(coordinate))
       mapInstance.current.addOverlay(newTooltip());
+      console.log(mapInstance.current.addOverlay(newTooltip()))
     }  
     else{
       tooltipLocat.setPosition(coordinate)

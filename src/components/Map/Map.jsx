@@ -50,27 +50,33 @@ export const BaseMap = ({PopUpRef}) => {
   
 
   
-  const createMapPoint = useMap().createPointOnMap 
+  const createMapPoint = useMap().createPointOnMap
 
   const createTooltipLogic = useCallback((coordinate) => {
+
     if (!isTooltipExist) {
+      dispatch(showTooltip())
       const newTooltip = popUpOverlay(coordinate) 
       setTooltip(newTooltip)
       mapInstance.current.addOverlay(newTooltip);
-      dispatch(showTooltip())
-    }
+    }  
     else{
       tooltip.setPosition(coordinate)
 
     }
   },[popUpOverlay,tooltip, dispatch, isTooltipExist])
 
-  const removeTooltipLogic = useCallback(() => {
-    dispatch(hideTooltip())
-    mapInstance.current.removeOverlay(tooltip)
-    setTooltip(null)
 
-  },[tooltip, dispatch]) 
+
+
+  const removeTooltipLogic = useCallback(() =>{
+
+      if(!isTooltipExist && tooltip){
+        mapInstance.current.removeOverlay(tooltip)
+        dispatch(hideTooltip())
+        setTooltip(null)
+      }
+  },[isTooltipExist, tooltip, dispatch])
 
   const createPointByClick = useCallback((evt) => {
 

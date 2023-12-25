@@ -7,7 +7,7 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, GetTooltipExist } from '../../selectors';
+import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, GetTooltipCurrLocat } from '../../selectors';
 import { currMapLocation, updatePoint, updateTooltipLocation}  from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
@@ -25,7 +25,7 @@ export const BaseMap = ({PopUpRef}) => {
   const selectedTODOID = pinModeStatus.activeTODOID
   const PinMode = pinModeStatus.PinMode
 
-  const tooltipLocat = useSelector(GetTooltipExist)
+  const tooltipLocat = useSelector(GetTooltipCurrLocat)
 
   const isTooltipExist = (tooltipLocat.length !== 0)
 
@@ -59,7 +59,7 @@ export const BaseMap = ({PopUpRef}) => {
 
     if (!isTooltipExist) {
       const newTooltip = popUpOverlay(coordinate) 
-      dispatch(updateTooltipLocation(newTooltip.getPosition))
+      dispatch(updateTooltipLocation(newTooltip.getPosition()))
       setTooltip(newTooltip)
       mapInstance.current.addOverlay(newTooltip);
     }  
@@ -81,7 +81,7 @@ export const BaseMap = ({PopUpRef}) => {
 
       if(!isTooltipExist && tooltip){
         mapInstance.current.removeOverlay(tooltip)
-        dispatch(updateTooltipLocation(null))
+        dispatch(updateTooltipLocation([]))
         setTooltip(null)
       }
   },[isTooltipExist, tooltip, dispatch])

@@ -88,21 +88,9 @@ export const focusWantedTODO = (location) => {
     }
 }
 
-// export const showTooltip = () => {
-//     return {
-//         type:"showTooltip",
-//     }
-// }
-
-// export const hideTooltip = () => {
-//     return {
-//         type:"hideTooltip",
-//     }
-// }
-
 export const updateTooltipLocation= (tooltipLocation) => {
     return {
-        type: "updateTooltipLocationLocation",
+        type: "updateTooltipLocation",
         tooltipLocat: tooltipLocation
     }
 }

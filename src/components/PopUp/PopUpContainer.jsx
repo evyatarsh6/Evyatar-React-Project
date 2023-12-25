@@ -6,10 +6,10 @@ import { useDispatch } from "react-redux"
 
 export const PopUp = ({PopUpRef}) => {
 
-    const tooltipInfo = useSelector(GetTooltipExist)
+    const tooltipLocat = useSelector(GetTooltipExist)
     const dispatch = useDispatch()
 
-    const tooltipExist = (tooltipInfo.length !==0 )
+    const tooltipExist = (tooltipLocat.length !==0 )
 
     const handleCloseTooltip = () => {
         dispatch(updateTooltipLocation(null))

@@ -10,7 +10,7 @@ export const tooltipExist = (state = initialState, action) => {
     
     switch(action.type){
       case 'updateTooltipLocation':
-        return action.tooltipInfo
+        return action.tooltipLocat
 
       default:
         return state;  

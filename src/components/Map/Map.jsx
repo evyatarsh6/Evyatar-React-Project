@@ -25,9 +25,9 @@ export const BaseMap = ({PopUpRef}) => {
   const selectedTODOID = pinModeStatus.activeTODOID
   const PinMode = pinModeStatus.PinMode
 
-  const tooltipInfo = useSelector(GetTooltipExist)
+  const tooltipLocat = useSelector(GetTooltipExist)
 
-  const isTooltipExist = (tooltipInfo.length !== 0)
+  const isTooltipExist = (tooltipLocat.length !== 0)
 
   const currViewInfo = useSelector(GetCurrViewInfo)
 

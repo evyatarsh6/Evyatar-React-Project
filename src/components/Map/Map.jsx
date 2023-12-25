@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "ol/ol.css";
 import { Map, View } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
@@ -11,7 +11,6 @@ import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, Get
 import { currMapLocation, hideTooltip, showTooltip, updatePoint } from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
-import { positions } from "@mui/system";
 
 export const BaseMap = ({PopUpRef}) => {
 
@@ -27,12 +26,12 @@ export const BaseMap = ({PopUpRef}) => {
   const PinMode = pinModeStatus.PinMode
 
   const isTooltipExist = useSelector(GetTooltipExist)
-
   const currViewInfo = useSelector(GetCurrViewInfo)
-
 
   const showPointsMode = useSelector(GetMapShowPointsMode)
   const dispatch = useDispatch();
+
+  const [currCoordinate, setCurrCoordinate] = useState([])
 
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
@@ -41,10 +40,11 @@ export const BaseMap = ({PopUpRef}) => {
     }),
   }), []);
 
-  const popUpOverlay = useMemo((coordinate) => {
+  const popUpOverlay = useCallback((coordinate) => {
     return new Overlay({
       element: PopUpRef.current,
       position: coordinate
+      
     });
   }, [PopUpRef]);
   
@@ -53,15 +53,15 @@ export const BaseMap = ({PopUpRef}) => {
   const createMapPoint = useMap().createPointOnMap 
 
   
-  const createTooltip = useCallback(coordinate => {
+  const createTooltip = useCallback((coordinate) => {
       dispatch(showTooltip())
       const popup = popUpOverlay(coordinate)
-      // popup.setPosition(coordinate);
       mapInstance.current.addOverlay(popup);
 
   },[popUpOverlay, dispatch])
 
   const createPointByClick = useCallback((evt) => {
+
     createMapPoint(
       layerRef,
       featuresRef,

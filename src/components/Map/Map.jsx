@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef} from "react";
 import "ol/ol.css";
 import { Map, View } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
@@ -48,7 +48,6 @@ export const BaseMap = ({PopUpRef}) => {
       
     });
   }, [PopUpRef]);
-  
 
   
   const createMapPoint = useMap().createPointOnMap
@@ -61,7 +60,7 @@ export const BaseMap = ({PopUpRef}) => {
       mapInstance.current.addOverlay(newTooltip());
     }  
     else{
-      tooltipLocat.setPosition(coordinate)
+      // tooltipLocat.setPosition(coordinate)
       dispatch(updateTooltipLocation(coordinate))
 
     }

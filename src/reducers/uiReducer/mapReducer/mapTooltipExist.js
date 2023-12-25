@@ -1,4 +1,4 @@
-const initialState = true
+const initialState = false
 
 export const tooltipExist = (state = initialState, action) => {
     switch (action.type) {

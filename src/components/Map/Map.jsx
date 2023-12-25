@@ -44,21 +44,22 @@ export const BaseMap = ({PopUpRef}) => {
   const popUpOverlay = useMemo((coordinate) => {
     return new Overlay({
       element: PopUpRef.current,
-      positions: coordinate
+      position: coordinate
     });
-  }, [PopUpRef])
+  }, [PopUpRef]);
+  
 
   
   const createMapPoint = useMap().createPointOnMap 
 
   
   const createTooltip = useCallback(coordinate => {
-    dispatch(showTooltip())
-    const popup = popUpOverlay(coordinate)
-    popup.setPosition(coordinate);
-    mapInstance.current.addOverlay(popup);
+      dispatch(showTooltip())
+      const popup = popUpOverlay(coordinate)
+      // popup.setPosition(coordinate);
+      mapInstance.current.addOverlay(popup);
 
-  },[dispatch, popUpOverlay])
+  },[popUpOverlay, dispatch])
 
   const createPointByClick = useCallback((evt) => {
     createMapPoint(
@@ -74,10 +75,9 @@ export const BaseMap = ({PopUpRef}) => {
       if (!showPointsMode) {
         layerRef.current.getSource().clear();
       }
-      if(isTooltipExist){
-        createTooltip(evt.coordinate)
-      }
-      else{
+      createTooltip(evt.coordinate)
+
+      if(!isTooltipExist){
         mapInstance.current.removeOverlay(popUpOverlay)
       }
     },

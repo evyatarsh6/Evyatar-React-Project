@@ -34,8 +34,6 @@ export const BaseMap = ({PopUpRef}) => {
   const showPointsMode = useSelector(GetMapShowPointsMode)
   const dispatch = useDispatch();
 
-  const [tooltip,setTooltip] = useState(null)
-
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
       src: LocationPin,
@@ -59,32 +57,30 @@ export const BaseMap = ({PopUpRef}) => {
 
     if (!isTooltipExist) {
       const newTooltip = popUpOverlay(coordinate) 
-      dispatch(updateTooltipLocation(newTooltip.getPosition()))
+      dispatch(updateTooltipLocation(coordinate))
+      // dispatch(updateTooltipLocation(newTooltip.getPosition()))
       setTooltip(newTooltip)
       mapInstance.current.addOverlay(newTooltip);
     }  
     else{
-      tooltip.setPosition(coordinate)
+      tooltipLocat.setPosition(coordinate)
+      dispatch(updateTooltipLocation(coordinate))
 
     }
   },[
     popUpOverlay,
-    tooltip,
+    tooltipLocat,
     dispatch,
     isTooltipExist
   ])
 
-
-
-
   const removeTooltipLogic = useCallback(() =>{
 
-      if(!isTooltipExist && tooltip){
-        mapInstance.current.removeOverlay(tooltip)
+      if(!isTooltipExist){
+        mapInstance.current.removeOverlay(tooltipLocat)
         dispatch(updateTooltipLocation([]))
-        setTooltip(null)
       }
-  },[isTooltipExist, tooltip, dispatch])
+  },[isTooltipExist, tooltipLocat, dispatch])
 
   const createPointByClick = useCallback((evt) => {
 

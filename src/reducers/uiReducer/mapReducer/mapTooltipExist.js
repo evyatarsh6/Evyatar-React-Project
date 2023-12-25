@@ -1,15 +1,19 @@
-const initialState = false
+const initialState = {}
 
 export const tooltipExist = (state = initialState, action) => {
-    switch (action.type) {
-      case 'showTooltip':
-      return true
+    // switch (action.type) {
+    //   case 'showTooltip':
+    //   return true
 
-      case 'hideTooltip':
-        return false
-        
+    //   case 'hideTooltip':
+    //     return false
+    
+    switch(action.type){
+      case 'updateTooltip':
+        return action.tooltipInfo
+
       default:
-      return state;
+        return state;  
     }
   };
   

@@ -64,7 +64,12 @@ export const BaseMap = ({PopUpRef}) => {
       tooltip.setPosition(coordinate)
 
     }
-  },[popUpOverlay,tooltip, dispatch, isTooltipExist])
+  },[
+    popUpOverlay,
+    tooltip,
+    dispatch,
+    isTooltipExist
+  ])
 
 
 

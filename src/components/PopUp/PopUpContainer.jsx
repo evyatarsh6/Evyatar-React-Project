@@ -9,11 +9,10 @@ export const PopUp = ({PopUpRef}) => {
     const tooltipInfo = useSelector(GetTooltipExist)
     const dispatch = useDispatch()
 
-    const tooltipExist = (Object.values(tooltipInfo).length !==0)
+    const tooltipExist = (tooltipInfo.length !==0 )
 
     const handleCloseTooltip = () => {
-        console.log(Object.values(tooltipInfo).length)
-        dispatch(updateTooltipLocation({}))
+        dispatch(updateTooltipLocation(null))
     }
     
     if (tooltipExist) {

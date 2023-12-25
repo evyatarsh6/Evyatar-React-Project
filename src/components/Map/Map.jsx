@@ -27,7 +27,7 @@ export const BaseMap = ({PopUpRef}) => {
 
   const tooltipInfo = useSelector(GetTooltipExist)
 
-  const isTooltipExist = Object.values(tooltipInfo).length !== 0
+  const isTooltipExist = (tooltipInfo.length !== 0)
 
   const currViewInfo = useSelector(GetCurrViewInfo)
 
@@ -81,7 +81,7 @@ export const BaseMap = ({PopUpRef}) => {
 
       if(!isTooltipExist && tooltip){
         mapInstance.current.removeOverlay(tooltip)
-        dispatch(updateTooltipLocation({}))
+        dispatch(updateTooltipLocation(null))
         setTooltip(null)
       }
   },[isTooltipExist, tooltip, dispatch])

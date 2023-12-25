@@ -9,13 +9,14 @@ export const PopUp = ({PopUpRef}) => {
     const tooltipLocat = useSelector(GetTooltipExist)
     const dispatch = useDispatch()
 
-    const tooltipExist = (tooltipLocat.length !==0 )
+    const tooltipCurrLocat = ( tooltipLocat || tooltipLocat.length !==0 )
 
     const handleCloseTooltip = () => {
+        console.log(tooltipLocat)
         dispatch(updateTooltipLocation(null))
     }
     
-    if (tooltipExist) {
+    if (tooltipCurrLocat) {
         return (
             <div id="popup" className="ol-popup" ref={PopUpRef}>
                 <a href="#" id="popup-closer" className="ol-popup-closer" onClick={handleCloseTooltip}/>

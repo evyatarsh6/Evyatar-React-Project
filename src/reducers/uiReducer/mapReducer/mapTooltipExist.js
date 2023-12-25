@@ -1,6 +1,6 @@
-const initialState = {}
+const initialState = false
 
-export const tooltipExist = (state = initialState, action) => {
+export const tooltipCurrLocat = (state = initialState, action) => {
     // switch (action.type) {
     //   case 'showTooltip':
     //   return true

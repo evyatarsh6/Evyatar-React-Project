@@ -1,4 +1,4 @@
-import { updateTooltip } from "../../actions/actions"
+import { updateTooltipLocation } from "../../actions/actions"
 import { GetTooltipExist } from "../../selectors"
 import { PopUpContent } from "./PopUpContent"
 import { useSelector } from "react-redux"
@@ -9,10 +9,11 @@ export const PopUp = ({PopUpRef}) => {
     const tooltipInfo = useSelector(GetTooltipExist)
     const dispatch = useDispatch()
 
-    const tooltipExist = Object.values(tooltipInfo)
+    const tooltipExist = (Object.values(tooltipInfo).length !==0)
 
     const handleCloseTooltip = () => {
-        dispatch(updateTooltip({}))
+        console.log(Object.values(tooltipInfo).length)
+        dispatch(updateTooltipLocation({}))
     }
     
     if (tooltipExist) {

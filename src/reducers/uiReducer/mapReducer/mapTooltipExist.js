@@ -9,7 +9,7 @@ export const tooltipExist = (state = initialState, action) => {
     //     return false
     
     switch(action.type){
-      case 'updateTooltip':
+      case 'updateTooltipLocation':
         return action.tooltipInfo
 
       default:

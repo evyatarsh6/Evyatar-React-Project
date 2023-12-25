@@ -100,10 +100,10 @@ export const focusWantedTODO = (location) => {
 //     }
 // }
 
-export const updateTooltip = (tooltipInfo) => {
+export const updateTooltipLocationLocation = (tooltipLocation) => {
     return {
-        type: "updateTooltip",
-        tooltipInfo: tooltipInfo
+        type: "updateTooltipLocationLocation",
+        tooltipInfo: tooltipLocation
     }
 }
 

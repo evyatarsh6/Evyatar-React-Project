@@ -80,7 +80,6 @@ export const BaseMap = ({PopUpRef}) => {
     setPrevTooltip(newTooltip)
     mapInstance.current.addOverlay(newTooltip);
     dispatch(updateTooltipStatus(true))
-    // dispatch(updateTooltipLocation(coordinate))
 
     }
     ,[

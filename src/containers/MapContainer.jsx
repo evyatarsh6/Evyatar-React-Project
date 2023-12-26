@@ -1,21 +1,14 @@
 import { BaseMap } from '../components/Map/Map';
+import { useRef, useState } from 'react'
 import { PopUp } from '../components/PopUp/PopUpContainer';
-import { useRef } from 'react'
-import { GetTooltipStatus } from '../selectors';
-import { useSelector } from "react-redux"
 
 export const MapContainer = () => {
-  
   const PopUpRef = useRef()
-  const isTooltipExist = useSelector(GetTooltipStatus)
 
     return (
       <div id='map-container'>
-        <BaseMap PopUpRef = {PopUpRef}/>
-        {
-          isTooltipExist &&
-            <PopUp PopUpRef = {PopUpRef}/>
-        }
+        <BaseMap PopUpRef={PopUpRef}/>
+        {/* <PopUp currTooltip={currTooltip} setCurrTooltip={setCurrTooltip} PopUpRef={PopUpRef}/> */}
       </div>
   
       )

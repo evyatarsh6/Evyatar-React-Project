@@ -11,13 +11,30 @@ import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, Get
 import { currMapLocation, updatePoint, updateTooltipStatus}  from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
+import { PopUpContent } from "../PopUp/PopUpContent";
 
-export const BaseMap = ({PopUpRef}) => {
+const PopUp = ({ removeOverlay, PopUpRef, setCurrTooltip}) => {
+
+    const handleCloseTooltip = () => {
+        removeOverlay()
+        setCurrTooltip(null)
+    }
+
+        return (
+            <div id="popup" className="ol-popup" ref={PopUpRef}>
+                <a href="#" id="popup-closer" className="ol-popup-closer" onClick={handleCloseTooltip}/>
+                  <PopUpContent/>
+            </div>
+        )
+}
+
+export const BaseMap = ({ PopUpRef }) => {
 
   const mapRef = useRef();
-  const mapInstance = useRef();
+  const mapContainer = useRef();
   const featuresRef = useRef();
   const layerRef = useRef()
+  const [currTooltip, setCurrTooltip] = useState(null)
 
   const mapPoints = useSelector(GetMapPoints)
 
@@ -32,7 +49,6 @@ export const BaseMap = ({PopUpRef}) => {
   const showPointsMode = useSelector(GetMapShowPointsMode)
   const dispatch = useDispatch();
 
-  const [currTooltip,setCurrTooltip] = useState(null)
 
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
@@ -42,6 +58,10 @@ export const BaseMap = ({PopUpRef}) => {
   }), []);
 
   const createMapPoint = useMap().createPointOnMap
+
+  const removeOverlay = useCallback(() => {
+    mapContainer.current.removeOverlay(currTooltip)
+  }, [currTooltip])
 
   const popUpOverlay = useCallback((coordinate) => {
     return new Overlay({
@@ -55,21 +75,18 @@ export const BaseMap = ({PopUpRef}) => {
   const tooltipLogic = useCallback((coordinate) => {
 
     if(isTooltipExist){
-      mapInstance.current.removeOverlay(currTooltip)
-      dispatch(updateTooltipStatus(false))
+      mapContainer.current.removeOverlay(currTooltip)
     }
 
     const newTooltip = popUpOverlay(coordinate) 
-    mapInstance.current.addOverlay(newTooltip);
+    mapContainer.current.addOverlay(newTooltip);
     setCurrTooltip(newTooltip)
-    dispatch(updateTooltipStatus(true))
-
     }
     ,[
       isTooltipExist,
       currTooltip,
       popUpOverlay,
-      dispatch,
+      setCurrTooltip,
     ])
 
 
@@ -121,8 +138,8 @@ export const BaseMap = ({PopUpRef}) => {
     );
   
   useEffect(() => {
-    if (!mapInstance.current) {
-      mapInstance.current = new Map({
+    if (!mapContainer.current) {
+      mapContainer.current = new Map({
         target: mapRef.current,
         layers: [
           new TileLayer({
@@ -143,17 +160,17 @@ export const BaseMap = ({PopUpRef}) => {
         source: new VectorSource()
       });
 
-      mapInstance.current.addLayer(layerRef.current);
+      mapContainer.current.addLayer(layerRef.current);
     }
   }, [iconStyle]);
 
   useEffect(() => {
-    if (mapInstance.current) {
+    if (mapContainer.current) {
       if (PinMode) {
-         mapInstance.current.on('click', createPointByClick)
+         mapContainer.current.on('click', createPointByClick)
       }
 
-      return () => mapInstance.current.un('click', createPointByClick);
+      return () => mapContainer.current.un('click', createPointByClick);
   
     }
   },[createPointByClick,PinMode])
@@ -161,14 +178,14 @@ export const BaseMap = ({PopUpRef}) => {
 
   useEffect(()=> {
 
-    mapInstance.current.getView().setCenter(currViewInfo.center)
-    mapInstance.current.getView().setZoom(currViewInfo.zoom)
+    mapContainer.current.getView().setCenter(currViewInfo.center)
+    mapContainer.current.getView().setZoom(currViewInfo.zoom)
   
   },[currViewInfo])
 
 
   useEffect(() => {
-    if (mapInstance.current) {
+    if (mapContainer.current) {
       if (showPointsMode && Object.keys(mapPoints).length ) {
         handleShowPointsMode()
       }
@@ -182,7 +199,7 @@ export const BaseMap = ({PopUpRef}) => {
 
   useEffect(() => {
     return () => {
-      mapInstance.current.removeOverlay(popUpOverlay);
+      mapContainer.current.removeOverlay(popUpOverlay);
     };
   }, [popUpOverlay]);
   
@@ -190,15 +207,19 @@ export const BaseMap = ({PopUpRef}) => {
 
 
   return (
-    <div
-      ref={mapRef}
-      style={{
-        margin: 0,
-        width: '100%',
-        fontFamily: 'sans-serif',
-        height: '400px',
+    <div>
+      <div
+        ref={mapRef}
+        style={{
+          margin: 0,
+          width: '100%',
+          fontFamily: 'sans-serif',
+          height: '400px',
       }}
-    > 
+      > 
+      </div>
+      <PopUp removeOverlay={removeOverlay} PopUpRef={PopUpRef} setCurrTooltip={setCurrTooltip} />
     </div>
+
   );
 };

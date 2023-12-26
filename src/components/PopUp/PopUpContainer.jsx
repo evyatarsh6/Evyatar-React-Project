@@ -1,14 +1,15 @@
-import { updateTooltipStatus } from "../../actions/actions"
 import { PopUpContent } from "./PopUpContent"
-import { useDispatch } from "react-redux"
 
-export const PopUp = ({PopUpRef}) => {
+export const PopUp = ({ PopUpRef, currTooltip, setCurrTooltip}) => {
 
-    const dispatch = useDispatch()
+    if(!currTooltip){
+        return
+    }
 
-    const handleCloseTooltip = () => dispatch(updateTooltipStatus(false))
-    
-    
+    const handleCloseTooltip = () => {
+        setCurrTooltip()
+    }
+
         return (
             <div id="popup" className="ol-popup" ref={PopUpRef}>
                 <a href="#" id="popup-closer" className="ol-popup-closer" onClick={handleCloseTooltip}/>

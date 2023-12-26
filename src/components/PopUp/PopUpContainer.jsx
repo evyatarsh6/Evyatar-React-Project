@@ -7,7 +7,7 @@ export const PopUp = ({ PopUpRef, currTooltip, setCurrTooltip}) => {
     }
 
     const handleCloseTooltip = () => {
-        setCurrTooltip()
+        setCurrTooltip(null)
     }
 
         return (

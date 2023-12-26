@@ -13,6 +13,7 @@ import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
 import { PopUpContent } from "../PopUp/PopUpContent";
 
+
 const PopUp = ({ removeOverlay, PopUpRef, setCurrTooltip}) => {
 
     const handleCloseTooltip = () => {
@@ -59,10 +60,6 @@ export const BaseMap = ({ PopUpRef }) => {
 
   const createMapPoint = useMap().createPointOnMap
 
-  const removeOverlay = useCallback(() => {
-    mapContainer.current.removeOverlay(currTooltip)
-  }, [currTooltip])
-
   const popUpOverlay = useCallback((coordinate) => {
     return new Overlay({
       element: PopUpRef.current,
@@ -72,21 +69,29 @@ export const BaseMap = ({ PopUpRef }) => {
 
   }, [PopUpRef]);
 
-  const tooltipLogic = useCallback((coordinate) => {
 
-    if(isTooltipExist){
-      mapContainer.current.removeOverlay(currTooltip)
-    }
+  const removeOverlay = useCallback(() => {
+    mapContainer.current.removeOverlay(currTooltip)
+  }, [currTooltip])
+
+  const updateOverLay = useCallback((coordinate) => {
 
     const newTooltip = popUpOverlay(coordinate) 
     mapContainer.current.addOverlay(newTooltip);
     setCurrTooltip(newTooltip)
+  }, [popUpOverlay])
+
+
+  const tooltipLogic = useCallback((coordinate) => {
+    if(isTooltipExist){
+      removeOverlay()
+    }
+    updateOverLay(coordinate)
     }
     ,[
+      updateOverLay,
+      removeOverlay,
       isTooltipExist,
-      currTooltip,
-      popUpOverlay,
-      setCurrTooltip,
     ])
 
 
@@ -218,6 +223,12 @@ export const BaseMap = ({ PopUpRef }) => {
       }}
       > 
       </div>
+      {/* {
+        currTooltip &&
+        <PopUp removeOverlay={removeOverlay} PopUpRef={PopUpRef} setCurrTooltip={setCurrTooltip} />
+        
+      } */}
+
       <PopUp removeOverlay={removeOverlay} PopUpRef={PopUpRef} setCurrTooltip={setCurrTooltip} />
     </div>
 

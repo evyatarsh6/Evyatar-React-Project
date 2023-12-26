@@ -32,7 +32,7 @@ export const BaseMap = ({PopUpRef}) => {
   const showPointsMode = useSelector(GetMapShowPointsMode)
   const dispatch = useDispatch();
 
-  const [prevTooltip,setPrevTooltip] = useState(null)
+  const [currTooltip,setCurrTooltip] = useState(null)
 
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
@@ -55,35 +55,39 @@ export const BaseMap = ({PopUpRef}) => {
 
 
   
-  const removeTooltipLogic = useCallback(() =>{
+  // const removeTooltipLogic = useCallback(() =>{
     
-    if(isTooltipExist && prevTooltip){
+  //   if(isTooltipExist && currTooltip){
 
-      const prevOverlays = mapInstance.current.getOverlays() 
-      mapInstance.current.removeOverlay(prevTooltip)
-      const newOverlays = mapInstance.current.getOverlays()
-      console.log((newOverlays === prevOverlays))
-      dispatch(updateTooltipStatus(false))
-    }
-  },[isTooltipExist,
-     dispatch,
-      prevTooltip])
+  //     const prevOverlays = mapInstance.current.getOverlays() 
+  //     mapInstance.current.removeOverlay(currTooltip)
+  //     const newOverlays = mapInstance.current.getOverlays()
+  //     console.log((newOverlays === prevOverlays))
+  //     dispatch(updateTooltipStatus(false))
+  //   }
+  // },[isTooltipExist,
+  //    dispatch,
+  //     currTooltip])
 
 
 
 
   const tooltipLogic = useCallback((coordinate) => {
 
-    removeTooltipLogic()
+    if(isTooltipExist){
+      mapInstance.current.removeOverlay(currTooltip)
+      dispatch(updateTooltipStatus(false))
+    }
 
     const newTooltip = popUpOverlay(coordinate) 
-    setPrevTooltip(newTooltip)
     mapInstance.current.addOverlay(newTooltip);
+    setCurrTooltip(newTooltip)
     dispatch(updateTooltipStatus(true))
 
     }
     ,[
-      removeTooltipLogic,
+      isTooltipExist,
+      currTooltip,
       popUpOverlay,
       dispatch,
     ])

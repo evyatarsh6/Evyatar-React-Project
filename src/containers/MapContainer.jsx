@@ -5,6 +5,7 @@ import { GetTooltipStatus } from '../selectors';
 import { useSelector } from "react-redux"
 
 export const MapContainer = () => {
+  
   const PopUpRef = useRef()
   const isTooltipExist = useSelector(GetTooltipStatus)
 

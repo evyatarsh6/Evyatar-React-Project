@@ -59,7 +59,10 @@ export const BaseMap = ({PopUpRef}) => {
   const removeTooltipLogic = useCallback(() =>{
 
     if(isTooltipExist && prevTooltip){
+
+      console.log(mapInstance.current.getOverlays())
       mapInstance.current.removeOverlay(prevTooltip)
+      console.log(mapInstance.current.getOverlays())
       dispatch(updateTooltipLocation([]))
     }
   },[isTooltipExist, dispatch, prevTooltip])
@@ -75,7 +78,6 @@ export const BaseMap = ({PopUpRef}) => {
     setPrevTooltip(newTooltip)
     mapInstance.current.addOverlay(newTooltip);
     dispatch(updateTooltipLocation(coordinate))
-    console.log(mapInstance.current.getOverlays())
 
     }
     ,[

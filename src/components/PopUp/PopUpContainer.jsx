@@ -24,11 +24,11 @@ export const PopUp = ({PopUpRef}) => {
             </div>
         )
     }
-    else{
-        return    (
-        <div id="popup" className="ol-popup" ref={PopUpRef}>
-            avi berger
-        </div>
-        )
-    }
+    // else{
+    //     return    (
+    //     <div id="popup" className="ol-popup" ref={PopUpRef}>
+    //         avi berger
+    //     </div>
+    //     )
+    // }
 }

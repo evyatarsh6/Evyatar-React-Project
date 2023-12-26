@@ -41,6 +41,8 @@ export const BaseMap = ({PopUpRef}) => {
     }),
   }), []);
 
+  const createMapPoint = useMap().createPointOnMap
+
   const popUpOverlay = useCallback((coordinate) => {
     return new Overlay({
       element: PopUpRef.current,
@@ -49,28 +51,6 @@ export const BaseMap = ({PopUpRef}) => {
     });
 
   }, [PopUpRef]);
-
-  
-  const createMapPoint = useMap().createPointOnMap
-
-
-  
-  // const removeTooltipLogic = useCallback(() =>{
-    
-  //   if(isTooltipExist && currTooltip){
-
-  //     const prevOverlays = mapInstance.current.getOverlays() 
-  //     mapInstance.current.removeOverlay(currTooltip)
-  //     const newOverlays = mapInstance.current.getOverlays()
-  //     console.log((newOverlays === prevOverlays))
-  //     dispatch(updateTooltipStatus(false))
-  //   }
-  // },[isTooltipExist,
-  //    dispatch,
-  //     currTooltip])
-
-
-
 
   const tooltipLogic = useCallback((coordinate) => {
 
@@ -199,6 +179,13 @@ export const BaseMap = ({PopUpRef}) => {
       }
   },
   [handleShowPointsMode,showPointsMode, mapPoints])
+
+  useEffect(() => {
+    return () => {
+      mapInstance.current.removeOverlay(popUpOverlay);
+    };
+  }, [popUpOverlay]);
+  
 
 
 

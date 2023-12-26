@@ -9,7 +9,7 @@ export const GetMapPinMode = state => state.UI.Map.mode.pinMode
 
 export const GetMapShowPointsMode = state => state.UI.Map.mode.showPointsMode
 
-export const GetTooltipCurrLocat = state => state.UI.Map.mode.tooltipCurrLocat
+export const GetTooltipStatus = state => state.UI.Map.mode.tooltipStatus
 
 export const GetMapPoints = state => state.UI.Map.points
 

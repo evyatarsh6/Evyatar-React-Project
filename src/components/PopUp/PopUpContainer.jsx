@@ -1,22 +1,21 @@
-import { updateTooltipLocation } from "../../actions/actions"
-import { GetTooltipCurrLocat } from "../../selectors"
+import { updateTooltipStatus } from "../../actions/actions"
+import { GetTooltipStatus } from "../../selectors"
+// import { GetTooltipCurrLocat } from "../../selectors"
 import { PopUpContent } from "./PopUpContent"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 
 export const PopUp = ({PopUpRef}) => {
 
-    const tooltipLocat = useSelector(GetTooltipCurrLocat)
     const dispatch = useDispatch()
-
-    const tooltipExist = (tooltipLocat.length !== 0 )
+    const isTooltipExist = useSelector(GetTooltipStatus)
 
     const handleCloseTooltip = () => {
         
-        dispatch(updateTooltipLocation([]))
+        dispatch(updateTooltipStatus(false))
     }
     
-    if (tooltipExist) {
+    if (isTooltipExist) {
         return (
             <div id="popup" className="ol-popup" ref={PopUpRef}>
                 <a href="#" id="popup-closer" className="ol-popup-closer" onClick={handleCloseTooltip}/>

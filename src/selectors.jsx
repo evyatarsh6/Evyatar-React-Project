@@ -11,7 +11,6 @@ export const GetMapShowPointsMode = state => state.UI.Map.mode.showPointsMode
 
 export const GetTooltipCurrLocat = state => state.UI.Map.mode.tooltipCurrLocat
 
-
 export const GetMapPoints = state => state.UI.Map.points
 
 export const GetCurrViewInfo = state => state.UI.Map.currViewInfo

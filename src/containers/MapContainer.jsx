@@ -8,7 +8,7 @@ export const MapContainer = () => {
   return (
     <div id='map-container'>
       <BaseMap PopUpRef = {PopUpRef}/>
-      <PopUp PopUpRef = {PopUpRef}/>
+      <PopUp PopUpRef = {PopUpRef} />
     </div>
 
     )

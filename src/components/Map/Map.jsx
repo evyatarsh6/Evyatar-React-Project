@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef} from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState} from "react";
 import "ol/ol.css";
 import { Map, View } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
@@ -26,12 +26,14 @@ export const BaseMap = ({PopUpRef}) => {
   const PinMode = pinModeStatus.PinMode
 
   const tooltipLocat = useSelector(GetTooltipCurrLocat)
-  const isTooltipExist = (tooltipLocat.length !== 0)
+  const isTooltipExist = (tooltipLocat.length !== 0 )
 
   const currViewInfo = useSelector(GetCurrViewInfo)
 
   const showPointsMode = useSelector(GetMapShowPointsMode)
   const dispatch = useDispatch();
+
+  const [prevTooltip,setPrevTooltip] = useState(null)
 
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
@@ -52,49 +54,36 @@ export const BaseMap = ({PopUpRef}) => {
   
   const createMapPoint = useMap().createPointOnMap
 
-  const createTooltipLogic = useCallback((coordinate) => {
 
-    // if (isTooltipExist) {
-    //   mapInstance.current.removeOverlay(mapInstance.current.getOverlays()[0])
-    //   dispatch(updateTooltipLocation([]))
-    // }
-
-    // const newTooltip = popUpOverlay(coordinate) 
-    // mapInstance.current.addOverlay(newTooltip());
-    // dispatch(updateTooltipLocation(coordinate))
-    // }
-    // ,[
-    //   popUpOverlay,
-    //   dispatch,
-    //   isTooltipExist
-    // ])
-
-
-    if (!isTooltipExist) {
-      const newTooltip = popUpOverlay(coordinate) 
-      dispatch(updateTooltipLocation(coordinate))
-      mapInstance.current.addOverlay(newTooltip());
-      console.log(mapInstance.current.addOverlay(newTooltip()))
-    }  
-    else{
-      tooltipLocat.setPosition(coordinate)
-      dispatch(updateTooltipLocation(coordinate))
-
-    }
-  },[
-    popUpOverlay,
-    tooltipLocat,
-    dispatch,
-    isTooltipExist
-  ])
-
+  
   const removeTooltipLogic = useCallback(() =>{
 
-      if(!isTooltipExist){
-        mapInstance.current.removeOverlay(tooltipLocat)
-        dispatch(updateTooltipLocation([]))
-      }
-  },[isTooltipExist, tooltipLocat, dispatch])
+    if(isTooltipExist && prevTooltip){
+      mapInstance.current.removeOverlay(prevTooltip)
+      dispatch(updateTooltipLocation([]))
+    }
+  },[isTooltipExist, dispatch, prevTooltip])
+
+
+
+
+  const tooltipLogic = useCallback((coordinate) => {
+
+    removeTooltipLogic()
+
+    const newTooltip = popUpOverlay(coordinate) 
+    setPrevTooltip(newTooltip)
+    mapInstance.current.addOverlay(newTooltip);
+    dispatch(updateTooltipLocation(coordinate))
+    console.log(mapInstance.current.getOverlays())
+
+    }
+    ,[
+      removeTooltipLogic,
+      popUpOverlay,
+      dispatch,
+    ])
+
 
   const createPointByClick = useCallback((evt) => {
 
@@ -111,12 +100,11 @@ export const BaseMap = ({PopUpRef}) => {
       if (!showPointsMode) {
         layerRef.current.getSource().clear();
       }
-      createTooltipLogic(evt.coordinate)
-      removeTooltipLogic()
+
+      tooltipLogic(evt.coordinate)
     },
     [
-      removeTooltipLogic,
-      createTooltipLogic,
+      tooltipLogic,
       iconStyle,
       selectedTODOID,
       dispatch,

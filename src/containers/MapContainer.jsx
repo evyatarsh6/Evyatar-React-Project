@@ -11,7 +11,7 @@ export const MapContainer = () => {
     return (
       <div id='map-container'>
         <BaseMap PopUpRef={PopUpRef} currTooltip={currTooltip} setCurrTooltip={setCurrTooltip}/>
-        <PopUp PopUpRef={PopUpRef} setCurrTooltip={setCurrTooltip}/>
+        <PopUp PopUpRef={PopUpRef}/>
       </div>
   
       )

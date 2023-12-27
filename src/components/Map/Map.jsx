@@ -49,17 +49,27 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
 
 
 
+  const popUpOverlay = useCallback(( mapContainer,coordinate) => {
+    // Transform the geographical coordinates to pixel coordinates
+    const pixelCoordinates = mapContainer.current.getPixelFromCoordinate(coordinate);
 
-
-
-  const popUpOverlay = useCallback((coordinate) => {
     return new Overlay({
       element: PopUpRef.current,
-      position: coordinate
-      
+      position: [pixelCoordinates[0] , pixelCoordinates[1]],
     });
-
   }, [PopUpRef]);
+  
+
+
+  // const popUpOverlay = useCallback((coordinate) => {
+  //   return new Overlay({
+  //     element: PopUpRef.current,
+  //     position: [coordinate[0] + 100, coordinate[1] + 100]
+  //     //  coordinate
+      
+  //   });
+
+  // }, [PopUpRef]);
 
 
   const removeOverlay = useCallback(() => {
@@ -72,7 +82,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
 
   const updateOverLay = useCallback((coordinate) => {
 
-    const newTooltip = popUpOverlay(coordinate) 
+    const newTooltip = popUpOverlay(mapContainer, coordinate) 
     mapContainer.current.addOverlay(newTooltip);
     setCurrTooltip(newTooltip)
     dispatch(updateTooltipStatus(true))
@@ -214,14 +224,6 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
       }
   },
   [handleShowPointsMode,showPointsMode, mapPoints])
-
-  // useEffect(() => {
-  //   return () => {
-  //     mapContainer.current.removeOverlay(popUpOverlay);
-  //   };
-  // }, [popUpOverlay]);
-  
-
 
 
   return (

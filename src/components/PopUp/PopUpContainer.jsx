@@ -5,7 +5,7 @@ import { GetTooltipStatus } from "../../selectors"
 import { updateTooltipStatus } from "../../actions/actions"
 
 
-export const PopUp = ({ PopUpRef, setCurrTooltip}) => {
+export const PopUp = ({ PopUpRef}) => {
 
     const tooltipStatus = useSelector(GetTooltipStatus)
     const dispatch = useDispatch()

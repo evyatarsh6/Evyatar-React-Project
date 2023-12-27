@@ -73,11 +73,25 @@ export const updatePoint = (TODOID, location) => {
     }
 }
 
+
+export const currMapLocation = (location) => {
+    return {
+        type:"currMapLocation",
+        location: location
+    }
+}
+
 export const focusWantedTODO = (location) => {
-    
     return {
         type:"focusWantedTODO",
         location: location
+    }
+}
+
+export const updateTooltipStatus= (tooltipStatus) => {
+    return {
+        type: "updateTooltipStatus",
+        isShownStatus: tooltipStatus
     }
 }
 

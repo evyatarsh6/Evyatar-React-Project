@@ -1,13 +1,18 @@
 import { BaseMap } from '../components/Map/Map';
-import { PopUp } from '../components/PopUp';
-import { useRef } from 'react';
+import { useRef, useState } from 'react'
+import { PopUp } from '../components/PopUp/PopUpContainer';
 
 export const MapContainer = () => {
-  return (
-    <div id='map-container'>
-      <BaseMap/>
-      {/* <PopUp props = {popUpProps}/> */}
-    </div>
 
-    )
+  const PopUpRef = useRef()
+  const [currTooltip, setCurrTooltip] = useState(null)
+
+
+    return (
+      <div id='map-container'>
+        <BaseMap PopUpRef={PopUpRef} currTooltip={currTooltip} setCurrTooltip={setCurrTooltip}/>
+        <PopUp PopUpRef={PopUpRef}/>
+      </div>
+  
+      )
 }

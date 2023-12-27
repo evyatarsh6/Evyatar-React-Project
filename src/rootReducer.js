@@ -2,21 +2,25 @@ import {combineReducers} from "redux";
 import { TODOS } from "./reducers/uiReducer/handleTODOSReducer";
 import { filterKind } from "./reducers/uiReducer/handleFilterKindReducer";
 import { mapPoints } from "./reducers/uiReducer/mapReducer/mapPoints";
-import { mapPinMode } from "./reducers/uiReducer/mapReducer/mapPinModeReducers.js/mapPinMode";
+import { mapPinMode } from "./reducers/uiReducer/mapReducer/mapPinMode";
 import { mainInput } from "./reducers/uiReducer/mainInputReducer/mainInput";
-import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPointsModeReducers.js/mapShowPointsMode";
-import { currViewInfo } from "./reducers/uiReducer/mapReducer/viewInfoReducers/viewInfo";
+import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPointsMode";
+import { currViewInfo } from "./reducers/uiReducer/mapReducer/viewInfo";
+import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation";
+import { tooltipStatus } from "./reducers/uiReducer/mapReducer/mapTooltipStatus";
+
 
 const mapModeReducer = combineReducers({
     pinMode: mapPinMode,
     showPointsMode: mapShowPointsMode,
-    currViewInfo: currViewInfo, 
+    tooltipStatus: tooltipStatus,
 })
 
 const mapReducer = combineReducers({
     mode: mapModeReducer,
     points: mapPoints,
-    currViewInfo: currViewInfo
+    currViewInfo: currViewInfo,
+    currLocation: currLocation
 })
 
 const uiReducer = combineReducers({

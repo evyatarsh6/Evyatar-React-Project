@@ -9,9 +9,14 @@ export const GetMapPinMode = state => state.UI.Map.mode.pinMode
 
 export const GetMapShowPointsMode = state => state.UI.Map.mode.showPointsMode
 
+export const GetTooltipStatus = state => state.UI.Map.mode.tooltipStatus
+
 export const GetMapPoints = state => state.UI.Map.points
 
 export const GetCurrViewInfo = state => state.UI.Map.currViewInfo
+
+export const GetMapLocation = state => state.UI.Map.currLocation
+
 
 
 

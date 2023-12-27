@@ -40,13 +40,14 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
   }), []);
 
   const createMapPoint = useMap().createPointOnMap
+  const getHoverPointID = useMap().getHoverPointID
 
 
   const popUpOverlay = useCallback((coordinate) => {
 
     return new Overlay({
       element: PopUpRef.current,
-      position: [coordinate[0] + 10000, coordinate[1] + 10000],
+      position: coordinate,
       offset:[0,-40]
       
     });
@@ -162,25 +163,23 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
   }, [iconStyle]);
 
   const createTooltipByHover =useCallback((evt) => {
+
     const TODOSIDS =  Object.keys(mapPoints)
 
-    const SmallDistanceFromPoint = (evt, location) => {
-      const distanceFromPoint = (evt.coordinate-location)
-      
-      if (
-        (distanceFromPoint > 0 && distanceFromPoint<40) ||
-        (distanceFromPoint < 0 && distanceFromPoint>-40)
-      ) 
-      {
-        return true
-      }
-      return false
-    }
+    const findTODOConditinal = (ID) => mapPoints[ID].location === evt.coordinate
 
     const wantedPointID =
-    TODOSIDS.find(ID => SmallDistanceFromPoint(evt,mapPoints[ID].location))
-    
-    console.log(wantedPointID)
+    TODOSIDS.find(ID => findTODOConditinal(ID))
+
+
+    if (wantedPointID) {
+      if(isTooltipExist){
+        removeOverlay()
+      }
+      updateOverLay(evt.coordinate)
+      
+    }
+
 
   },[mapPoints])
 

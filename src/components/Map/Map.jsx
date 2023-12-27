@@ -44,10 +44,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
 
 
   const popUpOverlay = useCallback((coordinate) => {
-    console.log(coordinate)
-    console.log([coordinate[0] + 100, coordinate[1] + 100])
-    console.log(coordinate === ([coordinate[0] + 100, coordinate[1] + 100]))
-    
+
     return new Overlay({
       element: PopUpRef.current,
       position: [coordinate[0] + 10000, coordinate[1] + 10000],
@@ -178,8 +175,11 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
     }
   }, [iconStyle]);
 
+  // const avi =() =>  console.log('avi')
+
   useEffect(() => {
     if (mapContainer.current) {
+      // mapContainer.current.on('pointermove', avi)
       if (PinMode) {
          mapContainer.current.on('click', createPointByClick)
       }

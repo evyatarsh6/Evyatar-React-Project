@@ -41,35 +41,21 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
   }), []);
 
   const createMapPoint = useMap().createPointOnMap
-  
 
 
-
-
-
-
-
-  const popUpOverlay = useCallback(( mapContainer,coordinate) => {
-    // Transform the geographical coordinates to pixel coordinates
-    const pixelCoordinates = mapContainer.current.getPixelFromCoordinate(coordinate);
-
+  const popUpOverlay = useCallback((coordinate) => {
+    console.log(coordinate)
+    console.log([coordinate[0] + 100, coordinate[1] + 100])
+    console.log(coordinate === ([coordinate[0] + 100, coordinate[1] + 100]))
+    
     return new Overlay({
       element: PopUpRef.current,
-      position: [pixelCoordinates[0] , pixelCoordinates[1]],
-    });
-  }, [PopUpRef]);
-  
-
-
-  // const popUpOverlay = useCallback((coordinate) => {
-  //   return new Overlay({
-  //     element: PopUpRef.current,
-  //     position: [coordinate[0] + 100, coordinate[1] + 100]
-  //     //  coordinate
+      position: [coordinate[0] + 10000, coordinate[1] + 10000],
+      offset:[0,-40]
       
-  //   });
+    });
 
-  // }, [PopUpRef]);
+  }, [PopUpRef]);
 
 
   const removeOverlay = useCallback(() => {
@@ -82,7 +68,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
 
   const updateOverLay = useCallback((coordinate) => {
 
-    const newTooltip = popUpOverlay(mapContainer, coordinate) 
+    const newTooltip = popUpOverlay(coordinate) 
     mapContainer.current.addOverlay(newTooltip);
     setCurrTooltip(newTooltip)
     dispatch(updateTooltipStatus(true))

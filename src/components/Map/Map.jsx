@@ -26,10 +26,9 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
   const PinMode = pinModeStatus.PinMode
 
   const isTooltipExist = useSelector(GetTooltipStatus)
-
   const currViewInfo = useSelector(GetCurrViewInfo)
-
   const showPointsMode = useSelector(GetMapShowPointsMode)
+
   const dispatch = useDispatch();
 
 
@@ -86,19 +85,6 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
       removeOverlay,
       isTooltipExist,
     ])
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   const createPointByClick = useCallback((evt) => {
@@ -175,11 +161,35 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
     }
   }, [iconStyle]);
 
-  // const avi =() =>  console.log('avi')
+  const createTooltipByHover =useCallback((evt) => {
+    const TODOSIDS =  Object.keys(mapPoints)
+
+    const SmallDistanceFromPoint = (evt, location) => {
+      const distanceFromPoint = (evt.coordinate-location)
+      
+      if (
+        (distanceFromPoint > 0 && distanceFromPoint<40) ||
+        (distanceFromPoint < 0 && distanceFromPoint>-40)
+      ) 
+      {
+        return true
+      }
+      return false
+    }
+
+    const wantedPointID =
+    TODOSIDS.find(ID => SmallDistanceFromPoint(evt,mapPoints[ID].location))
+    
+    console.log(wantedPointID)
+
+  },[mapPoints])
+
+
 
   useEffect(() => {
     if (mapContainer.current) {
-      // mapContainer.current.on('pointermove', avi)
+      // mapContainer.current.on('pointermove', createTooltipByHover)
+      mapContainer.current.on('click', createTooltipByHover)
       if (PinMode) {
          mapContainer.current.on('click', createPointByClick)
       }
@@ -187,7 +197,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
       return () => mapContainer.current.un('click', createPointByClick);
   
     }
-  },[createPointByClick,PinMode])
+  },[createPointByClick,PinMode, createTooltipByHover])
 
 
   useEffect(()=> {

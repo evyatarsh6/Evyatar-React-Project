@@ -11,31 +11,13 @@ import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, Get
 import { currMapLocation, updatePoint, updateTooltipStatus}  from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
-import { PopUpContent } from "../PopUp/PopUpContent";
 
-
-const PopUp = ({ removeOverlay, PopUpRef, setCurrTooltip}) => {
-
-    const handleCloseTooltip = () => {
-        removeOverlay()
-        setCurrTooltip(null)
-    }
-
-        return (
-            <div id="popup" className="ol-popup" ref={PopUpRef}>
-                <a href="#" id="popup-closer" className="ol-popup-closer" onClick={handleCloseTooltip}/>
-                  <PopUpContent/>
-            </div>
-        )
-}
-
-export const BaseMap = ({ PopUpRef }) => {
+export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
 
   const mapRef = useRef();
   const mapContainer = useRef();
   const featuresRef = useRef();
   const layerRef = useRef()
-  const [currTooltip, setCurrTooltip] = useState(null)
 
   const mapPoints = useSelector(GetMapPoints)
 
@@ -59,6 +41,16 @@ export const BaseMap = ({ PopUpRef }) => {
   }), []);
 
   const createMapPoint = useMap().createPointOnMap
+  
+
+
+
+
+
+
+
+
+
 
   const popUpOverlay = useCallback((coordinate) => {
     return new Overlay({
@@ -71,28 +63,49 @@ export const BaseMap = ({ PopUpRef }) => {
 
 
   const removeOverlay = useCallback(() => {
+
     mapContainer.current.removeOverlay(currTooltip)
-  }, [currTooltip])
+    setCurrTooltip(null)
+    dispatch(updateTooltipStatus(false))
+
+  }, [currTooltip, setCurrTooltip,dispatch])
 
   const updateOverLay = useCallback((coordinate) => {
 
     const newTooltip = popUpOverlay(coordinate) 
     mapContainer.current.addOverlay(newTooltip);
     setCurrTooltip(newTooltip)
-  }, [popUpOverlay])
+    dispatch(updateTooltipStatus(true))
+
+  }, [popUpOverlay, dispatch, setCurrTooltip])
 
 
   const tooltipLogic = useCallback((coordinate) => {
+
     if(isTooltipExist){
       removeOverlay()
     }
     updateOverLay(coordinate)
+
     }
     ,[
       updateOverLay,
       removeOverlay,
       isTooltipExist,
     ])
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   const createPointByClick = useCallback((evt) => {
@@ -202,17 +215,16 @@ export const BaseMap = ({ PopUpRef }) => {
   },
   [handleShowPointsMode,showPointsMode, mapPoints])
 
-  useEffect(() => {
-    return () => {
-      mapContainer.current.removeOverlay(popUpOverlay);
-    };
-  }, [popUpOverlay]);
+  // useEffect(() => {
+  //   return () => {
+  //     mapContainer.current.removeOverlay(popUpOverlay);
+  //   };
+  // }, [popUpOverlay]);
   
 
 
 
   return (
-    <div>
       <div
         ref={mapRef}
         style={{
@@ -223,14 +235,6 @@ export const BaseMap = ({ PopUpRef }) => {
       }}
       > 
       </div>
-      {/* {
-        currTooltip &&
-        <PopUp removeOverlay={removeOverlay} PopUpRef={PopUpRef} setCurrTooltip={setCurrTooltip} />
-        
-      } */}
-
-      <PopUp removeOverlay={removeOverlay} PopUpRef={PopUpRef} setCurrTooltip={setCurrTooltip} />
-    </div>
 
   );
 };

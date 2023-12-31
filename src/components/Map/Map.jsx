@@ -12,7 +12,7 @@ import { currMapLocation, updatePoint, updateTooltipStatus}  from "../../actions
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
 
-export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
+export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) => {
 
   const mapRef = useRef();
   const mapContainer = useRef();
@@ -28,6 +28,8 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
   const isTooltipExist = useSelector(GetTooltipStatus)
   const currViewInfo = useSelector(GetCurrViewInfo)
   const showPointsMode = useSelector(GetMapShowPointsMode)
+  
+  const getHoverID = useMap().getHoverID
 
   const dispatch = useDispatch();
 
@@ -40,7 +42,6 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
   }), []);
 
   const createMapPoint = useMap().createPointOnMap
-  const getHoverPointID = useMap().getHoverPointID
 
 
   const popUpOverlay = useCallback((coordinate) => {
@@ -164,24 +165,14 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
 
   const createTooltipByHover =useCallback((evt) => {
 
-    const TODOSIDS =  Object.keys(mapPoints)
-
-    const findTODOConditinal = (ID) => mapPoints[ID].location === evt.coordinate
-
-    const wantedPointID =
-    TODOSIDS.find(ID => findTODOConditinal(ID))
-
+    const wantedPointID = getHoverID(evt.coordinate)
 
     if (wantedPointID) {
-      if(isTooltipExist){
-        removeOverlay()
-      }
-      updateOverLay(evt.coordinate)
       
+      setHoverID(wantedPointID)
     }
 
-
-  },[mapPoints])
+  },[getHoverID, setHoverID])
 
 
 

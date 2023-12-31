@@ -6,7 +6,7 @@ import { updateTooltipStatus } from "../../actions/actions"
 import useMap from "../../hooks/useMap"
 
 
-export const PopUp = ({ PopUpRef}) => {
+export const PopUp = ({ PopUpRef, hoverID}) => {
 
     const tooltipStatus = useSelector(GetTooltipStatus)
 
@@ -32,7 +32,7 @@ export const PopUp = ({ PopUpRef}) => {
                 display: tooltipVisible()
             }}>
                 <a href="#" id="popup-closer" className="ol-popup-closer" onClick={handleCloseTooltip}/>
-                  <PopUpContent id= ''/>
+                  <PopUpContent id= {hoverID}/>
             </div>
         )
 }

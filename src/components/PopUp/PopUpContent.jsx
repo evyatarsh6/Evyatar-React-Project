@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { GetMapPinMode, GetTodoList, GetMapLocation} from '../../selectors';
-import useMap from "../../hooks/useMap";
 
 
 export const PopUpContent = ({id}) => {

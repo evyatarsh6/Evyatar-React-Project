@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, { useCallback, useEffect, useMemo, useRef} from "react";
 import "ol/ol.css";
 import { Map, View } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
@@ -25,11 +25,11 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   const selectedTODOID = pinModeStatus.activeTODOID
   const PinMode = pinModeStatus.PinMode
 
+  const getHoverIDFunction  =  useMap().getHoverID
+
   const isTooltipExist = useSelector(GetTooltipStatus)
   const currViewInfo = useSelector(GetCurrViewInfo)
   const showPointsMode = useSelector(GetMapShowPointsMode)
-  
-  const getHoverIDFunction  = useMap().getHoverID
 
   const dispatch = useDispatch();
 
@@ -163,16 +163,15 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
     }
   }, [iconStyle]);
 
-  const createTooltipByHover =useCallback((evt) => {
+  const createTooltipByHover = useCallback((evt) => {
 
     const wantedPointID = getHoverIDFunction(evt.coordinate)
-    
     if (wantedPointID) {
       
       setHoverID(wantedPointID)
     }
-
-  },[getHoverIDFunction, setHoverID])
+  },
+  [getHoverIDFunction, setHoverID])
 
 
 
@@ -186,7 +185,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
       return () => mapContainer.current.un('click', createPointByClick);
   
     }
-  },[createPointByClick,PinMode, createTooltipByHover])
+  },[createPointByClick,PinMode, createTooltipByHover, mapPoints])
 
 
   useEffect(()=> {

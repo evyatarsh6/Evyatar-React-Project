@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import Feature from 'ol/Feature';
 import { Point } from "ol/geom";
 import { useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { GetMapPoints } from "../selectors";
 const useMap = () => {
 
     const mapPoints = useSelector(GetMapPoints)
+    
 
     const createPoint = useCallback((layerRef,featuresRef, coordinate, style) => {
 
@@ -18,7 +19,6 @@ const useMap = () => {
     },[])
 
     const getHoverID = useCallback((coordinate) => {
-
         const TODOSIDS =  Object.keys(mapPoints)
 
         const findTODOConditinal = (ID) => {
@@ -29,7 +29,7 @@ const useMap = () => {
         }
 
         const wantedPointID = TODOSIDS.find(findTODOConditinal)
-
+        
         return wantedPointID
         
     }

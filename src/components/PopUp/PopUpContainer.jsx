@@ -10,8 +10,6 @@ export const PopUp = ({ PopUpRef, hoverID}) => {
 
     const tooltipStatus = useSelector(GetTooltipStatus)
 
-    const getHoverPointID = useMap().getHoverID
-
     const dispatch = useDispatch()
 
     const tooltipVisible = () => {

@@ -22,11 +22,13 @@ const useMap = () => {
         const TODOSIDS =  Object.keys(mapPoints)
 
         const findTODOConditinal = (ID) => {
-              (mapPoints[ID].location[0] === coordinate[0]) &&
-              (mapPoints[ID].location[1] === coordinate[1])
+              return (
+                  (mapPoints[ID].location[0] === coordinate[0]) &&
+                  (mapPoints[ID].location[1] === coordinate[1])
+            )
         }
 
-        const wantedPointID = TODOSIDS.find(ID => findTODOConditinal(ID))
+        const wantedPointID = TODOSIDS.find(findTODOConditinal)
 
         return wantedPointID
         

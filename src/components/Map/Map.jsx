@@ -168,12 +168,12 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
     const wantedPointID = getHoverIDFunction(evt.coordinate)
 
     if (wantedPointID) {
-      
-      dispatch(updateTooltipStatus(true))
+      removeOverlay()
+      updateOverLay(mapPoints[wantedPointID].location)
       setHoverID(wantedPointID)
     }
   },
-  [getHoverIDFunction, setHoverID,dispatch])
+  [getHoverIDFunction, setHoverID,mapPoints,updateOverLay,removeOverlay])
 
 
 

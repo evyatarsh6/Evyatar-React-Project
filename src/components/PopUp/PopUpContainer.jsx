@@ -3,11 +3,15 @@ import { PopUpContent } from "./PopUpContent"
 import { useDispatch, useSelector } from "react-redux"
 import { GetTooltipStatus } from "../../selectors"
 import { updateTooltipStatus } from "../../actions/actions"
+import useMap from "../../hooks/useMap"
 
 
 export const PopUp = ({ PopUpRef}) => {
 
     const tooltipStatus = useSelector(GetTooltipStatus)
+
+    const getHoverPointID = useMap().getHoverID
+
     const dispatch = useDispatch()
 
     const tooltipVisible = () => {
@@ -28,7 +32,7 @@ export const PopUp = ({ PopUpRef}) => {
                 display: tooltipVisible()
             }}>
                 <a href="#" id="popup-closer" className="ol-popup-closer" onClick={handleCloseTooltip}/>
-                  <PopUpContent/>
+                  <PopUpContent id= ''/>
             </div>
         )
 }

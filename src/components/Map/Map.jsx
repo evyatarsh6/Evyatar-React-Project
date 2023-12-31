@@ -187,8 +187,8 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
 
   useEffect(() => {
     if (mapContainer.current) {
-      // mapContainer.current.on('pointermove', createTooltipByHover)
-      mapContainer.current.on('click', createTooltipByHover)
+      mapContainer.current.on('pointermove', createTooltipByHover)
+      // mapContainer.current.on('click', createTooltipByHover)
       if (PinMode) {
          mapContainer.current.on('click', createPointByClick)
       }

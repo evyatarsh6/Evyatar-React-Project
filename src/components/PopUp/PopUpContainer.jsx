@@ -22,9 +22,6 @@ export const PopUp = ({ PopUpRef, hoverID}) => {
     const handleCloseTooltip = () => {
         dispatch(updateTooltipStatus(false))
     }
-
-
-
         return (
             <div id="popup" className="ol-popup" ref={PopUpRef} style={{
                 display: tooltipVisible()

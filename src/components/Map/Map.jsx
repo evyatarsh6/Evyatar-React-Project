@@ -165,15 +165,15 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
 
   const createTooltipByHover = useCallback((evt) => {
 
-    console.log(mapPoints)
     const wantedPointID = getHoverIDFunction(evt.coordinate)
 
     if (wantedPointID) {
       
+      dispatch(updateTooltipStatus(true))
       setHoverID(wantedPointID)
     }
   },
-  [mapPoints, getHoverIDFunction, setHoverID])
+  [getHoverIDFunction, setHoverID,dispatch])
 
 
 

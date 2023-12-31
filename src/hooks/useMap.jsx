@@ -22,9 +22,14 @@ const useMap = () => {
         
 
         const findTODOConditinal = (ID) => {
+
+            const xvalue = Math.abs(mapPoints[ID].location[0] ) - Math.abs(coordinate[0])
+            const yvalue = Math.abs(mapPoints[ID].location[1] )- Math.abs(coordinate[1])
+            const xvalueContidinal = Math.abs(xvalue)<500000
+            const yvalueContidinal = Math.abs(yvalue)<500000
+            
               return (
-                  (mapPoints[ID].location[0] === coordinate[0]) &&
-                  (mapPoints[ID].location[1] === coordinate[1])
+                xvalueContidinal && yvalueContidinal
             )
         }
 

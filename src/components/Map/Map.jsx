@@ -165,13 +165,15 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
 
   const createTooltipByHover = useCallback((evt) => {
 
+    console.log(mapPoints)
     const wantedPointID = getHoverIDFunction(evt.coordinate)
+
     if (wantedPointID) {
       
       setHoverID(wantedPointID)
     }
   },
-  [getHoverIDFunction, setHoverID])
+  [mapPoints, getHoverIDFunction, setHoverID])
 
 
 
@@ -182,7 +184,10 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
          mapContainer.current.on('click', createPointByClick)
       }
 
-      return () => mapContainer.current.un('click', createPointByClick);
+      return () => {
+        mapContainer.current.un('pointermove', createTooltipByHover)
+        mapContainer.current.un('click', createPointByClick);
+      } 
   
     }
   },[createPointByClick,PinMode, createTooltipByHover, mapPoints])

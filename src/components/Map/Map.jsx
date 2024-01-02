@@ -3,14 +3,9 @@ import "ol/ol.css";
 import { Map, View } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import { OSM, Vector as VectorSource } from "ol/source";
-import { Icon, Style } from "ol/style";
-import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { useDispatch } from "react-redux";
-import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, GetTooltipStatus } from '../../selectors';
-import { currMapLocation, updatePoint, updateTooltipStatus}  from "../../actions/actions";
+import { GetMapPinMode, GetMapPoints, GetCurrViewInfo } from '../../selectors';
 import useMap from "../../hooks/useMap";
-import Overlay from 'ol/Overlay.js';
 
 export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) => {
 
@@ -18,73 +13,22 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   const mapContainer = useRef();
   const featuresRef = useRef();
   const layerRef = useRef()
-  const dispatch = useDispatch();
-
 
   const mapPoints = useSelector(GetMapPoints)
-  const isTooltipExist = useSelector(GetTooltipStatus)
   const currViewInfo = useSelector(GetCurrViewInfo)
-  const showPointsMode = useSelector(GetMapShowPointsMode)
-  
   const pinModeStatus = useSelector(GetMapPinMode)
-  const selectedTODOID = pinModeStatus.activeTODOID
   const PinMode = pinModeStatus.PinMode
 
   const mapFunctions = useMap(mapContainer, layerRef,featuresRef, PopUpRef) 
 
-  const removeOverlay = useCallback(() => {
-    mapFunctions.overlayFunctions.removeOverlay(currTooltip,setCurrTooltip)
-  },[mapFunctions.overlayFunctions, setCurrTooltip, currTooltip])
+  const createPointByClick = useCallback((evt) => 
+    mapFunctions.points.createPointByClick(evt,currTooltip,setCurrTooltip)
+    ,[mapFunctions.points, currTooltip,setCurrTooltip]);
 
-  const updateOverLay = useCallback((coordinate) => {
-    mapFunctions.overlayFunctions.updateOverLay(coordinate,setCurrTooltip)
-  },[mapFunctions.overlayFunctions, setCurrTooltip])
-
-  const createMapPoint = mapFunctions.points.createPointOnMap
-  const handleShowPointsMode = mapFunctions.points.handleShowPointsMode
-  const getHoverIDFunction = mapFunctions.hover.getHoverID
-  
-  const tooltipLogic = useCallback((coordinate) => {
-
-    if(isTooltipExist){
-      removeOverlay(coordinate)
-    }
-    updateOverLay(coordinate)
-
-    }
-    ,[
-      updateOverLay,
-      removeOverlay,
-      isTooltipExist,
-    ])
-
-
-  const createPointByClick = useCallback((evt) => {
-
-    createMapPoint(
-      layerRef,
-      featuresRef,
-      evt.coordinate,
-      
-      )
-
-      dispatch(updatePoint(selectedTODOID, evt.coordinate))
-      dispatch(currMapLocation(evt.coordinate))
-
-      if (!showPointsMode) {
-        layerRef.current.getSource().clear();
-      }
-
-      tooltipLogic(evt.coordinate)
-    },
-    [
-      tooltipLogic,
-      selectedTODOID,
-      dispatch,
-      createMapPoint,
-      showPointsMode
-    ]
-    );
+  const createTooltipByHover  =
+  useCallback((evt) => mapFunctions.hover.
+  createTooltipByHover(evt,setHoverID,currTooltip,setCurrTooltip)
+  ,[mapFunctions.hover, setHoverID,currTooltip, setCurrTooltip]) 
 
   useEffect(() => {
     if (!mapContainer.current) {
@@ -113,11 +57,6 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
     }
   }, []);
 
-  const createTooltipByHover  =
-  useCallback((evt) => mapFunctions.hover.createTooltipByHover(evt,setHoverID,currTooltip,setCurrTooltip)
-  ,[mapFunctions.hover, setHoverID,currTooltip, setCurrTooltip]) 
-
-  
   useEffect(() => {
     if (mapContainer.current) {
       mapContainer.current.on('pointermove', createTooltipByHover)
@@ -136,24 +75,21 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
 
   useEffect(()=> {
 
-    mapContainer.current.getView().setCenter(currViewInfo.center)
-    mapContainer.current.getView().setZoom(currViewInfo.zoom)
+    if (mapContainer.current) {
+      mapContainer.current.getView().setCenter(currViewInfo.center)
+      mapContainer.current.getView().setZoom(currViewInfo.zoom)
+    }
+
   
   },[currViewInfo])
 
 
   useEffect(() => {
     if (mapContainer.current) {
-      if (showPointsMode && Object.keys(mapPoints).length ) {
-        handleShowPointsMode()
-      }
-      else{
-        layerRef.current.getSource().clear()
-      }
-
-      }
+      mapFunctions.points.pointsOnMap()
+    }
   },
-  [handleShowPointsMode,showPointsMode, mapPoints])
+  [mapFunctions.points])
 
 
   return (

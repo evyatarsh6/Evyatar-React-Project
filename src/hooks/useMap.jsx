@@ -1,25 +1,27 @@
 
+import React, { useCallback, useMemo} from "react";
+import { GetMapPoints, GetMapShowPointsMode, GetMapPinMode, GetTooltipStatus} from "../selectors";
+import "ol/ol.css";
 import Feature from 'ol/Feature';
 import { Point } from "ol/geom";
-import { GetMapPoints, GetTooltipStatus, GetCurrViewInfo } from "../selectors";
-import React, { useCallback, useEffect, useMemo, useRef} from "react";
-import "ol/ol.css";
-import { Map, View } from "ol";
-import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
-import { OSM, Vector as VectorSource } from "ol/source";
 import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import Overlay from 'ol/Overlay.js';
-import { updateTooltipStatus } from '../actions/actions';
+import { currMapLocation, updatePoint, updateTooltipStatus } from '../actions/actions';
 
 
 
 const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
     const mapPoints = useSelector(GetMapPoints)
-    const currViewInfo = useSelector(GetCurrViewInfo)
+    const showPointsMode = useSelector(GetMapShowPointsMode)
+    const isTooltipExist = useSelector(GetTooltipStatus)
+
+    const pinModeStatus = useSelector(GetMapPinMode)
+    const selectedTODOID = pinModeStatus.activeTODOID
+  
 
     const dispatch = useDispatch()
 
@@ -124,12 +126,66 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       ]
       );
 
+      const pointsOnMap = useCallback(() => {
+        if (showPointsMode && Object.keys(mapPoints).length ) {
+            handleShowPointsMode()
+          }
+          else{
+            layerRef.current.getSource().clear()
+          }
+      },[ handleShowPointsMode, layerRef, mapPoints, showPointsMode])
+
+      const tooltipLogic = useCallback((coordinate, currTooltip,setCurrTooltip) => {
+
+        if(isTooltipExist){
+          removeOverlay(currTooltip, setCurrTooltip)
+        }
+        updateOverLay(coordinate, setCurrTooltip)
+    
+        }
+        ,[
+          updateOverLay,
+          removeOverlay,
+          isTooltipExist,
+        ])
+
+  const createPointByClick = useCallback((evt,currTooltip,setCurrTooltip) => {
+    createPoint(
+      layerRef,
+      featuresRef,
+      evt.coordinate,
+      
+      )
+
+      dispatch(updatePoint(selectedTODOID, evt.coordinate))
+      dispatch(currMapLocation(evt.coordinate))
+
+      if (!showPointsMode) {
+        layerRef.current.getSource().clear();
+      }
+
+      tooltipLogic(evt.coordinate, currTooltip,setCurrTooltip)
+    },
+    [
+    layerRef,
+      featuresRef,
+      tooltipLogic,
+      selectedTODOID,
+      dispatch,
+      createPoint,
+      showPointsMode
+    ]
+    );
+
     
     return (
         {
             points: {
                 createPointOnMap: createPoint,
-                handleShowPointsMode: handleShowPointsMode
+                createPointByClick: createPointByClick,
+                handleShowPointsMode: handleShowPointsMode,
+                pointsOnMap:pointsOnMap
+
             },
 
             hover: {

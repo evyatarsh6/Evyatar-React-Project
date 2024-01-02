@@ -95,3 +95,12 @@ export const updateTooltipStatus= (tooltipStatus) => {
     }
 }
 
+
+export const updateTooltip = (tooltip) => {
+    return {
+        type: "updateTooltip",
+        isShownStatus: tooltip
+    }
+}
+
+

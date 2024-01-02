@@ -8,6 +8,7 @@ import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPoints
 import { currViewInfo } from "./reducers/uiReducer/mapReducer/viewInfo";
 import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation";
 import { tooltipStatus } from "./reducers/uiReducer/mapReducer/mapTooltipStatus";
+import { currTooltip } from "./reducers/uiReducer/mapReducer/mapCurrTooltip";
 
 
 const mapModeReducer = combineReducers({
@@ -20,7 +21,8 @@ const mapReducer = combineReducers({
     mode: mapModeReducer,
     points: mapPoints,
     currViewInfo: currViewInfo,
-    currLocation: currLocation
+    currLocation: currLocation,
+    currTooltip: currTooltip, 
 })
 
 const uiReducer = combineReducers({

@@ -9,75 +9,71 @@ import { OSM, Vector as VectorSource } from "ol/source";
 import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useDispatch } from "react-redux";
-import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, GetTooltipStatus} from '../selectors';
-import { currMapLocation, updatePoint, updateTooltipStatus}  from '../actions/actions';
+import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, GetTooltipStatus, GetMapTooltip} from '../selectors';
+import { currMapLocation, updatePoint, updateTooltip, updateTooltipStatus}  from '../actions/actions';
 import Overlay from 'ol/Overlay.js';
 
+export const useMap = ({ PopUpRef, setHoverID}) => {
 
-export const useMap = (PopUpRef, currTooltip, setCurrTooltip, setHoverID) => {
+  const mapRef = useRef();
+  const mapContainer = useRef();
+  const featuresRef = useRef();
+  const layerRef = useRef()
 
-    const mapRef = useRef();
-    const mapContainer = useRef();
-    const featuresRef = useRef();
-    const layerRef = useRef()
+  const mapPoints = useSelector(GetMapPoints)
+
+  const pinModeStatus = useSelector(GetMapPinMode)
+  const selectedTODOID = pinModeStatus.activeTODOID
+  const PinMode = pinModeStatus.PinMode
+
+  const isTooltipExist = useSelector(GetTooltipStatus)
+  const currViewInfo = useSelector(GetCurrViewInfo)
+  const showPointsMode = useSelector(GetMapShowPointsMode)
+  const currTooltip =useSelector(GetMapTooltip)
+
+  const dispatch = useDispatch();
+
+
+  const iconStyle = useMemo(() => new Style({
+    image: new Icon({
+      src: LocationPin,
+      anchor: [0.5, 1],
+    }),
+  }), []);
+
   
-    const isTooltipExist = useSelector(GetTooltipStatus)
-    const currViewInfo = useSelector(GetCurrViewInfo)
-    const showPointsMode = useSelector(GetMapShowPointsMode)
-    const mapPoints = useSelector(GetMapPoints)
-    const pinModeStatus = useSelector(GetMapPinMode)
+  const createPoint = useCallback((layerRef,featuresRef, coordinate, style) => {
 
+    featuresRef.current  = new Feature({
+        geometry: new Point(coordinate),
+    });
+    featuresRef.current.setStyle(style);
+    layerRef.current.getSource().addFeature(featuresRef.current);
+},[])
 
-    const selectedTODOID = pinModeStatus.activeTODOID
-    const PinMode = pinModeStatus.PinMode
-  
-    const getHoverIDFunction  =  useMap().getHoverID
-  
-  
-    const dispatch = useDispatch();
-  
-  
-    const iconStyle = useMemo(() => new Style({
-      image: new Icon({
-        src: LocationPin,
-        anchor: [0.5, 1],
-      }),
-    }), []);
-  
-    const createMapPoint = useMap().createPointOnMap
+const getHoverID = useCallback((coordinate) => {
+    const TODOSIDS =  Object.keys(mapPoints)
+    
 
+    const findTODOConditinal = (ID) => {
 
-    const createPoint = useCallback((layerRef,featuresRef, coordinate, style) => {
-
-        featuresRef.current  = new Feature({
-            geometry: new Point(coordinate),
-        });
-        featuresRef.current.setStyle(style);
-        layerRef.current.getSource().addFeature(featuresRef.current);
-    },[])
-
-    const getHoverID = useCallback((coordinate) => {
-        const TODOSIDS =  Object.keys(mapPoints)
+        const xvalue = Math.abs(mapPoints[ID].location[0] ) - Math.abs(coordinate[0])
+        const yvalue = Math.abs(mapPoints[ID].location[1] )- Math.abs(coordinate[1])
+        const xvalueContidinal = Math.abs(xvalue)<500000
+        const yvalueContidinal = Math.abs(yvalue)<500000
         
-
-        const findTODOConditinal = (ID) => {
-
-            const xvalue = Math.abs(mapPoints[ID].location[0] ) - Math.abs(coordinate[0])
-            const yvalue = Math.abs(mapPoints[ID].location[1] )- Math.abs(coordinate[1])
-            const xvalueContidinal = Math.abs(xvalue)<500000
-            const yvalueContidinal = Math.abs(yvalue)<500000
-            
-              return (
-                xvalueContidinal && yvalueContidinal
-            )
-        }
-
-        const wantedPointID = TODOSIDS.find(findTODOConditinal)
-        
-        return wantedPointID
-        
+          return (
+            xvalueContidinal && yvalueContidinal
+        )
     }
-    ,[mapPoints])
+
+    const wantedPointID = TODOSIDS.find(findTODOConditinal)
+    
+    return wantedPointID
+    
+}
+,[mapPoints])
+
 
   const popUpOverlay = useCallback((coordinate) => {
 
@@ -94,19 +90,19 @@ export const useMap = (PopUpRef, currTooltip, setCurrTooltip, setHoverID) => {
   const removeOverlay = useCallback(() => {
 
     mapContainer.current.removeOverlay(currTooltip)
-    setCurrTooltip(null)
+    dispatch(updateTooltip(null))
     dispatch(updateTooltipStatus(false))
 
-  }, [dispatch])
+  }, [dispatch,currTooltip])
 
   const updateOverLay = useCallback((coordinate) => {
 
     const newTooltip = popUpOverlay(coordinate) 
     mapContainer.current.addOverlay(newTooltip);
-    setCurrTooltip(newTooltip)
+    dispatch(updateTooltipStatus(newTooltip))
     dispatch(updateTooltipStatus(true))
 
-  }, [popUpOverlay, dispatch, setCurrTooltip])
+  }, [popUpOverlay, dispatch])
 
 
   const tooltipLogic = useCallback((coordinate) => {
@@ -126,7 +122,7 @@ export const useMap = (PopUpRef, currTooltip, setCurrTooltip, setHoverID) => {
 
   const createPointByClick = useCallback((evt) => {
 
-    createMapPoint(
+    createPoint(
       layerRef,
       featuresRef,
       evt.coordinate,
@@ -147,7 +143,7 @@ export const useMap = (PopUpRef, currTooltip, setCurrTooltip, setHoverID) => {
       iconStyle,
       selectedTODOID,
       dispatch,
-      createMapPoint,
+      createPoint,
       showPointsMode
     ]
     );
@@ -156,7 +152,7 @@ export const useMap = (PopUpRef, currTooltip, setCurrTooltip, setHoverID) => {
     const handleShowPointsMode = useCallback(() => {
       layerRef.current.getSource().clear();
       Object.values(mapPoints).forEach(coordinateObj => {
-        createMapPoint(
+        createPoint(
         layerRef,
         featuresRef,
         coordinateObj.location,
@@ -166,7 +162,7 @@ export const useMap = (PopUpRef, currTooltip, setCurrTooltip, setHoverID) => {
     },
     [
       iconStyle,
-      createMapPoint,
+      createPoint,
       mapPoints
     ]
     );
@@ -200,7 +196,7 @@ export const useMap = (PopUpRef, currTooltip, setCurrTooltip, setHoverID) => {
 
   const createTooltipByHover = useCallback((evt) => {
 
-    const wantedPointID = getHoverIDFunction(evt.coordinate)
+    const wantedPointID = getHoverID(evt.coordinate)
 
     if (wantedPointID) {
       removeOverlay()
@@ -208,7 +204,7 @@ export const useMap = (PopUpRef, currTooltip, setCurrTooltip, setHoverID) => {
       setHoverID(wantedPointID)
     }
   },
-  [getHoverIDFunction, setHoverID,mapPoints,updateOverLay,removeOverlay])
+  [getHoverID, setHoverID,mapPoints,updateOverLay,removeOverlay])
 
 
 
@@ -225,7 +221,7 @@ export const useMap = (PopUpRef, currTooltip, setCurrTooltip, setHoverID) => {
       } 
   
     }
-  },[createPointByClick,PinMode, createTooltipByHover])
+  },[createPointByClick,PinMode, createTooltipByHover, mapPoints])
 
 
   useEffect(()=> {
@@ -263,4 +259,4 @@ export const useMap = (PopUpRef, currTooltip, setCurrTooltip, setHoverID) => {
       </div>
 
   );
-}
+};

@@ -97,7 +97,7 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     
         if (wantedPointID) {
           removeOverlay(currTooltip,setCurrTooltip)
-          updateOverLay(mapPoints[wantedPointID].location)
+          updateOverLay(mapPoints[wantedPointID].location, setCurrTooltip)
           setHoverID(wantedPointID)
         }
       },

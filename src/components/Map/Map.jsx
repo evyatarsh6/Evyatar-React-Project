@@ -113,21 +113,9 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
     }
   }, []);
 
-  // const createTooltipByHover  =
-  // useCallback((evt) => mapFunctions.hover.createTooltipByHover(evt,setHoverID,currTooltip,setCurrTooltip)
-  // ,[mapFunctions.hover, setHoverID,currTooltip, setCurrTooltip]) 
-
-  // const createTooltipByHover = useCallback((evt, setHoverID, currTooltip,setCurrTooltip) => {
-
-  //   const wantedPointID = getHoverIDFunction(evt.coordinate)
-
-  //   if (wantedPointID) {
-  //     removeOverlay(currTooltip,setCurrTooltip)
-  //     updateOverLay(mapPoints[wantedPointID].location)
-  //     setHoverID(wantedPointID)
-  //   }
-  // },
-  // [getHoverIDFunction,mapPoints,updateOverLay,removeOverlay])
+  const createTooltipByHover  =
+  useCallback((evt) => mapFunctions.hover.createTooltipByHover(evt,setHoverID,currTooltip,setCurrTooltip)
+  ,[mapFunctions.hover, setHoverID,currTooltip, setCurrTooltip]) 
 
   
   useEffect(() => {

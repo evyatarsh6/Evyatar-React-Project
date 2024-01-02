@@ -18,66 +18,38 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   const mapContainer = useRef();
   const featuresRef = useRef();
   const layerRef = useRef()
+  const dispatch = useDispatch();
+
 
   const mapPoints = useSelector(GetMapPoints)
-
+  const isTooltipExist = useSelector(GetTooltipStatus)
+  const currViewInfo = useSelector(GetCurrViewInfo)
+  const showPointsMode = useSelector(GetMapShowPointsMode)
+  
   const pinModeStatus = useSelector(GetMapPinMode)
   const selectedTODOID = pinModeStatus.activeTODOID
   const PinMode = pinModeStatus.PinMode
 
-  const getHoverIDFunction  =  useMap().getHoverID
+  const mapFunctions = useMap(mapContainer, layerRef,featuresRef, PopUpRef) 
 
-  const isTooltipExist = useSelector(GetTooltipStatus)
-  const currViewInfo = useSelector(GetCurrViewInfo)
-  const showPointsMode = useSelector(GetMapShowPointsMode)
-
-  const dispatch = useDispatch();
-
-
-  const iconStyle = useMemo(() => new Style({
-    image: new Icon({
-      src: LocationPin,
-      anchor: [0.5, 1],
-    }),
-  }), []);
-
-  const createMapPoint = useMap().createPointOnMap
-
-
-  const popUpOverlay = useCallback((coordinate) => {
-
-    return new Overlay({
-      element: PopUpRef.current,
-      position: coordinate,
-      offset:[0,-40]
-      
-    });
-
-  }, [PopUpRef]);
-
+  const getHoverIDFunction  =  mapFunctions.getHoverID
 
   const removeOverlay = useCallback(() => {
-
-    mapContainer.current.removeOverlay(currTooltip)
-    setCurrTooltip(null)
-    dispatch(updateTooltipStatus(false))
-
-  }, [currTooltip, setCurrTooltip,dispatch])
+    mapFunctions.overlayFunctions.removeOverlay(currTooltip,setCurrTooltip)
+  },[mapFunctions.overlayFunctions, setCurrTooltip, currTooltip])
 
   const updateOverLay = useCallback((coordinate) => {
+    mapFunctions.overlayFunctions.updateOverLay(coordinate,setCurrTooltip)
+  },[mapFunctions.overlayFunctions, setCurrTooltip])
 
-    const newTooltip = popUpOverlay(coordinate) 
-    mapContainer.current.addOverlay(newTooltip);
-    setCurrTooltip(newTooltip)
-    dispatch(updateTooltipStatus(true))
+  const createMapPoint = mapFunctions.points.createPointOnMap
+  const handleShowPointsMode = mapFunctions.points.handleShowPointsMode
 
-  }, [popUpOverlay, dispatch, setCurrTooltip])
-
-
+  
   const tooltipLogic = useCallback((coordinate) => {
 
     if(isTooltipExist){
-      removeOverlay()
+      removeOverlay(coordinate)
     }
     updateOverLay(coordinate)
 
@@ -95,7 +67,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
       layerRef,
       featuresRef,
       evt.coordinate,
-      iconStyle
+      
       )
 
       dispatch(updatePoint(selectedTODOID, evt.coordinate))
@@ -109,7 +81,6 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
     },
     [
       tooltipLogic,
-      iconStyle,
       selectedTODOID,
       dispatch,
       createMapPoint,
@@ -117,25 +88,6 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
     ]
     );
 
-
-    const handleShowPointsMode = useCallback(() => {
-      layerRef.current.getSource().clear();
-      Object.values(mapPoints).forEach(coordinateObj => {
-        createMapPoint(
-        layerRef,
-        featuresRef,
-        coordinateObj.location,
-        iconStyle
-        )
-      });  
-    },
-    [
-      iconStyle,
-      createMapPoint,
-      mapPoints
-    ]
-    );
-  
   useEffect(() => {
     if (!mapContainer.current) {
       mapContainer.current = new Map({
@@ -161,7 +113,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
 
       mapContainer.current.addLayer(layerRef.current);
     }
-  }, [iconStyle]);
+  }, []);
 
   const createTooltipByHover = useCallback((evt) => {
 

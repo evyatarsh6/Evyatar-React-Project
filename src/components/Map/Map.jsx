@@ -8,7 +8,7 @@ import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, GetTooltipStatus, GetMapTooltip } from '../../selectors';
-import { currMapLocation, updatePoint, updateTooltip, updateTooltipStatus}  from "../../actions/actions";
+import { currMapLocation, resetTooltip, updatePoint, updateTooltip, updateTooltipStatus}  from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
 
@@ -57,34 +57,38 @@ export const BaseMap = ({ PopUpRef, setHoverID}) => {
   }, [PopUpRef]);
 
 
+  
   const removeOverlay = useCallback(() => {
+    return (dispatch) => {
+      mapContainer.current.removeOverlay(currTooltip)
+      dispatch(resetTooltip())
+      dispatch(updateTooltipStatus(false))
+    }
 
-    mapContainer.current.removeOverlay(currTooltip)
-    dispatch(updateTooltip(null))
-    dispatch(updateTooltipStatus(false))
+  }, [currTooltip])
 
-  }, [currTooltip ,dispatch])
 
-  const updateOverLay = useCallback((coordinate) => {
-
-    const newTooltip = popUpOverlay(coordinate) 
+const updateOverlay = useCallback((coordinate) => {
+  return (dispatch) => {
+    const newTooltip = popUpOverlay(coordinate);
     mapContainer.current.addOverlay(newTooltip);
-    dispatch(updateTooltip(newTooltip))
-    dispatch(updateTooltipStatus(true))
+    dispatch(updateTooltip(newTooltip));
+    dispatch(updateTooltipStatus(true));
+  };
+},[popUpOverlay])
 
-  }, [popUpOverlay, dispatch])
 
 
   const tooltipLogic = useCallback((coordinate) => {
 
     if(isTooltipExist){
-      removeOverlay()
+      dispatch(removeOverlay())
     }
-    updateOverLay(coordinate)
-
+    dispatch(updateOverlay(coordinate))
     }
     ,[
-      updateOverLay,
+      dispatch,
+      updateOverlay,
       removeOverlay,
       isTooltipExist,
     ])
@@ -170,11 +174,11 @@ export const BaseMap = ({ PopUpRef, setHoverID}) => {
 
     if (wantedPointID) {
       removeOverlay()
-      updateOverLay(mapPoints[wantedPointID].location)
+      updateOverlay(mapPoints[wantedPointID].location)
       setHoverID(wantedPointID)
     }
   },
-  [getHoverIDFunction, setHoverID,mapPoints,updateOverLay,removeOverlay])
+  [getHoverIDFunction, setHoverID,mapPoints,updateOverlay,removeOverlay])
 
 
 

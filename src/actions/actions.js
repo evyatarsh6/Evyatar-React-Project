@@ -101,3 +101,9 @@ export const updateTooltip= (tooltip) => {
         tooltip: tooltip
     }
 }
+
+export const resetTooltip = () => {
+    return {
+        type: "resetTooltip"
+    }
+}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, { useCallback, useEffect, useMemo, useRef} from "react";
 import "ol/ol.css";
 import { Map, View } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
@@ -12,7 +12,7 @@ import { currMapLocation, updatePoint, updateTooltipStatus}  from "../../actions
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
 
-export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
+export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) => {
 
   const mapRef = useRef();
   const mapContainer = useRef();
@@ -25,11 +25,12 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
   const selectedTODOID = pinModeStatus.activeTODOID
   const PinMode = pinModeStatus.PinMode
 
+  const getHoverIDFunction  =  useMap().getHoverID
+
   const isTooltipExist = useSelector(GetTooltipStatus)
-
   const currViewInfo = useSelector(GetCurrViewInfo)
-
   const showPointsMode = useSelector(GetMapShowPointsMode)
+
   const dispatch = useDispatch();
 
 
@@ -44,13 +45,10 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
 
 
   const popUpOverlay = useCallback((coordinate) => {
-    console.log(coordinate)
-    console.log([coordinate[0] + 100, coordinate[1] + 100])
-    console.log(coordinate === ([coordinate[0] + 100, coordinate[1] + 100]))
-    
+
     return new Overlay({
       element: PopUpRef.current,
-      position: [coordinate[0] + 10000, coordinate[1] + 10000],
+      position: coordinate,
       offset:[0,-40]
       
     });
@@ -89,19 +87,6 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
       removeOverlay,
       isTooltipExist,
     ])
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   const createPointByClick = useCallback((evt) => {
@@ -178,16 +163,34 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip }) => {
     }
   }, [iconStyle]);
 
+  const createTooltipByHover = useCallback((evt) => {
+
+    const wantedPointID = getHoverIDFunction(evt.coordinate)
+
+    if (wantedPointID) {
+      removeOverlay()
+      updateOverLay(mapPoints[wantedPointID].location)
+      setHoverID(wantedPointID)
+    }
+  },
+  [getHoverIDFunction, setHoverID,mapPoints,updateOverLay,removeOverlay])
+
+
+
   useEffect(() => {
     if (mapContainer.current) {
+      mapContainer.current.on('pointermove', createTooltipByHover)
       if (PinMode) {
          mapContainer.current.on('click', createPointByClick)
       }
 
-      return () => mapContainer.current.un('click', createPointByClick);
+      return () => {
+        mapContainer.current.un('pointermove', createTooltipByHover)
+        mapContainer.current.un('click', createPointByClick);
+      } 
   
     }
-  },[createPointByClick,PinMode])
+  },[createPointByClick,PinMode, createTooltipByHover, mapPoints])
 
 
   useEffect(()=> {

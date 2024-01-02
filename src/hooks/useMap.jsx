@@ -90,6 +90,20 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     }
     ,[mapPoints])
 
+
+    const createTooltipByHover = useCallback((evt, setHoverID, currTooltip,setCurrTooltip) => {
+
+        const wantedPointID = getHoverID(evt.coordinate)
+    
+        if (wantedPointID) {
+          removeOverlay(currTooltip,setCurrTooltip)
+          updateOverLay(mapPoints[wantedPointID].location)
+          setHoverID(wantedPointID)
+        }
+      },
+      [getHoverID,mapPoints,updateOverLay,removeOverlay])
+    
+
     
     const handleShowPointsMode = useCallback(() => {
         layerRef.current.getSource().clear();
@@ -117,7 +131,11 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
                 createPointOnMap: createPoint,
                 handleShowPointsMode: handleShowPointsMode
             },
-            getHoverID:getHoverID,
+
+            hover: {
+                getHoverID:getHoverID,
+                createTooltipByHover: createTooltipByHover
+            },
 
             overlayFunctions: {
                 updateOverLay: updateOverLay,

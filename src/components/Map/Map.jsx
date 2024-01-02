@@ -32,8 +32,6 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
 
   const mapFunctions = useMap(mapContainer, layerRef,featuresRef, PopUpRef) 
 
-  const getHoverIDFunction  =  mapFunctions.getHoverID
-
   const removeOverlay = useCallback(() => {
     mapFunctions.overlayFunctions.removeOverlay(currTooltip,setCurrTooltip)
   },[mapFunctions.overlayFunctions, setCurrTooltip, currTooltip])
@@ -44,7 +42,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
 
   const createMapPoint = mapFunctions.points.createPointOnMap
   const handleShowPointsMode = mapFunctions.points.handleShowPointsMode
-
+  const getHoverIDFunction = mapFunctions.hover.getHoverID
   
   const tooltipLogic = useCallback((coordinate) => {
 
@@ -115,20 +113,23 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
     }
   }, []);
 
-  const createTooltipByHover = useCallback((evt) => {
+  // const createTooltipByHover  =
+  // useCallback((evt) => mapFunctions.hover.createTooltipByHover(evt,setHoverID,currTooltip,setCurrTooltip)
+  // ,[mapFunctions.hover, setHoverID,currTooltip, setCurrTooltip]) 
 
-    const wantedPointID = getHoverIDFunction(evt.coordinate)
+  // const createTooltipByHover = useCallback((evt, setHoverID, currTooltip,setCurrTooltip) => {
 
-    if (wantedPointID) {
-      removeOverlay()
-      updateOverLay(mapPoints[wantedPointID].location)
-      setHoverID(wantedPointID)
-    }
-  },
-  [getHoverIDFunction, setHoverID,mapPoints,updateOverLay,removeOverlay])
+  //   const wantedPointID = getHoverIDFunction(evt.coordinate)
 
+  //   if (wantedPointID) {
+  //     removeOverlay(currTooltip,setCurrTooltip)
+  //     updateOverLay(mapPoints[wantedPointID].location)
+  //     setHoverID(wantedPointID)
+  //   }
+  // },
+  // [getHoverIDFunction,mapPoints,updateOverLay,removeOverlay])
 
-
+  
   useEffect(() => {
     if (mapContainer.current) {
       mapContainer.current.on('pointermove', createTooltipByHover)

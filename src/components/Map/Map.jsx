@@ -7,12 +7,12 @@ import { Icon, Style } from "ol/style";
 import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, GetTooltipStatus } from '../../selectors';
-import { currMapLocation, updatePoint, updateTooltipStatus}  from "../../actions/actions";
+import { GetMapShowPointsMode, GetMapPinMode, GetMapPoints, GetCurrViewInfo, GetTooltipStatus, GetMapTooltip } from '../../selectors';
+import { currMapLocation, updatePoint, updateTooltip, updateTooltipStatus}  from "../../actions/actions";
 import useMap from "../../hooks/useMap";
 import Overlay from 'ol/Overlay.js';
 
-export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) => {
+export const BaseMap = ({ PopUpRef, setHoverID}) => {
 
   const mapRef = useRef();
   const mapContainer = useRef();
@@ -30,6 +30,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   const isTooltipExist = useSelector(GetTooltipStatus)
   const currViewInfo = useSelector(GetCurrViewInfo)
   const showPointsMode = useSelector(GetMapShowPointsMode)
+  const currTooltip = useSelector(GetMapTooltip)
 
   const dispatch = useDispatch();
 
@@ -59,19 +60,19 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   const removeOverlay = useCallback(() => {
 
     mapContainer.current.removeOverlay(currTooltip)
-    setCurrTooltip(null)
+    dispatch(updateTooltip(null))
     dispatch(updateTooltipStatus(false))
 
-  }, [currTooltip, setCurrTooltip,dispatch])
+  }, [currTooltip ,dispatch])
 
   const updateOverLay = useCallback((coordinate) => {
 
     const newTooltip = popUpOverlay(coordinate) 
     mapContainer.current.addOverlay(newTooltip);
-    setCurrTooltip(newTooltip)
+    dispatch(updateTooltip(newTooltip))
     dispatch(updateTooltipStatus(true))
 
-  }, [popUpOverlay, dispatch, setCurrTooltip])
+  }, [popUpOverlay, dispatch])
 
 
   const tooltipLogic = useCallback((coordinate) => {

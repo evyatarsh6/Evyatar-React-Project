@@ -17,6 +17,9 @@ export const GetCurrViewInfo = state => state.UI.Map.currViewInfo
 
 export const GetMapLocation = state => state.UI.Map.currLocation
 
+export const GetMapTooltip = state => state.UI.Map.currTooltip
+
+
 
 
 

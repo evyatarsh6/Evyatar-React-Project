@@ -23,12 +23,12 @@ export const AddTODOBtn = ({style}) => {
       
       useEffect(() => {
         if (lastTODOID) {
-          axios.put(`http://localhost:3000/addTODO`, {
+          axios.post(`http://localhost:3000/addTODO`, {
             [lastTODOID]: TODOList[lastTODOID]
-          }).then((response) => {
+          })
+          .then((response) => {
             if (response.status === 200) {
               alert(response.data);
-
             }
           })
           .catch((error) => {
@@ -37,6 +37,8 @@ export const AddTODOBtn = ({style}) => {
         }
         setLastTODOID(null);
       }, [lastTODOID, TODOList]);
+      
+
     
     return (
         <Button variant="contained"

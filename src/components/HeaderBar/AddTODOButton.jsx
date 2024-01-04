@@ -10,32 +10,21 @@ import { genID } from "../../utils/generalUtils";
 export const AddTODOBtn = ({style}) => {
 
     const dispatch = useDispatch();
-    const TODOList = useSelector(GetTodoList)
     const inputVal = useSelector(GetMainInput).inputValue
     const isEmpty = useSelector(GetMainInput).isEmpty
-    
+
     const inputRef = useRef(inputVal)
 
 
     const handleAddTODO = useCallback(() => {
-        const cardID = Date.now()
-        dispatch(addTODO(inputRef.current,cardID))
-      },[dispatch])
-
-      
-    const postTODO = useEffect(() => {
-        const cardID = genID()
-        axios.post(`http://localhost:3000/addTODO`,
+      axios.post(`http://localhost:3000/addTODO`,
           {
-            [cardID]: {
-            id: cardID,
             description : "Avi Berger is a god", 
             kind: inputRef.current,
             isChoosen: false,
             isDeleted:false, 
             location: {},
             isPinBtnDisable : false 
-            }
           },
           {
             headers: {}
@@ -47,8 +36,7 @@ export const AddTODOBtn = ({style}) => {
         .catch((error) => {
           alert(`avi's server had a problam with error message of : ${error.message}`);
         });
-    }, [TODOList]);
-      
+      },[])
 
     
     return (

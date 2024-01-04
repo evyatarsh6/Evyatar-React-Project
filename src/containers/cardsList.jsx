@@ -11,7 +11,7 @@ export const CardList = () => {
     const TODOList = useSelector(GetTodoList)
     const filterKind = useSelector(GetFilterKind)
 
-    const updateList = useRef({})
+    const updateList = useRef([])
 
     useEffect(() => {
         axios.get(`http://localhost:3000/shownTODOS`,
@@ -20,7 +20,7 @@ export const CardList = () => {
           }
         )
         .then((response) => {
-            updateList.current = response.data 
+            updateList.current =    response.data 
             console.log(response.data)
         })
         .catch((error) => {

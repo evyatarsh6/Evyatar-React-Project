@@ -34,19 +34,19 @@ export const AddTODOBtn = ({style}) => {
               location: {},
               isPinBtnDisable : false 
               }
-          },
-          {
-            headers: {
-              "Content-Type": "application/json"
-            }
-          }
+            ,
+              headers: {}
+            },
+
+          //    headers: {"Content-Type": "application/json"}
+          //   }
+          // }
           )
           .then((response) => {
               console.log(response.data)
-              alert(response.data);
           })
           .catch((error) => {
-            alert(`Error: ${error.message}`);
+            alert(`avi's server had a problam with error message of : ${error.message}`);
           });
       }, [TODOList]);
       

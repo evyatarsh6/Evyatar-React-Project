@@ -3,7 +3,7 @@ import { GetMainInput, GetTodoList} from "../../selectors"
 import {Button} from '@mui/material';
 import { addTODO } from "../../actions/actions";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 export const AddTODOBtn = ({style}) => {
@@ -12,31 +12,43 @@ export const AddTODOBtn = ({style}) => {
     const TODOList = useSelector(GetTodoList)
     const inputVal = useSelector(GetMainInput).inputValue
     const isEmpty = useSelector(GetMainInput).isEmpty
-
-    const [lastTODOID, setLastTODOID] = useState(null)
     
+    const inputRef = useRef(inputVal)
+
+
     const handleAddTODO = () => {
         const cardID = Date.now()
-        setLastTODOID(cardID)
         dispatch(addTODO(inputVal,cardID))
       }
-      
+    
       useEffect(() => {
-        if (lastTODOID) {
-          axios.post(`http://localhost:3000/addTODO`, {
-            [lastTODOID]: TODOList[lastTODOID]
-          })
-          .then((response) => {
-            if (response.status === 200) {
-              alert(response.data);
+          const cardID = Date.now()
+          axios.post(`http://localhost:3000/addTODO`,
+           {
+              [cardID]: {
+              id: cardID,
+              description : "Avi Berger is a god", 
+              kind: inputRef.current,
+              isChoosen: false,
+              isDeleted:false, 
+              location: {},
+              isPinBtnDisable : false 
+              }
+          },
+          {
+            headers: {
+              "Content-Type": "application/json"
             }
+          }
+          )
+          .then((response) => {
+              console.log(response.data)
+              alert(response.data);
           })
           .catch((error) => {
             alert(`Error: ${error.message}`);
           });
-        }
-        setLastTODOID(null);
-      }, [lastTODOID, TODOList]);
+      }, [TODOList]);
       
 
     

@@ -34,13 +34,10 @@ export const AddTODOBtn = ({style}) => {
               location: {},
               isPinBtnDisable : false 
               }
-            ,
-              headers: {}
             },
-
-          //    headers: {"Content-Type": "application/json"}
-          //   }
-          // }
+            {
+              headers: {}
+            }
           )
           .then((response) => {
               console.log(response.data)

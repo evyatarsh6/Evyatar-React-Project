@@ -9,3 +9,7 @@ export const isLocationExist = location => {
 export const getLongLat = coordinate => {
     return {Long: coordinate[0], Lat: coordinate[1]}
   }
+
+export const genID = () => {
+    return Date.now()
+  }

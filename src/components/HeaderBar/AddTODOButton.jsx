@@ -23,14 +23,12 @@ export const AddTODOBtn = ({style}) => {
       
       useEffect(() => {
         if (lastTODOID) {
-          axios.put(`http://localhost:3000/shownTODOS/${lastTODOID}`, {
+          axios.put(`http://localhost:3000/addTODO`, {
             [lastTODOID]: TODOList[lastTODOID]
-          })
-          .then((response) => {
+          }).then((response) => {
             if (response.status === 200) {
-              alert('Save action finished');
-            } else {
-              alert(`Error with status code of ${response.status}`);
+              alert(response.data);
+
             }
           })
           .catch((error) => {
@@ -39,8 +37,6 @@ export const AddTODOBtn = ({style}) => {
         }
         setLastTODOID(null);
       }, [lastTODOID, TODOList]);
-      
-
     
     return (
         <Button variant="contained"

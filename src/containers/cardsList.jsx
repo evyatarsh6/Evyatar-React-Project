@@ -1,7 +1,8 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Card } from "../components/Cards/Card";
 import { useSelector } from "react-redux"
 import { GetTodoList, GetFilterKind } from "../selectors";
+import axios from "axios";
 
 
 
@@ -10,25 +11,30 @@ export const CardList = () => {
     const TODOList = useSelector(GetTodoList)
     const filterKind = useSelector(GetFilterKind)
 
-    const FilterdArr = useMemo(() => {
-        switch(filterKind){
-            case "normal":
-                return Object.values(TODOList).filter( TODO  => !TODO.isDeleted)
-            case "delete":
-                return Object.values(TODOList).filter( TODO  => TODO.isDeleted)
-            case "choosen":
-                return Object.values(TODOList).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted))
-            default:
-                return []
+    const updateList = useRef({})
 
-        }
-    },[ filterKind, TODOList])
+    useEffect(() => {
+        axios.get(`http://localhost:3000/shownTODOS`,
+          {
+            headers: {}
+          }
+        )
+        .then((response) => {
+            updateList.current = response.data 
+            console.log(response.data)
+        })
+        .catch((error) => {
+          alert(`avi's server had a problam with error message of : ${error.message}`);
+        });
+    }, []);
+      
 
     return (
 
             <ul className="flex-container">
             {
-                FilterdArr.map( TODO => (
+                updateList.current.map( TODO => (
+                // FilterdArr.map( TODO => (
                     
                     <Card
                     id = {TODO.id}

@@ -8,25 +8,25 @@ import axios from "axios";
 
 export const CardList = () => { 
 
-    const TODOList = useSelector(GetTodoList)
+    // const TODOList = useSelector(GetTodoList)
     const filterKind = useSelector(GetFilterKind)
 
     const updateList = useRef([])
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/shownTODOS`,
+        axios.get(`http://localhost:3000/shownTODOS/` + filterKind,
           {
             headers: {}
           }
         )
         .then((response) => {
-            updateList.current =    response.data 
+            updateList.current = response.data 
             console.log(response.data)
         })
         .catch((error) => {
           alert(`avi's server had a problam with error message of : ${error.message}`);
         });
-    }, []);
+    }, [filterKind]);
       
 
     return (

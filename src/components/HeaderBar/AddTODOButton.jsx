@@ -32,6 +32,7 @@ export const AddTODOBtn = ({style}) => {
         )
         .then((response) => {
             console.log(response.data)
+            alert(response.data);
         })
         .catch((error) => {
           alert(`avi's server had a problam with error message of : ${error.message}`);

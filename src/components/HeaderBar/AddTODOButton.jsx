@@ -14,7 +14,7 @@ export const AddTODOBtn = ({style}) => {
     const isEmpty = useSelector(GetMainInput).isEmpty
 
     const inputRef = useRef(inputVal)
-
+    const id = Date.now()
 
     const handleAddTODO = useCallback(() => {
       axios.post(`http://localhost:3000/addTODO`,

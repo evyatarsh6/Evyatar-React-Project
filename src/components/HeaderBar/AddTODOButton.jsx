@@ -9,22 +9,21 @@ import { genID } from "../../utils/generalUtils";
 
 export const AddTODOBtn = ({style}) => {
 
-    const dispatch = useDispatch();
     const inputVal = useSelector(GetMainInput).inputValue
     const isEmpty = useSelector(GetMainInput).isEmpty
 
     const inputRef = useRef(inputVal)
-    const id = Date.now()
 
     const handleAddTODO = useCallback(() => {
       axios.post(`http://localhost:3000/addTODO`,
           {
-            description : "Avi Berger is a god", 
-            kind: inputRef.current,
-            isChoosen: false,
-            isDeleted:false, 
-            location: {},
-            isPinBtnDisable : false 
+              _id: genID(),
+              description : "Avi Berger is a god", 
+              kind: inputRef.current,
+              isChoosen: false,
+              isDeleted:false, 
+              location: {},
+              isPinBtnDisable : false 
           },
           {
             headers: {}

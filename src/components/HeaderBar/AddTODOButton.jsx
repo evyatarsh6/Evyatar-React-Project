@@ -1,49 +1,29 @@
-import { useDispatch, useSelector } from "react-redux"
-import { GetMainInput, GetTodoList} from "../../selectors"
+import {useDispatch, useSelector } from "react-redux"
+import { GetMainInput, GetTodoListNeedsUpdate} from "../../selectors"
 import {Button} from '@mui/material';
-import { addTODO } from "../../actions/actions";
-import axios from "axios";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { genID } from "../../utils/generalUtils";
+import { useCallback, useEffect, useRef } from "react";
+import { fetchAddTODO } from "../../api/utils/fetchAddTODO";
+import { updateTODOListStatus } from "../../actions/actions";
 
 
 export const AddTODOBtn = ({style}) => {
 
     const inputVal = useSelector(GetMainInput).inputValue
+    const needsUpdate = useSelector(GetTodoListNeedsUpdate)
     const isEmpty = useSelector(GetMainInput).isEmpty
     const dispatch = useDispatch()
+    
 
     const inputRef = useRef(inputVal)
 
+    useEffect(() => {
+      inputRef.current = inputVal
+    },[inputVal])
+
     const handleAddTODO = useCallback(() => {
-      dispatch(
-        {
-          type:'addTODOStatus',
-          currStatus: true
-        }
-      )
-      axios.post(`http://localhost:3000/addTODO`,
-          {
-              _id: genID(),
-              description : "Avi Berger is a god", 
-              kind: inputRef.current,
-              isChoosen: false,
-              isDeleted:false, 
-              location: {},
-              isPinBtnDisable : false 
-          },
-          {
-            headers: {}
-          }
-        )
-        .then((response) => {
-            console.log(response.data)
-            alert(response.data);
-        })
-        .catch((error) => {
-          alert(`avi's server had a problam with error message of : ${error.message}`);
-        });
-      },[])
+      fetchAddTODO(inputRef.current)
+      dispatch(updateTODOListStatus(needsUpdate))
+      },[dispatch, needsUpdate])
 
     
     return (

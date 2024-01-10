@@ -1,26 +1,10 @@
-export const addTODO = (inputValue, cardID) => {
-    return {
-        type:  'addTODO',
-        value: inputValue,
-        id: cardID
-    }
-} 
 
-export const editTODO = (props) => {
+export const updateTODOListStatus = currStatus => {
     return {
-        type: "editTODO",
-        props
+        type:"updateStatus",
+        currStatus: currStatus
     }
-} 
-
-export const editAllTODOS = (props) => {
-    return {
-        type: "editAllTODOS",
-        fieldUpdateValue: props.fieldUpdateValue,
-        fieldKey: props.fieldKey
-    } 
 }
-
 
 export const changeFilterKind = (filterKind) => {
     return {

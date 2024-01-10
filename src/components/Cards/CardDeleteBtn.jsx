@@ -1,11 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
-import { GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
 import DeleteIcon  from '@mui/icons-material/Delete';
 import RecyclingIcon from '@mui/icons-material/Recycling';
-import { editTODO } from '../../actions/actions';
 
 
 export const CardDeleteBtn = ({info}) => {

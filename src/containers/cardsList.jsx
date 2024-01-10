@@ -1,16 +1,16 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Card } from "../components/Cards/Card";
 import { useSelector } from "react-redux"
-import { GetTodoList, GetFilterKind } from "../selectors";
+import { GetFilterKind , GetTodoListStatus} from "../selectors";
 import axios from "axios";
 
 
 
 export const CardList = () => { 
 
-    // const TODOList = useSelector(GetTodoList)
     const filterKind = useSelector(GetFilterKind)
-
+    const TODOListStatus = useSelector(GetTodoListStatus)
+    const isAdded = TODOListStatus.addTODO
     const updateList = useRef([])
 
     useEffect(() => {
@@ -20,13 +20,13 @@ export const CardList = () => {
           }
         )
         .then((response) => {
-            updateList.current = response.data 
-            console.log(response.data)
+          console.log(response.data)
+          updateList.current = response.data
         })
         .catch((error) => {
-          alert(`avi's server had a problam with error message of : ${error.message}`);
+          alert(`shownTODOS has a problam with error message of : ${error.message}`);
         });
-    }, [filterKind]);
+    }, [filterKind, isAdded]);
       
 
     return (
@@ -37,8 +37,9 @@ export const CardList = () => {
                 // FilterdArr.map( TODO => (
                     
                     <Card
-                    id = {TODO.id}
-                    key={TODO.id}
+                    info = {TODO}
+                    // id = {TODO._id}
+                    key={TODO._id}
                     />
                     ))
                 }

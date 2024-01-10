@@ -1,6 +1,8 @@
 
 export const GetTodoList = state =>  state.UI.TODOList
 
+export const GetTodoListStatus = state => state.UI.TODOListStutus
+
 export const GetFilterKind = state => state.UI.filterKind
 
 export const GetMainInput = state => state.UI.mainInput

@@ -8,25 +8,23 @@ import RecyclingIcon from '@mui/icons-material/Recycling';
 import { editTODO } from '../../actions/actions';
 
 
-export const CardDeleteBtn = ({id}) => {
+export const CardDeleteBtn = ({info}) => {
 
-    const dispatch = useDispatch();
-    const TODOList = useSelector(GetTodoList)
-    const currCardInfo = TODOList[id]
-    const [isDeleted,setIsDeleted ] = useState(currCardInfo.isDeleted)
+    // const dispatch = useDispatch();
+    const [isDeleted,setIsDeleted ] = useState(info.isDeleted)
 
     
     const clickDeleteRestoreBtn = event => {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        dispatch(editTODO(
-            {
-            id : currCardInfo.id,
-            fieldKey : 'isDeleted',
-            fieldUpdateValue: newDeleteStatus 
-            }
-        ))
+        // dispatch(editTODO(
+        //     {
+        //     id : info._id,
+        //     fieldKey : 'isDeleted',
+        //     fieldUpdateValue: newDeleteStatus 
+        //     }
+        // ))
     }
     return (
         <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5"}}>

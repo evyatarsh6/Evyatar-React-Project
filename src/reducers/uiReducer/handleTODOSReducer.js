@@ -1,7 +1,6 @@
 const initialState  = {}
 
 export const TODOS = ( state = initialState , action) => {
-
     if(action.type === "addTODO"){
         const TODOList = {
             ...state,

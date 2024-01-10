@@ -1,25 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from "react-redux"
-import { GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
-import { editTODO } from '../../actions/actions';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
 
 
 
 
-export const CardDescriptionField = ({id}) => {
+export const CardDescriptionField = ({info}) => {
 
     const currInputValue = useRef(null)
 
-    const dispatch = useDispatch();
-    const TODOList = useSelector(GetTodoList)
-    const currCardInfo = TODOList[id]
+    // const dispatch = useDispatch();
 
     const [isFreezeMode,setIsFreezeMode] = useState(true)
-    const [message, setMessage] = useState(currCardInfo.description)
+    const [message, setMessage] = useState(info.description)
     const handleInputType =  event => setMessage(event.target.value);
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
@@ -33,13 +27,13 @@ export const CardDescriptionField = ({id}) => {
         else {
 
             setIsFreezeMode(!isFreezeMode)
-            dispatch(editTODO(
-                {
-                id : currCardInfo.id,
-                fieldKey : 'description',
-                fieldUpdateValue: message
-                }
-            ))
+            // dispatch(editTODO(
+            //     {
+            //     id : info._id,
+            //     fieldKey : 'description',
+            //     fieldUpdateValue: message
+            //     }
+            // ))
         }
     }
 

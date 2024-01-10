@@ -1,13 +1,7 @@
-import { useDispatch } from 'react-redux';
-import { useSelector } from "react-redux"
-import { GetTodoList } from "../../selectors";
 import {bergerPhotos} from '../../shared/photos';
 
-export const CardImage = ({id}) => {
+export const CardImage = ({info}) => {
 
-    const dispatch = useDispatch();
-    const TODOList = useSelector(GetTodoList)
-    const currCardInfo = TODOList[id]
     
     const imgStyle = {
         width : "50%" ,
@@ -20,7 +14,7 @@ export const CardImage = ({id}) => {
 
     return (
         <img
-        src={bergerPhotos[currCardInfo.kind]}
+        src={bergerPhotos[info.kind]}
         className="card-image"
         style= { imgStyle }
     />

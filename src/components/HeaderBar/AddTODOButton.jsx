@@ -11,10 +11,17 @@ export const AddTODOBtn = ({style}) => {
 
     const inputVal = useSelector(GetMainInput).inputValue
     const isEmpty = useSelector(GetMainInput).isEmpty
+    const dispatch = useDispatch()
 
     const inputRef = useRef(inputVal)
 
     const handleAddTODO = useCallback(() => {
+      dispatch(
+        {
+          type:'addTODOStatus',
+          currStatus: true
+        }
+      )
       axios.post(`http://localhost:3000/addTODO`,
           {
               _id: genID(),

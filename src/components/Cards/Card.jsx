@@ -1,7 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from "react-redux"
-import { GetTodoList } from "../../selectors";
 import { generateUpdateCardLogs } from '../../constans/generalLogs';
 import { CardDescriptionField } from './CardDescriptionField';
 import { CardMapBtns } from './CardMapBtns';
@@ -12,7 +9,7 @@ import { CardChooseDelete } from './CardChooseDeleteContainer';
 
 
 
-export const Card = ({ id }) => {
+export const Card = ({ info }) => {
 
     const cardStyle =  {
         borderColor : 'black',
@@ -34,25 +31,21 @@ export const Card = ({ id }) => {
         border:" 1px solid rgba(255, 255, 255, 0.3)",
         
     }
-    
-    const dispatch = useDispatch();
-    const TODOList = useSelector(GetTodoList)
-    const currCardInfo = TODOList[id]
 
     useEffect(() => {
-        console.log(generateUpdateCardLogs(currCardInfo))
-    }, [currCardInfo])
+        console.log(generateUpdateCardLogs(info))
+    }, [info])
 
 
     return (
             
-        <div className ={"card"} id={currCardInfo.id} style={cardStyle}>
-            <CardMapBtns id={currCardInfo.id} />
-            <CardTitle id={currCardInfo.id}/>
-            <CardLocationField id={currCardInfo.id} />
-            <CardImage id={currCardInfo.id}/>
-            <CardDescriptionField id={currCardInfo.id}/>
-            <CardChooseDelete id={currCardInfo.id}/>
+        <div className ={"card"} id={info._id} style={cardStyle}>
+            {/* <CardMapBtns id={info} /> */}
+            <CardTitle info={info}/>
+            <CardLocationField info={info} />
+            <CardImage info={info}/>
+            <CardDescriptionField info={info}/>
+            <CardChooseDelete info={info}/>
         </div>
     )
 }; 

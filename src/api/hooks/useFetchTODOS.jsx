@@ -1,16 +1,18 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { GetFilterKind } from "../../selectors";
+import { GetFilterKind, GetTodoListNeedsUpdate } from "../../selectors";
 import { useCallback } from "react";
+
 
 export const useFetchTODOS = () => {
 
   const filterKind = useSelector(GetFilterKind)
+  const listNeedsUpdate = useSelector(GetTodoListNeedsUpdate)
 
   const shownTODOS = useCallback(() => {
-   let data = null
- 
-   axios.get(`http://localhost:3000/shownTODOS/` + filterKind,
+   if (listNeedsUpdate) {
+     let data = null
+     axios.get(`http://localhost:3000/shownTODOS/` + filterKind,
    {
      headers: {}
    }
@@ -21,11 +23,13 @@ export const useFetchTODOS = () => {
    })
    .catch((error) => {
      alert(`shownTODOS has a problam with error message of : ${error.message}`);
-   });
- 
-   return data
-   
- },[filterKind])
+    });
+    return data 
+  }
+  // else{
+  //   return null
+  // }
+  },[filterKind, listNeedsUpdate])
 
  return (
   {

@@ -16,13 +16,6 @@ export const CardDeleteBtn = ({info}) => {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        // dispatch(editTODO(
-        //     {
-        //     id : info._id,
-        //     fieldKey : 'isDeleted',
-        //     fieldUpdateValue: newDeleteStatus 
-        //     }
-        // ))
     }
     return (
         <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5"}}>

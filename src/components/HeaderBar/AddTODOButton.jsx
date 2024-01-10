@@ -22,8 +22,10 @@ export const AddTODOBtn = ({style}) => {
 
     const handleAddTODO = useCallback(() => {
       fetchAddTODO(inputRef.current)
-      dispatch(updateTODOListStatus(needsUpdate))
-      },[dispatch, needsUpdate])
+      dispatch(updateTODOListStatus(true))
+      },[
+        dispatch
+      ])
 
     
     return (

@@ -7,7 +7,6 @@ import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPoints
 import { currViewInfo } from "./reducers/uiReducer/mapReducer/viewInfo";
 import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation";
 import { tooltipStatus } from "./reducers/uiReducer/mapReducer/mapTooltipStatus";
-// import { TODOSStatus } from "./reducers/uiReducer/handleTODOSStatus";
 import { updateTODOListStatus } from "./reducers/uiReducer/updateTODOListStatus";
 
 
@@ -26,8 +25,6 @@ const mapReducer = combineReducers({
 
 const uiReducer = combineReducers({
     updateTODOListStatus: updateTODOListStatus,
-    // TODOListStutus: TODOSStatus,
-    // TODOList: TODOS,
     filterKind: filterKind,
     Map : mapReducer,
     mainInput: mainInput

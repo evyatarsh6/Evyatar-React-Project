@@ -3,6 +3,8 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { GetMapPinMode, GetTodoList, GetMapLocation} from '../../selectors';
 
 
+
+//need an update
 export const PopUpContent = ({id}) => {
 
     const pinModeStatus = useSelector(GetMapPinMode)

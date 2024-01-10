@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
 import { GetMapPoints, GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
-import { activeMapPinTODOMode, editAllTODOS, cancelMapPinTODOMode, updateTooltipStatus} from '../../actions/actions';
+import { activeMapPinTODOMode, cancelMapPinTODOMode, updateTooltipStatus} from '../../actions/actions';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -21,12 +21,6 @@ export const CardPinBtn = ({id}) => {
     const clickPinBtn = () => {
         setIsPinActive(true)
         dispatch(activeMapPinTODOMode(currCardInfo.id))
-        // dispatch(editAllTODOS(
-        //     {
-        //         fieldKey: 'isPinBtnDisable',
-        //         fieldUpdateValue: true
-        //     }
-        // ))
 
     }
     const clickCancelPin = () => {
@@ -34,25 +28,10 @@ export const CardPinBtn = ({id}) => {
         dispatch(cancelMapPinTODOMode())
         dispatch(updateTooltipStatus(false))
 
-        
-        // dispatch(editAllTODOS(
-        //         {
-        //             fieldKey: 'isPinBtnDisable',
-        //             fieldUpdateValue: false
-        //         }
-        // ))
-
     }
 
     const clickSavePin = () => {
         clickCancelPin()
-        // dispatch(editTODO(
-        //     {
-        //     id : currCardInfo.id,
-        //     fieldKey : 'location',
-        //     fieldUpdateValue: mapPoints[currCardInfo.id].location
-        //     }
-        // ))
     }   
 
        return (  

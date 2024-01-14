@@ -10,16 +10,14 @@ export const CardList = () => {
     const updateList = useRef([])
     const dispatch = useDispatch()
     const needsUpdate = useSelector(GetTodoListNeedsUpdate)
-    const shownListFunc = useFetchTODOS().shownTODOS
+    const {shownTODOS} = useFetchTODOS()
     
 const updateShownListFunc= useCallback(() => {
     if (needsUpdate) {
-        updateList.current = shownListFunc()
+        updateList.current = shownTODOS()
     }
     },
-    [
-        shownListFunc, needsUpdate
-    ])
+    [shownTODOS, needsUpdate])
 
     
     useEffect(() => {

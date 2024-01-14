@@ -49,10 +49,12 @@ export const useFetchTODOS = () => {
   const fetchUpdateWantedTODO = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
     try{
       const response = await axios.patch(
-        'http://localhost:3000/updateWantedTODO',
+        'http://localhost:3000/updateWantedTODO' 
+        ,
       {
         _id: wantedTODOID,
-        [field]: fieldUpdateVal
+        wantedField: field,
+        wantedFieldUpdateVal: fieldUpdateVal,
       }
       )
 

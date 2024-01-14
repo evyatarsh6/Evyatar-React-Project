@@ -12,13 +12,17 @@ export const CardChooseBtn = ({info}) => {
 
     const dispatch = useDispatch()
     const [isChecked, setIsChecked] = useState(info.isChoosen)
-    const {fetchUpdateWanted} = useFetchTODOS()
+    const {fetchUpdateWantedTODO} = useFetchTODOS()
 
     const checkChoosenCheckbox = async () => {
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
-        await fetchUpdateWanted(info._id, 'isChoosen', newCheckedtatus)
-        dispatch(updateTODOListStatus(true));
+        try {
+            await fetchUpdateWantedTODO(info._id, 'isChoosen', newCheckedtatus)
+            dispatch(updateTODOListStatus(true));     
+        } catch (error) {
+            console.error(`Error updating TODOs: ${error.message}`);
+        }
     }
 
     return (

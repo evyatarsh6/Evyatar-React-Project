@@ -27,6 +27,7 @@ export const AddTODOBtn = ({style}) => {
       await fetchAddTODO(inputRef.current)
       },
       [
+        fetchAddTODO,
         dispatch,
         needsUpdate
       ])

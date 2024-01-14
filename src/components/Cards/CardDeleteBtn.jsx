@@ -13,15 +13,19 @@ export const CardDeleteBtn = ({info}) => {
     const dispatch = useDispatch()
 
     const [isDeleted,setIsDeleted ] = useState(info.isDeleted)
-    const {fetchUpdateWanted} = useFetchTODOS()
+    const {fetchUpdateWantedTODO} = useFetchTODOS()
 
     
     const clickDeleteRestoreBtn = async (event) => {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
-        await fetchUpdateWanted(info._id, 'isDeleted', newDeleteStatus)
-        dispatch(updateTODOListStatus(true));
+        try {
+            await fetchUpdateWantedTODO(info._id, 'isDeleted', newDeleteStatus)
+            dispatch(updateTODOListStatus(true));
+        } catch (error) {
+            console.error(`Error updating TODOs: ${error.message}`);
+        }
     }
     return (
         <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5"}}>

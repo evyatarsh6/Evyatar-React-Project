@@ -15,7 +15,9 @@ const useFilterKind = wantedFilterKind => {
         if (filterKind!== wantedFilterKind)  {
             SwitchFilterKind(wantedFilterKind)    
         }
-        SwitchFilterKind(normalFilterKind)
+        else{
+            SwitchFilterKind(normalFilterKind)
+        }
         dispatch(updateTODOListStatus(true));
         
     }

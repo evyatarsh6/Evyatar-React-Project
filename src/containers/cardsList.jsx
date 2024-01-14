@@ -16,7 +16,6 @@ export const CardList = () => {
         if (needsUpdate) {
             try {
                 const updateList = await fetchShownTodos();
-                console.log(updateList)
                 setUpdateTodos(updateList ?? []);
                 dispatch(updateTODOListStatus(false));
             } catch (error) {

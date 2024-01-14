@@ -8,7 +8,8 @@ export const useFetchTODOS = () => {
 
   const filterKind = useSelector(GetFilterKind)
 
-  const fetchShownTodos = useCallback(async () => {
+  const fetchShownTodos = useCallback(
+    async () => {
      await axios.get(`http://localhost:3000/shownTODOS/` + filterKind,
    {
      headers: {}
@@ -17,13 +18,14 @@ export const useFetchTODOS = () => {
    .then((response) => {
 
      return response.data
-     
+
    })
    .catch((error) => {
-     alert(`shownTODOS has a problam with error message of : ${error.message}`);
+        console.error(`Error fetching TODOs: ${error.message}`);
+        throw error; 
     }); 
   }
-  ,[filterKind ])
+  ,[filterKind])
 
  return (
   {

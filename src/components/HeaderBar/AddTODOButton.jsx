@@ -12,21 +12,24 @@ export const AddTODOBtn = ({style}) => {
     const needsUpdate = useSelector(GetTodoListNeedsUpdate)
     const isEmpty = useSelector(GetMainInput).isEmpty
     const dispatch = useDispatch()
-    
 
     const inputRef = useRef(inputVal)
-
     useEffect(() => {
       inputRef.current = inputVal
     },[inputVal])
 
-    const handleAddTODO = useCallback(() => {
+    const handleAddTODO= useCallback(() => {
+      if (!needsUpdate) {
+        dispatch(updateTODOListStatus(true))
+      }      
       fetchAddTODO(inputRef.current)
-      dispatch(updateTODOListStatus(true))
-      },[
-        dispatch
+      dispatch(updateTODOListStatus(false))
+      
+      },
+      [
+        dispatch,
+        needsUpdate
       ])
-
     
     return (
         <Button variant="contained"

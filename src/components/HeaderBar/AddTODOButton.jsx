@@ -14,17 +14,16 @@ export const AddTODOBtn = ({style}) => {
     const dispatch = useDispatch()
 
     const inputRef = useRef(inputVal)
+    
     useEffect(() => {
       inputRef.current = inputVal
     },[inputVal])
 
-    const handleAddTODO= useCallback(() => {
+    const handleAddTODO=  useCallback( async () => {
       if (!needsUpdate) {
         dispatch(updateTODOListStatus(true))
       }      
-      fetchAddTODO(inputRef.current)
-      dispatch(updateTODOListStatus(false))
-      
+      await fetchAddTODO(inputRef.current)
       },
       [
         dispatch,

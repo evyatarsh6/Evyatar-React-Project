@@ -1,45 +1,53 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Card } from "../components/Cards/Card";
 import { useFetchTODOS } from "../api/hooks/useFetchTODOS";
 import { useDispatch, useSelector } from "react-redux";
-import { updateTODOListStatus } from "../actions/actions";
 import { GetTodoListNeedsUpdate } from "../selectors";
+import { updateTODOListStatus } from "../actions/actions";
 
 export const CardList = () => { 
 
-    const updateList = useRef([])
-    const dispatch = useDispatch()
+    const [updatedTodos, setUpdateTodos] = useState([])
     const needsUpdate = useSelector(GetTodoListNeedsUpdate)
-    const {shownTODOS} = useFetchTODOS()
+    const {fetchShownTodos} = useFetchTODOS()
+    const dispatch = useDispatch()
     
-const updateShownListFunc= useCallback(() => {
+const updateShownListFunc= useCallback( async () => {
     if (needsUpdate) {
-        updateList.current = shownTODOS()
+        try {
+            const updateList = await fetchShownTodos();
+            setUpdateTodos(updateList ?? []);
+            dispatch(updateTODOListStatus(false));
+          } catch (error) {
+            console.error(`Error updating TODOs: ${error.message}`);
+          }
     }
+    
     },
-    [shownTODOS, needsUpdate])
-
+    [fetchShownTodos, needsUpdate, dispatch])
     
     useEffect(() => {
-        updateShownListFunc()
+        const a = async () => {
+            await updateShownListFunc()
+            dispatch(updateTODOListStatus(false))
+        }
+        a()
     }, [updateShownListFunc, dispatch]);
-      
 
     return (
-
-            <ul className="flex-container">
-            {
-                updateList.current.map( TODO => (  
-                    <Card
-                    info = {TODO}
-                    key={TODO._id}
-                    />
-                    ))
-                }
-            
-            </ul>
-
-
-    )
+        <ul className="flex-container">
+          {updatedTodos.length &&
+          (
+            updatedTodos.map((TODO) => (
+              <Card
+              info={TODO}
+              key={TODO._id}
+              />
+            ))
+          )
+          }
+        </ul>
+      );
+      
     
 }

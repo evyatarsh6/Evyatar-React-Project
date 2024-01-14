@@ -8,27 +8,24 @@ export const useFetchTODOS = () => {
 
   const filterKind = useSelector(GetFilterKind)
 
-  const shownTODOS = useCallback(() => {
-     let data = []
-     axios.get(`http://localhost:3000/shownTODOS/` + filterKind,
+  const fetchShownTodos = useCallback(async () => {
+     await axios.get(`http://localhost:3000/shownTODOS/` + filterKind,
    {
      headers: {}
    }
    )
    .then((response) => {
-     console.log(response.data)
-     data = response.data
+     return response.data
    })
    .catch((error) => {
      alert(`shownTODOS has a problam with error message of : ${error.message}`);
-    });
-    return data 
+    }); 
   }
   ,[filterKind ])
 
  return (
   {
-    shownTODOS: shownTODOS
+    fetchShownTodos: fetchShownTodos 
   }
  )
 }

@@ -2,9 +2,9 @@ import axios from "axios";
 import { genID } from "../../utils/generalUtils";
 
 
-export const fetchAddTODO = TODOKind => {
+export const fetchAddTODO = async(TODOKind) => {
 
-    axios.post(`http://localhost:3000/addTODO`,
+  await axios.post(`http://localhost:3000/addTODO`,
     {
         _id: genID(),
         description : "Avi Berger is a god", 

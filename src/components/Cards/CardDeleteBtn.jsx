@@ -33,7 +33,7 @@ export const CardDeleteBtn = ({info}) => {
     }
     
     if (mutation.isSuccess) {
-        updateTODOList()
+        // updateTODOList()
     }
     
     return (

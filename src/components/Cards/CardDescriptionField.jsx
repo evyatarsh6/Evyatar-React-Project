@@ -32,7 +32,6 @@ export const CardDescriptionField = ({info}) => {
             setIsFreezeMode(!isFreezeMode)
 
             try {
-                useFetchTODOS
                 await fetchUpdateWantedTODO(info._id, 'description', message)
                 dispatch(updateTODOListStatus(true));     
             } catch (error) {

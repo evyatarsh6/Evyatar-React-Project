@@ -3,28 +3,41 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
 import { GetMapPoints, GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
-import { activeMapPinTODOMode, cancelMapPinTODOMode, updateTooltipStatus} from '../../actions/actions';
+import { activeMapPinTODOMode, cancelMapPinTODOMode, updateTODOListStatus, updateTooltipStatus} from '../../actions/actions';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useFetchTODOS } from '../../api/hooks/useFetchTODOS';
 
 export const CardPinBtn = ({info}) => {
 
     const dispatch = useDispatch();
-    const TODOList = useSelector(GetTodoList)
-    const mapPoints = useSelector(GetMapPoints)
+    const {fetchUpdateWantedTODO} = useFetchTODOS()
     const currCardInfo = info
 
     const [isPinActive, setIsPinActive] = useState(currCardInfo.isPinBtnDisable);
    
 
-    const clickPinBtn = () => {
-        setIsPinActive(true)
-        dispatch(activeMapPinTODOMode(currCardInfo.id))
+    const clickPinBtn = async () => {
+        try {
+            await fetchUpdateWantedTODO(info._id, 'isPinBtnDisable', true)
+            dispatch(updateTODOListStatus(true));     
+        } catch (error) {
+            console.error(`Error updating TODOs: ${error.message}`);
+        }
+
+        dispatch(activeMapPinTODOMode(currCardInfo._id))
 
     }
-    const clickCancelPin = () => {
-        setIsPinActive(!isPinActive)
+    const clickCancelPin = async () => {
+
+        try {
+            await fetchUpdateWantedTODO(info._id, 'isPinBtnDisable', false)
+            dispatch(updateTODOListStatus(true));     
+        } catch (error) {
+            console.error(`Error updating TODOs: ${error.message}`);
+        }
+
         dispatch(cancelMapPinTODOMode())
         dispatch(updateTooltipStatus(false))
 

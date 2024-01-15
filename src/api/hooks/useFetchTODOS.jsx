@@ -25,6 +25,20 @@ export const useFetchTODOS = () => {
   }, [filterKind]);
 
 
+  const fetchHoverTodoInfo = useCallback(async (hoverID) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/getTODOByHoverID/` + hoverID, {
+        headers: {},
+      });
+
+      return response.data;
+      
+    } catch (error) {
+      console.error(`Error fetching TODOs: ${error.message}`);
+      throw error;
+    }
+  }, []);
+
   const fetchAddTODO = async(TODOKind) => {
     try {
       const response = await axios.post(`http://localhost:3000/addTODO`,
@@ -97,6 +111,7 @@ export const useFetchTODOS = () => {
 
   return {
     fetchShownTodos: fetchShownTodos,
+    fetchHoverTodoInfo:fetchHoverTodoInfo,
     fetchAddTODO:fetchAddTODO,
     fetchUpdateWantedTODO: fetchUpdateWantedTODO,
     fetchUpdateAllTODOS: fetchUpdateAllTODOS,

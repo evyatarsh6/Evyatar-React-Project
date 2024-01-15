@@ -27,7 +27,7 @@ export const PopUp = ({ PopUpRef, hoverID}) => {
                 display: tooltipVisible()
             }}>
                 <a href="#" id="popup-closer" className="ol-popup-closer" onClick={handleCloseTooltip}/>
-                  {/* <PopUpContent id= {hoverID}/> */}
+                  <PopUpContent id= {hoverID}/>
             </div>
         )
 }

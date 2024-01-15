@@ -3,8 +3,6 @@ import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
 import { useFetchTODOS } from '../../api/hooks/useFetchTODOS';
-import { useDispatch } from 'react-redux';
-import { updateTODOListStatus } from '../../actions/actions';
 
 
 
@@ -12,8 +10,7 @@ import { updateTODOListStatus } from '../../actions/actions';
 export const CardDescriptionField = ({info}) => {
 
     const currInputValue = useRef(null)
-    const {fetchUpdateWantedTODO} = useFetchTODOS()
-    const dispatch = useDispatch();
+    const {fetchUpdateWantedTODO, updateTODOList} = useFetchTODOS()
 
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState(info.description)
@@ -33,7 +30,7 @@ export const CardDescriptionField = ({info}) => {
 
             try {
                 await fetchUpdateWantedTODO(info._id, 'description', message)
-                dispatch(updateTODOListStatus(true));     
+                updateTODOList()     
             } catch (error) {
                 console.error(`Error updating TODOs: ${error.message}`);
             }

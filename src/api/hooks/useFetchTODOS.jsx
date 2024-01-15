@@ -1,11 +1,14 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GetFilterKind} from "../../selectors";
 import { genID } from "../../utils/generalUtils";
 import { useCallback } from "react";
+import { updateTODOListStatus } from "../../actions/actions";
 
 export const useFetchTODOS = () => {
+
   const filterKind = useSelector(GetFilterKind);
+  const dispatch = useDispatch()
 
   const fetchShownTodos = useCallback(async () => {
     try {
@@ -88,11 +91,15 @@ export const useFetchTODOS = () => {
   },[])
 
 
+  const updateTODOList = (status = true) => dispatch(updateTODOListStatus(status))
+
+
 
   return {
     fetchShownTodos: fetchShownTodos,
     fetchAddTODO:fetchAddTODO,
     fetchUpdateWantedTODO: fetchUpdateWantedTODO,
     fetchUpdateAllTODOS: fetchUpdateAllTODOS,
+    updateTODOList: updateTODOList,
   };
 };

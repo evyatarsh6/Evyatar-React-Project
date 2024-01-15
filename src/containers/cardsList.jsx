@@ -1,38 +1,36 @@
 import { useCallback, useEffect, useState } from "react";
 import { Card } from "../components/Cards/Card";
 import { useFetchTODOS } from "../api/hooks/useFetchTODOS";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { GetTodoListNeedsUpdate } from "../selectors";
-import { updateTODOListStatus } from "../actions/actions";
 
 export const CardList = () => { 
 
     const [updatedTodos, setUpdateTodos] = useState([])
     const needsUpdate = useSelector(GetTodoListNeedsUpdate)
-    const {fetchShownTodos} = useFetchTODOS()
-    const dispatch = useDispatch()
+    const {fetchShownTodos, updateTODOList} = useFetchTODOS()
     
     const updateShownListFunc= useCallback( async () => {
         if (needsUpdate) {
             try {
                 const updateList = await fetchShownTodos();
                 setUpdateTodos(updateList ?? []);
-                dispatch(updateTODOListStatus(false));
+                updateTODOList(false);
             } catch (error) {
                 console.error(`Error updating TODOs: ${error.message}`);
             }
         }
     },
-    [fetchShownTodos, needsUpdate, dispatch, setUpdateTodos])
+    [fetchShownTodos, needsUpdate, updateTODOList, setUpdateTodos])
     
     useEffect(() => {
         const fetchData = async () => {
           await updateShownListFunc();
-          dispatch(updateTODOListStatus(false));
+          updateTODOList(false);
         };
       
         fetchData();
-      }, [updateShownListFunc, dispatch]);
+      }, [updateShownListFunc, updateTODOList]);
       
 
     return (

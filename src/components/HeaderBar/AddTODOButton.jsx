@@ -1,8 +1,7 @@
-import {useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { GetMainInput, GetTodoListNeedsUpdate} from "../../selectors"
 import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef } from "react";
-import { updateTODOListStatus } from "../../actions/actions";
 import { useFetchTODOS } from "../../api/hooks/useFetchTODOS";
 
 
@@ -11,8 +10,7 @@ export const AddTODOBtn = ({style}) => {
     const inputVal = useSelector(GetMainInput).inputValue
     const needsUpdate = useSelector(GetTodoListNeedsUpdate)
     const isEmpty = useSelector(GetMainInput).isEmpty
-    const {fetchAddTODO} = useFetchTODOS()
-    const dispatch = useDispatch()
+    const {fetchAddTODO, updateTODOList} = useFetchTODOS()
 
     const inputRef = useRef(inputVal)
     
@@ -22,13 +20,13 @@ export const AddTODOBtn = ({style}) => {
 
     const handleAddTODO=  useCallback( async () => {
       if (!needsUpdate) {
-        dispatch(updateTODOListStatus(true))
+        updateTODOList()
       }      
       await fetchAddTODO(inputRef.current)
       },
       [
         fetchAddTODO,
-        dispatch,
+        updateTODOList,
         needsUpdate
       ])
     

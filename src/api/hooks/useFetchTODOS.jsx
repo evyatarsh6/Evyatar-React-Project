@@ -10,7 +10,7 @@ export const useFetchTODOS = () => {
   const filterKind = useSelector(GetFilterKind);
   const dispatch = useDispatch()
 
-  const fetchShownTodos = useCallback(async () => {
+  const fetchShownTodos = useCallback( async () => {
     try {
       const response = await axios.get(`http://localhost:3000/shownTODOS/` + filterKind, {
         headers: {},
@@ -103,6 +103,8 @@ export const useFetchTODOS = () => {
       throw error;
     }
   },[])
+
+  // const fetchPrevLocations
 
 
   const updateTODOList = (status = true) => dispatch(updateTODOListStatus(status))

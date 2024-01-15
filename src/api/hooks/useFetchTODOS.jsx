@@ -6,7 +6,7 @@ import { useCallback } from "react";
 import { updateTODOListStatus } from "../../actions/actions";
 
 export const useFetchTODOS = () => {
-//avi
+
   const filterKind = useSelector(GetFilterKind);
   const dispatch = useDispatch()
 
@@ -55,7 +55,7 @@ export const useFetchTODOS = () => {
           headers: {}
         }
       )
-          console.log(response.data)
+          // console.log(response.data)
       
     } catch (error) {
       alert(`avi's server had a problam with error message of : ${error.message}`);
@@ -75,7 +75,7 @@ export const useFetchTODOS = () => {
       }
       )
 
-      console.log(response.data)
+      // console.log(response.data)
 
     }
     catch (error){
@@ -95,7 +95,7 @@ export const useFetchTODOS = () => {
       }
       )
 
-      console.log(response.data)
+      // console.log(response.data)
 
     }
     catch (error){
@@ -103,8 +103,6 @@ export const useFetchTODOS = () => {
       throw error;
     }
   },[])
-
-  // const fetchPrevLocations
 
 
   const updateTODOList = (status = true) => dispatch(updateTODOListStatus(status))

@@ -3,6 +3,7 @@ import { IconButton } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useFetchTODOS } from '../../api/hooks/useFetchTODOS';
+import { useMutation } from "react-query";
 
 
 
@@ -11,14 +12,26 @@ export const CardChooseBtn = ({info}) => {
     const [isChecked, setIsChecked] = useState(info.isChoosen)
     const {fetchUpdateWantedTODO, updateTODOList} = useFetchTODOS()
 
+    const mutation = useMutation( async (updateStatus) => 
+    await fetchUpdateWantedTODO(info._id, 'isChoosen', updateStatus));
+
+
     const checkChoosenCheckbox = async () => {
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
-        try {
-            await fetchUpdateWantedTODO(info._id, 'isChoosen', newCheckedtatus)
-            updateTODOList();     
-        } catch (error) {
-            console.error(`Error updating TODOs: ${error.message}`);
+
+        mutation.mutate(newCheckedtatus)
+
+        if (mutation.isLoading) {
+            return <span>Choosing...</span>;
+        }
+        
+        if (mutation.isError) {
+        console.error(`Error updating TODOs: ${mutation.error}`)
+        }
+        
+        if (mutation.isSuccess) {
+            updateTODOList()
         }
     }
 
@@ -30,7 +43,7 @@ export const CardChooseBtn = ({info}) => {
                 {
                 isChecked ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
                 }
-            </IconButton>
+        </IconButton>
             
 
 

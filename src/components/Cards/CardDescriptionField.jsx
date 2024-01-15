@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
+import { useFetchTODOS } from '../../api/hooks/useFetchTODOS';
+import { useDispatch } from 'react-redux';
+import { updateTODOListStatus } from '../../actions/actions';
 
 
 
@@ -9,8 +12,8 @@ import { generateChangeValueLogs } from '../../constans/generalLogs';
 export const CardDescriptionField = ({info}) => {
 
     const currInputValue = useRef(null)
-
-    // const dispatch = useDispatch();
+    const {fetchUpdateWantedTODO} = useFetchTODOS()
+    const dispatch = useDispatch();
 
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState(info.description)
@@ -18,22 +21,23 @@ export const CardDescriptionField = ({info}) => {
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     
-    const clickFreezeBtn =  event => {
+    const clickFreezeBtn =  async (event) => {
         event.preventDefault()
         
         if (isFreezeMode) {
             setIsFreezeMode(false)
+
         }
         else {
-
             setIsFreezeMode(!isFreezeMode)
-            // dispatch(editTODO(
-            //     {
-            //     id : info._id,
-            //     fieldKey : 'description',
-            //     fieldUpdateValue: message
-            //     }
-            // ))
+
+            try {
+                useFetchTODOS
+                await fetchUpdateWantedTODO(info._id, 'description', message)
+                dispatch(updateTODOListStatus(true));     
+            } catch (error) {
+                console.error(`Error updating TODOs: ${error.message}`);
+            }
         }
     }
 

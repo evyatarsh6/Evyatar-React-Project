@@ -38,17 +38,16 @@ export const CardList = () => {
     return (
         <ul className="flex-container">
             {
-                updatedTodos.length ? (
+                updatedTodos.length
+                && 
+                (
                     updatedTodos.map((TODO) => (
                     <Card
                     info={TODO}
                     key={TODO._id}
                     />
                     ))
-                ) :
-                <h1>
-                    avi is currently loading ...
-                </h1>
+                )
             }
         </ul>
       );

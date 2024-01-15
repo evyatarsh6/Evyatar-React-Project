@@ -8,12 +8,12 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
 
-export const CardPinBtn = ({id}) => {
+export const CardPinBtn = ({info}) => {
 
     const dispatch = useDispatch();
     const TODOList = useSelector(GetTodoList)
     const mapPoints = useSelector(GetMapPoints)
-    const currCardInfo = TODOList[id]
+    const currCardInfo = info
 
     const [isPinActive, setIsPinActive] = useState(currCardInfo.isPinBtnDisable);
    

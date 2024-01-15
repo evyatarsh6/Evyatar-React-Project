@@ -67,11 +67,32 @@ export const useFetchTODOS = () => {
     }
   },[])
 
+  const fetchUpdateAllTODOS = useCallback(async (field, fieldUpdateVal) => {
+    try{
+      const response = await axios.patch(
+        'http://localhost:3000/updateAllTODOS' 
+        ,
+      {
+        wantedField: field,
+        wantedFieldUpdateVal: fieldUpdateVal,
+      }
+      )
+
+      console.log(response.data)
+
+    }
+    catch (error){
+      console.error(`Error fetching TODOs: ${error.message}`);
+      throw error;
+    }
+  },[])
+
 
 
   return {
     fetchShownTodos: fetchShownTodos,
     fetchAddTODO:fetchAddTODO,
-    fetchUpdateWantedTODO: fetchUpdateWantedTODO
+    fetchUpdateWantedTODO: fetchUpdateWantedTODO,
+    fetchUpdateAllTODOS: fetchUpdateAllTODOS,
   };
 };

@@ -12,27 +12,34 @@ import { useFetchTODOS } from '../../api/hooks/useFetchTODOS';
 export const CardPinBtn = ({info}) => {
 
     const dispatch = useDispatch();
-    const {fetchUpdateWantedTODO} = useFetchTODOS()
+    const {fetchUpdateWantedTODO, fetchUpdateAllTODOS} = useFetchTODOS()
+    const  mapPoints = useSelector(GetMapPoints)
     const currCardInfo = info
-
     const [isPinActive, setIsPinActive] = useState(currCardInfo.isPinBtnDisable);
    
 
     const clickPinBtn = async () => {
+
         try {
-            await fetchUpdateWantedTODO(info._id, 'isPinBtnDisable', true)
+            await fetchUpdateAllTODOS('isPinBtnDisable', true)
             dispatch(updateTODOListStatus(true));     
         } catch (error) {
             console.error(`Error updating TODOs: ${error.message}`);
         }
+        
+        setIsPinActive(true)
+        
 
         dispatch(activeMapPinTODOMode(currCardInfo._id))
 
+
     }
     const clickCancelPin = async () => {
+        
+        setIsPinActive(false)
 
         try {
-            await fetchUpdateWantedTODO(info._id, 'isPinBtnDisable', false)
+            await fetchUpdateAllTODOS('isPinBtnDisable', false)
             dispatch(updateTODOListStatus(true));     
         } catch (error) {
             console.error(`Error updating TODOs: ${error.message}`);
@@ -43,8 +50,15 @@ export const CardPinBtn = ({info}) => {
 
     }
 
-    const clickSavePin = () => {
+    const clickSavePin = async () => {
         clickCancelPin()
+        
+        try {
+            await fetchUpdateWantedTODO(info._id, 'location', mapPoints[currCardInfo._id].location)
+            dispatch(updateTODOListStatus(true));     
+        } catch (error) {
+            console.error(`Error updating TODOs: ${error.message}`);
+        }
     }   
 
        return (  

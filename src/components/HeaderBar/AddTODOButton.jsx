@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import { GetMainInput, GetTodoListNeedsUpdate} from "../../selectors"
 import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef } from "react";
-import { useFetchTODOS } from "../../api/hooks/useFetchTODOS";
+import { useFetchTODOS } from "../../hooks/useFetchTODOS";
 
 
 export const AddTODOBtn = ({style}) => {

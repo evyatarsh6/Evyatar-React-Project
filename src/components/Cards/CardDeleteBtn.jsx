@@ -2,7 +2,7 @@ import React, { useState, } from 'react';
 import { IconButton } from '@mui/material';
 import DeleteIcon  from '@mui/icons-material/Delete';
 import RecyclingIcon from '@mui/icons-material/Recycling';
-import { useFetchTODOS } from '../../api/hooks/useFetchTODOS';
+import { useFetchTODOS } from '../../hooks/useFetchTODOS';
 import { useMutation } from 'react-query';
 
 

@@ -7,7 +7,7 @@ import { activeMapPinTODOMode, cancelMapPinTODOMode, updateTooltipStatus} from '
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useFetchTODOS } from '../../api/hooks/useFetchTODOS';
+import { useFetchTODOS } from '../../hooks/useFetchTODOS';
 
 export const CardPinBtn = ({info}) => {
 

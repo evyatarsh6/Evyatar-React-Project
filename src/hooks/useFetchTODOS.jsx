@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { GetFilterKind} from "../../selectors";
-import { genID } from "../../utils/generalUtils";
+import { GetFilterKind} from "../selectors";
+import { genID } from "../utils/generalUtils";
 import { useCallback } from "react";
-import { updateTODOListStatus } from "../../actions/actions";
+import { updateTODOListStatus } from "../actions/actions";
 
 export const useFetchTODOS = () => {
 

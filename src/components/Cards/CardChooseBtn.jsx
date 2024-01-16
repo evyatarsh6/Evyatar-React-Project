@@ -2,7 +2,7 @@ import { useState} from 'react';
 import { IconButton } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { useFetchTODOS } from '../../api/hooks/useFetchTODOS';
+import { useFetchTODOS } from '../../hooks/useFetchTODOS';
 import { useMutation } from "react-query";
 
 

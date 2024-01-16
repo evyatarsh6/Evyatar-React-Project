@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Card } from "../components/Cards/Card";
-import { useFetchTODOS } from "../api/hooks/useFetchTODOS";
+import { useFetchTODOS } from "../hooks/useFetchTODOS";
 import { useQuery } from "react-query";
 import {useSelector } from "react-redux";
 import { GetFilterKind } from "../selectors";

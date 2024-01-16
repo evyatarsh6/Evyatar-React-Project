@@ -13,6 +13,8 @@ export const useAvi = () => {
     const aviTest = useCallback( async () => {
         if (status ==='loading') {
             console.log('leading')
+            alert('leading')
+            // return [];
         }
 
         if (status ==='error') {
@@ -21,11 +23,11 @@ export const useAvi = () => {
         }
         if (status === "success"){
 
+            console.log(TODOS)
             return TODOS;
         }
-        else{
-            return []
-        }
+        return [];
+
     },[TODOS,status, error])
 
     return {

@@ -8,7 +8,13 @@ export const CardList = () => {
     const {aviTest} = useAvi()
     
     useEffect(() => {
-        setUpdateTodos(aviTest())
+        const fetchData = async () => {
+            const todos = await aviTest();
+            setUpdateTodos(todos);
+        };
+
+        fetchData();
+
         }, [aviTest]);
     
     

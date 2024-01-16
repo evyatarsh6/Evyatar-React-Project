@@ -95,8 +95,6 @@ export const useFetchTODOS = () => {
       }
       )
 
-      // console.log(response.data)
-
     }
     catch (error){
       console.error(`Error fetching TODOs: ${error.message}`);

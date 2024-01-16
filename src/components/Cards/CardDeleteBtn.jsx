@@ -25,15 +25,15 @@ export const CardDeleteBtn = ({info}) => {
     }
 
     if (mutation.isLoading) {
-        return <span>Deleting...</span>;
+        console.log('failed')
     }
     
     if (mutation.isError) {
-    console.error(`Error updating TODOs: ${mutation.error}`)
+        console.error(`Error updating TODOs: ${mutation.error}`)
     }
     
     if (mutation.isSuccess) {
-        // updateTODOList()
+        console.log('avi')
     }
     
     return (

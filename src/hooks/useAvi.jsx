@@ -2,31 +2,28 @@ import { useQuery } from "react-query";
 import { useFetchTODOS } from "./useFetchTODOS";
 import { useCallback } from "react";
 
+//   const { data: TODOS, error, isLoading } = useQuery("shownTODOS",  async () => await showTODOS);
 
 export const useAvi = () => {
 
     const {fetchShownTodos} = useFetchTODOS()
 
-    const showTODOS = async () => {
-        const shownTODOS = await fetchShownTodos();
-        return shownTODOS
-      };
+    const { data: TODOS, status, error } = useQuery("shownTODOS", fetchShownTodos);
+      
+    const aviTest = useCallback( async () => {
+        // if (status ==='loading') {
+        //     console.log('leading')
+        // }
 
-    const { data: TODOS, error, isLoading } = useQuery("shownTODOS",  async () => await showTODOS);
+        // if (status ==='error') {
+        //     console.error(`Error leading TODOs: ${error}`)
+        //     return error;
+        // }
+        if (status === "success"){
 
-    const aviTest = useCallback((setUpdateTodos) => {
-        if (isLoading) {
-            console.log('leading')
+            return TODOS;
         }
-        
-        if (error) {
-            console.error(`Error leading TODOs: ${error}`)
-        }
-
-        if (TODOS) {
-            setUpdateTodos(TODOS);
-        }
-    },[TODOS,error,isLoading])
+    },[TODOS,status])
 
     return {
         aviTest:aviTest,

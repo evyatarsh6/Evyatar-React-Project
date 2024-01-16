@@ -6,9 +6,9 @@ export const CardList = () => {
 
     const [updatedTodos, setUpdateTodos] = useState([])
     const {aviTest} = useAvi()
-      
-      useEffect(() => {
-        aviTest(setUpdateTodos)
+    
+    useEffect(() => {
+        setUpdateTodos(aviTest())
         }, [aviTest,setUpdateTodos]);
     
     

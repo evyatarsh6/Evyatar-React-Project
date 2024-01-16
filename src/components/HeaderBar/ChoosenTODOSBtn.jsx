@@ -5,8 +5,9 @@ import useFilterKind from "../../hooks/useFilterKind";
 
 export const ChoosenTODOSBtn = ({style}) => {
 
-    const updateFilterChoosenTODOS = useFilterKind(choosenFilterKind).updateFilterKind
-    const filterChoosenTODOSStatus = useFilterKind(choosenFilterKind).filterKindStatus
+    const currFilterKind = useFilterKind(choosenFilterKind)
+    const updateFilterChoosenTODOS = currFilterKind.updateFilterKind
+    const filterChoosenTODOSStatus = currFilterKind.filterKindStatus
 
     return (
 

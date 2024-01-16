@@ -11,19 +11,22 @@ export const useAvi = () => {
     const { data: TODOS, status, error } = useQuery("shownTODOS", fetchShownTodos);
       
     const aviTest = useCallback( async () => {
-        // if (status ==='loading') {
-        //     console.log('leading')
-        // }
+        if (status ==='loading') {
+            console.log('leading')
+        }
 
-        // if (status ==='error') {
-        //     console.error(`Error leading TODOs: ${error}`)
-        //     return error;
-        // }
+        if (status ==='error') {
+            console.error(`Error leading TODOs: ${error}`)
+            return error;
+        }
         if (status === "success"){
 
             return TODOS;
         }
-    },[TODOS,status])
+        else{
+            return []
+        }
+    },[TODOS,status, error])
 
     return {
         aviTest:aviTest,

@@ -9,7 +9,7 @@ export const CardList = () => {
     
     useEffect(() => {
         setUpdateTodos(aviTest())
-        }, [aviTest,setUpdateTodos]);
+        }, [aviTest]);
     
     
     return (

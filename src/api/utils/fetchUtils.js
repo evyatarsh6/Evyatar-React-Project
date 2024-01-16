@@ -2,7 +2,7 @@
 // import { genID } from "../../utils/generalUtils";
 
 
-// export const fetchAddTODO = async(TODOKind) => {
+// export const addNewTODO = async(TODOKind) => {
 
 //   await axios.post(`http://localhost:3000/addTODO`,
 //     {

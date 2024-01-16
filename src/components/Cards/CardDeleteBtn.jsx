@@ -10,10 +10,10 @@ export const CardDeleteBtn = ({info}) => {
     
 
     const [isDeleted,setIsDeleted ] = useState(info.isDeleted)
-    const {fetchUpdateWantedTODO, updateTODOList} = useFetchTODOS()
+    const {mutateWantedTODO, updateTODOList} = useFetchTODOS()
     
     const mutation = useMutation( async (updateStatus) => 
-    await fetchUpdateWantedTODO(info._id, 'isDeleted', updateStatus));
+    await mutateWantedTODO(info._id, 'isDeleted', updateStatus));
 
     
     const clickDeleteRestoreBtn = async (event) => {

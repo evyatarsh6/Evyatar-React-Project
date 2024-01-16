@@ -10,10 +10,10 @@ import { useMutation } from "react-query";
 export const CardChooseBtn = ({info}) => {
     
     const [isChecked, setIsChecked] = useState(info.isChoosen)
-    const {fetchUpdateWantedTODO, updateTODOList} = useFetchTODOS()
+    const {mutateWantedTODO, updateTODOList} = useFetchTODOS()
 
     const mutation = useMutation( async (updateStatus) => 
-    await fetchUpdateWantedTODO(info._id, 'isChoosen', updateStatus));
+    await mutateWantedTODO(info._id, 'isChoosen', updateStatus));
 
 
     const checkChoosenCheckbox = async () => {
@@ -31,7 +31,7 @@ export const CardChooseBtn = ({info}) => {
         }
         
         if (mutation.isSuccess) {
-            updateTODOList()
+            //updateTODOList
         }
     }
 

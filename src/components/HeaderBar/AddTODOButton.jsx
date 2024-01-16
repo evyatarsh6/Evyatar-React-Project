@@ -10,7 +10,7 @@ export const AddTODOBtn = ({style}) => {
     const inputVal = useSelector(GetMainInput).inputValue
     const needsUpdate = useSelector(GetTodoListNeedsUpdate)
     const isEmpty = useSelector(GetMainInput).isEmpty
-    const {fetchAddTODO, updateTODOList} = useFetchTODOS()
+    const {addNewTODO, updateTODOList} = useFetchTODOS()
 
     const inputRef = useRef(inputVal)
     
@@ -20,12 +20,12 @@ export const AddTODOBtn = ({style}) => {
 
     const handleAddTODO=  useCallback( async () => {
       if (!needsUpdate) {
-        updateTODOList()
+        //updateTODOList
       }      
-      await fetchAddTODO(inputRef.current)
+      await addNewTODO(inputRef.current)
       },
       [
-        fetchAddTODO,
+        addNewTODO,
         updateTODOList,
         needsUpdate
       ])

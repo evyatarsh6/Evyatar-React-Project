@@ -10,7 +10,7 @@ import { useFetchTODOS } from '../../api/hooks/useFetchTODOS';
 export const CardDescriptionField = ({info}) => {
 
     const currInputValue = useRef(null)
-    const {fetchUpdateWantedTODO, updateTODOList} = useFetchTODOS()
+    const {mutateWantedTODO, updateTODOList} = useFetchTODOS()
 
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState(info.description)
@@ -29,8 +29,8 @@ export const CardDescriptionField = ({info}) => {
             setIsFreezeMode(!isFreezeMode)
 
             try {
-                await fetchUpdateWantedTODO(info._id, 'description', message)
-                updateTODOList()     
+                await mutateWantedTODO(info._id, 'description', message)
+                //updateTODOList     
             } catch (error) {
                 console.error(`Error updating TODOs: ${error.message}`);
             }

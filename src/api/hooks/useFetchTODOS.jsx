@@ -39,9 +39,9 @@ export const useFetchTODOS = () => {
     }
   }, []);
 
-  const fetchAddTODO = async(TODOKind) => {
+  const addNewTODO = async(TODOKind) => {
     try {
-      const response = await axios.post(`http://localhost:3000/addTODO`,
+       await axios.post(`http://localhost:3000/addTODO`,
         {
             _id: genID(),
             description : "Avi Berger is a god", 
@@ -55,7 +55,7 @@ export const useFetchTODOS = () => {
           headers: {}
         }
       )
-          // console.log(response.data)
+          
       
     } catch (error) {
       alert(`avi's server had a problam with error message of : ${error.message}`);
@@ -63,9 +63,9 @@ export const useFetchTODOS = () => {
   }
 
 
-  const fetchUpdateWantedTODO = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
+  const mutateWantedTODO = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
     try{
-      const response = await axios.patch(
+       await axios.patch(
         'http://localhost:3000/updateWantedTODO' 
         ,
       {
@@ -75,7 +75,7 @@ export const useFetchTODOS = () => {
       }
       )
 
-      // console.log(response.data)
+      
 
     }
     catch (error){
@@ -84,9 +84,9 @@ export const useFetchTODOS = () => {
     }
   },[])
 
-  const fetchUpdateAllTODOS = useCallback(async (field, fieldUpdateVal) => {
+  const mutateAllTODOS = useCallback(async (field, fieldUpdateVal) => {
     try{
-      const response = await axios.patch(
+       await axios.patch(
         'http://localhost:3000/updateAllTODOS' 
         ,
       {
@@ -110,9 +110,9 @@ export const useFetchTODOS = () => {
   return {
     fetchShownTodos: fetchShownTodos,
     fetchHoverTodoInfo:fetchHoverTodoInfo,
-    fetchAddTODO:fetchAddTODO,
-    fetchUpdateWantedTODO: fetchUpdateWantedTODO,
-    fetchUpdateAllTODOS: fetchUpdateAllTODOS,
+    addNewTODO:addNewTODO,
+    mutateWantedTODO: mutateWantedTODO,
+    mutateAllTODOS: mutateAllTODOS,
     updateTODOList: updateTODOList,
   };
 };

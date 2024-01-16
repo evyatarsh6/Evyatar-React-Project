@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { GetMapPinMode, GetMapLocation} from '../../selectors';
-import { useFetchTODOS } from "../../api/hooks/useFetchTODOS";
+import { useFetchTODOS } from "../../hooks/useFetchTODOS";
 
 
 

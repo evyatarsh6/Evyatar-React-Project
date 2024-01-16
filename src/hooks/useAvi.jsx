@@ -12,7 +12,7 @@ export const useAvi = () => {
         return shownTODOS
       };
 
-    const { data: TODOS, error, isLoading } = useQuery("shownTODOS", showTODOS);
+    const { data: TODOS, error, isLoading } = useQuery("shownTODOS",  async () => await showTODOS);
 
     const aviTest = useCallback((setUpdateTodos) => {
         if (isLoading) {

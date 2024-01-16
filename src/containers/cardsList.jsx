@@ -1,37 +1,15 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "../components/Cards/Card";
-import { useFetchTODOS } from "../hooks/useFetchTODOS";
-import { useQuery } from "react-query";
-import {useSelector } from "react-redux";
-import { GetFilterKind } from "../selectors";
+import { useAvi } from "../hooks/useAvi";
 
 export const CardList = () => { 
 
     const [updatedTodos, setUpdateTodos] = useState([])
-    const filterKind = useSelector(GetFilterKind)
-    const {fetchShownTodos} = useFetchTODOS()
-    const { data: TODOS, error, isLoading } = useQuery("shownTODOS", showTODOS);
-    
-
-    const showTODOS = async () => {
-        const shownTODOS = await fetchShownTodos();
-        return shownTODOS
-      };
-
+    const {aviTest} = useAvi()
       
       useEffect(() => {
-        if (isLoading) {
-            console.log('leading')
-        }
-        
-        if (error) {
-            console.error(`Error leading TODOs: ${error}`)
-        }
-
-        if (TODOS) {
-            setUpdateTodos(TODOS);
-        }
-    }, [TODOS, error, isLoading]);
+        aviTest(setUpdateTodos)
+        }, [aviTest,setUpdateTodos]);
     
     
     return (

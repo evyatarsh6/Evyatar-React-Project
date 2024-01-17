@@ -1,42 +1,37 @@
-import React, { useState, } from 'react';
+import React, { useCallback, useState, } from 'react';
 import { IconButton } from '@mui/material';
 import DeleteIcon  from '@mui/icons-material/Delete';
 import RecyclingIcon from '@mui/icons-material/Recycling';
-import { useFetchTODOS } from '../../hooks/useFetchTODOS';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useMutateTODOS } from '../../hooks/useMutateTODOS';
+import { useShownTODOSQuery } from '../../hooks/useShownTODOSQuery';
 
 
 export const CardDeleteBtn = ({info}) => {
-    
 
     const [isDeleted,setIsDeleted ] = useState(info.isDeleted)
     const {mutateWantedTODO} = useMutateTODOS()
-    const {updateTODOList} = useFetchTODOS()
     
-    const mutation = useMutation( async (updateStatus) => 
-    await mutateWantedTODO(info._id, 'isDeleted', updateStatus));
+    const {refetch} = useShownTODOSQuery() 
 
-    
-    const clickDeleteRestoreBtn = async (event) => {
+    const mutation = useMutation({
+        mutationFn : async (updateStatus) => {
+        await mutateWantedTODO(info._id, 'isDeleted', updateStatus);  
+        },
+        onError: () => {
+            console.error(`Error updating TODOs: ${mutation.error}`)
+        },
+        onSuccess: () => {
+            refetch() 
+        }
+    })
+
+    const clickDeleteRestoreBtn = useCallback( async (event) => {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
-        setIsDeleted(newDeleteStatus)
 
         mutation.mutate(newDeleteStatus)
-    }
-
-    if (mutation.isLoading) {
-        console.log('failed')
-    }
-    
-    if (mutation.isError) {
-        console.error(`Error updating TODOs: ${mutation.error}`)
-    }
-    
-    if (mutation.isSuccess) {
-        console.log('avi')
-    }
+    },[isDeleted,mutation])
     
     return (
         <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5"}}>

@@ -15,7 +15,7 @@ export const CardDeleteBtn = ({info}) => {
     const {refetch} = useShownTODOSQuery() 
 
     const mutation = useMutation({
-        mutationfn: async (updateStatus) => {
+        mutationFn : async (updateStatus) => {
         await mutateWantedTODO(info._id, 'isDeleted', updateStatus);  
         },
         onError: () => {
@@ -29,7 +29,6 @@ export const CardDeleteBtn = ({info}) => {
     const clickDeleteRestoreBtn = useCallback( async (event) => {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
-        setIsDeleted(newDeleteStatus)
 
         mutation.mutate(newDeleteStatus)
     },[isDeleted,mutation])

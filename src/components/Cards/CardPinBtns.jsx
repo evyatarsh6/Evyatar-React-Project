@@ -8,11 +8,13 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useFetchTODOS } from '../../hooks/useFetchTODOS';
+import { useMutateTODOS } from '../../hooks/useMutateTODOS';
 
 export const CardPinBtn = ({info}) => {
 
     const dispatch = useDispatch();
-    const {mutateWantedTODO, mutateAllTODOS, updateTODOList} = useFetchTODOS()
+    const {mutateWantedTODO, mutateAllTODOS} = useMutateTODOS()
+    const {updateTODOList} = useFetchTODOS()
     const  mapPoints = useSelector(GetMapPoints)
     const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
    

@@ -3,6 +3,7 @@ import { GetMainInput, GetTodoListNeedsUpdate} from "../../selectors"
 import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef } from "react";
 import { useFetchTODOS } from "../../hooks/useFetchTODOS";
+import { useMutateTODOS } from "../../hooks/useMutateTODOS";
 
 
 export const AddTODOBtn = ({style}) => {
@@ -10,7 +11,8 @@ export const AddTODOBtn = ({style}) => {
     const inputVal = useSelector(GetMainInput).inputValue
     const needsUpdate = useSelector(GetTodoListNeedsUpdate)
     const isEmpty = useSelector(GetMainInput).isEmpty
-    const {addNewTODO, updateTODOList} = useFetchTODOS()
+    const {updateTODOList} = useFetchTODOS()
+    const {addNewTODO} = useMutateTODOS()
 
     const inputRef = useRef(inputVal)
     

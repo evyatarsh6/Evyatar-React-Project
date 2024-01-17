@@ -3,6 +3,7 @@ import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
 import { useFetchTODOS } from '../../hooks/useFetchTODOS';
+import { useMutateTODOS } from '../../hooks/useMutateTODOS';
 
 
 
@@ -10,7 +11,8 @@ import { useFetchTODOS } from '../../hooks/useFetchTODOS';
 export const CardDescriptionField = ({info}) => {
 
     const currInputValue = useRef(null)
-    const {mutateWantedTODO, updateTODOList} = useFetchTODOS()
+    const {mutateWantedTODO} = useMutateTODOS()
+    const {updateTODOList} = useFetchTODOS()
 
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState(info.description)

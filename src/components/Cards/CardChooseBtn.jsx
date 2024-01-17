@@ -4,13 +4,15 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useFetchTODOS } from '../../hooks/useFetchTODOS';
 import { useMutation } from "react-query";
+import { useMutateTODOS } from '../../hooks/useMutateTODOS';
 
 
 
 export const CardChooseBtn = ({info}) => {
     
     const [isChecked, setIsChecked] = useState(info.isChoosen)
-    const {mutateWantedTODO, updateTODOList} = useFetchTODOS()
+    const {mutateWantedTODO} = useMutateTODOS()
+    const {updateTODOList} = useFetchTODOS()
 
     const mutation = useMutation( async (updateStatus) => 
     await mutateWantedTODO(info._id, 'isChoosen', updateStatus));

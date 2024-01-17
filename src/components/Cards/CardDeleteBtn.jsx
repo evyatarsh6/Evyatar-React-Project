@@ -9,7 +9,7 @@ import { useShownTODOSQuery } from '../../hooks/useShownTODOSQuery';
 
 export const CardDeleteBtn = ({info}) => {
 
-    const [isDeleted,setIsDeleted ] = useState(info.isDeleted)
+    const isDeleted = info.isDeleted
     const {mutateWantedTODO} = useMutateTODOS()
     
     const {refetch} = useShownTODOSQuery() 
@@ -22,7 +22,8 @@ export const CardDeleteBtn = ({info}) => {
             console.error(`Error updating TODOs: ${mutation.error}`)
         },
         onSuccess: () => {
-            refetch() 
+            refetch()
+            console.log('done updating') 
         }
     })
 
@@ -31,6 +32,7 @@ export const CardDeleteBtn = ({info}) => {
         const newDeleteStatus = !isDeleted 
 
         mutation.mutate(newDeleteStatus)
+
     },[isDeleted,mutation])
     
     return (

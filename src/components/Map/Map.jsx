@@ -31,10 +31,10 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   ,[mapFunctions.hover, setHoverID,currTooltip, setCurrTooltip]) 
 
 
-  const leadingPoints = useCallback( async() => {
+  // const leadingPoints = useCallback( async() => {
     
-    }
-  ) 
+  //   }
+  // ) 
 
   useEffect(() => {
     if (!mapContainer.current) {

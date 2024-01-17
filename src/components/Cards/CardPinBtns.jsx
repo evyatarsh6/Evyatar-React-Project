@@ -9,24 +9,44 @@ import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useFetchTODOS } from '../../hooks/useFetchTODOS';
 import { useMutateTODOS } from '../../hooks/useMutateTODOS';
+import { useMutation } from 'react-query';
+
 
 export const CardPinBtn = ({info}) => {
 
     const dispatch = useDispatch();
     const {mutateWantedTODO, mutateAllTODOS} = useMutateTODOS()
-    const {updateTODOList} = useFetchTODOS()
     const  mapPoints = useSelector(GetMapPoints)
     const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
    
+    const mutationSignle = useMutation({
+        mutationFn : async (updateStatus) => {
+        await mutateWantedTODO(info._id, 'location', updateStatus);  
+        },
+        onError: () => {
+            console.error(`Error updating TODOs: ${mutationSignle.error}`)
+        },
+        onSuccess: () => {
+            console.log('done updating')
+        }
+    })
+
+    const mutationAll = useMutation({
+        mutationFn : async (updateStatus) => {
+        await mutateAllTODOS('location', updateStatus);  
+        },
+        onError: () => {
+            console.error(`Error updating TODOs: ${mutationAll.error}`)
+        },
+        onSuccess: () => {
+            console.log('done updating all')
+        }
+    })
+    
 
     const clickPinBtn = async () => {
-
-        try {
-            await mutateAllTODOS('isPinBtnDisable', true)
-            //updateTODOList;     
-        } catch (error) {
-            console.error(`Error updating TODOs: ${error.message}`);
-        }
+        
+        mutationAll.mutate('isPinBtnDisable', true)
         
         setIsPinActive(true)
         dispatch(activeMapPinTODOMode(info._id))
@@ -34,16 +54,9 @@ export const CardPinBtn = ({info}) => {
 
     }
     const clickCancelPin = async () => {
-        
+
         setIsPinActive(false)
-
-        try {
-            await mutateAllTODOS('isPinBtnDisable', false)
-            //updateTODOList;     
-        } catch (error) {
-            console.error(`Error updating TODOs: ${error.message}`);
-        }
-
+        mutationAll.mutate('isPinBtnDisable', false)
         dispatch(cancelMapPinTODOMode())
         dispatch(updateTooltipStatus(false))
 
@@ -51,13 +64,7 @@ export const CardPinBtn = ({info}) => {
 
     const clickSavePin = async () => {
         clickCancelPin()
-
-        try {
-            await mutateWantedTODO(info._id, 'location', mapPoints[info._id].location)
-            //updateTODOList;     
-        } catch (error) {
-            console.error(`Error updating TODOs: ${error.message}`);
-        }
+        mutationSignle.mutate(info._id, 'location', mapPoints[info._id].location)
     }   
 
        return (  

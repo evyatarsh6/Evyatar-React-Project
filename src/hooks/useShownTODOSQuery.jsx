@@ -9,10 +9,12 @@ export const useShownTODOSQuery = () => {
     const filterKind = useSelector(GetFilterKind);
     const {fetchShownTodos} = useFetchTODOS()
       
-    const { data: TODOS, error, isLoading, isSuccess } =
+    const { data: TODOS, error, isLoading, isSuccess, refetch} =
     useQuery({
         queryKey: ['show TODOS of filter', filterKind],
-        queryFn: async () => await fetchShownTodos(filterKind)
+        queryFn: async () => await fetchShownTodos(filterKind),
+        manual: true,
+   
       })
       
     const getShownTODDOSData = useCallback( async () => {
@@ -30,11 +32,14 @@ export const useShownTODOSQuery = () => {
             console.log(TODOS)
             return TODOS;
         }
+
         return []
+    
 
     },[TODOS, isLoading, error, isSuccess])
 
     return {
         getShownTODDOSData:getShownTODDOSData,
+        refetch: refetch
     }
 }

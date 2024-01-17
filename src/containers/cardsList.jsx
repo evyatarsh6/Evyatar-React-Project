@@ -1,21 +1,27 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Card } from "../components/Cards/Card";
-import { useAvi } from "../hooks/useAvi";
+import { useUpdateList } from "../hooks/useUpdateList";
 
 export const CardList = () => { 
 
     const [updatedTodos, setUpdateTodos] = useState([])
-    const {aviTest} = useAvi()
-    
-    useEffect(() => {
-        const fetchData = async () => {
-            const todos = await aviTest();
-            setUpdateTodos(todos);
-        };
+    const {test} = useUpdateList()
 
-        fetchData();
+    const fetchData = useCallback( async() => {
+        const todos = await test();
+        setUpdateTodos(todos);
 
-        }, [aviTest]);
+    },[test]) 
+
+
+    useEffect(() =>{
+        fetchData()
+        const check = async () => {
+            await fetchData()
+        }
+        
+        check()
+    }, [fetchData]);
     
     
     return (

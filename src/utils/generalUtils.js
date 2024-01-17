@@ -1,4 +1,4 @@
-export const isLocationExist = location => {
+export const isLocationExist = (location = {}) => {
         const LocationValues = Object.values(location)
         if (LocationValues.length) {
             return true

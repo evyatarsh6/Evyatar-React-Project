@@ -4,9 +4,9 @@ import useFilterKind from "../../hooks/useFilterKind";
 
 export const DeleteTODOSBtn = ({style}) => {
 
-    const currFilterKind = useFilterKind(deleteFilterKind)
-    const updateFilterDeleteTODOS = currFilterKind.updateFilterKind
-    const filterDeleteTODOSStatus = currFilterKind.filterKindStatus
+    const {updateFilterKind,filterKindBtnStatus} = useFilterKind()
+    // const updateFilterDeleteTODOS = updateFilterKind(deleteFilterKind)
+    // const filterDeleteTODOSStatus = filterKindBtnStatus(deleteFilterKind)
 
 
     return (
@@ -15,10 +15,11 @@ export const DeleteTODOSBtn = ({style}) => {
         variant="contained"
         id = {`show-delete-items-btn`}
         className= 'show-delete-items-btn'
-        onClick={updateFilterDeleteTODOS}
+        onClick={() => updateFilterKind(deleteFilterKind)}
+        // {updateFilterDeleteTODOS}
         style={style}
         >
-        {`${filterDeleteTODOSStatus} show delete items`}
+        {`${filterKindBtnStatus(deleteFilterKind)} show delete items`}
         </Button>
     )
 }

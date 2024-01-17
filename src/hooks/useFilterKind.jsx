@@ -4,14 +4,14 @@ import { changeFilterKind } from "../actions/actions";
 import { normalFilterKind } from "../constans/cardConstans";
 import { updateTODOListStatus } from "../actions/actions";
 
-const useFilterKind = wantedFilterKind => {
+const useFilterKind = () => {
 
     const dispatch = useDispatch();
     const filterKind = useSelector(GetFilterKind);
 
     const SwitchFilterKind = wantedFilterKind => dispatch(changeFilterKind(wantedFilterKind))
 
-    const clickWantedFilterKindBtn = wantedFilterKind => () =>  {
+    const updateFilterKind = wantedFilterKind  =>  {
         if (filterKind!== wantedFilterKind)  {
             SwitchFilterKind(wantedFilterKind)    
         }
@@ -27,8 +27,8 @@ const useFilterKind = wantedFilterKind => {
 
     return (
         {
-           updateFilterKind: clickWantedFilterKindBtn(wantedFilterKind),
-           filterKindStatus: filterKindBtnStatus(wantedFilterKind)
+           updateFilterKind: updateFilterKind,
+           filterKindBtnStatus: filterKindBtnStatus
        }
 
     )

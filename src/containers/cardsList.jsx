@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { Card } from "../components/Cards/Card";
 import { useUpdateList } from "../hooks/useUpdateList";
+import { GetFilterKind } from "../selectors";
+import { useSelector } from "react-redux";
 
-export const CardList = () => { 
+export const CardList = () => {
 
+    const filterKind = useSelector(GetFilterKind)
+    
     const [updatedTodos, setUpdateTodos] = useState([])
     const {test} = useUpdateList()
 
@@ -15,13 +19,13 @@ export const CardList = () => {
 
 
     useEffect(() =>{
-        fetchData()
+        console.log("useEffect triggered with filterKind:", filterKind);
         const check = async () => {
             await fetchData()
         }
         
         check()
-    }, [fetchData]);
+    }, [fetchData, filterKind]);
     
     
     return (

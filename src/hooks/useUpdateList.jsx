@@ -8,9 +8,16 @@ export const useUpdateList = () => {
 
     const filterKind = useSelector(GetFilterKind);
     const {fetchShownTodos} = useFetchTODOS()
-
+      
     const { data: TODOS, error, isLoading, isSuccess } =
-    useQuery("shownTODOS", async() => fetchShownTodos(filterKind)); 
+    useQuery({
+        queryKey: [`show TODOS of filter :${filterKind}`],
+        queryFn: async () => {
+            console.log(filterKind)
+            return await fetchShownTodos(filterKind)
+        },
+      })
+
       
     const test = useCallback( async () => {
 

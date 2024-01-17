@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Card } from "../components/Cards/Card";
-import { useUpdateList } from "../hooks/useUpdateList";
+import { useShownTODOSQuery } from "../hooks/useShownTODOSQuery";
 import { GetFilterKind } from "../selectors";
 import { useSelector } from "react-redux";
 
@@ -9,23 +9,25 @@ export const CardList = () => {
     const filterKind = useSelector(GetFilterKind)
     
     const [updatedTodos, setUpdateTodos] = useState([])
-    const {test} = useUpdateList()
+    const {getShownTODDOSData} = useShownTODOSQuery()
 
-    const fetchData = useCallback( async() => {
-        const todos = await test();
+    const UpdateShownTODOSState = useCallback( async() => {
+        const todos = await getShownTODDOSData();
         setUpdateTodos(todos);
 
-    },[test]) 
+    },[getShownTODDOSData]) 
+
 
 
     useEffect(() =>{
-        console.log("useEffect triggered with filterKind:", filterKind);
-        const check = async () => {
-            await fetchData()
+
+        const wrapperFunc = async () => {
+            await UpdateShownTODOSState()
         }
         
-        check()
-    }, [fetchData, filterKind]);
+        wrapperFunc()
+
+    }, [UpdateShownTODOSState, filterKind]);
     
     
     return (

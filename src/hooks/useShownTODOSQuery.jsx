@@ -4,22 +4,18 @@ import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { GetFilterKind } from "../selectors";
 
-export const useUpdateList = () => {
+export const useShownTODOSQuery = () => {
 
     const filterKind = useSelector(GetFilterKind);
     const {fetchShownTodos} = useFetchTODOS()
       
     const { data: TODOS, error, isLoading, isSuccess } =
     useQuery({
-        queryKey: [`show TODOS of filter :${filterKind}`],
-        queryFn: async () => {
-            console.log(filterKind)
-            return await fetchShownTodos(filterKind)
-        },
+        queryKey: ['show TODOS of filter', filterKind],
+        queryFn: async () => await fetchShownTodos(filterKind)
       })
-
       
-    const test = useCallback( async () => {
+    const getShownTODDOSData = useCallback( async () => {
 
         if (isLoading) {
             console.log('leading')
@@ -39,6 +35,6 @@ export const useUpdateList = () => {
     },[TODOS, isLoading, error, isSuccess])
 
     return {
-        test:test,
+        getShownTODDOSData:getShownTODDOSData,
     }
 }

@@ -1,12 +1,10 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { GetFilterKind } from "../selectors";
 import { useCallback } from "react";
 import { updateTODOListStatus } from "../actions/actions";
 
 export const useFetchTODOS = () => {
 
-  // const filterKind = useSelector(GetFilterKind);
   const dispatch = useDispatch()
 
   const fetchShownTodos = useCallback( async (filterKind) => {

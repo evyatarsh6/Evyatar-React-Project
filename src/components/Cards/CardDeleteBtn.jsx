@@ -3,20 +3,20 @@ import { IconButton } from '@mui/material';
 import DeleteIcon  from '@mui/icons-material/Delete';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import { useMutation, useQuery } from 'react-query';
-import { useMutateTODOS } from '../../hooks/useMutateTODOS';
+import { useUpdateDB } from '../../hooks/useUpdateDB';
 import { useShownTODOSQuery } from '../../hooks/useShownTODOSQuery';
 
 
 export const CardDeleteBtn = ({info}) => {
 
     const isDeleted = info.isDeleted
-    const {mutateWantedTODO} = useMutateTODOS()
+    const {updateWantedTODO} = useUpdateDB()
     
     const {refetch} = useShownTODOSQuery() 
 
     const mutation = useMutation({
         mutationFn : async (updateStatus) => {
-        await mutateWantedTODO(info._id, 'isDeleted', updateStatus);  
+        await updateWantedTODO(info._id, 'isDeleted', updateStatus);  
         },
         onError: () => {
             console.error(`Error updating TODOs: ${mutation.error}`)

@@ -1,81 +1,44 @@
-import axios from "axios";
-import { genID } from "../utils/generalUtils";
-import { useCallback } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import { useUpdateDB } from "./useUpdateDB";
 
-export const useMutateTODOS = () => {
+const onErrorMessage =  () => console.error(`Error updating TODOS`)
 
-  const addNewTODO = async(TODOKind) => {
-    try {
-       await axios.post(`http://localhost:3000/addTODO`,
-        {
-            _id: genID(),
-            description : "Avi Berger is a god", 
-            kind: TODOKind,
-            isChoosen: false,
-            isDeleted:false, 
-            location: {},
-            isPinBtnDisable : false 
-        },
-        {
-          headers: {}
-        }
-      )
-          
-      
-    } catch (error) {
-      alert(`avi's server had a problam with error message of : ${error.message}`);
-    }
-  }
+const onSuccessMessage = () => console.log('done updating')
 
+export const useMutateTemplate = (wantedFunc, onError, onSuccess) => {
+    // const queryClient = useQueryClient()
 
-  const mutateWantedTODO = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
-    try{
-       await axios.patch(
-        'http://localhost:3000/updateWantedTODO' 
-        ,
-      {
-        _id: wantedTODOID,
-        wantedField: field,
-        wantedFieldUpdateVal: fieldUpdateVal,
-      }
-      )
-
-      
-
-    }
-    catch (error){
-      console.error(`Error fetching TODOs: ${error.message}`);
-      throw error;
-    }
-  },[])
-
-  const mutateAllTODOS = useCallback(async (field, fieldUpdateVal) => {
-    try{
-       await axios.patch(
-        'http://localhost:3000/updateAllTODOS' 
-        ,
-      {
-        wantedField: field,
-        wantedFieldUpdateVal: fieldUpdateVal,
-      }
-      )
-
-    }
-    catch (error){
-      console.error(`Error fetching TODOs: ${error.message}`);
-      throw error;
-    }
-  },[])
-
-
-//   const updateTODOList = (status = true) => dispatch(updateTODOListStatus(status))
-
-
-
-  return {
-    addNewTODO:addNewTODO,
-    mutateWantedTODO: mutateWantedTODO,
-    mutateAllTODOS: mutateAllTODOS,
-    // updateTODOList: updateTODOList,
-  };
+    return useMutation({
+        mutationFn : wantedFunc,
+        onError: onError,
+        onSuccess: onSuccess
+    })
 };
+
+export const useMutateSingle = (id, wantedField, wantedFieldUpdateVal) => {
+
+    const {updateWantedTODO} = useUpdateDB()
+
+    const wantedFunc = async () => await updateWantedTODO(id, wantedField, wantedFieldUpdateVal);  
+        
+    const onErrorFunc =  () => onErrorMessage()
+    
+    const onSuccessFunc = () => onSuccessMessage()
+    
+    return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc)
+} 
+
+
+export const useMutateAll = (wantedField, wantedFieldUpdateVal) => {
+
+    const {updateAllTODOS} = useUpdateDB()
+
+    const wantedFunc = async () => await updateAllTODOS(wantedField, wantedFieldUpdateVal);  
+        
+    const onErrorFunc =  () => onErrorMessage()
+    
+    const onSuccessFunc = () => onSuccessMessage()
+    
+    
+    return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc)
+} 

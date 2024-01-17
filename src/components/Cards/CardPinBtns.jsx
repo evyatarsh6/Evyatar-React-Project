@@ -8,20 +8,20 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useFetchTODOS } from '../../hooks/useFetchTODOS';
-import { useMutateTODOS } from '../../hooks/useMutateTODOS';
+import { useUpdateDB } from '../../hooks/useUpdateDB';
 import { useMutation } from 'react-query';
 
 
 export const CardPinBtn = ({info}) => {
 
     const dispatch = useDispatch();
-    const {mutateWantedTODO, mutateAllTODOS} = useMutateTODOS()
+    const {updateWantedTODO, updateAllTODOS} = useUpdateDB()
     const  mapPoints = useSelector(GetMapPoints)
     const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
    
     const mutationSignle = useMutation({
         mutationFn : async (updateStatus) => {
-        await mutateWantedTODO(info._id, 'location', updateStatus);  
+        await updateWantedTODO(info._id, 'location', updateStatus);  
         },
         onError: () => {
             console.error(`Error updating TODOs: ${mutationSignle.error}`)
@@ -33,7 +33,7 @@ export const CardPinBtn = ({info}) => {
 
     const mutationAll = useMutation({
         mutationFn : async (updateStatus) => {
-        await mutateAllTODOS('location', updateStatus);  
+        await updateAllTODOS('location', updateStatus);  
         },
         onError: () => {
             console.error(`Error updating TODOs: ${mutationAll.error}`)

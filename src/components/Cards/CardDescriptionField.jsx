@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
-import { useMutateTODOS } from '../../hooks/useMutateTODOS';
+import { useUpdateDB } from '../../hooks/useUpdateDB';
 import { useMutation } from 'react-query';
 
 
@@ -10,7 +10,7 @@ import { useMutation } from 'react-query';
 export const CardDescriptionField = ({info}) => {
 
     const currInputValue = useRef(null)
-    const {mutateWantedTODO} = useMutateTODOS()
+    const {updateWantedTODO} = useUpdateDB()
 
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState(info.description)
@@ -18,7 +18,7 @@ export const CardDescriptionField = ({info}) => {
 
     const mutation = useMutation({
         mutationFn : async (updateStatus) => {
-        await mutateWantedTODO(info._id, 'description', updateStatus);  
+        await updateWantedTODO(info._id, 'description', updateStatus);  
         },
         onError: () => {
             console.error(`Error updating TODOs: ${mutation.error}`)

@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
-import { useUpdateDB } from '../../hooks/useUpdateDB';
-import { useMutation } from 'react-query';
 import { useMutateSingle } from '../../hooks/useMutateTODOS';
 
 
@@ -11,7 +9,6 @@ import { useMutateSingle } from '../../hooks/useMutateTODOS';
 export const CardDescriptionField = ({info}) => {
 
     const currInputValue = useRef(null)
-    const {updateWantedTODO} = useUpdateDB()
 
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState(info.description)

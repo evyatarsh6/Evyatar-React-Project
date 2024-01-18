@@ -4,7 +4,6 @@ import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
 
 function App() {
-
   return (
 
     <div className='App'>

@@ -49,5 +49,24 @@ export const useMutateAll = (wantedField, wantedFieldUpdateVal) => {
     } 
 
     return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
-    
 } 
+
+export const useAddSingle = (TODOKind) => {
+
+    const {refetch} = useShownTODOSQuery() 
+    const {addNewTODO} = useUpdateDB()
+
+    const wantedFunc = async () => await addNewTODO(TODOKind);  
+        
+    const onErrorFunc =  () => onErrorMessage()
+    
+    const onSuccessFunc = () => {
+        refetch()
+        onSuccessMessage()
+    } 
+
+    return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
+} 
+
+
+

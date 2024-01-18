@@ -1,35 +1,20 @@
-import { useState} from 'react';
 import { IconButton } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { useMutation } from "react-query";
-import { useUpdateDB } from '../../hooks/useUpdateDB';
+import { useMutateSingle } from '../../hooks/useMutateTODOS';
 
 
 
 export const CardChooseBtn = ({info}) => {
     
-    const [isChecked, setIsChecked] = useState(info.isChoosen)
-    const {updateWantedTODO} = useUpdateDB()
+    const isChoosen = info.isChoosen
 
-
-    const mutation = useMutation({
-        mutationFn : async (updateStatus) => {
-        await updateWantedTODO(info._id, 'isChoosen', updateStatus);  
-        },
-        onError: () => {
-            console.error(`Error updating TODOs: ${mutation.error}`)
-        },
-        onSuccess: () => {
-            console.log('done updating')
-        }
-    })
+    const mutateSingleUpdateDeleteStatus = 
+    useMutateSingle(info._id, 'isChoosen', !isChoosen)
 
     const checkChoosenCheckbox = async () => {
-        const newCheckedtatus = !isChecked 
-        setIsChecked(newCheckedtatus)
 
-        mutation.mutate(newCheckedtatus)
+        mutateSingleUpdateDeleteStatus.mutate()
     }
 
     return (
@@ -38,7 +23,7 @@ export const CardChooseBtn = ({info}) => {
         style={{scale:"1.5"}} 
         onClick={checkChoosenCheckbox}>
                 {
-                isChecked ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
+                isChoosen ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
                 }
         </IconButton>
             

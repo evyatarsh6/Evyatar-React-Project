@@ -11,6 +11,7 @@ import { useFetchTODOS } from '../../hooks/useFetchTODOS';
 import { useUpdateDB } from '../../hooks/useUpdateDB';
 import { useMutation } from 'react-query';
 import { useMutateAll, useMutateSingle } from '../../hooks/useMutateTODOS';
+import { useShownTODOSQuery } from '../../hooks/useShownTODOSQuery';
 
 
 export const CardPinBtn = ({info}) => {
@@ -19,17 +20,16 @@ export const CardPinBtn = ({info}) => {
     
     const  mapPoints = useSelector(GetMapPoints)
 
-
-    const {mutateAllPinDisable} =  useMutateAll('isPinBtnDisable', true)
-    const {mutateAllPinEnable} =   useMutateAll('isPinBtnDisable', false)
-    const {mutateSingleUpdateLocation} = useMutateSingle(info._id, 'location', mapPoints[info._id]?.location || [])
+    const mutateAllPinDisable =  useMutateAll('isPinBtnDisable', true)
+    const mutateAllPinEnable =   useMutateAll('isPinBtnDisable', false)
+    const mutateSingleUpdateLocation = useMutateSingle(info._id, 'location', mapPoints[info._id]?.location || [])
 
     const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
 
     const clickPinBtn = async () => {
 
         mutateAllPinDisable.mutate()
-    
+
         setIsPinActive(true)
         dispatch(activeMapPinTODOMode(info._id))
 

@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useUpdateDB } from "./useUpdateDB";
+import { useShownTODOSQuery } from "./useShownTODOSQuery";
 
 const onErrorMessage =  () => console.error(`Error updating TODOS`)
 
@@ -17,31 +18,37 @@ export const useMutateTemplate = (wantedFunc, onError, onSuccess) => {
 
 export const useMutateSingle = (id, wantedField, wantedFieldUpdateVal) => {
 
+    const {refetch} = useShownTODOSQuery() 
     const {updateWantedTODO} = useUpdateDB()
 
     const wantedFunc = async () => await updateWantedTODO(id, wantedField, wantedFieldUpdateVal);  
         
     const onErrorFunc =  () => onErrorMessage()
     
-    const onSuccessFunc = () => onSuccessMessage()
+    const onSuccessFunc = () => {
+        refetch()
+        onSuccessMessage()
+        
+    } 
     
-    return {
-        mutateSingleInstance: useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) }
+    return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
 } 
 
 
 export const useMutateAll = (wantedField, wantedFieldUpdateVal) => {
 
+    const {refetch} = useShownTODOSQuery() 
     const {updateAllTODOS} = useUpdateDB()
 
     const wantedFunc = async () => await updateAllTODOS(wantedField, wantedFieldUpdateVal);  
         
     const onErrorFunc =  () => onErrorMessage()
     
-    const onSuccessFunc = () => onSuccessMessage()
+    const onSuccessFunc = () => {
+        refetch()
+        onSuccessMessage()
+    } 
 
-    return {
-        mutateAllInstance: useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
-    }
+    return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
     
 } 

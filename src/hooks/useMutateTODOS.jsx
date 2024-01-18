@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { useUpdateDB } from "./useUpdateDB";
 import { useShownTODOSQuery } from "./useShownTODOSQuery";
 
@@ -7,7 +7,6 @@ const onErrorMessage =  () => console.error(`Error updating TODOS`)
 const onSuccessMessage = () => console.log('done updating')
 
 export const useMutateTemplate = (wantedFunc, onError, onSuccess) => {
-    // const queryClient = useQueryClient()
 
     return useMutation({
         mutationFn : wantedFunc,

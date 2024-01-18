@@ -4,6 +4,7 @@ import { Edit } from '@mui/icons-material';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
 import { useUpdateDB } from '../../hooks/useUpdateDB';
 import { useMutation } from 'react-query';
+import { useMutateSingle } from '../../hooks/useMutateTODOS';
 
 
 
@@ -16,17 +17,8 @@ export const CardDescriptionField = ({info}) => {
     const [message, setMessage] = useState(info.description)
     const handleInputType =  event => setMessage(event.target.value);
 
-    const mutation = useMutation({
-        mutationFn : async (updateStatus) => {
-        await updateWantedTODO(info._id, 'description', updateStatus);  
-        },
-        onError: () => {
-            console.error(`Error updating TODOs: ${mutation.error}`)
-        },
-        onSuccess: () => {
-            console.log('done updating')
-        }
-    })
+    const mutateSingleUpdateDescription = 
+    useMutateSingle(info._id, 'description', message)
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     
@@ -39,7 +31,7 @@ export const CardDescriptionField = ({info}) => {
         }
         else {
             setIsFreezeMode(!isFreezeMode)
-            mutation.mutate(message)
+            mutateSingleUpdateDescription.mutate()
         }
     }
 

@@ -2,9 +2,6 @@ import React, { useCallback, useState, } from 'react';
 import { IconButton } from '@mui/material';
 import DeleteIcon  from '@mui/icons-material/Delete';
 import RecyclingIcon from '@mui/icons-material/Recycling';
-import { useMutation, useQuery } from 'react-query';
-import { useUpdateDB } from '../../hooks/useUpdateDB';
-import { useShownTODOSQuery } from '../../hooks/useShownTODOSQuery';
 import { useMutateSingle } from '../../hooks/useMutateTODOS';
 
 

@@ -25,7 +25,8 @@ export const useMutateSingle = (id, wantedField, wantedFieldUpdateVal) => {
     
     const onSuccessFunc = () => onSuccessMessage()
     
-    return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc)
+    return {
+        mutateSingleInstance: useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) }
 } 
 
 
@@ -38,7 +39,9 @@ export const useMutateAll = (wantedField, wantedFieldUpdateVal) => {
     const onErrorFunc =  () => onErrorMessage()
     
     const onSuccessFunc = () => onSuccessMessage()
+
+    return {
+        mutateAllInstance: useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
+    }
     
-    
-    return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc)
 } 

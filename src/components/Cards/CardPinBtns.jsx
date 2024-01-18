@@ -10,44 +10,26 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useFetchTODOS } from '../../hooks/useFetchTODOS';
 import { useUpdateDB } from '../../hooks/useUpdateDB';
 import { useMutation } from 'react-query';
+import { useMutateAll, useMutateSingle } from '../../hooks/useMutateTODOS';
 
 
 export const CardPinBtn = ({info}) => {
 
     const dispatch = useDispatch();
-    const {updateWantedTODO, updateAllTODOS} = useUpdateDB()
-    const  mapPoints = useSelector(GetMapPoints)
-    const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
-   
-    const mutationSignle = useMutation({
-        mutationFn : async (updateStatus) => {
-        await updateWantedTODO(info._id, 'location', updateStatus);  
-        },
-        onError: () => {
-            console.error(`Error updating TODOs: ${mutationSignle.error}`)
-        },
-        onSuccess: () => {
-            console.log('done updating')
-        }
-    })
-
-    const mutationAll = useMutation({
-        mutationFn : async (updateStatus) => {
-        await updateAllTODOS('location', updateStatus);  
-        },
-        onError: () => {
-            console.error(`Error updating TODOs: ${mutationAll.error}`)
-        },
-        onSuccess: () => {
-            console.log('done updating all')
-        }
-    })
     
+    const  mapPoints = useSelector(GetMapPoints)
+
+
+    const {mutateAllPinDisable} =  useMutateAll('isPinBtnDisable', true)
+    const {mutateAllPinEnable} =   useMutateAll('isPinBtnDisable', false)
+    const {mutateSingleUpdateLocation} = useMutateSingle(info._id, 'location', mapPoints[info._id]?.location || [])
+
+    const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
 
     const clickPinBtn = async () => {
-        
-        mutationAll.mutate('isPinBtnDisable', true)
-        
+
+        mutateAllPinDisable.mutate()
+    
         setIsPinActive(true)
         dispatch(activeMapPinTODOMode(info._id))
 
@@ -56,7 +38,9 @@ export const CardPinBtn = ({info}) => {
     const clickCancelPin = async () => {
 
         setIsPinActive(false)
-        mutationAll.mutate('isPinBtnDisable', false)
+
+        mutateAllPinEnable.mutate()
+
         dispatch(cancelMapPinTODOMode())
         dispatch(updateTooltipStatus(false))
 
@@ -64,7 +48,8 @@ export const CardPinBtn = ({info}) => {
 
     const clickSavePin = async () => {
         clickCancelPin()
-        mutationSignle.mutate(info._id, 'location', mapPoints[info._id].location)
+        mutateSingleUpdateLocation.mutate()
+
     }   
 
        return (  

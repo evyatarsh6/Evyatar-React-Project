@@ -1,8 +1,12 @@
 import axios from "axios";
 import { genID } from "../utils/generalUtils";
 import { useCallback } from "react";
+import { useSelector } from "react-redux";
+import { GetTODOList } from "../selectors";
 
 export const useUpdateDB = () => {
+
+  const TODOList = useSelector(GetTODOList)
 
   const addNewTODO = async(TODOKind) => {
     try {
@@ -27,11 +31,24 @@ export const useUpdateDB = () => {
     }
   }
 
+  const replaceWantedTODO = useCallback(async (wantedTODOID) => {
+  try{
+    await axios.put(
+     'http://localhost:3000/updateWantedTODOField' 
+     , TODOList[wantedTODOID]
+   )
+ }
+ catch (error){
+   console.error(`Error fetching TODOs: ${error.message}`);
+   throw error;
+ }
+},[TODOList])
 
-  const updateWantedTODO = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
+
+  const updateWantedTODOField = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
     try{
        await axios.patch(
-        'http://localhost:3000/updateWantedTODO' 
+        'http://localhost:3000/updateWantedTODOField' 
         ,
       {
         _id: wantedTODOID,
@@ -69,7 +86,7 @@ export const useUpdateDB = () => {
 
   return {
     addNewTODO:addNewTODO,
-    updateWantedTODO: updateWantedTODO,
+    updateWantedTODOField: updateWantedTODOField,
     updateAllTODOS: updateAllTODOS,
 
   };

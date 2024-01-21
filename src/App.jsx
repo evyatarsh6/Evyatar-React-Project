@@ -5,15 +5,15 @@ import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
 import { GetTODOListNeedsChange } from './selectors';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { makeSetFromArr } from './utils/generalUtils';
 
 function App() {
   
   const updateTODOSID = useSelector(GetTODOListNeedsChange)
 
-  useEffect(() => {
-    console.log(makeSetFromArr(updateTODOSID))
+  const IDSChanges = useCallback(() => {
+    makeSetFromArr(updateTODOSID)
   },[updateTODOSID])
 
   return (

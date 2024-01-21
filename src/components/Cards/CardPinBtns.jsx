@@ -8,7 +8,7 @@ from '../../actions/actions';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
-// import { useMutateAll, useMutateSingle } from '../../hooks/useMutateTODOS';
+// import { useMutateFieldAllDocu, useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 
 export const CardPinBtn = ({info}) => {
 
@@ -16,9 +16,9 @@ export const CardPinBtn = ({info}) => {
     
     const  mapPoints = useSelector(GetMapPoints)
 
-    // const mutateAllPinDisable =  useMutateAll('isPinBtnDisable', true)
-    // const mutateAllPinEnable =   useMutateAll('isPinBtnDisable', false)
-    // const mutateSingleUpdateLocation = useMutateSingle(info._id, 'location', mapPoints[info._id]?.location || [])
+    // const mutateAllPinDisable =  useMutateFieldAllDocu('isPinBtnDisable', true)
+    // const mutateAllPinEnable =   useMutateFieldAllDocu('isPinBtnDisable', false)
+    // const mutateSingleUpdateLocation = useMutateFieldSingle(info._id, 'location', mapPoints[info._id]?.location || [])
 
     const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
 

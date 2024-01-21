@@ -10,11 +10,11 @@ import { GetMainInput } from '../../selectors';
 
 export const MainInput = () => {
   const dispatch = useDispatch();
-  const inputVal = useSelector(GetMainInput).inputValue
+  const {inputValue} = useSelector(GetMainInput)
 
   const options = Object.keys(bergerPhotos)
 
-  const InputType= (e, newValue) => {
+  const InputType = (e, newValue) => {
     dispatch(handleInputType(newValue))
   }
 
@@ -24,7 +24,7 @@ export const MainInput = () => {
         id='main-react-select-field'
         options={options}
         onInputChange={(event, newInputValue) => InputType(event, newInputValue)}
-        inputValue={inputVal}
+        inputValue={inputValue}
         sx={{ width: '60%', margin:5}}
         renderInput={(params) => <TextField {...params} label= {mainInputPlaceHolder}
         />}

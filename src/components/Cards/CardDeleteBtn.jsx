@@ -22,6 +22,7 @@ export const CardDeleteBtn = ({info}) => {
             fieldUpdateValue: newDeleteStatus 
             }
         ))
+        
         dispatch(addIDToSetChanges(info._id))
         
         },[dispatch, info._id, isDeleted])

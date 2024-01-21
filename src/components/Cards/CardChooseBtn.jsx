@@ -5,7 +5,7 @@ import { GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import {  editTODO} from '../../actions/actions';
+import {  addIDToSetChanges, editTODO} from '../../actions/actions';
 
 
 export const CardChooseBtn = ({id}) => {
@@ -27,6 +27,7 @@ export const CardChooseBtn = ({id}) => {
             fieldUpdateValue: newCheckedtatus 
             }
         ))
+        dispatch(addIDToSetChanges(currCardInfo.id,true))
     }
 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 

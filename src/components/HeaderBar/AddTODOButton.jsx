@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { GetMainInput } from "../../selectors"
 import {Button} from '@mui/material';
-import { addTODO } from "../../actions/actions";
+import { addIDToSetChanges, addTODO } from "../../actions/actions";
 
 
 export const AddTODOBtn = ({style}) => {
@@ -13,11 +13,11 @@ export const AddTODOBtn = ({style}) => {
     const handleAddTODO = () => {
         const cardID = Date.now()
         dispatch(addTODO(inputVal,cardID))
+        dispatch(addIDToSetChanges(cardID,false))
       }
 
     
     return (
-      //avi before CR
         <Button variant="contained"
         className='save-btn'
         onClick={handleAddTODO}

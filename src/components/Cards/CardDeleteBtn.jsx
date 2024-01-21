@@ -5,7 +5,7 @@ import { GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
 import DeleteIcon  from '@mui/icons-material/Delete';
 import RecyclingIcon from '@mui/icons-material/Recycling';
-import { editTODO } from '../../actions/actions';
+import { addIDToSetChanges, editTODO } from '../../actions/actions';
 
 
 export const CardDeleteBtn = ({id}) => {
@@ -27,6 +27,7 @@ export const CardDeleteBtn = ({id}) => {
             fieldUpdateValue: newDeleteStatus 
             }
         ))
+        dispatch(addIDToSetChanges(currCardInfo.id,true))
     }
     return (
         <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5"}}>

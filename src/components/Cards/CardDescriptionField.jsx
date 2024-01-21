@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import { GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
-import { editTODO } from '../../actions/actions';
+import { addIDToSetChanges, editTODO } from '../../actions/actions';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
 
 
@@ -41,6 +41,7 @@ export const CardDescriptionField = ({id}) => {
                 }
             ))
         }
+        dispatch(addIDToSetChanges(currCardInfo.id,true))
     }
 
     useEffect(() => {

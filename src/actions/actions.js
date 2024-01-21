@@ -1,10 +1,3 @@
-export const addTODO = (inputValue, cardID) => {
-    return {
-        type:  'addTODO',
-        value: inputValue,
-        id: cardID
-    }
-}
 
 export const addIDToSetChanges = (wantedID, existInDB) => {
 
@@ -18,6 +11,13 @@ export const addIDToSetChanges = (wantedID, existInDB) => {
 export const deleteChanges = () => {
     return {
         type: 'deleteChanges'
+    }
+}
+export const addTODO = (inputValue, cardID) => {
+    return {
+        type:  'addTODO',
+        value: inputValue,
+        id: cardID
     }
 }
 

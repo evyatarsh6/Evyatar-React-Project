@@ -8,7 +8,7 @@ export const useFetchTODOS = () => {
 
   const fetchShownTodos = useCallback( async (filterKind) => {
     try {
-      const response = await axios.get(`http://localhost:3000/shownTODOS/` + filterKind, {
+      const response = await axios.get(`http://localhost:3000/getShownTODOS/` + filterKind, {
         headers: {},
       });
 

@@ -5,7 +5,7 @@ export const TODOS = ( state = initialState , action) => {
         const TODOList = {
             ...state,
             [action._id]: {
-            id: action._id,
+            _id: action._id,
             description : "Avi Berger is a god", 
             kind: action.value,
             isChoosen: false,

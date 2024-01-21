@@ -2,7 +2,7 @@ export const addIDToSetChanges = (wantedID) => {
 
     return {
         type:  'addIDToSetChanges',
-        wantedID: wantedID,
+        _id: wantedID,
     }
 }
 
@@ -15,7 +15,7 @@ export const addTODO = (inputValue, cardID) => {
     return {
         type:  'addTODO',
         value: inputValue,
-        id: cardID
+        _id: cardID
     }
 }
 

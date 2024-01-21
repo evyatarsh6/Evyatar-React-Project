@@ -7,7 +7,7 @@ export const todosSetChanges = ( state = initialState , action) => {
     switch(action.type) {
         case 'addIDToSetChanges':
 
-            updateState.push(action.wantedID)
+            updateState.push(action._id)
             console.log(updateState)
             return updateState
 

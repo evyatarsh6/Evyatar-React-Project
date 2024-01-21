@@ -1,53 +1,44 @@
-import { useCallback, useEffect, useState } from "react";
+import { useMemo} from "react";
 import { Card } from "../components/Cards/Card";
-import { useShownTODOSQuery } from "../hooks/useShownTODOSQuery";
-import { GetFilterKind, GetTodoListStatus } from "../selectors";
+import { GetFilterKind, GetTODOList } from "../selectors";
 import { useSelector } from "react-redux";
 
 export const CardList = () => {
 
+
+    const TODOList = useSelector(GetTODOList)
     const filterKind = useSelector(GetFilterKind)
-    const TODOList = useSelector(GetTodoListStatus)
-    const [TODOS, setTODOS] = useState([])
-    
-    // const [updatedTodos, setUpdateTodos] = useState([])
-    // const {getShownTODDOSData} = useShownTODOSQuery()
 
-    // const UpdateShownTODOSState = useCallback( async() => {
-    //     const todos = await getShownTODDOSData();
-    //     setUpdateTodos(todos);
+    const FilterdArr = useMemo(() => {
+        switch(filterKind){
+            case "normal":
+                return Object.values(TODOList).filter( TODO  => !TODO.isDeleted)
+            case "delete":
+                return Object.values(TODOList).filter( TODO  => TODO.isDeleted)
+            case "choosen":
+                return Object.values(TODOList).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted))
+            default:
+                return []
+        }
 
-    // },[getShownTODDOSData]) 
+    },[ filterKind, TODOList])
 
-
-
-    // useEffect(() =>{
-
-    //     const wrapperFunc = async () => {
-    //         await UpdateShownTODOSState()
-    //     }
-        
-    //     wrapperFunc()
-
-    // }, [UpdateShownTODOSState, filterKind]);
-    
-    
     return (
-        <ul className="flex-container">
+
+            <ul className="flex-container">
             {
-                TODOS.length
-                && 
-                (
-                    TODOS.map((TODO) => (
+                FilterdArr.map( TODO => (
+                    
                     <Card
-                    info={TODO}
+                    info = {TODO}
                     key={TODO._id}
                     />
                     ))
-                )
-            }
-        </ul>
-      );
-      
+                }
+            
+            </ul>
+
+
+    )
     
 }

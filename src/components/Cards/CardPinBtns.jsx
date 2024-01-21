@@ -56,12 +56,12 @@ export const CardPinBtn = ({info}) => {
 
         dispatch(editTODO(
             {
-            id : info.id,
+            id : info._id,
             fieldKey : 'location',
-            fieldUpdateValue: mapPoints[info.id].location
+            fieldUpdateValue: mapPoints[info._id].location
             }
         ))
-        dispatch(addIDToSetChanges(info.id))
+        dispatch(addIDToSetChanges(info._id))
     }   
 
        return (  

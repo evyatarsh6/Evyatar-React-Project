@@ -20,12 +20,12 @@ export const CardChooseBtn = ({info}) => {
         setIsChecked(newCheckedtatus)
         dispatch(editTODO(
             {
-            id : currCardInfo.id,
+            id : currCardInfo._id,
             fieldKey : 'isChoosen',
             fieldUpdateValue: newCheckedtatus 
             }
         ))
-        dispatch(addIDToSetChanges(currCardInfo.id))
+        dispatch(addIDToSetChanges(currCardInfo._id))
     }
 
         mutateSingleUpdateDeleteStatus.mutate()

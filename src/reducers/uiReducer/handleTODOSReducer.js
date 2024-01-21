@@ -4,8 +4,8 @@ export const TODOS = ( state = initialState , action) => {
     if(action.type === "addTODO"){
         const TODOList = {
             ...state,
-            [action.id]: {
-            id: action.id,
+            [action._id]: {
+            id: action._id,
             description : "Avi Berger is a god", 
             kind: action.value,
             isChoosen: false,
@@ -21,8 +21,8 @@ export const TODOS = ( state = initialState , action) => {
 
         const TODOList = {
             ...state,
-            [action.props.id] : {
-                ...state[action.props.id],
+            [action.props._id] : {
+                ...state[action.props._id],
                 [action.props.fieldKey] : action.props.fieldUpdateValue, 
             }
             

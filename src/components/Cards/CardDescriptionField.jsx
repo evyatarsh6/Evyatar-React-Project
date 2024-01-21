@@ -31,7 +31,7 @@ export const CardDescriptionField = ({info}) => {
             setIsFreezeMode(!isFreezeMode)
             mutateSingleUpdateDescription.mutate()
         }
-        dispatch(addIDToSetChanges(currCardInfo.id))
+        dispatch(addIDToSetChanges(currCardInfo._id))
     }
 
     useEffect(() => {

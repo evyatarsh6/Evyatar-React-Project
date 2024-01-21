@@ -19,7 +19,7 @@
 //     if (action.type  ==='editTODO') {
 //         const actionEdit = {
 //             type:  'addTODO',
-//             id: action.id,
+//             id: action._id,
 //             isChoosen: action.isChoosen,
 //             isDeleted: action.isDeleted,
 //             description: action.description

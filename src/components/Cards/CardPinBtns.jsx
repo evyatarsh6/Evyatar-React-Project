@@ -52,7 +52,7 @@ export const CardPinBtn = ({id}) => {
             fieldUpdateValue: mapPoints[currCardInfo.id].location
             }
         ))
-        dispatch(addIDToSetChanges(currCardInfo.id,true))
+        dispatch(addIDToSetChanges(currCardInfo.id))
     }   
 
        return (  

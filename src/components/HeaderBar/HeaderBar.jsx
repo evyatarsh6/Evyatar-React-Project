@@ -18,6 +18,7 @@ export const HeaderBar = () => {
     useEffect(() => {
       console.log(generateChangeValueLogs('input value', inputVal))
   }, [inputVal])
+  
 
 
     return (

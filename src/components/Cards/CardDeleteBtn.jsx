@@ -27,7 +27,7 @@ export const CardDeleteBtn = ({id}) => {
             fieldUpdateValue: newDeleteStatus 
             }
         ))
-        dispatch(addIDToSetChanges(currCardInfo.id,true))
+        dispatch(addIDToSetChanges(currCardInfo.id))
     }
     return (
         <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5"}}>

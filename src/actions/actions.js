@@ -1,10 +1,9 @@
 
-export const addIDToSetChanges = (wantedID, existInDB) => {
+export const addIDToSetChanges = (wantedID) => {
 
     return {
         type:  'addIDToSetChanges',
         wantedID: wantedID,
-        existInDB: existInDB
     }
 }
 

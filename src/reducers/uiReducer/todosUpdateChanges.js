@@ -1,18 +1,22 @@
-const initialState  =  new Set()
+const initialState  =  []
 
 export const todosSetChanges = ( state = initialState , action) => {
+    
+    const updateState = [...state]
 
     switch(action.type) {
         case 'addIDToSetChanges':
-            state.add(
-                {
-                    [action.wantedID]: action.existInDB    
-                })
-            return state
+
+            updateState.push(action.wantedID)
+            console.log(updateState)
+            return updateState
+
         case 'deleteChanges':
+            console.log(initialState)
             return initialState
             
         default:
+            // console.log(state)
             return state
     }
 }

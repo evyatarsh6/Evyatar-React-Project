@@ -13,7 +13,7 @@ export const AddTODOBtn = ({style}) => {
     const handleAddTODO = () => {
         const cardID = Date.now()
         dispatch(addTODO(inputVal,cardID))
-        dispatch(addIDToSetChanges(cardID,false))
+        dispatch(addIDToSetChanges(cardID))
       }
 
     

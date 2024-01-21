@@ -41,7 +41,7 @@ export const CardDescriptionField = ({id}) => {
                 }
             ))
         }
-        dispatch(addIDToSetChanges(currCardInfo.id,true))
+        dispatch(addIDToSetChanges(currCardInfo.id))
     }
 
     useEffect(() => {

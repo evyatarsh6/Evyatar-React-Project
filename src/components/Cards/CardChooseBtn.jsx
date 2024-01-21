@@ -27,7 +27,7 @@ export const CardChooseBtn = ({id}) => {
             fieldUpdateValue: newCheckedtatus 
             }
         ))
-        dispatch(addIDToSetChanges(currCardInfo.id,true))
+        dispatch(addIDToSetChanges(currCardInfo.id))
     }
 
     const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 

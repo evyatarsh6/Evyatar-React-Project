@@ -1,23 +1,23 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from "react-redux"
-import { GetTodoList } from "../../selectors";
+import React, { useCallback, useState, } from 'react';
 import { IconButton } from '@mui/material';
 import DeleteIcon  from '@mui/icons-material/Delete';
 import RecyclingIcon from '@mui/icons-material/Recycling';
+import { useMutateSingle } from '../../hooks/useMutateTODOS';
 import { addIDToSetChanges, editTODO } from '../../actions/actions';
 
 
-export const CardDeleteBtn = ({id}) => {
+export const CardDeleteBtn = ({info}) => {
 
-    const dispatch = useDispatch();
-    const TODOList = useSelector(GetTodoList)
-    const currCardInfo = TODOList[id]
-    const [isDeleted,setIsDeleted ] = useState(currCardInfo.isDeleted)
+    const isDeleted = info.isDeleted
+    const mutateSingleUpdateDeleteStatus = 
+    useMutateSingle(info._id, 'isDeleted', !isDeleted)
 
-    
-    const clickDeleteRestoreBtn = event => {
+    const clickDeleteRestoreBtn = useCallback( async (event) => {
         event.preventDefault()
+        mutateSingleUpdateDeleteStatus.mutate()
+        
+    },[mutateSingleUpdateDeleteStatus])
+    
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
         dispatch(editTODO(

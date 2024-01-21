@@ -1,39 +1,50 @@
-import React, { useState} from 'react';
+import { useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
-import { GetMapPoints, GetTodoList } from "../../selectors";
+import { GetMapPoints } from "../../selectors";
 import { IconButton } from '@mui/material';
+import { activeMapPinTODOMode, cancelMapPinTODOMode, updateTooltipStatus} from '../../actions/actions';
 import { activeMapPinTODOMode, editTODO, editAllTODOS, cancelMapPinTODOMode, updateTooltipStatus, addIDToSetChanges} from '../../actions/actions';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useFetchTODOS } from '../../hooks/useFetchTODOS';
+import { useUpdateDB } from '../../hooks/useUpdateDB';
+import { useMutation } from 'react-query';
+import { useMutateAll, useMutateSingle } from '../../hooks/useMutateTODOS';
+import { useShownTODOSQuery } from '../../hooks/useShownTODOSQuery';
 
-export const CardPinBtn = ({id}) => {
+
+export const CardPinBtn = ({info}) => {
 
     const dispatch = useDispatch();
-    const TODOList = useSelector(GetTodoList)
-    const mapPoints = useSelector(GetMapPoints)
-    const currCardInfo = TODOList[id]
+    
+    const  mapPoints = useSelector(GetMapPoints)
 
-    const [isPinActive, setIsPinActive] = useState(currCardInfo.isPinBtnDisable);
-   
+    const mutateAllPinDisable =  useMutateAll('isPinBtnDisable', true)
+    const mutateAllPinEnable =   useMutateAll('isPinBtnDisable', false)
+    const mutateSingleUpdateLocation = useMutateSingle(info._id, 'location', mapPoints[info._id]?.location || [])
 
-    const clickPinBtn = () => {
+    const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
+
+    const clickPinBtn = async () => {
+
+        mutateAllPinDisable.mutate()
+
         setIsPinActive(true)
-        dispatch(activeMapPinTODOMode(currCardInfo.id))
-        dispatch(editAllTODOS(
-            {
-                fieldKey: 'isPinBtnDisable',
-                fieldUpdateValue: true
-            }
-        ))
+        dispatch(activeMapPinTODOMode(info._id))
+
 
     }
-    const clickCancelPin = () => {
-        setIsPinActive(!isPinActive)
+    const clickCancelPin = async () => {
+
+        setIsPinActive(false)
+
+        mutateAllPinEnable.mutate()
+
         dispatch(cancelMapPinTODOMode())
         dispatch(updateTooltipStatus(false))
-        
+      
         dispatch(editAllTODOS(
                 {
                     fieldKey: 'isPinBtnDisable',
@@ -41,10 +52,13 @@ export const CardPinBtn = ({id}) => {
                 }
         ))
 
+
     }
 
-    const clickSavePin = () => {
+    const clickSavePin = async () => {
         clickCancelPin()
+        mutateSingleUpdateLocation.mutate()
+
         dispatch(editTODO(
             {
             id : currCardInfo.id,
@@ -75,7 +89,7 @@ export const CardPinBtn = ({id}) => {
         (
             <div className='handle-pin-btns'>
                 <IconButton className= 'pin-btn' style={{scale:"1.5"}}
-                onClick={clickPinBtn} disabled={currCardInfo.isPinBtnDisable}>
+                onClick={clickPinBtn} disabled={info.isPinBtnDisable}>
                     <PushPinIcon/>
                 </IconButton>
             </div>

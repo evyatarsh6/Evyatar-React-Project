@@ -1,24 +1,30 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { GetMapPinMode, GetTodoList, GetMapLocation} from '../../selectors';
+import { GetMapPinMode, GetMapLocation} from '../../selectors';
+import { useFetchTODOS } from "../../hooks/useFetchTODOS";
 
 
+
+//need an update
 export const PopUpContent = ({id}) => {
 
+    const {fetchHoverTodoInfo} = useFetchTODOS()
+
     const pinModeStatus = useSelector(GetMapPinMode)
-    const TODOList = useSelector(GetTodoList)
     const currLocation = useSelector(GetMapLocation).location
     const locationLong = currLocation[0]
     const locationLat =  currLocation[1]
     let selectedTODOID = id
-
+    
     if (pinModeStatus.PinMode && !id) {
         selectedTODOID = pinModeStatus.activeTODOID
     }
+    
+    let getHoverTODOInfo = async () => await fetchHoverTodoInfo(selectedTODOID)
 
-    const currCardInfo = TODOList[selectedTODOID]
+    const currCardInfo = getHoverTODOInfo()
 
-    if (currLocation.length &&currCardInfo) {
+    if (currLocation.length && currCardInfo) {
 
         return (
             <div id="popup-content">

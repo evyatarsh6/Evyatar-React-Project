@@ -1,22 +1,20 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from "react-redux"
-import { GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import { useMutateSingle } from '../../hooks/useMutateTODOS';
 import {  addIDToSetChanges, editTODO} from '../../actions/actions';
 
 
-export const CardChooseBtn = ({id}) => {
 
-    const dispatch = useDispatch();
-    const TODOList = useSelector(GetTodoList)
-    const currCardInfo = TODOList[id]
+export const CardChooseBtn = ({info}) => {
+    
+    const isChoosen = info.isChoosen
 
-    const [isChecked, setIsChecked] = useState(currCardInfo.isChoosen)
-    const [isDeleted,setIsDeleted ] = useState(currCardInfo.isDeleted)
-
+    const mutateSingleUpdateDeleteStatus = 
+    useMutateSingle(info._id, 'isChoosen', !isChoosen)
+    
+    const checkChoosenCheckbox = async () => {
+      
     const checkChoosenCheckbox= () => {
         const newCheckedtatus = !isChecked 
         setIsChecked(newCheckedtatus)
@@ -30,16 +28,18 @@ export const CardChooseBtn = ({id}) => {
         dispatch(addIDToSetChanges(currCardInfo.id))
     }
 
-    const deleteRestoreBtnStatus = () => isDeleted ? 'restore': 'delete' 
+        mutateSingleUpdateDeleteStatus.mutate()
+    }
 
     return (
 
-        <IconButton id ={`${currCardInfo.id}-${deleteRestoreBtnStatus()}`} style={{scale:"1.5"}} 
+        <IconButton 
+        style={{scale:"1.5"}} 
         onClick={checkChoosenCheckbox}>
                 {
-                isChecked ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
+                isChoosen ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
                 }
-            </IconButton>
+        </IconButton>
             
 
 

@@ -5,8 +5,10 @@ import useFilterKind from "../../hooks/useFilterKind";
 
 export const ChoosenTODOSBtn = ({style}) => {
 
-    const updateFilterChoosenTODOS = useFilterKind(choosenFilterKind).updateFilterKind
-    const filterChoosenTODOSStatus = useFilterKind(choosenFilterKind).filterKindStatus
+    const {updateFilterKind,filterKindBtnStatus} = useFilterKind()
+
+
+
 
     return (
 
@@ -14,9 +16,9 @@ export const ChoosenTODOSBtn = ({style}) => {
         variant="contained"
         id = {`show-choosen-items-btn`}
         className= 'show-choosen-items-btn'
-        onClick={updateFilterChoosenTODOS}
+        onClick={() => updateFilterKind(choosenFilterKind)}
         style={style}>
-        {`${filterChoosenTODOSStatus} show choosen items`}
+        {`${filterKindBtnStatus(choosenFilterKind)} show choosen items`}
         </Button>
     )
 }

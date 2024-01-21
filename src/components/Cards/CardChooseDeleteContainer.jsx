@@ -1,11 +1,11 @@
 import { CardDeleteBtn } from "./CardDeleteBtn"
 import { CardChooseBtn } from "./CardChooseBtn"
 
-export const CardChooseDelete = ({id}) => {
+export const CardChooseDelete = ({info}) => {
     return (
         <div className='chooseDeleteContainer'>
-            <CardDeleteBtn id={id}/>
-            <CardChooseBtn id={id}/>
+            <CardDeleteBtn info={info}/>
+            <CardChooseBtn info={info}/>
         </div>
     )
 }

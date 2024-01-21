@@ -1,45 +1,51 @@
-import { useMemo } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Card } from "../components/Cards/Card";
-import { useSelector } from "react-redux"
-import { GetTodoList, GetFilterKind } from "../selectors";
+import { useShownTODOSQuery } from "../hooks/useShownTODOSQuery";
+import { GetFilterKind } from "../selectors";
+import { useSelector } from "react-redux";
 
+export const CardList = () => {
 
-
-export const CardList = () => { 
-
-    const TODOList = useSelector(GetTodoList)
     const filterKind = useSelector(GetFilterKind)
+    
+    const [updatedTodos, setUpdateTodos] = useState([])
+    const {getShownTODDOSData} = useShownTODOSQuery()
 
-    const FilterdArr = useMemo(() => {
-        switch(filterKind){
-            case "normal":
-                return Object.values(TODOList).filter( TODO  => !TODO.isDeleted)
-            case "delete":
-                return Object.values(TODOList).filter( TODO  => TODO.isDeleted)
-            case "choosen":
-                return Object.values(TODOList).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted))
-            default:
-                return []
+    const UpdateShownTODOSState = useCallback( async() => {
+        const todos = await getShownTODDOSData();
+        setUpdateTodos(todos);
 
+    },[getShownTODDOSData]) 
+
+
+
+    useEffect(() =>{
+
+        const wrapperFunc = async () => {
+            await UpdateShownTODOSState()
         }
-    },[ filterKind, TODOList])
+        
+        wrapperFunc()
 
+    }, [UpdateShownTODOSState, filterKind]);
+    
+    
     return (
-
-            <ul className="flex-container">
+        <ul className="flex-container">
             {
-                FilterdArr.map( TODO => (
-                    
+                updatedTodos.length
+                && 
+                (
+                    updatedTodos.map((TODO) => (
                     <Card
-                    id = {TODO.id}
-                    key={TODO.id}
+                    info={TODO}
+                    key={TODO._id}
                     />
                     ))
-                }
-            
-            </ul>
-
-
-    )
+                )
+            }
+        </ul>
+      );
+      
     
 }

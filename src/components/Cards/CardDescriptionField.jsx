@@ -1,45 +1,35 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from "react-redux"
-import { GetTodoList } from "../../selectors";
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { addIDToSetChanges, editTODO } from '../../actions/actions';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
+import { useMutateSingle } from '../../hooks/useMutateTODOS';
 
 
 
-
-export const CardDescriptionField = ({id}) => {
+export const CardDescriptionField = ({info}) => {
 
     const currInputValue = useRef(null)
 
-    const dispatch = useDispatch();
-    const TODOList = useSelector(GetTodoList)
-    const currCardInfo = TODOList[id]
-
     const [isFreezeMode,setIsFreezeMode] = useState(true)
-    const [message, setMessage] = useState(currCardInfo.description)
+    const [message, setMessage] = useState(info.description)
     const handleInputType =  event => setMessage(event.target.value);
+
+    const mutateSingleUpdateDescription = 
+    useMutateSingle(info._id, 'description', message)
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     
-    const clickFreezeBtn =  event => {
+    const clickFreezeBtn =  async (event) => {
         event.preventDefault()
         
         if (isFreezeMode) {
             setIsFreezeMode(false)
+
         }
         else {
-
             setIsFreezeMode(!isFreezeMode)
-            dispatch(editTODO(
-                {
-                id : currCardInfo.id,
-                fieldKey : 'description',
-                fieldUpdateValue: message
-                }
-            ))
+            mutateSingleUpdateDescription.mutate()
         }
         dispatch(addIDToSetChanges(currCardInfo.id))
     }

@@ -1,5 +1,4 @@
 import {combineReducers} from "redux";
-import { TODOS } from "./reducers/uiReducer/handleTODOSReducer";
 import { filterKind } from "./reducers/uiReducer/handleFilterKindReducer";
 import { mapPoints } from "./reducers/uiReducer/mapReducer/mapPoints";
 import { mapPinMode } from "./reducers/uiReducer/mapReducer/mapPinMode";
@@ -8,7 +7,9 @@ import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPoints
 import { currViewInfo } from "./reducers/uiReducer/mapReducer/viewInfo";
 import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation";
 import { tooltipStatus } from "./reducers/uiReducer/mapReducer/mapTooltipStatus";
+import { updateTODOListStatus } from "./reducers/uiReducer/updateTODOListStatus";
 import { todosSetChanges } from "./reducers/uiReducer/todosUpdateChanges";
+
 
 const mapModeReducer = combineReducers({
     pinMode: mapPinMode,
@@ -24,6 +25,7 @@ const mapReducer = combineReducers({
 })
 
 const uiReducer = combineReducers({
+    updateTODOListStatus: updateTODOListStatus,
     TODOList: TODOS,
     TODOSChanges : todosSetChanges,
     filterKind: filterKind,

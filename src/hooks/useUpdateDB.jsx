@@ -34,7 +34,7 @@ export const useUpdateDB = () => {
   const replaceWantedTODO = useCallback(async (wantedTODOID) => {
   try{
     await axios.put(
-     'http://localhost:3000/updateWantedTODOField' 
+     'http://localhost:3000/updateFieldWantedTODO' 
      , TODOList[wantedTODOID]
    )
  }
@@ -45,10 +45,10 @@ export const useUpdateDB = () => {
 },[TODOList])
 
 
-  const updateWantedTODOField = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
+  const updateFieldWantedTODO = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
     try{
        await axios.patch(
-        'http://localhost:3000/updateWantedTODOField' 
+        'http://localhost:3000/updateFieldWantedTODO' 
         ,
       {
         _id: wantedTODOID,
@@ -66,10 +66,10 @@ export const useUpdateDB = () => {
     }
   },[])
 
-  const updateAllTODOS = useCallback(async (field, fieldUpdateVal) => {
+  const updateFieldAllTODOS = useCallback(async (field, fieldUpdateVal) => {
     try{
        await axios.patch(
-        'http://localhost:3000/updateAllTODOS' 
+        'http://localhost:3000/updateFieldAllTODOS' 
         ,
       {
         wantedField: field,
@@ -86,8 +86,9 @@ export const useUpdateDB = () => {
 
   return {
     addNewTODO:addNewTODO,
-    updateWantedTODOField: updateWantedTODOField,
-    updateAllTODOS: updateAllTODOS,
+    updateFieldWantedTODO: updateFieldWantedTODO,
+    updateFieldAllTODOS: updateFieldAllTODOS,
+    replaceWantedTODO :replaceWantedTODO 
 
   };
 };

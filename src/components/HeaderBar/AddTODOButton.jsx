@@ -3,6 +3,7 @@ import { GetMainInput} from "../../selectors"
 import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef } from "react";
 import { useAddSingle } from "../../hooks/useMutateTODOS";
+import { addIDToSetChanges, addTODO } from "../../actions/actions";
 
 
 export const AddTODOBtn = ({style}) => {
@@ -16,6 +17,11 @@ export const AddTODOBtn = ({style}) => {
     useEffect(() => {
       inputRef.current = inputVal
     },[inputVal])
+    const handleAddTODO = () => {
+        const cardID = Date.now()
+        dispatch(addTODO(inputVal,cardID))
+        dispatch(addIDToSetChanges(cardID))
+      }
 
     const handleAddTODO=  useCallback( async () => {
       addTODO.mutate()

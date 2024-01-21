@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import './App.css';
 import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
 
 function App() {
+  
   return (
 
     <div className='App'>

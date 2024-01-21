@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
+import { addIDToSetChanges, editTODO } from '../../actions/actions';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
 import { useMutateSingle } from '../../hooks/useMutateTODOS';
 
@@ -30,6 +31,7 @@ export const CardDescriptionField = ({info}) => {
             setIsFreezeMode(!isFreezeMode)
             mutateSingleUpdateDescription.mutate()
         }
+        dispatch(addIDToSetChanges(currCardInfo.id))
     }
 
     useEffect(() => {

@@ -1,3 +1,23 @@
+export const addIDToSetChanges = (wantedID) => {
+
+    return {
+        type:  'addIDToSetChanges',
+        wantedID: wantedID,
+    }
+}
+
+export const deleteChanges = () => {
+    return {
+        type: 'deleteChanges'
+    }
+}
+export const addTODO = (inputValue, cardID) => {
+    return {
+        type:  'addTODO',
+        value: inputValue,
+        id: cardID
+    }
+}
 
 export const updateTODOListStatus = currStatus => {
     return {

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 import { GetMapPoints } from "../../selectors";
 import { IconButton } from '@mui/material';
 import { activeMapPinTODOMode, cancelMapPinTODOMode, updateTooltipStatus} from '../../actions/actions';
+import { activeMapPinTODOMode, editTODO, editAllTODOS, cancelMapPinTODOMode, updateTooltipStatus, addIDToSetChanges} from '../../actions/actions';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -43,6 +44,14 @@ export const CardPinBtn = ({info}) => {
 
         dispatch(cancelMapPinTODOMode())
         dispatch(updateTooltipStatus(false))
+      
+        dispatch(editAllTODOS(
+                {
+                    fieldKey: 'isPinBtnDisable',
+                    fieldUpdateValue: false
+                }
+        ))
+
 
     }
 
@@ -50,6 +59,14 @@ export const CardPinBtn = ({info}) => {
         clickCancelPin()
         mutateSingleUpdateLocation.mutate()
 
+        dispatch(editTODO(
+            {
+            id : currCardInfo.id,
+            fieldKey : 'location',
+            fieldUpdateValue: mapPoints[currCardInfo.id].location
+            }
+        ))
+        dispatch(addIDToSetChanges(currCardInfo.id))
     }   
 
        return (  

@@ -8,9 +8,9 @@ export const useUpdateDB = () => {
 
   const TODOList = useSelector(GetTODOList)
 
-  const addNewTODO = async(TODOKind) => {
+  const postTODO = async(TODOKind) => {
     try {
-       await axios.post(`http://localhost:3000/addTODO`,
+       await axios.post(`http://localhost:3000/postTODO`,
         {
             _id: genID(),
             description : "Avi Berger is a god", 
@@ -30,25 +30,12 @@ export const useUpdateDB = () => {
       alert(`avi's server had a problam with error message of : ${error.message}`);
     }
   }
-
-  const replaceWantedTODO = useCallback(async (wantedTODOID) => {
-  try{
-    await axios.put(
-     'http://localhost:3000/putWantedTODO' 
-     , TODOList[wantedTODOID]
-   )
- }
- catch (error){
-   console.error(`Error fetching TODOs: ${error.message}`);
-   throw error;
- }
-},[TODOList])
-
-
-  const updateFieldWantedTODO = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
+  
+  
+  const patchFieldWantedTODO = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
     try{
        await axios.patch(
-        'http://localhost:3000/patchFieldWantedTODO' 
+         'http://localhost:3000/patchFieldWantedTODO' 
         ,
       {
         _id: wantedTODOID,
@@ -65,30 +52,43 @@ export const useUpdateDB = () => {
       throw error;
     }
   },[])
-
-  const updateFieldAllTODOS = useCallback(async (field, fieldUpdateVal) => {
+  
+  const patchFieldAllTODOS = useCallback(async (field, fieldUpdateVal) => {
     try{
-       await axios.patch(
+      await axios.patch(
         'http://localhost:3000/patchFieldAllTODOS' 
         ,
-      {
-        wantedField: field,
-        wantedFieldUpdateVal: fieldUpdateVal,
+        {
+          wantedField: field,
+          wantedFieldUpdateVal: fieldUpdateVal,
+        }
+        )
+        
       }
+      catch (error){
+        console.error(`Error fetching TODOs: ${error.message}`);
+        throw error;
+      }
+    },[])
+    
+  const putWantedTODO = useCallback(async (wantedTODOID) => {
+    try{
+      await axios.put(
+        'http://localhost:3000/putWantedTODO' 
+        , TODOList[wantedTODOID]
       )
-
     }
     catch (error){
       console.error(`Error fetching TODOs: ${error.message}`);
       throw error;
     }
-  },[])
+  },[TODOList])
 
   return {
-    addNewTODO:addNewTODO,
-    updateFieldWantedTODO: updateFieldWantedTODO,
-    updateFieldAllTODOS: updateFieldAllTODOS,
-    replaceWantedTODO :replaceWantedTODO 
+    postTODO:postTODO,
+    patchFieldWantedTODO: patchFieldWantedTODO,
+    patchFieldAllTODOS: patchFieldAllTODOS,
+    putWantedTODO :putWantedTODO 
 
   };
 };

@@ -4,7 +4,22 @@ export const addTODO = (inputValue, cardID) => {
         value: inputValue,
         id: cardID
     }
-} 
+}
+
+export const addIDToSetChanges = (wantedID, existInDB) => {
+
+    return {
+        type:  'addIDToSetChanges',
+        wantedID: wantedID,
+        existInDB: existInDB
+    }
+}
+
+export const deleteChanges = () => {
+    return {
+        type: 'deleteChanges'
+    }
+}
 
 export const editTODO = (props) => {
     return {

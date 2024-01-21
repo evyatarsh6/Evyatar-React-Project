@@ -8,7 +8,7 @@ import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPoints
 import { currViewInfo } from "./reducers/uiReducer/mapReducer/viewInfo";
 import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation";
 import { tooltipStatus } from "./reducers/uiReducer/mapReducer/mapTooltipStatus";
-
+import { todosSetChanges } from "./reducers/uiReducer/todosUpdateChanges";
 
 const mapModeReducer = combineReducers({
     pinMode: mapPinMode,
@@ -25,6 +25,7 @@ const mapReducer = combineReducers({
 
 const uiReducer = combineReducers({
     TODOList: TODOS,
+    TODOSChanges : todosSetChanges,
     filterKind: filterKind,
     Map : mapReducer,
     mainInput: mainInput

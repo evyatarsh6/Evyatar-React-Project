@@ -17,7 +17,7 @@ export const CardDeleteBtn = ({info}) => {
         setIsDeleted(newDeleteStatus)
         dispatch(editTODO(
             {
-            id : info._id,
+            _id : info._id,
             fieldKey : 'isDeleted',
             fieldUpdateValue: newDeleteStatus 
             }

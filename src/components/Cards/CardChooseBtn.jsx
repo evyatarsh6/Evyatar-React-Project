@@ -24,7 +24,7 @@ export const CardChooseBtn = ({info}) => {
         setIsChecked(newCheckedtatus)
         dispatch(editTODO(
             {
-            id : info._id,
+            _id : info._id,
             fieldKey : 'isChoosen',
             fieldUpdateValue: newCheckedtatus 
             }

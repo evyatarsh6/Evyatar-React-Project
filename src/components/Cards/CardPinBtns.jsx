@@ -55,7 +55,7 @@ export const CardPinBtn = ({info}) => {
 
         dispatch(editTODO(
             {
-            id : info._id,
+            _id : info._id,
             fieldKey : 'location',
             fieldUpdateValue: mapPoints[info._id].location
             }

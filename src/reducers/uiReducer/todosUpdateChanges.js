@@ -1,6 +1,6 @@
 const initialState  =  []
 
-export const todosSetChanges = ( state = initialState , action) => {
+export const TODOSIDChanges = ( state = initialState , action) => {
     
     const updateState = [...state]
 
@@ -16,7 +16,6 @@ export const todosSetChanges = ( state = initialState , action) => {
             return initialState
             
         default:
-            // console.log(state)
             return state
     }
 }

@@ -7,7 +7,7 @@ import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPoints
 import { currViewInfo } from "./reducers/uiReducer/mapReducer/viewInfo";
 import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation";
 import { tooltipStatus } from "./reducers/uiReducer/mapReducer/mapTooltipStatus";
-import { todosSetChanges } from "./reducers/uiReducer/todosUpdateChanges";
+import { TODOSIDChanges } from "./reducers/uiReducer/todosUpdateChanges";
 import { TODOS } from "./reducers/uiReducer/handleTODOSReducer";
 
 
@@ -26,7 +26,7 @@ const mapReducer = combineReducers({
 
 const uiReducer = combineReducers({
     TODOList: TODOS,
-    TODOSChanges : todosSetChanges,
+    TODOSChanges : TODOSIDChanges,
     filterKind: filterKind,
     Map : mapReducer,
     mainInput: mainInput

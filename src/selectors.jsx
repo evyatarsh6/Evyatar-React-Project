@@ -1,7 +1,7 @@
 
 export const GetTODOList = state =>  state.UI.TODOList
 
-export const GetTodoListStatus = state => state.UI.TODOListStutus
+export const GetTODOListNeedsChange = state => state.UI.TODOSChanges
 
 export const GetFilterKind = state => state.UI.filterKind
 

@@ -13,3 +13,12 @@ export const getLongLat = coordinate => {
 export const genID = () => {
     return Date.now()
   }
+
+  export const makeSetFromArr = arr => {
+    const IDS = new Set()
+    arr.forEach(element => {
+      IDS.add(element)
+    });
+
+    return IDS
+  }

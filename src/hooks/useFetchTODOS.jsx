@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useCallback } from "react";
-import { updateTODOListStatus } from "../actions/actions";
-
 export const useFetchTODOS = () => {
 
   const dispatch = useDispatch()
@@ -36,13 +34,10 @@ export const useFetchTODOS = () => {
     }
   }, []);
 
-  const updateTODOList = (status = true) => dispatch(updateTODOListStatus(status))
-
 
 
   return {
     fetchShownTodos: fetchShownTodos,
     fetchHoverTodoInfo:fetchHoverTodoInfo,
-    updateTODOList: updateTODOList,
   };
 };

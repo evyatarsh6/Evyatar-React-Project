@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { GetFilterKind } from "../selectors";
 import { changeFilterKind } from "../actions/actions";
 import { normalFilterKind } from "../constans/cardConstans";
-import { updateTODOListStatus } from "../actions/actions";
 
 const useFilterKind = () => {
 
@@ -18,7 +17,6 @@ const useFilterKind = () => {
         else{
             SwitchFilterKind(normalFilterKind)
         }
-        dispatch(updateTODOListStatus(true));
         
     }
 

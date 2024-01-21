@@ -1,32 +1,27 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { GetMainInput} from "../../selectors"
 import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef } from "react";
-import { useAddSingle } from "../../hooks/useMutateTODOS";
 import { addIDToSetChanges, addTODO } from "../../actions/actions";
 
 
 export const AddTODOBtn = ({style}) => {
 
-    const inputVal = useSelector(GetMainInput).inputValue
-    const isEmpty = useSelector(GetMainInput).isEmpty
-    
-    const inputRef = useRef(inputVal)
-    const addTODO = useAddSingle(inputVal)
+    const dispatch = useDispatch()
+    const {inputValue, isEmpty } = useSelector(GetMainInput)
+    const inputRef = useRef(inputValue)
     
     useEffect(() => {
-      inputRef.current = inputVal
-    },[inputVal])
-    const handleAddTODO = () => {
-        const cardID = Date.now()
-        dispatch(addTODO(inputVal,cardID))
-        dispatch(addIDToSetChanges(cardID))
-      }
+      inputRef.current = inputValue
+    },[inputValue])
 
     const handleAddTODO=  useCallback( async () => {
-      addTODO.mutate()
+        
+        const cardID = Date.now()
+        dispatch(addTODO(inputValue,cardID))
+        dispatch(addIDToSetChanges(cardID))
       },
-      [addTODO])
+      [dispatch,inputValue])
     
     return (
         <Button variant="contained"

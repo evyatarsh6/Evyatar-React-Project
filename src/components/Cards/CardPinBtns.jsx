@@ -3,17 +3,12 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
 import { GetMapPoints } from "../../selectors";
 import { IconButton } from '@mui/material';
-import { activeMapPinTODOMode, cancelMapPinTODOMode, updateTooltipStatus} from '../../actions/actions';
-import { activeMapPinTODOMode, editTODO, editAllTODOS, cancelMapPinTODOMode, updateTooltipStatus, addIDToSetChanges} from '../../actions/actions';
+import { activeMapPinTODOMode, editTODO, editAllTODOS, cancelMapPinTODOMode, updateTooltipStatus, addIDToSetChanges}
+from '../../actions/actions';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useFetchTODOS } from '../../hooks/useFetchTODOS';
-import { useUpdateDB } from '../../hooks/useUpdateDB';
-import { useMutation } from 'react-query';
 import { useMutateAll, useMutateSingle } from '../../hooks/useMutateTODOS';
-import { useShownTODOSQuery } from '../../hooks/useShownTODOSQuery';
-
 
 export const CardPinBtn = ({info}) => {
 
@@ -61,12 +56,12 @@ export const CardPinBtn = ({info}) => {
 
         dispatch(editTODO(
             {
-            id : currCardInfo.id,
+            id : info.id,
             fieldKey : 'location',
-            fieldUpdateValue: mapPoints[currCardInfo.id].location
+            fieldUpdateValue: mapPoints[info.id].location
             }
         ))
-        dispatch(addIDToSetChanges(currCardInfo.id))
+        dispatch(addIDToSetChanges(info.id))
     }   
 
        return (  

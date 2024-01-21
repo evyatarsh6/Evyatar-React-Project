@@ -19,12 +19,6 @@ export const addTODO = (inputValue, cardID) => {
     }
 }
 
-export const updateTODOListStatus = currStatus => {
-    return {
-        type:"updateStatus",
-        currStatus: currStatus
-    }
-}
 
 export const changeFilterKind = (filterKind) => {
     return {

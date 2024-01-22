@@ -25,6 +25,7 @@ export const CardDeleteBtn = ({info}) => {
                 wantedField : 'isDeleted',
                 wantedFieldUpdateVal : newDeleteStatus
             })
+            
         setIsDeleted(newDeleteStatus)
         dispatch(editTODO(
             {

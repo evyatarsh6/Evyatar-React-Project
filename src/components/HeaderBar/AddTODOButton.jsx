@@ -29,21 +29,8 @@ export const AddTODOBtn = ({style}) => {
       dispatch(addTODO(inputRef.current, cardID));
       dispatch(addIDToSetChanges(cardID));
       postSingleTODO.mutate(inputRef.current, cardID);
-    }
-}, [inputRef, dispatch, postSingleTODO]);
+    }}, [inputRef, dispatch, postSingleTODO]);
 
-  
-  // const handleAddTODO = useCallback( async () => {
-  //   const validateInputVal = () => Object.keys(bergerPhotos).some(option => option === inputRef.current);
-  //   const isValid = validateInputVal()  
-  //   if (isValid) {
-  //     const cardID = Date.now()
-  //     dispatch(addTODO(inputRef.current,cardID))
-  //     dispatch(addIDToSetChanges(cardID))
-  //     postSingleTODO.mutate(inputRef.current, cardID)
-  //   }
-  //     },
-  //     [dispatch, postSingleTODO])
     
     return (
         <Button variant="contained"

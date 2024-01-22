@@ -28,7 +28,6 @@ export const useShownTODOSQuery = () => {
         }
 
         if (isSuccess){
-            console.log(TODOS)
             return TODOS;
         }
 

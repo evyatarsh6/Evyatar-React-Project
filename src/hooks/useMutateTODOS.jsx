@@ -51,7 +51,7 @@ export const useMutateFieldAllDocu = (wantedField, wantedFieldUpdateVal) => {
     return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
 } 
 
-export const useAddSingle = (TODOKind) => {
+export const useAddSingleTODO = (TODOKind) => {
 
     const {refetch} = useShownTODOSQuery() 
     const {addNewTODO} = useUpdateDB()

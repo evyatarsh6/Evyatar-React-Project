@@ -8,11 +8,9 @@ export const TODOSIDChanges = ( state = initialState , action) => {
         case 'addIDToSetChanges':
 
             updateState.push(action._id)
-            console.log(updateState)
             return updateState
 
         case 'deleteChanges':
-            console.log(initialState)
             return initialState
             
         default:

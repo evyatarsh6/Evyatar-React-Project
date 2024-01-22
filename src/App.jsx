@@ -12,8 +12,13 @@ function App() {
   const updateTODOSID = useSelector(GetTODOListNeedsChange)
 
   const IDSChanges = useCallback(() => {
-    makeSetFromArr(updateTODOSID)
+    const avi = makeSetFromArr(updateTODOSID)
+    console.log(avi)
   },[updateTODOSID])
+
+  useEffect(()=> {
+    IDSChanges()
+  },[IDSChanges])
 
   return (
 

@@ -3,13 +3,17 @@ import { GetMainInput} from "../../selectors"
 import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef } from "react";
 import { addIDToSetChanges, addTODO } from "../../actions/actions";
+import { useAddSingleTODO } from '../../hooks/useMutateTODOS';
+
 
 
 export const AddTODOBtn = ({style}) => {
 
-    const dispatch = useDispatch()
-    const {inputValue, isEmpty } = useSelector(GetMainInput)
-    const inputRef = useRef(inputValue)
+  const dispatch = useDispatch()
+  const {inputValue, isEmpty } = useSelector(GetMainInput)
+  const inputRef = useRef(inputValue)
+
+  const postSingleTODO = useAddSingleTODO(inputRef.current)
     
     useEffect(() => {
       inputRef.current = inputValue
@@ -18,7 +22,7 @@ export const AddTODOBtn = ({style}) => {
     const handleAddTODO=  useCallback( async () => {
         
         const cardID = Date.now()
-        dispatch(addTODO(inputValue,cardID))
+        dispatch(addTODO(inputRef.current,cardID))
         dispatch(addIDToSetChanges(cardID))
       },
       [dispatch,inputValue])

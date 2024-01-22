@@ -12,13 +12,15 @@ export const useUpdateDB = () => {
     try {
        await axios.post(`http://localhost:3000/postTODO`,
         {
-            _id: genID(),
-            description : "Avi Berger is a god", 
-            kind: TODOKind,
-            isChoosen: false,
-            isDeleted:false, 
-            location: {},
-            isPinBtnDisable : false 
+            [genID()]:{
+              _id: genID(),
+              description : "Avi Berger is a god", 
+              kind: TODOKind,
+              isChoosen: false,
+              isDeleted:false, 
+              location: {},
+              isPinBtnDisable : false 
+            }
         },
         {
           headers: {}

@@ -1,7 +1,7 @@
 const initialState  = {}
 
 export const TODOS = ( state = initialState , action) => {
-    if(action.type === "addTODO"){
+    if(action.type === "addTODOMenual"){
         const TODOList = {
             ...state,
             [action._id]: {
@@ -12,6 +12,23 @@ export const TODOS = ( state = initialState , action) => {
             isDeleted:false, 
             location: {},
             isPinBtnDisable : false
+            }
+        }
+        return TODOList
+    }
+
+    else if( action.type ==='addTODOFromDB'){
+
+        const TODOList = {
+            ...state,
+            [action.TODO._id]: {
+            _id: action.TODO._id,
+            description : action.TODO.description,
+            kind: action.TODO.kind,
+            isChoosen: action.TODO.isChoosen,
+            isDeleted:action.TODO.isDeleted, 
+            location: action.TODO.location,
+            isPinBtnDisable : action.TODO.isPinBtnDisable
             }
         }
         return TODOList

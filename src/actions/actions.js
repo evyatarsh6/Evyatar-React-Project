@@ -13,9 +13,16 @@ export const deleteChanges = () => {
 }
 export const addTODO = (inputValue, cardID) => {
     return {
-        type:  'addTODO',
+        type:  'addTODOMenual',
         value: inputValue,
         _id: cardID
+    }
+}
+
+export const addTODOFromDB = TODO => {
+    return {
+        type:  'addTODOFromDB',
+        TODO: TODO
     }
 }
 

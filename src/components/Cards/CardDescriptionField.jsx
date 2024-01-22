@@ -3,7 +3,7 @@ import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { addIDToSetChanges, editTODO } from '../../actions/actions';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
-// import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
+import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 import { useDispatch } from 'react-redux';
 
 
@@ -18,8 +18,8 @@ export const CardDescriptionField = ({info}) => {
     const [message, setMessage] = useState(info.description)
     const handleInputType =  event => setMessage(event.target.value);
 
-    // const mutateSingleUpdateDescription = 
-    // useMutateFieldSingle(info._id, 'description', message)
+    const mutateSingleUpdateDescription = 
+    useMutateFieldSingle(info._id, 'description', message)
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     
@@ -39,9 +39,9 @@ export const CardDescriptionField = ({info}) => {
                 fieldUpdateValue: message 
                 }
             ))
-            // mutateSingleUpdateDescription.mutate()
+            mutateSingleUpdateDescription.mutate()
         }
-        
+
         dispatch(addIDToSetChanges(info._id))
     }
 

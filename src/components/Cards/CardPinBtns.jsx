@@ -8,17 +8,14 @@ from '../../actions/actions';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
-// import { useMutateFieldAllDocu, useMutateFieldSingle } from '../../hooks/useMutateTODOS';
+import { useMutateFieldAllDocu, useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 
 export const CardPinBtn = ({info}) => {
 
     const dispatch = useDispatch();
     
     const  mapPoints = useSelector(GetMapPoints)
-
-    // const mutateAllPinDisable =  useMutateFieldAllDocu('isPinBtnDisable', true)
-    // const mutateAllPinEnable =   useMutateFieldAllDocu('isPinBtnDisable', false)
-    // const mutateSingleUpdateLocation = useMutateFieldSingle(info._id, 'location', mapPoints[info._id]?.location || [])
+    const mutateSingleUpdateLocation = useMutateFieldSingle(info._id, 'location', mapPoints[info._id]?.location || [])
 
     const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
 
@@ -44,8 +41,6 @@ export const CardPinBtn = ({info}) => {
 
 
     const clickPinBtn = async () => {
-        // mutateAllPinDisable.mutate()
-
         UpdateTODOSAfterClickPinBtn()
 
         setIsPinActive(true)
@@ -56,8 +51,6 @@ export const CardPinBtn = ({info}) => {
     const clickCancelPin = async () => {
 
         setIsPinActive(false)
-        
-        // mutateAllPinEnable.mutate()
 
         dispatch(cancelMapPinTODOMode())
         dispatch(updateTooltipStatus(false))
@@ -74,7 +67,8 @@ export const CardPinBtn = ({info}) => {
 
     const clickSavePin = async () => {
         clickCancelPin()
-        // mutateSingleUpdateLocation.mutate()
+
+        mutateSingleUpdateLocation.mutate()
 
         dispatch(editTODO(
             {

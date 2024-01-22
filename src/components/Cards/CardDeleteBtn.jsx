@@ -4,15 +4,22 @@ import DeleteIcon  from '@mui/icons-material/Delete';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import { addIDToSetChanges, editTODO } from '../../actions/actions';
 import { useDispatch } from 'react-redux';
+import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 
 
 export const CardDeleteBtn = ({info}) => {
 
+    
     const dispatch = useDispatch()
     const [isDeleted, setIsDeleted] = useState(info.isDeleted)
 
+    const mutateSingleUpdateDeleteStatus = 
+    useMutateFieldSingle(info._id, 'isDeleted', !isDeleted)
+
     const clickDeleteRestoreBtn = useCallback( async (event) => {
         event.preventDefault()
+        mutateSingleUpdateDeleteStatus.mutate()
+
         const newDeleteStatus = !isDeleted 
         setIsDeleted(newDeleteStatus)
         dispatch(editTODO(
@@ -25,7 +32,7 @@ export const CardDeleteBtn = ({info}) => {
         
         dispatch(addIDToSetChanges(info._id))
         
-        },[dispatch, info._id, isDeleted])
+        },[dispatch, info._id, isDeleted, mutateSingleUpdateDeleteStatus])
     
         return (
             <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5"}}>

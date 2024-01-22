@@ -18,30 +18,25 @@ export const AddTODOBtn = ({style}) => {
     inputRef.current = inputValue
   },[inputValue])
   
-  const validateInputVal =  useCallback(() => {
-    Object.keys(bergerPhotos).forEach(option => {
-      if (option === inputRef.current) {
-        return true
-      }
-    })
-    return false
-  },[])
+  const validateInputVal = useCallback(() => {
+    return Object.keys(bergerPhotos).some(option => option === inputRef.current);
+  }, []);
+  
 
   const postSingleTODO = useAddSingleTODO(inputRef.current)
     
 
     const handleAddTODO=  useCallback( async () => {
-        if (validateInputVal()) {
+      const isValid = validateInputVal()  
+      if (isValid) {
           const cardID = Date.now()
           dispatch(addTODO(inputRef.current,cardID))
           dispatch(addIDToSetChanges(cardID))
-          // postSingleTODO.mutate()
+          postSingleTODO.mutate()
           
         }
       },
-      [dispatch, 
-        // postSingleTODO,
-        validateInputVal])
+      [dispatch, postSingleTODO, validateInputVal])
     
     return (
         <Button variant="contained"

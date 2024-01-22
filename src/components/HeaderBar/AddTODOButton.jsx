@@ -4,28 +4,44 @@ import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef } from "react";
 import { addIDToSetChanges, addTODO } from "../../actions/actions";
 import { useAddSingleTODO } from '../../hooks/useMutateTODOS';
+import {bergerPhotos} from '../../shared/photos';
 
 
 
 export const AddTODOBtn = ({style}) => {
-
+  
   const dispatch = useDispatch()
   const {inputValue, isEmpty } = useSelector(GetMainInput)
   const inputRef = useRef(inputValue)
 
+  useEffect(() => {
+    inputRef.current = inputValue
+  },[inputValue])
+  
+  const validateInputVal =  useCallback(() => {
+    Object.keys(bergerPhotos).forEach(option => {
+      if (option === inputRef.current) {
+        return true
+      }
+    })
+    return false
+  },[])
+
   const postSingleTODO = useAddSingleTODO(inputRef.current)
     
-    useEffect(() => {
-      inputRef.current = inputValue
-    },[inputValue])
 
     const handleAddTODO=  useCallback( async () => {
-        
-        const cardID = Date.now()
-        dispatch(addTODO(inputRef.current,cardID))
-        dispatch(addIDToSetChanges(cardID))
+        if (validateInputVal()) {
+          const cardID = Date.now()
+          dispatch(addTODO(inputRef.current,cardID))
+          dispatch(addIDToSetChanges(cardID))
+          // postSingleTODO.mutate()
+          
+        }
       },
-      [dispatch,inputValue])
+      [dispatch, 
+        // postSingleTODO,
+        validateInputVal])
     
     return (
         <Button variant="contained"

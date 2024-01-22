@@ -12,7 +12,7 @@ export const useUpdateDB = () => {
     try {
        await axios.post(`http://localhost:3000/postTODO`,
         {
-            _id: wantedID,
+            '_id': wantedID,
             description : "Avi Berger is a god", 
             kind: TODOKind,
             isChoosen: false,

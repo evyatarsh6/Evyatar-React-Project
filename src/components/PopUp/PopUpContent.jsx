@@ -8,8 +8,6 @@ import { GetMapPinMode, GetMapLocation, GetTODOList} from '../../selectors';
 //need an update
 export const PopUpContent = ({id}) => {
 
-    // const {fetchHoverTodoInfo} = useFetchTODOS()
-
     const TODOList = useSelector(GetTODOList)
     const pinModeStatus = useSelector(GetMapPinMode)
     const currLocation = useSelector(GetMapLocation).location
@@ -22,9 +20,6 @@ export const PopUpContent = ({id}) => {
     }
     
     const currCardInfo = TODOList[selectedTODOID]
-    // let getHoverTODOInfo = async () => await fetchHoverTodoInfo(selectedTODOID)
-
-    // const currCardInfo = getHoverTODOInfo()
 
     if (currLocation.length && currCardInfo) {
 

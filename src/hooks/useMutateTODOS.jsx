@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 import { useUpdateDB } from "./useUpdateDB";
-import { useShownTODOSQuery } from "./useShownTODOSQuery";
+// import { useShownTODOSQuery } from "./useShownTODOSQuery";
 
 const onErrorMessage =  () => console.error(`Error updating TODOS`)
 
@@ -17,15 +17,15 @@ export const useMutateTemplate = (wantedFunc, onError, onSuccess) => {
 
 export const useMutateFieldSingle = () => {
 
-    const {refetch} = useShownTODOSQuery() 
+    // const {refetch} = useShownTODOSQuery() 
     const {patchFieldWantedTODO} = useUpdateDB()
 
-    const wantedFunc = async (id, wantedField, wantedFieldUpdateVal) => await patchFieldWantedTODO(id, wantedField, wantedFieldUpdateVal);  
+    const wantedFunc = async (_id, wantedField, wantedFieldUpdateVal) => await patchFieldWantedTODO(_id, wantedField, wantedFieldUpdateVal);  
         
     const onErrorFunc =  () => onErrorMessage()
     
     const onSuccessFunc = () => {
-        refetch()
+        // refetch()
         onSuccessMessage()
         
     } 
@@ -36,7 +36,7 @@ export const useMutateFieldSingle = () => {
 
 export const useMutateFieldAllDocu = () => {
 
-    const {refetch} = useShownTODOSQuery() 
+    // const {refetch} = useShownTODOSQuery() 
     const {patchFieldAllTODOS} = useUpdateDB()
 
     const wantedFunc = async (wantedField, wantedFieldUpdateVal) => await patchFieldAllTODOS(wantedField, wantedFieldUpdateVal);  
@@ -44,7 +44,7 @@ export const useMutateFieldAllDocu = () => {
     const onErrorFunc =  () => onErrorMessage()
     
     const onSuccessFunc = () => {
-        refetch()
+        // refetch()
         onSuccessMessage()
     } 
 
@@ -53,15 +53,18 @@ export const useMutateFieldAllDocu = () => {
 
 export const useAddSingleTODO = () => {
 
-    const {refetch} = useShownTODOSQuery() 
+    // const {refetch} = useShownTODOSQuery() 
     const {postTODO} = useUpdateDB()
 
-    const wantedFunc = async (TODOKind,wantedID) => await postTODO(TODOKind, wantedID);  
+    const wantedFunc = async (TODOKind,wantedID) => {
+        
+        return await postTODO(TODOKind, wantedID);  
+    } 
         
     const onErrorFunc =  () => onErrorMessage()
     
     const onSuccessFunc = () => {
-        refetch()
+        // refetch()
         onSuccessMessage()
     } 
 

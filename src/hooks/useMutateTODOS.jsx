@@ -51,12 +51,12 @@ export const useMutateFieldAllDocu = (wantedField, wantedFieldUpdateVal) => {
     return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
 } 
 
-export const useAddSingleTODO = (TODOKind) => {
+export const useAddSingleTODO = () => {
 
     const {refetch} = useShownTODOSQuery() 
-    const {addNewTODO} = useUpdateDB()
+    const {postTODO} = useUpdateDB()
 
-    const wantedFunc = async () => await addNewTODO(TODOKind);  
+    const wantedFunc = async (TODOKind,wantedID) => await postTODO(TODOKind, wantedID);  
         
     const onErrorFunc =  () => onErrorMessage()
     

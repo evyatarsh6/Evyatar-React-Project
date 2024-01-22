@@ -14,25 +14,24 @@ export const AddTODOBtn = ({style}) => {
   const {inputValue, isEmpty } = useSelector(GetMainInput)
   const inputRef = useRef(inputValue)
 
+  const postSingleTODO = useAddSingleTODO()
+
   useEffect(() => {
     inputRef.current = inputValue
   },[inputValue])
-  
+
   const validateInputVal = useCallback(() => {
-    return Object.keys(bergerPhotos).some(option => option === inputRef.current);
-  }, []);
+    Object.keys(bergerPhotos).some(option => option === inputRef.current);
+  },[])
   
+  const handleAddTODO = useCallback( async () => {
 
-  const postSingleTODO = useAddSingleTODO(inputRef.current)
-    
-
-    const handleAddTODO=  useCallback( async () => {
       const isValid = validateInputVal()  
       if (isValid) {
           const cardID = Date.now()
           dispatch(addTODO(inputRef.current,cardID))
           dispatch(addIDToSetChanges(cardID))
-          postSingleTODO.mutate()
+          postSingleTODO.mutate(inputRef.current, cardID)
           
         }
       },

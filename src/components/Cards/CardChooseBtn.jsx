@@ -17,7 +17,7 @@ export const CardChooseBtn = ({info}) => {
     const mutateSingleUpdateChoosenStatus = 
     useMutateFieldSingle(info._id, 'isChoosen', !isChecked)
       
-    const checkChoosenCheckbox = useCallback(() => {
+    const checkChoosenCheckbox = useCallback(async () => {
         
         mutateSingleUpdateChoosenStatus.mutate()
 

@@ -9,6 +9,7 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useMutateFieldAllDocu, useMutateFieldSingle } from '../../hooks/useMutateTODOS';
+import { useCallback } from 'react';
 
 export const CardPinBtn = ({info}) => {
 
@@ -38,8 +39,6 @@ export const CardPinBtn = ({info}) => {
 
     }
 
-
-
     const clickPinBtn = async () => {
         UpdateTODOSAfterClickPinBtn()
 
@@ -48,7 +47,7 @@ export const CardPinBtn = ({info}) => {
 
 
     }
-    const clickCancelPin = async () => {
+    const clickCancelPin = useCallback( async () => {
 
         setIsPinActive(false)
 
@@ -63,9 +62,9 @@ export const CardPinBtn = ({info}) => {
         ))
 
 
-    }
+    },[dispatch])
 
-    const clickSavePin = async () => {
+    const clickSavePin = useCallback( async () => {
         clickCancelPin()
 
         mutateSingleUpdateLocation.mutate()
@@ -78,7 +77,8 @@ export const CardPinBtn = ({info}) => {
             }
         ))
         dispatch(addIDToSetChanges(info._id))
-    }   
+
+    },[clickCancelPin, dispatch, info._id, mapPoints,  mutateSingleUpdateLocation])
 
        return (  
         isPinActive ? (

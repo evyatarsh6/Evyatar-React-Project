@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { addIDToSetChanges, editTODO } from '../../actions/actions';
@@ -23,7 +23,7 @@ export const CardDescriptionField = ({info}) => {
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     
-    const clickFreezeBtn =  async (event) => {
+    const clickFreezeBtn =  useCallback( async (event) => {
         event.preventDefault()
         
         if (isFreezeMode) {
@@ -43,7 +43,8 @@ export const CardDescriptionField = ({info}) => {
         }
 
         dispatch(addIDToSetChanges(info._id))
-    }
+        
+    },[dispatch, info._id, isFreezeMode, message, mutateSingleUpdateDescription])
 
     useEffect(() => {
         console.log(generateChangeValueLogs('the description field' , message))

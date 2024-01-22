@@ -22,8 +22,31 @@ export const CardPinBtn = ({info}) => {
 
     const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
 
+    const UpdateTODOSAfterClickPinBtn = () => {
+
+        dispatch(editAllTODOS(
+            {
+            fieldKey : 'isPinBtnDisable',
+            fieldUpdateValue: true 
+            }
+        ))
+        
+        dispatch(editTODO(
+            {
+            _id : info._id,
+            fieldKey : 'isPinBtnDisable',
+            fieldUpdateValue: false 
+            }
+        ))
+
+    }
+
+
+
     const clickPinBtn = async () => {
         // mutateAllPinDisable.mutate()
+
+        UpdateTODOSAfterClickPinBtn()
 
         setIsPinActive(true)
         dispatch(activeMapPinTODOMode(info._id))
@@ -33,7 +56,7 @@ export const CardPinBtn = ({info}) => {
     const clickCancelPin = async () => {
 
         setIsPinActive(false)
-
+        
         // mutateAllPinEnable.mutate()
 
         dispatch(cancelMapPinTODOMode())

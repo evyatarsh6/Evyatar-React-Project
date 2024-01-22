@@ -14,7 +14,7 @@ export const ButtonsContainer = () => {
 
     return (
         <div className='buttonContainer'>
-          <AddTODOBtn style = {muiButtonStyle}></AddTODOBtn>
+          <AddTODOBtn style = {muiButtonStyle} ></AddTODOBtn>
           <ChoosenTODOSBtn style = {muiButtonStyle}></ChoosenTODOSBtn>
           <DeleteTODOSBtn style = {muiButtonStyle}></DeleteTODOSBtn>
           <PointsOnMapBtn style = {muiButtonStyle}></PointsOnMapBtn>

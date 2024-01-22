@@ -32,8 +32,16 @@ export const CardDescriptionField = ({info}) => {
         }
         else {
             setIsFreezeMode(!isFreezeMode)
+            dispatch(editTODO(
+                {
+                _id : info._id,
+                fieldKey : 'description',
+                fieldUpdateValue: message 
+                }
+            ))
             // mutateSingleUpdateDescription.mutate()
         }
+        
         dispatch(addIDToSetChanges(info._id))
     }
 

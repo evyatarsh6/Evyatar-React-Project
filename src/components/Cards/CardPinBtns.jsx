@@ -8,7 +8,7 @@ from '../../actions/actions';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useMutateFieldAllDocu, useMutateFieldSingle } from '../../hooks/useMutateTODOS';
+import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 import { useCallback } from 'react';
 
 export const CardPinBtn = ({info}) => {
@@ -16,7 +16,7 @@ export const CardPinBtn = ({info}) => {
     const dispatch = useDispatch();
     
     const  mapPoints = useSelector(GetMapPoints)
-    const mutateSingleUpdateLocation = useMutateFieldSingle(info._id, 'location', mapPoints[info._id]?.location || [])
+    const mutateSingleUpdateLocation = useMutateFieldSingle()
 
     const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
 
@@ -67,7 +67,7 @@ export const CardPinBtn = ({info}) => {
     const clickSavePin = useCallback( async () => {
         clickCancelPin()
 
-        mutateSingleUpdateLocation.mutate()
+        mutateSingleUpdateLocation.mutate(info._id, 'location', mapPoints[info._id]?.location || [])
 
         dispatch(editTODO(
             {

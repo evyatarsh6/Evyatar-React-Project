@@ -13,14 +13,13 @@ export const CardDeleteBtn = ({info}) => {
     const dispatch = useDispatch()
     const [isDeleted, setIsDeleted] = useState(info.isDeleted)
 
-    const mutateSingleUpdateDeleteStatus = 
-    useMutateFieldSingle(info._id, 'isDeleted', !isDeleted)
+    const mutateSingleUpdateDeleteStatus = useMutateFieldSingle()
 
     const clickDeleteRestoreBtn = useCallback( async (event) => {
         event.preventDefault()
-        mutateSingleUpdateDeleteStatus.mutate()
-
-        const newDeleteStatus = !isDeleted 
+        
+        const newDeleteStatus = !isDeleted
+        mutateSingleUpdateDeleteStatus.mutate(info._id, 'isDeleted', newDeleteStatus)
         setIsDeleted(newDeleteStatus)
         dispatch(editTODO(
             {

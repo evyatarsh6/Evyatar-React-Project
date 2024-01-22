@@ -14,14 +14,12 @@ export const CardChooseBtn = ({info}) => {
     const [isChecked,setIsChecked] = useState(info.isChoosen)
 
 
-    const mutateSingleUpdateChoosenStatus = 
-    useMutateFieldSingle(info._id, 'isChoosen', !isChecked)
+    const mutateSingleUpdateChoosenStatus = useMutateFieldSingle()
       
     const checkChoosenCheckbox = useCallback(async () => {
         
-        mutateSingleUpdateChoosenStatus.mutate()
-
-        const newCheckedtatus = !isChecked 
+        const newCheckedtatus = !isChecked
+        mutateSingleUpdateChoosenStatus.mutate(info._id, 'isChoosen', newCheckedtatus)
         setIsChecked(newCheckedtatus)
         dispatch(editTODO(
             {

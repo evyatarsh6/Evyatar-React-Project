@@ -15,12 +15,12 @@ export const useMutateTemplate = (wantedFunc, onError, onSuccess) => {
     })
 };
 
-export const useMutateFieldSingle = (id, wantedField, wantedFieldUpdateVal) => {
+export const useMutateFieldSingle = () => {
 
     const {refetch} = useShownTODOSQuery() 
     const {patchFieldWantedTODO} = useUpdateDB()
 
-    const wantedFunc = async () => await patchFieldWantedTODO(id, wantedField, wantedFieldUpdateVal);  
+    const wantedFunc = async (id, wantedField, wantedFieldUpdateVal) => await patchFieldWantedTODO(id, wantedField, wantedFieldUpdateVal);  
         
     const onErrorFunc =  () => onErrorMessage()
     
@@ -34,12 +34,12 @@ export const useMutateFieldSingle = (id, wantedField, wantedFieldUpdateVal) => {
 } 
 
 
-export const useMutateFieldAllDocu = (wantedField, wantedFieldUpdateVal) => {
+export const useMutateFieldAllDocu = () => {
 
     const {refetch} = useShownTODOSQuery() 
     const {patchFieldAllTODOS} = useUpdateDB()
 
-    const wantedFunc = async () => await patchFieldAllTODOS(wantedField, wantedFieldUpdateVal);  
+    const wantedFunc = async (wantedField, wantedFieldUpdateVal) => await patchFieldAllTODOS(wantedField, wantedFieldUpdateVal);  
         
     const onErrorFunc =  () => onErrorMessage()
     

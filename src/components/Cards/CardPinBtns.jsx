@@ -67,7 +67,13 @@ export const CardPinBtn = ({info}) => {
     const clickSavePin = useCallback( async () => {
         clickCancelPin()
 
-        mutateSingleUpdateLocation.mutate(info._id, 'location', mapPoints[info._id]?.location || [])
+        mutateSingleUpdateLocation.mutate(
+            {
+                wantedID : info._id ,
+                wantedField : 'location',
+                wantedFieldUpdateVal :  mapPoints[info._id]?.location || []
+            }
+        )
 
         dispatch(editTODO(
             {

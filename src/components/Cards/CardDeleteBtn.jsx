@@ -19,7 +19,12 @@ export const CardDeleteBtn = ({info}) => {
         event.preventDefault()
         
         const newDeleteStatus = !isDeleted
-        mutateSingleUpdateDeleteStatus.mutate(info._id, 'isDeleted', newDeleteStatus)
+        mutateSingleUpdateDeleteStatus.mutate(
+            {
+                wantedID : info._id ,
+                wantedField : 'isDeleted',
+                wantedFieldUpdateVal : newDeleteStatus
+            })
         setIsDeleted(newDeleteStatus)
         dispatch(editTODO(
             {

@@ -17,15 +17,13 @@ export const useMutateTemplate = (wantedFunc, onError, onSuccess) => {
 
 export const useMutateFieldSingle = () => {
 
-    // const {refetch} = useShownTODOSQuery() 
     const {patchFieldWantedTODO} = useUpdateDB()
 
-    const wantedFunc = async (_id, wantedField, wantedFieldUpdateVal) => await patchFieldWantedTODO(_id, wantedField, wantedFieldUpdateVal);  
+    const wantedFunc = async ({wantedID, wantedField, wantedFieldUpdateVal}) => await patchFieldWantedTODO(wantedID, wantedField, wantedFieldUpdateVal);  
         
     const onErrorFunc =  () => onErrorMessage()
     
     const onSuccessFunc = () => {
-        // refetch()
         onSuccessMessage()
         
     } 
@@ -36,15 +34,13 @@ export const useMutateFieldSingle = () => {
 
 export const useMutateFieldAllDocu = () => {
 
-    // const {refetch} = useShownTODOSQuery() 
     const {patchFieldAllTODOS} = useUpdateDB()
 
-    const wantedFunc = async (wantedField, wantedFieldUpdateVal) => await patchFieldAllTODOS(wantedField, wantedFieldUpdateVal);  
+    const wantedFunc = async ({wantedField, wantedFieldUpdateVal}) => await patchFieldAllTODOS(wantedField, wantedFieldUpdateVal);  
         
     const onErrorFunc =  () => onErrorMessage()
     
     const onSuccessFunc = () => {
-        // refetch()
         onSuccessMessage()
     } 
 
@@ -53,18 +49,13 @@ export const useMutateFieldAllDocu = () => {
 
 export const useAddSingleTODO = () => {
 
-    // const {refetch} = useShownTODOSQuery() 
     const {postTODO} = useUpdateDB()
 
-    const wantedFunc = async (TODOKind,wantedID) => {
-        
-        return await postTODO(TODOKind, wantedID);  
-    } 
-        
+    const wantedFunc = async ({TODOKind, wantedID}) =>  await postTODO(wantedID, TODOKind);  
+    
     const onErrorFunc =  () => onErrorMessage()
     
     const onSuccessFunc = () => {
-        // refetch()
         onSuccessMessage()
     } 
 

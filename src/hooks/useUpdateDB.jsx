@@ -8,7 +8,7 @@ export const useUpdateDB = () => {
 
   const TODOList = useSelector(GetTODOList)
 
-  const postTODO = async (TODOKind, wantedID) => {
+  const postTODO = async (wantedID, TODOKind) => {
     try {
        await axios.post(`http://localhost:3000/postTODO`,
         {

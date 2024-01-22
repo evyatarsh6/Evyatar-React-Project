@@ -29,7 +29,9 @@ export const AddTODOBtn = ({style}) => {
       dispatch(addTODO(inputRef.current, cardID));
       dispatch(addIDToSetChanges(cardID));
 
-      postSingleTODO.mutate(inputRef.current,cardID);
+      postSingleTODO.mutate(
+        {TODOKind: inputRef.current, wantedID: cardID})
+        // inputRef.current,cardID);
       
     }}, [inputRef, dispatch, postSingleTODO]);
 

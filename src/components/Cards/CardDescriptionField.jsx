@@ -18,8 +18,7 @@ export const CardDescriptionField = ({info}) => {
     const [message, setMessage] = useState(info.description)
     const handleInputType =  event => setMessage(event.target.value);
 
-    const mutateSingleUpdateDescription = 
-    useMutateFieldSingle(info._id, 'description', message)
+    const mutateSingleUpdateDescription = useMutateFieldSingle()
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     
@@ -39,7 +38,13 @@ export const CardDescriptionField = ({info}) => {
                 fieldUpdateValue: message 
                 }
             ))
-            mutateSingleUpdateDescription.mutate()
+            mutateSingleUpdateDescription.mutate(
+                {
+                    wantedID : info._id ,
+                    wantedField : 'description',
+                    wantedFieldUpdateVal : message
+                }
+            )
         }
 
         dispatch(addIDToSetChanges(info._id))

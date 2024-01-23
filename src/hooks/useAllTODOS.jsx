@@ -30,7 +30,6 @@ export const useAllTODOSQuery = () => {
             TODOS.forEach(TODO => {
                 dispatch(addTODOFromDB(TODO))
             });
-            // return TODOS;
         }
 
         return []

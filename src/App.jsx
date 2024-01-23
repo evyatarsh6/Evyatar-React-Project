@@ -15,14 +15,17 @@ function App() {
   const {getAllTODDOSData} = useAllTODOSQuery()
 
   const IDSChanges = useCallback(() => {
-    const avi = makeSetFromArr(updateTODOSID)
-    dispatch(deleteChanges())
-    console.log(avi)
-  },[updateTODOSID, dispatch])
+    const IDSSetObj = makeSetFromArr(updateTODOSID)
+    const updateIDSArr = Array.from(IDSSetObj)
+    return updateIDSArr
+
+  },[updateTODOSID])
 
   useEffect(()=> {
+    // const wantedIDSInfo = IDSChanges()
     getAllTODDOSData()
-  },[getAllTODDOSData])
+    dispatch(deleteChanges())
+  },[getAllTODDOSData, dispatch])
 
   
   // useEffect(()=> {

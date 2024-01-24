@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux";
 import Overlay from 'ol/Overlay.js';
 import { currMapLocation, updatePoint, updateTooltipStatus } from '../actions/actions';
 import { isShownTODO } from "../utils/generalUtils";
-import { Object } from "ol";
 
 
 
@@ -37,8 +36,7 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
       const filterShownTODOSPoints = useCallback(() => {
         const shownPoints = {}
-        // const allMapPointsIDS =  Object.keys(mapPoints)
-        const allMapPointsIDS = ['1706015349540', '1706107777528']
+        const allMapPointsIDS =  Object.keys(mapPoints)
         allMapPointsIDS.forEach(pointID => {
            if (isShownTODO(TODOS[pointID], filterKind)) {
             shownPoints[pointID] = TODOS[pointID].location 
@@ -46,9 +44,7 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
            }
         });
         return shownPoints
-      },[TODOS, filterKind
-        // mapPoints
-      ])
+      },[TODOS, filterKind,mapPoints])
     
 
       const shownTODOSPoints = filterShownTODOSPoints()

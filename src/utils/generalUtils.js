@@ -6,7 +6,7 @@ export const isLocationExist = (location = {}) => {
     return false
 }
 
-export const isShownTODO = (TODO,filterKind) =>  {
+export const isShownTODO = (TODO = {},filterKind) =>  {
   if (filterKind === "delete") {
     return TODO.isDeleted
   }

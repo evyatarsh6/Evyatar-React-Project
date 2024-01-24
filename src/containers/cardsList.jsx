@@ -2,6 +2,7 @@ import { useMemo} from "react";
 import { Card } from "../components/Cards/Card";
 import { GetFilterKind, GetTODOList } from "../selectors";
 import { useSelector } from "react-redux";
+import { isShownTODO } from "../utils/generalUtils";
 
 export const CardList = () => {
 
@@ -10,16 +11,7 @@ export const CardList = () => {
     const filterKind = useSelector(GetFilterKind)
 
     const FilterdArr = useMemo(() => {
-        switch(filterKind){
-            case "normal":
-                return Object.values(TODOList).filter( TODO  => !TODO.isDeleted)
-            case "delete":
-                return Object.values(TODOList).filter( TODO  => TODO.isDeleted)
-            case "choosen":
-                return Object.values(TODOList).filter( TODO  => (TODO.isChoosen && !TODO.isDeleted))
-            default:
-                return []
-        }
+        return Object.values(TODOList).filter(TODO => isShownTODO(TODO, filterKind))
 
     },[ filterKind, TODOList])
 

@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { addIDToSetChanges, editTODO } from '../../actions/actions';
-import { generateChangeValueLogs } from '../../constans/generalLogs';
 import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 import { useDispatch } from 'react-redux';
 
@@ -50,10 +49,6 @@ export const CardDescriptionField = ({info}) => {
         dispatch(addIDToSetChanges(info._id))
         
     },[dispatch, info._id, isFreezeMode, message, mutateSingleUpdateDescription])
-
-    useEffect(() => {
-        console.log(generateChangeValueLogs('the description field' , message))
-    }, [message])
 
     return (
         <div className='description-edit-Btn-container'>

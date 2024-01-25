@@ -6,7 +6,9 @@ export const useFetchData = () => {
   const fetchCurrDeltas = useCallback( async() => {
     const currTime =  new Date()
     try {
-      await axios.get(`http://localhost:3000/getCurrDeltas/` + currTime)
+      const response = await axios.get(`http://localhost:3000/getCurrDeltas/` + currTime)
+      return response.data
+      
     } catch (error) {
       alert(`avi's server had a problam with error message of : ${error.message}`);
     }

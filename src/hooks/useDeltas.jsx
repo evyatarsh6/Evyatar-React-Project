@@ -1,9 +1,8 @@
-import axios from "axios";
 import { useCallback } from "react";
 import { useQueryTemplate } from "./useQueryTemplate";
 import { useFetchData } from "./useFetchData";
 import { useDispatch } from "react-redux";
-import { addTODO, addTODOFromDB, editTODO, updatePoint } from "../actions/actions";
+import { addTODO, editTODO, updatePoint } from "../actions/actions";
 
 export const useDeltas = () => {
     

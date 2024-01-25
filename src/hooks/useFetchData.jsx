@@ -2,7 +2,16 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useCallback } from "react";
 
-export const useFetchTODOS = () => {
+export const useFetchData = () => {
+
+  const fetchCurrDeltas = useCallback( async() => {
+    const currTime =  new Date()
+    try {
+      await axios.get(`http://localhost:3000/getCurrDeltas` + currTime)
+    } catch (error) {
+      alert(`avi's server had a problam with error message of : ${error.message}`);
+    }
+  },[])
 
   const fetchShownTodos = useCallback( async (filterKind) => {
     try {
@@ -54,6 +63,7 @@ export const useFetchTODOS = () => {
   return {
     fetchShownTodos: fetchShownTodos,
     fetchHoverTodoInfo:fetchHoverTodoInfo,
-    fetchAllTodos:fetchAllTodos
+    fetchAllTodos:fetchAllTodos,
+    fetchCurrDeltas:fetchCurrDeltas
   };
 };

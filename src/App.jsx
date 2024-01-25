@@ -3,38 +3,19 @@
 // import { useCallback, useEffect } from 'react';
 // import { makeSetFromArr } from './utils/generalUtils';
 // import { deleteChanges } from './actions/actions';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import './App.css';
 import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
 import { useAllTODOSQuery } from './hooks/useAllTODOS';
-import { usePostCurrTime } from './hooks/useMutateTODOS';
+import { useQueryTemplate } from './hooks/useQueryTemplate';
+import { useFetchData } from './hooks/useFetchData';
+import { useDeltas } from './hooks/useDeltas';
 
 function App() {
   const {getAllTODDOSData} = useAllTODOSQuery()
-  const sendCurrTime = usePostCurrTime()
-  
-  // const dispatch = useDispatch()
-  // const updateTODOSID = useSelector(GetTODOListNeedsChange)
-
-  // const IDSChanges = useCallback(() => {
-  //   const IDSSetObj = makeSetFromArr(updateTODOSID)
-  //   const updateIDSArr = Array.from(IDSSetObj)
-  //   return updateIDSArr
-  
-  // },[updateTODOSID])
-
-  // useEffect(()=> {
-
-       
-    // const firstWantedIDSInfo = IDSChanges()
-    // console.log(firstWantedIDSInfo)
-    // dispatch(deleteChanges())
-    // const secondWantedIDSInfo = IDSChanges()
-    // console.log(secondWantedIDSInfo)
-
-  // },[IDSChanges, dispatch])
+  const {refetch} = useDeltas()
 
   useEffect(()=> {
     getAllTODDOSData()
@@ -42,12 +23,12 @@ function App() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      sendCurrTime.mutate()
+      refetch()
     }, 10000);
     return () => {
       clearTimeout(timer);
     } 
-  }, [sendCurrTime]);
+  }, [refetch]);
 
 
   return (

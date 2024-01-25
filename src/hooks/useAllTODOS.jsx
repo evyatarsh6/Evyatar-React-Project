@@ -1,4 +1,4 @@
-import { useFetchTODOS } from "./useFetchTODOS";
+import { useFetchData } from "./useFetchData";
 import { useCallback } from "react";
 import { useQueryTemplate } from "./useQueryTemplate";
 import { useDispatch } from "react-redux";
@@ -6,7 +6,7 @@ import { addTODOFromDB, updatePoint } from "../actions/actions";
 
 export const useAllTODOSQuery = () => {
 
-    const {fetchAllTodos} = useFetchTODOS()
+    const {fetchAllTodos} = useFetchData()
     const dispatch = useDispatch()
 
     const queryKey =  ['show All TODOS']

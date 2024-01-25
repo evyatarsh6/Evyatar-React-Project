@@ -34,17 +34,6 @@ export const useUpdateDB = () => {
     }
   },[])
   
-  const postCurrTime = useCallback( async() => {
-    try {
-      await axios.post(`http://localhost:3000/postCurrTime`,
-       {
-        currTime :  new Date()
-       })
-    } catch (error) {
-      alert(`avi's server had a problam with error message of : ${error.message}`);
-    }
-  },[])
-  
   const patchFieldWantedTODO = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
     try{
        const response = await axios.patch(
@@ -122,7 +111,6 @@ export const useUpdateDB = () => {
 
   return {
     postTODO:postTODO,
-    postCurrTime:postCurrTime,
     patchFieldWantedTODO: patchFieldWantedTODO,
     patchFieldAllTODOS: patchFieldAllTODOS,
     putWantedTODO :putWantedTODO,

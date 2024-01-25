@@ -1,5 +1,6 @@
 import { useMutation } from "react-query";
 import { useUpdateDB } from "./useUpdateDB";
+import { useFetchData } from "./useFetchData";
 
 const onErrorMessage =  () => console.error(`Error updating`)
 
@@ -74,26 +75,6 @@ export const useDeleteAllWantedCollection = () => {
     } 
 
     return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
-} 
-
-
-export const usePostCurrTime = () => {
-
-    const {postCurrTime} = useUpdateDB()
-
-    const wantedFunc = async () =>  await postCurrTime();  
-    
-    const onErrorFunc =  () => onErrorMessage()
-    
-    const onSuccessFunc = () => {
-        onSuccessMessage()
-    } 
-
-    return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
-} 
-
-
-
-
+}
 
 

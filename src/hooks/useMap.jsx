@@ -89,13 +89,15 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
 
 
-    const createPoint = useCallback((layerRef,featuresRef, coordinate) => {
-
-        featuresRef.current  = new Feature({
-            geometry: new Point(coordinate),
+    const createPoint = useCallback((layerRef,featuresRef, ID, coordinate) => {
+        const newFeature = new Feature({
+          geometry: new Point(coordinate),
         });
-        featuresRef.current.setStyle(iconStyle);
-        layerRef.current.getSource().addFeature(featuresRef.current);
+      
+        newFeature.setStyle(iconStyle);
+      
+        featuresRef.current[ID] = newFeature;
+        layerRef.current.getSource().addFeature(newFeature);
 
     },[iconStyle])
 
@@ -137,13 +139,14 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     const handleShowPointsMode = useCallback(() => {
       if (!selectedTODOID) {
         layerRef.current.getSource().clear();
-        Object.values(getShownTODOSPoints).forEach(location => {
+        Object.keys(getShownTODOSPoints).forEach(pointID => {
           createPoint(
-          layerRef,
-          featuresRef,
-          location,
-          )
-        });  
+            layerRef,
+            featuresRef,
+            pointID,
+            getShownTODOSPoints[pointID]
+            )          
+        })
       }
       },
       [
@@ -157,7 +160,6 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
       const pointsOnMap = useCallback(() => {
         if (showPointsMode) {
-        // if (showPointsMode && Object.keys(mapPoints).length ) {
             handleShowPointsMode()
           }
           else{
@@ -179,10 +181,11 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
           isTooltipExist,
         ])
 
-  const createPointByClick = useCallback((evt,currTooltip,setCurrTooltip) => {
+  const createPointByClick = useCallback((evt,currTooltip,setCurrTooltip,ID) => {
     createPoint(
       layerRef,
       featuresRef,
+      ID,
       evt.coordinate,
       
       )

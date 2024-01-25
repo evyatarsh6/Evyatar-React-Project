@@ -9,11 +9,11 @@ import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
 import { useAllTODOSQuery } from './hooks/useAllTODOS';
-import { usePostCurrDate } from './hooks/useMutateTODOS';
+import { usepostCurrTime } from './hooks/useMutateTODOS';
 
 function App() {
   const {getAllTODDOSData} = useAllTODOSQuery()
-  const sendCurrTime = usePostCurrDate()
+  const sendCurrTime = usepostCurrTime()
   
   // const dispatch = useDispatch()
   // const updateTODOSID = useSelector(GetTODOListNeedsChange)
@@ -40,15 +40,15 @@ function App() {
     getAllTODDOSData()
   },[getAllTODDOSData])
 
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     sendCurrTime.mutate()
+  //   }, 10000);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   } 
+  // }, [sendCurrTime]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      sendCurrTime.mutate()
-    }, 10000);
-    return () => {
-      clearTimeout(timer);
-    } 
-  }, [sendCurrTime]);
 
   return (
 

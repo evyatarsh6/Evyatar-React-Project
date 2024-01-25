@@ -5,8 +5,7 @@ import { useMemo } from 'react';
 export const CardLocationField = ({info}) => {
 
     const showLocationAsString = useMemo(() => {
-        const locationValues = Object.values(info.location)
-        // const locationValues = info.location || []
+        const locationValues = Object.values(info?.location) || []
         if (locationValues.length) {
             const locationLong = locationValues[0]
             const locationLat =  locationValues[1]

@@ -77,11 +77,11 @@ export const useDeleteAllWantedCollection = () => {
 } 
 
 
-export const usePostCurrDate = () => {
+export const usePostCurrTime = () => {
 
-    const {postCurrDate} = useUpdateDB()
+    const {postCurrTime} = useUpdateDB()
 
-    const wantedFunc = async () =>  await postCurrDate();  
+    const wantedFunc = async () =>  await postCurrTime();  
     
     const onErrorFunc =  () => onErrorMessage()
     

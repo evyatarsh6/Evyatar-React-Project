@@ -9,11 +9,11 @@ import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
 import { useAllTODOSQuery } from './hooks/useAllTODOS';
-import { usepostCurrTime } from './hooks/useMutateTODOS';
+import { usePostCurrTime } from './hooks/useMutateTODOS';
 
 function App() {
   const {getAllTODDOSData} = useAllTODOSQuery()
-  const sendCurrTime = usepostCurrTime()
+  const sendCurrTime = usePostCurrTime()
   
   // const dispatch = useDispatch()
   // const updateTODOSID = useSelector(GetTODOListNeedsChange)

@@ -21,8 +21,7 @@ export const PopUpContent = ({id}) => {
     
     const currCardInfo = TODOList[selectedTODOID]
 
-    if (currLocation.length && currCardInfo) {
-
+    if (currCardInfo) {
         return (
             <div id="popup-content">
             <div id = "popup-TODO-kind">

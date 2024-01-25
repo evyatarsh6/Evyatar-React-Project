@@ -40,7 +40,6 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
         allMapPointsIDS.forEach(pointID => {
            if (isShownTODO(TODOS[pointID], filterKind)) {
             shownPoints[pointID] = TODOS[pointID].location 
-            // shownPoints.push(TODOS[pointID].location)
            }
         });
         return shownPoints
@@ -138,7 +137,6 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       [getHoverID,getShownTODOSPoints,updateOverLay,removeOverlay])
     
 
-    
     const handleShowPointsMode = useCallback(() => {
         layerRef.current.getSource().clear();
         Object.values(getShownTODOSPoints).forEach(location => {

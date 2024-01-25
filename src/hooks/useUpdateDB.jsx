@@ -8,7 +8,7 @@ export const useUpdateDB = () => {
 
   const TODOList = useSelector(GetTODOList)
 
-  const postTODO = async (wantedID, TODOKind) => {
+  const postTODO = useCallback(async (wantedID, TODOKind) => {
     try {
        await axios.post(`http://localhost:3000/postTODO`,
         {
@@ -29,8 +29,18 @@ export const useUpdateDB = () => {
     } catch (error) {
       alert(`avi's server had a problam with error message of : ${error.message}`);
     }
-  }
+  },[])
   
+  const postCurrDate = useCallback( async() => {
+    try {
+      await axios.post(`http://localhost:3000/postTODO`,
+       {
+        currTime :  new Date()
+       })
+   } catch (error) {
+     alert(`avi's server had a problam with error message of : ${error.message}`);
+   }
+  },[])
   
   const patchFieldWantedTODO = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
     try{
@@ -84,11 +94,25 @@ export const useUpdateDB = () => {
     }
   },[TODOList])
 
+  const deleteAllWantedDocuments = useCallback(async (wantedCollection) => {
+    try{
+      await axios.delete(
+        'http://localhost:3000/deleteAllDocuWantedCollection/' + wantedCollection
+      )
+    }
+    catch (error){
+      console.error(`Error fetching TODOs: ${error.message}`);
+      throw error;
+    }
+  },[])
+
   return {
     postTODO:postTODO,
+    postCurrDate:postCurrDate,
     patchFieldWantedTODO: patchFieldWantedTODO,
     patchFieldAllTODOS: patchFieldAllTODOS,
-    putWantedTODO :putWantedTODO 
+    putWantedTODO :putWantedTODO,
+    deleteAllWantedDocuments:deleteAllWantedDocuments, 
 
   };
 };

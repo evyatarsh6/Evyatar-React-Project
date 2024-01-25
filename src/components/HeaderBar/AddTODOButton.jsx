@@ -3,7 +3,7 @@ import { GetMainInput} from "../../selectors"
 import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef } from "react";
 import { addIDToSetChanges, addTODO } from "../../actions/actions";
-import { useAddSingleTODO } from '../../hooks/useMutateTODOS';
+import { useAddSingleTODO, useDeleteAllWantedCollection } from '../../hooks/useMutateTODOS';
 import {bergerPhotos} from '../../shared/photos';
 
 
@@ -15,6 +15,7 @@ export const AddTODOBtn = ({style}) => {
   const inputRef = useRef(inputValue)
 
   const postSingleTODO = useAddSingleTODO()
+  // const deleteAllCollectionByName = useDeleteAllWantedCollection()
 
   useEffect(() => {
     inputRef.current = inputValue
@@ -33,6 +34,10 @@ export const AddTODOBtn = ({style}) => {
         {TODOKind: inputRef.current, wantedID: cardID})
               
     }}, [inputRef, dispatch, postSingleTODO]);
+
+  // const handleAddTODO = () => {
+  //   deleteAllCollectionByName.mutate('changeLog') 
+  // } 
 
     
     return (

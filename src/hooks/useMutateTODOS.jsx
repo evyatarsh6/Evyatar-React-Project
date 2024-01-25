@@ -1,8 +1,7 @@
 import { useMutation } from "react-query";
 import { useUpdateDB } from "./useUpdateDB";
-// import { useShownTODOSQuery } from "./useShownTODOSQuery";
 
-const onErrorMessage =  () => console.error(`Error updating TODOS`)
+const onErrorMessage =  () => console.error(`Error updating`)
 
 const onSuccessMessage = () => console.log('done updating')
 
@@ -61,6 +60,40 @@ export const useAddSingleTODO = () => {
 
     return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
 } 
+
+export const useDeleteAllWantedCollection = () => {
+
+    const {deleteAllWantedDocuments} = useUpdateDB()
+
+    const wantedFunc = async (wantedCollection) =>  await deleteAllWantedDocuments(wantedCollection);  
+    
+    const onErrorFunc =  () => onErrorMessage()
+    
+    const onSuccessFunc = () => {
+        onSuccessMessage()
+    } 
+
+    return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
+} 
+
+
+export const usePostCurrDate = () => {
+
+    const {postCurrDate} = useUpdateDB()
+
+    const wantedFunc = async () =>  await postCurrDate();  
+    
+    const onErrorFunc =  () => onErrorMessage()
+    
+    const onSuccessFunc = () => {
+        onSuccessMessage()
+    } 
+
+    return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
+} 
+
+
+
 
 
 

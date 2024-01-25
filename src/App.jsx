@@ -3,14 +3,12 @@
 // import { useCallback, useEffect } from 'react';
 // import { makeSetFromArr } from './utils/generalUtils';
 // import { deleteChanges } from './actions/actions';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
 import { useAllTODOSQuery } from './hooks/useAllTODOS';
-import { useQueryTemplate } from './hooks/useQueryTemplate';
-import { useFetchData } from './hooks/useFetchData';
 import { useDeltas } from './hooks/useDeltas';
 
 function App() {

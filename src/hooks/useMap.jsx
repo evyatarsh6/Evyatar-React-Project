@@ -45,9 +45,6 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
         return shownPoints
       },[TODOS, filterKind,mapPoints])
 
-      // const shownTODOSPoints = filterShownTODOSPoints()
-      // const shownTODOSPointsIDS = Object.keys(shownTODOSPoints) 
-
 
       const shownTODOSPointsFunc = useCallback(() => {
         return filterShownTODOSPoints()
@@ -138,6 +135,7 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     
 
     const handleShowPointsMode = useCallback(() => {
+      if (!selectedTODOID) {
         layerRef.current.getSource().clear();
         Object.values(getShownTODOSPoints).forEach(location => {
           createPoint(
@@ -146,12 +144,14 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
           location,
           )
         });  
+      }
       },
       [
         createPoint,
         layerRef,
         featuresRef,
-        getShownTODOSPoints
+        getShownTODOSPoints,
+        selectedTODOID
       ]
       );
 

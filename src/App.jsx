@@ -11,15 +11,15 @@ import { useAllTODOSQuery } from './hooks/useAllTODOS';
 
 function App() {
   const dispatch = useDispatch()
-  const updateTODOSID = useSelector(GetTODOListNeedsChange)
+  // const updateTODOSID = useSelector(GetTODOListNeedsChange)
   const {getAllTODDOSData} = useAllTODOSQuery()
 
-  const IDSChanges = useCallback(() => {
-    const IDSSetObj = makeSetFromArr(updateTODOSID)
-    const updateIDSArr = Array.from(IDSSetObj)
-    return updateIDSArr
+  // const IDSChanges = useCallback(() => {
+  //   const IDSSetObj = makeSetFromArr(updateTODOSID)
+  //   const updateIDSArr = Array.from(IDSSetObj)
+  //   return updateIDSArr
 
-  },[updateTODOSID])
+  // },[updateTODOSID])
 
   useEffect(()=> {
     

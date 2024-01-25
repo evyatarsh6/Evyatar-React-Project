@@ -45,10 +45,24 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
         });
         return shownPoints
       },[TODOS, filterKind,mapPoints])
-    
 
-      const shownTODOSPoints = filterShownTODOSPoints()
-      const shownTODOSPointsIDS = Object.keys(shownTODOSPoints) 
+      // const shownTODOSPoints = filterShownTODOSPoints()
+      // const shownTODOSPointsIDS = Object.keys(shownTODOSPoints) 
+
+
+      const shownTODOSPointsFunc = useCallback(() => {
+        return filterShownTODOSPoints()
+      }, [filterShownTODOSPoints])
+
+      const getShownTODOSPoints = shownTODOSPointsFunc()
+
+      const shownTODOSPointsIDSFunc = useCallback(() => {
+        return Object.keys(getShownTODOSPoints)
+      }, [getShownTODOSPoints])
+
+      
+      const shownTODOSPointsIDS = shownTODOSPointsIDSFunc()
+
 
       const popUpOverlay = useCallback((coordinate) => {
         return new Overlay({
@@ -93,8 +107,8 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
         const findTODOConditinal = (ID) => {
 
-            const xvalue = Math.abs(shownTODOSPoints[ID][0] ) - Math.abs(coordinate[0])
-            const yvalue = Math.abs(shownTODOSPoints[ID][1] )- Math.abs(coordinate[1])
+            const xvalue = Math.abs(getShownTODOSPoints[ID][0] ) - Math.abs(coordinate[0])
+            const yvalue = Math.abs(getShownTODOSPoints[ID][1] )- Math.abs(coordinate[1])
             const xvalueContidinal = Math.abs(xvalue)<500000
             const yvalueContidinal = Math.abs(yvalue)<500000
             
@@ -108,7 +122,7 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
         return wantedPointID
         
     }
-    ,[shownTODOSPoints, shownTODOSPointsIDS])
+    ,[getShownTODOSPoints, shownTODOSPointsIDS])
 
 
     const createTooltipByHover = useCallback((evt, setHoverID, currTooltip,setCurrTooltip) => {
@@ -117,17 +131,17 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     
         if (wantedPointID) {
           removeOverlay(currTooltip,setCurrTooltip)
-          updateOverLay(shownTODOSPoints[wantedPointID], setCurrTooltip)
+          updateOverLay(getShownTODOSPoints[wantedPointID], setCurrTooltip)
           setHoverID(wantedPointID)
         }
       },
-      [getHoverID,shownTODOSPoints,updateOverLay,removeOverlay])
+      [getHoverID,getShownTODOSPoints,updateOverLay,removeOverlay])
     
 
     
     const handleShowPointsMode = useCallback(() => {
         layerRef.current.getSource().clear();
-        Object.values(shownTODOSPoints).forEach(location => {
+        Object.values(getShownTODOSPoints).forEach(location => {
           createPoint(
           layerRef,
           featuresRef,
@@ -139,18 +153,19 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
         createPoint,
         layerRef,
         featuresRef,
-        shownTODOSPoints
+        getShownTODOSPoints
       ]
       );
 
       const pointsOnMap = useCallback(() => {
-        if (showPointsMode && Object.keys(mapPoints).length ) {
+        if (showPointsMode) {
+        // if (showPointsMode && Object.keys(mapPoints).length ) {
             handleShowPointsMode()
           }
           else{
             layerRef.current.getSource().clear()
           }
-      },[ handleShowPointsMode, layerRef, mapPoints, showPointsMode])
+      },[ handleShowPointsMode, layerRef, showPointsMode])
 
       const tooltipLogic = useCallback((coordinate, currTooltip,setCurrTooltip) => {
 

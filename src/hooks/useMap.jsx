@@ -101,6 +101,13 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
     },[iconStyle])
 
+    const removePoint = useCallback((layerRef,featuresRef, ID) => {
+      const wantedFeature = featuresRef.current[ID] ;
+      layerRef.current.getSource().removeFeature(wantedFeature);
+    },[])
+
+
+
     const getHoverID = useCallback((coordinate) => {
 
         const findTODOConditinal = (ID) => {
@@ -182,6 +189,8 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
         ])
 
   const createPointByClick = useCallback((evt,currTooltip,setCurrTooltip,ID) => {
+    removePoint(layerRef, featuresRef, ID)
+
     createPoint(
       layerRef,
       featuresRef,
@@ -200,13 +209,14 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       tooltipLogic(evt.coordinate, currTooltip,setCurrTooltip)
     },
     [
-    layerRef,
+      showPointsMode,
+      layerRef,
       featuresRef,
       tooltipLogic,
       selectedTODOID,
       dispatch,
       createPoint,
-      showPointsMode
+      removePoint
     ]
     );
 

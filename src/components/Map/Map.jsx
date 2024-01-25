@@ -61,7 +61,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
     if (mapContainer.current) {
       mapContainer.current.on('pointermove', createTooltipByHover)
       if (PinMode&& activeTODOID) {
-         mapContainer.current.on('click', createPointByClick())
+         mapContainer.current.on('click', createPointByClick)
       }
 
       return () => {

@@ -133,11 +133,14 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     const createTooltipByHover = useCallback((evt, setHoverID, currTooltip,setCurrTooltip) => {
 
         const wantedPointID = getHoverID(evt.coordinate)
-    
         if (wantedPointID) {
           removeOverlay(currTooltip,setCurrTooltip)
           updateOverLay(getShownTODOSPoints[wantedPointID], setCurrTooltip)
           setHoverID(wantedPointID)
+        }
+        else{
+          removeOverlay(currTooltip,setCurrTooltip)
+          setHoverID(null)
         }
       },
       [getHoverID,getShownTODOSPoints,updateOverLay,removeOverlay])

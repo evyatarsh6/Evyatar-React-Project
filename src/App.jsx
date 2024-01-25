@@ -40,14 +40,14 @@ function App() {
     getAllTODDOSData()
   },[getAllTODDOSData])
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     sendCurrTime.mutate()
-  //   }, 10000);
-  //   return () => {
-  //     clearTimeout(timer);
-  //   } 
-  // }, [sendCurrTime]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      sendCurrTime.mutate()
+    }, 10000);
+    return () => {
+      clearTimeout(timer);
+    } 
+  }, [sendCurrTime]);
 
 
   return (

@@ -1,16 +1,24 @@
-export const addIDToSetChanges = (wantedID) => {
-
+export const openForm = (_id,TODOKind) => {
     return {
-        type:  'addIDToSetChanges',
-        _id: wantedID,
+        type: 'openForm',
+        TODOID: _id,
+        TODOKind: TODOKind 
     }
 }
 
-export const deleteChanges = () => {
+export const closeForm = () => {
     return {
-        type: 'deleteChanges'
+        type: 'closeForm'
     }
 }
+
+export const submitForm = props => {
+    return {
+        type: 'closeForm',
+        props:props
+    }
+}
+
 export const addTODO = (inputValue, cardID) => {
     return {
         type:  'addTODOMenual',

@@ -7,6 +7,8 @@ export const GetFilterKind = state => state.UI.filterKind
 
 export const GetMainInput = state => state.UI.mainInput
 
+export const GetFormDetails = state => state.UI.formDetails
+
 export const GetMapPinMode = state => state.UI.Map.mode.pinMode
 
 export const GetMapShowPointsMode = state => state.UI.Map.mode.showPointsMode

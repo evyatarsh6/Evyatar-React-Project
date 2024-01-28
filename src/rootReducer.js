@@ -9,6 +9,7 @@ import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation";
 import { tooltipStatus } from "./reducers/uiReducer/mapReducer/mapTooltipStatus";
 import { TODOSIDChanges } from "./reducers/uiReducer/todosUpdateChanges";
 import { TODOS } from "./reducers/uiReducer/handleTODOSReducer";
+import { formDetails } from "./reducers/uiReducer/formDetails";
 
 
 const mapModeReducer = combineReducers({
@@ -26,6 +27,7 @@ const mapReducer = combineReducers({
 
 const uiReducer = combineReducers({
     TODOList: TODOS,
+    formDetails: formDetails,
     TODOSChanges : TODOSIDChanges,
     filterKind: filterKind,
     Map : mapReducer,

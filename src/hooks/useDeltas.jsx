@@ -18,7 +18,7 @@ export const useDeltas = () => {
   useQuery({
       queryKey: queryKey,
       queryFn: queryFn,
-      refetchInterval : 2000
+      refetchInterval : 3000
   })
 
 
@@ -58,11 +58,12 @@ export const useDeltas = () => {
     }
 
     if (isSuccess){
-      changeLogValues.forEach(singleChange => {
+      const wantedArr = changeLogValues || []
+      wantedArr.forEach(singleChange => {
         deltasLogic(singleChange)
       });
 
-      return changeLogValues
+      return wantedArr
     }
 
   },[error, isLoading,  isSuccess, deltasLogic, changeLogValues])

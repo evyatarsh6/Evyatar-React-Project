@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 export const useFetchData = () => {
 
-  const fetchCurrDeltas = useCallback( async() => {
+    const fetchCurrDeltas = useCallback( async() => {
     const currTime =  new Date()
     try {
       const response = await axios.get(`http://localhost:3000/getCurrDeltas/` + currTime)

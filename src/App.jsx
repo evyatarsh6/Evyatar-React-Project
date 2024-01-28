@@ -4,24 +4,29 @@ import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
 import { useAllTODOSQuery } from './hooks/useAllTODOS';
-// import { useDeltas } from './hooks/useDeltas';
+import { useDeltas } from './hooks/useDeltas';
 
 function App() {
   const {getAllTODDOSData} = useAllTODOSQuery()
-  // const {getDeltas} = useDeltas()
+  const {getDeltas} = useDeltas()
 
   useEffect(()=> {
     getAllTODDOSData()
   },[getAllTODDOSData])
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     getDeltas()
-  //   }, 10000);
-  //   return () => {
-  //     clearInterval(timer);
-  //   } 
-  // }, [getDeltas]);
+  useEffect(() => {
+      getDeltas()
+    },[getDeltas]);
+
+
+//   useEffect(() => {
+//     const timer = setInterval(() => {
+//       console.log('avi')
+//     }, 1000);
+//     return () => {
+//       clearInterval(timer);
+//     } 
+// }, [getDeltas]);
 
 
   return (

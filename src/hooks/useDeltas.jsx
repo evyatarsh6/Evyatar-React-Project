@@ -11,14 +11,14 @@ export const useDeltas = () => {
 
   const {fetchCurrDeltas} = useFetchData()
   const queryKey =  ['updateDeltas']
-  // const queryFn = async () => await fetchCurrDeltas()
-  const queryFn = () => fetchCurrDeltas()
+  const queryFn = async () => await fetchCurrDeltas()
 
   const { data: changeLogValues, error, isLoading, isSuccess, refetch} =
   useQuery({
       queryKey: queryKey,
       queryFn: queryFn,
-      refetchInterval : 3000
+      refetchInterval : 10000,
+      refetchIntervalInBackground:true
   })
 
 
@@ -46,7 +46,8 @@ export const useDeltas = () => {
     }
   },[dispatch])
   
-  const getDeltas = useCallback( async () => {
+  const getDeltas = useCallback( () => {
+  // const getDeltas = useCallback( async () => {
     
     if (isLoading) {
         console.log('leading deltas')

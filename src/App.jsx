@@ -18,17 +18,6 @@ function App() {
       getDeltas()
     },[getDeltas]);
 
-
-//   useEffect(() => {
-//     const timer = setInterval(() => {
-//       console.log('avi')
-//     }, 1000);
-//     return () => {
-//       clearInterval(timer);
-//     } 
-// }, [getDeltas]);
-
-
   return (
 
     <div className='App'>

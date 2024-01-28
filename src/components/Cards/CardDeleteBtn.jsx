@@ -16,7 +16,6 @@ export const CardDeleteBtn = ({info}) => {
     const clickDeleteRestoreBtn = async (event) => {
         event.preventDefault()
         const newDeleteStatus = !isDeleted 
-        setIsDeleted(newDeleteStatus)
         try {
             await fetchUpdateWantedTODO(info._id, 'isDeleted', newDeleteStatus)
             updateTODOList();

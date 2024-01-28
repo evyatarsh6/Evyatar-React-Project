@@ -5,6 +5,7 @@ import { MainInput } from './MainInput';
 import { ButtonsContainer } from './ButtonsContainer';
 import { useSelector } from 'react-redux';
 import {TODOForm} from '../TODOForm'
+import { openForm } from '../../actions/actions';
 
 export const HeaderBar = () => {
 
@@ -36,7 +37,11 @@ export const HeaderBar = () => {
       }}>
           <MainInput/>
           <ButtonsContainer/>
-          <TODOForm style={{display:formDisplay}}/>
+          <TODOForm/>
+
+
+
+          {/* <TODOForm style={{display:formDisplay}}/> */}
         </div>
       </div>
     )

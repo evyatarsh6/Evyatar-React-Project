@@ -3,7 +3,7 @@ import { useQueryTemplate } from "./useQueryTemplate";
 import { useFetchData } from "./useFetchData";
 import { useDispatch } from "react-redux";
 import { addTODO, editTODO, updatePoint } from "../actions/actions";
-import { useQuery } from "react-query";
+
 
 export const useDeltas = () => {
     
@@ -15,18 +15,10 @@ export const useDeltas = () => {
 
   const { data: changeLogValues, error, isLoading, isSuccess, refetch} =
 
-  // useQueryTemplate( queryKey, queryFn, {
-  //   refetchInterval : 10000,
-  //   refetchIntervalInBackground:true
-  // })
-
-  useQuery({
-      queryKey: queryKey,
-      queryFn: queryFn,
-      refetchInterval : 10000,
-      refetchIntervalInBackground:true
+  useQueryTemplate( queryKey, queryFn, {
+    refetchInterval : 10000,
+    refetchIntervalInBackground:true
   })
-
 
   
   const deltasLogic = useCallback ((info) => {
@@ -53,7 +45,6 @@ export const useDeltas = () => {
   },[dispatch])
   
   const getDeltas = useCallback( () => {
-  // const getDeltas = useCallback( async () => {
     
     if (isLoading) {
         console.log('leading deltas')

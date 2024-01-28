@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
 import { GetMapPoints } from "../../selectors";
 import { IconButton } from '@mui/material';
-import { activeMapPinTODOMode, editTODO, editAllTODOS, cancelMapPinTODOMode, updateTooltipStatus, addIDToSetChanges}
+import { activeMapPinTODOMode, editTODO, editAllTODOS, cancelMapPinTODOMode, updateTooltipStatus}
 from '../../actions/actions';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
@@ -82,7 +82,6 @@ export const CardPinBtn = ({info}) => {
             fieldUpdateValue: mapPoints[info._id].location
             }
         ))
-        //dispatch(addIDToSetChanges(info._id))
 
     },[clickCancelPin, dispatch, info._id, mapPoints,  mutateSingleUpdateLocation])
 

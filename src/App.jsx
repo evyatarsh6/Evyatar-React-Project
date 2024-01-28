@@ -1,33 +1,27 @@
-// import { useDispatch, useSelector } from 'react-redux';
-// import { GetTODOListNeedsChange } from './selectors';
-// import { useCallback, useEffect } from 'react';
-// import { makeSetFromArr } from './utils/generalUtils';
-// import { deleteChanges } from './actions/actions';
 import { useEffect } from 'react';
 import './App.css';
 import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
 import { useAllTODOSQuery } from './hooks/useAllTODOS';
-import { useDeltas } from './hooks/useDeltas';
+// import { useDeltas } from './hooks/useDeltas';
 
 function App() {
   const {getAllTODDOSData} = useAllTODOSQuery()
-  const {refetch, deltasLogic} = useDeltas()
+  // const {getDeltas} = useDeltas()
 
   useEffect(()=> {
     getAllTODDOSData()
   },[getAllTODDOSData])
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      refetch()
-      deltasLogic()
-    }, 10000);
-    return () => {
-      clearTimeout(timer);
-    } 
-  }, [refetch,deltasLogic]);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     getDeltas()
+  //   }, 10000);
+  //   return () => {
+  //     clearInterval(timer);
+  //   } 
+  // }, [getDeltas]);
 
 
   return (

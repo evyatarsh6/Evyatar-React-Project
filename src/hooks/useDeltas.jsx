@@ -1,8 +1,9 @@
 import { useCallback } from "react";
-import { useQueryTemplate } from "./useQueryTemplate";
+// import { useQueryTemplate } from "./useQueryTemplate";
 import { useFetchData } from "./useFetchData";
 import { useDispatch } from "react-redux";
 import { addTODO, editTODO, updatePoint } from "../actions/actions";
+import { useQuery } from "react-query";
 
 export const useDeltas = () => {
     
@@ -10,38 +11,43 @@ export const useDeltas = () => {
 
   const {fetchCurrDeltas} = useFetchData()
   const queryKey =  ['updateDeltas']
-  const queryFn = async () => await fetchCurrDeltas()
+  // const queryFn = async () => await fetchCurrDeltas()
+  const queryFn = () => fetchCurrDeltas()
 
   const { data: changeLogValues, error, isLoading, isSuccess, refetch} =
-  useQueryTemplate(queryKey, queryFn )
+  useQuery({
+      queryKey: queryKey,
+      queryFn: queryFn,
+      refetchInterval : 2000
+  })
 
-  const results = changeLogValues
 
-  const deltasLogic = useCallback (() => {
+  
+  const deltasLogic = useCallback ((info) => {
 
-    if (results.changeType === 'PATCH') {
+    if (info.changeType === 'PATCH') {
       dispatch(editTODO({
-        _id: results.TODOID,
-        fieldKey: results.changedField,
-        fieldUpdateValue: results.values.newValue
+        _id: info.TODOID,
+        fieldKey: info.changedField,
+        fieldUpdateValue: info.values.newValue
       }))
 
-      if (results.changedField ==='location') {
-        dispatch(updatePoint(results.TODOID,results.values.newValue))
+      if (info.changedField ==='location') {
+        dispatch(updatePoint(info.TODOID,info.values.newValue))
       }
     }
-    else if (results.changeType === 'POST') {
+    else if (info.changeType === 'POST') {
       
       dispatch(addTODO({
 
-        value: results.TODOKind,
-        _id: results.TODOID
+        value: info.TODOKind,
+        _id: info.TODOID
       }))
     }
-  },[dispatch, results])
+  },[dispatch])
   
   const getDeltas = useCallback( async () => {
-
+    
     if (isLoading) {
         console.log('leading deltas')
     }
@@ -59,7 +65,7 @@ export const useDeltas = () => {
       return changeLogValues
     }
 
-  },[error, changeLogValues, isLoading,  isSuccess, deltasLogic])
+  },[error, isLoading,  isSuccess, deltasLogic, changeLogValues])
 
 
   return {

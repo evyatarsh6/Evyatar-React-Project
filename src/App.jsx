@@ -13,20 +13,21 @@ import { useDeltas } from './hooks/useDeltas';
 
 function App() {
   const {getAllTODDOSData} = useAllTODOSQuery()
-  const {refetch, getDeltas} = useDeltas()
+  const {refetch, deltasLogic} = useDeltas()
 
   useEffect(()=> {
     getAllTODDOSData()
-  },[getAllTODDOSData, getDeltas])
+  },[getAllTODDOSData])
 
   useEffect(() => {
     const timer = setTimeout(() => {
       refetch()
+      deltasLogic()
     }, 10000);
     return () => {
       clearTimeout(timer);
     } 
-  }, [refetch]);
+  }, [refetch,deltasLogic]);
 
 
   return (

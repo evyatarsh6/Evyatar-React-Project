@@ -15,28 +15,30 @@ export const useDeltas = () => {
   const { data: changeLogValues, error, isLoading, isSuccess, refetch} =
   useQueryTemplate(queryKey, queryFn )
 
-  const deltasLogic = useCallback ((changeLogInfo) => {
+  const results = changeLogValues
 
-    if (changeLogInfo.changeType === 'PATCH') {
+  const deltasLogic = useCallback (() => {
+
+    if (results.changeType === 'PATCH') {
       dispatch(editTODO({
-        _id: changeLogInfo.TODOID,
-        fieldKey: changeLogInfo.changedField,
-        fieldUpdateValue: changeLogInfo.values.newValue
+        _id: results.TODOID,
+        fieldKey: results.changedField,
+        fieldUpdateValue: results.values.newValue
       }))
 
-      if (changeLogInfo.changedField ==='location') {
-        dispatch(updatePoint(changeLogInfo.TODOID,changeLogInfo.values.newValue))
+      if (results.changedField ==='location') {
+        dispatch(updatePoint(results.TODOID,results.values.newValue))
       }
     }
-    else if (changeLogInfo.changeType === 'POST') {
+    else if (results.changeType === 'POST') {
       
       dispatch(addTODO({
 
-        value: changeLogInfo.TODOKind,
-        _id: changeLogInfo.TODOID
+        value: results.TODOKind,
+        _id: results.TODOID
       }))
     }
-  },[dispatch])
+  },[dispatch, results])
   
   const getDeltas = useCallback( async () => {
 
@@ -62,6 +64,7 @@ export const useDeltas = () => {
 
   return {
     getDeltas:getDeltas,
-    refetch:refetch
+    refetch:refetch,
+    deltasLogic:deltasLogic,
   };
 };

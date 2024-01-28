@@ -26,7 +26,7 @@ export const CardDescriptionField = ({info}) => {
         return () => {
             clearInterval(timer);
         }
-    }, [info.description, isFreezeMode]);
+    }, [info.description, message, isFreezeMode]);
 
 
 const mutateSingleUpdateDescription = useMutateFieldSingle()

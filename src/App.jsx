@@ -1,33 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import './App.css';
 import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
-import { GetTODOListNeedsChange } from './selectors';
-import { useCallback, useEffect } from 'react';
-import { makeSetFromArr } from './utils/generalUtils';
-import { deleteChanges } from './actions/actions';
 import { useAllTODOSQuery } from './hooks/useAllTODOS';
+import { useDeltas } from './hooks/useDeltas';
 
 function App() {
-  const dispatch = useDispatch()
-  const updateTODOSID = useSelector(GetTODOListNeedsChange)
   const {getAllTODDOSData} = useAllTODOSQuery()
-
-  const IDSChanges = useCallback(() => {
-    const avi = makeSetFromArr(updateTODOSID)
-    dispatch(deleteChanges())
-    console.log(avi)
-  },[updateTODOSID, dispatch])
+  const {getDeltas} = useDeltas()
 
   useEffect(()=> {
     getAllTODDOSData()
   },[getAllTODDOSData])
 
-  
-  // useEffect(()=> {
-  //   IDSChanges()
-  // },[IDSChanges])
+  useEffect(() => {
+      getDeltas()
+    },[getDeltas]);
 
   return (
 

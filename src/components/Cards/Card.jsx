@@ -1,5 +1,3 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { generateUpdateCardLogs } from '../../constans/generalLogs';
 import { CardDescriptionField } from './CardDescriptionField';
 import { CardMapBtns } from './CardMapBtns';
 import { CardTitle } from './CardTitle';
@@ -32,9 +30,6 @@ export const Card = ({ info }) => {
         
     }
 
-    useEffect(() => {
-        console.log(generateUpdateCardLogs(info))
-    }, [info])
 
 
     return (

@@ -6,6 +6,18 @@ export const isLocationExist = (location = {}) => {
     return false
 }
 
+export const isShownTODO = (TODO = {},filterKind) =>  {
+  if (filterKind === "delete") {
+    return TODO.isDeleted
+  }
+  else if (filterKind === "choosen") {
+    return (TODO.isChoosen && !TODO.isDeleted)
+  }
+  else{
+    return !TODO.isDeleted
+  }
+}
+
 export const getLongLat = coordinate => {
     return {Long: coordinate[0], Lat: coordinate[1]}
   }

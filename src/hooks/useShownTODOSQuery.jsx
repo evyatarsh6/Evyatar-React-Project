@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { useFetchTODOS } from "./useFetchTODOS";
+import { useFetchData } from "./useFetchData";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { GetFilterKind } from "../selectors";
@@ -8,7 +8,7 @@ import { useQueryTemplate } from "./useQueryTemplate";
 export const useShownTODOSQuery = () => {
 
     const filterKind = useSelector(GetFilterKind);
-    const {fetchShownTodos} = useFetchTODOS()
+    const {fetchShownTodos} = useFetchData()
 
     const queryKey =  ['show TODOS of filter', filterKind]
     const queryFn = async () => await fetchShownTodos(filterKind)

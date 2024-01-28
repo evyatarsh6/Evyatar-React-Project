@@ -1,6 +1,6 @@
 
 import React, { useCallback, useMemo} from "react";
-import { GetMapPoints, GetMapShowPointsMode, GetMapPinMode, GetTooltipStatus} from "../selectors";
+import { GetMapPoints, GetMapShowPointsMode, GetMapPinMode, GetTooltipStatus, GetTODOList, GetFilterKind} from "../selectors";
 import "ol/ol.css";
 import Feature from 'ol/Feature';
 import { Point } from "ol/geom";
@@ -10,6 +10,7 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import Overlay from 'ol/Overlay.js';
 import { currMapLocation, updatePoint, updateTooltipStatus } from '../actions/actions';
+import { isShownTODO } from "../utils/generalUtils";
 
 
 
@@ -18,11 +19,12 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     const mapPoints = useSelector(GetMapPoints)
     const showPointsMode = useSelector(GetMapShowPointsMode)
     const isTooltipExist = useSelector(GetTooltipStatus)
+    const TODOS = useSelector(GetTODOList)
+    const filterKind = useSelector(GetFilterKind)
 
     const pinModeStatus = useSelector(GetMapPinMode)
     const selectedTODOID = pinModeStatus.activeTODOID
   
-
     const dispatch = useDispatch()
 
     const iconStyle = useMemo(() => new Style({
@@ -31,7 +33,33 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
           anchor: [0.5, 1],
         }),
       }), []);
-    
+
+      const filterShownTODOSPoints = useCallback(() => {
+        const shownPoints = {}
+        const allMapPointsIDS =  Object.keys(mapPoints)
+        allMapPointsIDS.forEach(pointID => {
+           if (isShownTODO(TODOS[pointID], filterKind)) {
+            shownPoints[pointID] = TODOS[pointID].location 
+           }
+        });
+        return shownPoints
+      },[TODOS, filterKind,mapPoints])
+
+
+      const shownTODOSPointsFunc = useCallback(() => {
+        return filterShownTODOSPoints()
+      }, [filterShownTODOSPoints])
+
+      const getShownTODOSPoints = shownTODOSPointsFunc()
+
+      const shownTODOSPointsIDSFunc = useCallback(() => {
+        return Object.keys(getShownTODOSPoints)
+      }, [getShownTODOSPoints])
+
+      
+      const shownTODOSPointsIDS = shownTODOSPointsIDSFunc()
+
+
       const popUpOverlay = useCallback((coordinate) => {
         return new Overlay({
           element: PopUpRef.current,
@@ -61,22 +89,31 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
 
 
-    const createPoint = useCallback((layerRef,featuresRef, coordinate) => {
-
-        featuresRef.current  = new Feature({
-            geometry: new Point(coordinate),
+    const createPoint = useCallback((layerRef,featuresRef, ID, coordinate) => {
+        const newFeature = new Feature({
+          geometry: new Point(coordinate),
         });
-        featuresRef.current.setStyle(iconStyle);
-        layerRef.current.getSource().addFeature(featuresRef.current);
+      
+        newFeature.setStyle(iconStyle);
+      
+        featuresRef.current[ID] = newFeature;
+        layerRef.current.getSource().addFeature(newFeature);
+
     },[iconStyle])
 
+    const removePoint = useCallback((layerRef,featuresRef, ID) => {
+      const wantedFeature = featuresRef.current[ID] ;
+      layerRef.current.getSource().removeFeature(wantedFeature);
+    },[])
+
+
+
     const getHoverID = useCallback((coordinate) => {
-        const TODOSIDS =  Object.keys(mapPoints)
 
         const findTODOConditinal = (ID) => {
 
-            const xvalue = Math.abs(mapPoints[ID].location[0] ) - Math.abs(coordinate[0])
-            const yvalue = Math.abs(mapPoints[ID].location[1] )- Math.abs(coordinate[1])
+            const xvalue = Math.abs(getShownTODOSPoints[ID][0] ) - Math.abs(coordinate[0])
+            const yvalue = Math.abs(getShownTODOSPoints[ID][1] )- Math.abs(coordinate[1])
             const xvalueContidinal = Math.abs(xvalue)<500000
             const yvalueContidinal = Math.abs(yvalue)<500000
             
@@ -85,55 +122,60 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
             )
         }
 
-        const wantedPointID = TODOSIDS.find(findTODOConditinal)
+        const wantedPointID = shownTODOSPointsIDS.find(findTODOConditinal)
         
         return wantedPointID
         
     }
-    ,[mapPoints])
+    ,[getShownTODOSPoints, shownTODOSPointsIDS])
 
 
     const createTooltipByHover = useCallback((evt, setHoverID, currTooltip,setCurrTooltip) => {
 
         const wantedPointID = getHoverID(evt.coordinate)
-    
         if (wantedPointID) {
           removeOverlay(currTooltip,setCurrTooltip)
-          updateOverLay(mapPoints[wantedPointID].location, setCurrTooltip)
+          updateOverLay(getShownTODOSPoints[wantedPointID], setCurrTooltip)
           setHoverID(wantedPointID)
         }
+        else{
+          removeOverlay(currTooltip,setCurrTooltip)
+          setHoverID(null)
+        }
       },
-      [getHoverID,mapPoints,updateOverLay,removeOverlay])
+      [getHoverID,getShownTODOSPoints,updateOverLay,removeOverlay])
     
 
-    
     const handleShowPointsMode = useCallback(() => {
+      if (!selectedTODOID) {
         layerRef.current.getSource().clear();
-        Object.values(mapPoints).forEach(coordinateObj => {
+        Object.keys(getShownTODOSPoints).forEach(pointID => {
           createPoint(
-          layerRef,
-          featuresRef,
-          coordinateObj.location,
-          
-          )
-        });  
+            layerRef,
+            featuresRef,
+            pointID,
+            getShownTODOSPoints[pointID]
+            )          
+        })
+      }
       },
       [
         createPoint,
         layerRef,
         featuresRef,
-        mapPoints
+        getShownTODOSPoints,
+        selectedTODOID
       ]
       );
 
       const pointsOnMap = useCallback(() => {
-        if (showPointsMode && Object.keys(mapPoints).length ) {
+        if (showPointsMode) {
             handleShowPointsMode()
           }
           else{
             layerRef.current.getSource().clear()
           }
-      },[ handleShowPointsMode, layerRef, mapPoints, showPointsMode])
+      },[ handleShowPointsMode, layerRef, showPointsMode])
 
       const tooltipLogic = useCallback((coordinate, currTooltip,setCurrTooltip) => {
 
@@ -149,10 +191,13 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
           isTooltipExist,
         ])
 
-  const createPointByClick = useCallback((evt,currTooltip,setCurrTooltip) => {
+  const createPointByClick = useCallback((evt,currTooltip,setCurrTooltip,ID) => {
+    removePoint(layerRef, featuresRef, ID)
+
     createPoint(
       layerRef,
       featuresRef,
+      ID,
       evt.coordinate,
       
       )
@@ -167,13 +212,14 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       tooltipLogic(evt.coordinate, currTooltip,setCurrTooltip)
     },
     [
-    layerRef,
+      showPointsMode,
+      layerRef,
       featuresRef,
       tooltipLogic,
       selectedTODOID,
       dispatch,
       createPoint,
-      showPointsMode
+      removePoint
     ]
     );
 

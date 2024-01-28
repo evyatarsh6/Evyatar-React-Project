@@ -8,9 +8,9 @@ export const useUpdateDB = () => {
 
   const TODOList = useSelector(GetTODOList)
 
-  const postTODO = async (wantedID, TODOKind) => {
+  const postTODO = useCallback(async (wantedID, TODOKind) => {
     try {
-       await axios.post(`http://localhost:3000/postTODO`,
+       const response = await axios.post(`http://localhost:3000/postTODO`,
         {
             '_id': wantedID,
             description : "Avi Berger is a god", 
@@ -24,17 +24,19 @@ export const useUpdateDB = () => {
           headers: {}
         }
       )
-          
-      
+
+      if (response) {
+        console.log(response)
+      }
+           
     } catch (error) {
       alert(`avi's server had a problam with error message of : ${error.message}`);
     }
-  }
-  
+  },[])
   
   const patchFieldWantedTODO = useCallback(async (wantedTODOID, field, fieldUpdateVal) => {
     try{
-       await axios.patch(
+       const response = await axios.patch(
          'http://localhost:3000/patchFieldWantedTODO' 
         ,
       {
@@ -43,9 +45,9 @@ export const useUpdateDB = () => {
         wantedFieldUpdateVal: fieldUpdateVal,
       }
       )
-
-      
-
+      if (response) {
+        console.log(response)
+      }
     }
     catch (error){
       console.error(`Error fetching TODOs: ${error.message}`);
@@ -55,7 +57,7 @@ export const useUpdateDB = () => {
   
   const patchFieldAllTODOS = useCallback(async (field, fieldUpdateVal) => {
     try{
-      await axios.patch(
+      const response = await axios.patch(
         'http://localhost:3000/patchFieldAllTODOS' 
         ,
         {
@@ -63,7 +65,10 @@ export const useUpdateDB = () => {
           wantedFieldUpdateVal: fieldUpdateVal,
         }
         )
-        
+
+        if (response) {
+          console.log(response)
+        }
       }
       catch (error){
         console.error(`Error fetching TODOs: ${error.message}`);
@@ -73,10 +78,14 @@ export const useUpdateDB = () => {
     
   const putWantedTODO = useCallback(async (wantedTODOID) => {
     try{
-      await axios.put(
+      const response = await axios.put(
         'http://localhost:3000/putWantedTODO' 
         , TODOList[wantedTODOID]
       )
+
+      if (response) {
+        console.log(response)
+      }
     }
     catch (error){
       console.error(`Error fetching TODOs: ${error.message}`);
@@ -84,11 +93,28 @@ export const useUpdateDB = () => {
     }
   },[TODOList])
 
+  const deleteAllWantedDocuments = useCallback(async (wantedCollection) => {
+    try{
+      const response = await axios.delete(
+        'http://localhost:3000/deleteAllDocuWantedCollection/' + wantedCollection
+      )
+
+      if (response) {
+        console.log(response)
+      }
+    }
+    catch (error){
+      console.error(`Error fetching TODOs: ${error.message}`);
+      throw error;
+    }
+  },[])
+
   return {
     postTODO:postTODO,
     patchFieldWantedTODO: patchFieldWantedTODO,
     patchFieldAllTODOS: patchFieldAllTODOS,
-    putWantedTODO :putWantedTODO 
+    putWantedTODO :putWantedTODO,
+    deleteAllWantedDocuments:deleteAllWantedDocuments, 
 
   };
 };

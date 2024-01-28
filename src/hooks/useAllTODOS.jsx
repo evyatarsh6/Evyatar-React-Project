@@ -1,12 +1,12 @@
-import { useFetchTODOS } from "./useFetchTODOS";
+import { useFetchData } from "./useFetchData";
 import { useCallback } from "react";
 import { useQueryTemplate } from "./useQueryTemplate";
 import { useDispatch } from "react-redux";
-import { addTODOFromDB } from "../actions/actions";
+import { addTODOFromDB, updatePoint } from "../actions/actions";
 
 export const useAllTODOSQuery = () => {
 
-    const {fetchAllTodos} = useFetchTODOS()
+    const {fetchAllTodos} = useFetchData()
     const dispatch = useDispatch()
 
     const queryKey =  ['show All TODOS']
@@ -29,8 +29,8 @@ export const useAllTODOSQuery = () => {
         if (isSuccess){
             TODOS.forEach(TODO => {
                 dispatch(addTODOFromDB(TODO))
+                dispatch(updatePoint(TODO._id,TODO.location))
             });
-            // return TODOS;
         }
 
         return []

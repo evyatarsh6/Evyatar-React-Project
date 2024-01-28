@@ -3,10 +3,11 @@ import { useQueryTemplate } from "./useQueryTemplate";
 import { useFetchData } from "./useFetchData";
 import { useDispatch } from "react-redux";
 import { addTODO, editTODO, updatePoint } from "../actions/actions";
+// import { useAddSingleTODO } from './useMutateTODOS';
 
 
 export const useDeltas = () => {
-    
+
   const dispatch = useDispatch()
 
   const {fetchCurrDeltas} = useFetchData()
@@ -35,12 +36,7 @@ export const useDeltas = () => {
       }
     }
     else if (info.changeType === 'POST') {
-      
-      dispatch(addTODO({
-
-        value: info.TODOKind,
-        _id: info.TODOID
-      }))
+      dispatch(addTODO( info.TODOKind,info.TODOID))
     }
   },[dispatch])
   

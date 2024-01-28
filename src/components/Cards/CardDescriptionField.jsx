@@ -62,7 +62,7 @@ const handleInputType =  event => setMessage(event.target.value);
 
     return (
         <div className='description-edit-Btn-container'>
-        <input ref = {currInputValue} value={message} defaultValue={info.description}
+        <input ref = {currInputValue} value={message}
             className="card-description" type="text" placeholder='card description'
             onChange={handleInputType} disabled = {isFreezeMode}
             style={{

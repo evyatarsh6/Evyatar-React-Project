@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { GetMainInput} from "../../selectors"
 import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef } from "react";
-import { addIDToSetChanges, addTODO } from "../../actions/actions";
-import { useAddSingleTODO, useDeleteAllWantedCollection } from '../../hooks/useMutateTODOS';
+import { addTODO } from "../../actions/actions";
+import { useAddSingleTODO } from '../../hooks/useMutateTODOS';
 import {bergerPhotos} from '../../shared/photos';
 
 
@@ -28,7 +28,6 @@ export const AddTODOBtn = ({style}) => {
     if (isValid) {
       const cardID = Date.now();
       dispatch(addTODO(inputRef.current, cardID));
-      //dispatch(addIDToSetChanges(cardID));
 
       postSingleTODO.mutate(
         {TODOKind: inputRef.current, wantedID: cardID})

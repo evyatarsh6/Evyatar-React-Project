@@ -4,28 +4,25 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 import {  addIDToSetChanges, editTODO} from '../../actions/actions';
 import { useDispatch } from 'react-redux';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 
 
 export const CardChooseBtn = ({info}) => {
     
     const dispatch = useDispatch()
-    const [isChecked,setIsChecked] = useState(info.isChoosen)
-
 
     const mutateSingleUpdateChoosenStatus = useMutateFieldSingle()
       
     const checkChoosenCheckbox = useCallback(async () => {
         
-        const newCheckedtatus = !isChecked
+        const newCheckedtatus = !info.isChoosen
         mutateSingleUpdateChoosenStatus.mutate(
             {
                 wantedID : info._id ,
                 wantedField : 'isChoosen',
                 wantedFieldUpdateVal : newCheckedtatus
             })
-        setIsChecked(newCheckedtatus)
         dispatch(editTODO(
             {
             _id : info._id,
@@ -33,9 +30,8 @@ export const CardChooseBtn = ({info}) => {
             fieldUpdateValue: newCheckedtatus 
             }
         ))
-        dispatch(addIDToSetChanges(info._id))
 
-    },[dispatch,info._id,isChecked,mutateSingleUpdateChoosenStatus])
+    },[dispatch,info._id, info.isChoosen,mutateSingleUpdateChoosenStatus])
 
     return (
 
@@ -43,7 +39,7 @@ export const CardChooseBtn = ({info}) => {
         style={{scale:"1.5"}} 
         onClick={checkChoosenCheckbox}>
                 {
-                isChecked ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
+                info.isChoosen ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
                 }
         </IconButton>
             

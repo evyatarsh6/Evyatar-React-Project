@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-// import { useQueryTemplate } from "./useQueryTemplate";
+import { useQueryTemplate } from "./useQueryTemplate";
 import { useFetchData } from "./useFetchData";
 import { useDispatch } from "react-redux";
 import { addTODO, editTODO, updatePoint } from "../actions/actions";
@@ -14,6 +14,12 @@ export const useDeltas = () => {
   const queryFn = async () => await fetchCurrDeltas()
 
   const { data: changeLogValues, error, isLoading, isSuccess, refetch} =
+
+  // useQueryTemplate( queryKey, queryFn, {
+  //   refetchInterval : 10000,
+  //   refetchIntervalInBackground:true
+  // })
+
   useQuery({
       queryKey: queryKey,
       queryFn: queryFn,

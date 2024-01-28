@@ -28,7 +28,7 @@ export const AddTODOBtn = ({style}) => {
     if (isValid) {
       const cardID = Date.now();
       dispatch(addTODO(inputRef.current, cardID));
-      dispatch(addIDToSetChanges(cardID));
+      //dispatch(addIDToSetChanges(cardID));
 
       postSingleTODO.mutate(
         {TODOKind: inputRef.current, wantedID: cardID})

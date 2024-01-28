@@ -82,7 +82,7 @@ export const CardPinBtn = ({info}) => {
             fieldUpdateValue: mapPoints[info._id].location
             }
         ))
-        dispatch(addIDToSetChanges(info._id))
+        //dispatch(addIDToSetChanges(info._id))
 
     },[clickCancelPin, dispatch, info._id, mapPoints,  mutateSingleUpdateLocation])
 

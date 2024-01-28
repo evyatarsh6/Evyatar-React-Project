@@ -1,23 +1,36 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
-import { addIDToSetChanges, editTODO } from '../../actions/actions';
+import { editTODO } from '../../actions/actions';
 import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 import { useDispatch } from 'react-redux';
 
 
-
 export const CardDescriptionField = ({info}) => {
 
+    
     const currInputValue = useRef(null)
-
+    
     const dispatch = useDispatch()
-
+    
     const [isFreezeMode,setIsFreezeMode] = useState(true)
     const [message, setMessage] = useState(info.description)
-    const handleInputType =  event => setMessage(event.target.value);
 
-    const mutateSingleUpdateDescription = useMutateFieldSingle()
+    
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (isFreezeMode && info.description!== message ) {
+                setMessage(info.description)   
+            }
+        }, 1000);
+        return () => {
+            clearInterval(timer);
+        }
+    }, [info.description, isFreezeMode]);
+
+
+const mutateSingleUpdateDescription = useMutateFieldSingle()
+const handleInputType =  event => setMessage(event.target.value);
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     
@@ -45,14 +58,11 @@ export const CardDescriptionField = ({info}) => {
                 }
             )
         }
-
-        dispatch(addIDToSetChanges(info._id))
-        
     },[dispatch, info._id, isFreezeMode, message, mutateSingleUpdateDescription])
 
     return (
         <div className='description-edit-Btn-container'>
-        <input ref = {currInputValue} value={message}
+        <input ref = {currInputValue} value={message} defaultValue={info.description}
             className="card-description" type="text" placeholder='card description'
             onChange={handleInputType} disabled = {isFreezeMode}
             style={{

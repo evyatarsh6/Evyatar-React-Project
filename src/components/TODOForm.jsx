@@ -58,19 +58,23 @@ export const TODOForm = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>create new Avi Berger</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To create new Avi Berger TODO to this website, please enter the wanted info here.
+          <DialogContentText margin={1}>
+            To create new Avi Berger TODO to this website, enter the wanted info .
           </DialogContentText>
 
-        <Autocomplete
-        disabled
-        disablePortal
-        inputValue={TODOKind}
-        sx={{ width: '60%', margin:5}}
-        renderInput={(params) => <TextField {...params}
-        />}
-        >
-        </Autocomplete>
+          <DialogContentText marginTop={5} marginBottom={0.5}>
+            TODO kind 
+          </DialogContentText>
+
+          <Autocomplete
+          margin={5}
+          disabled
+          disablePortal
+          inputValue={TODOKind}
+          renderInput={(params) => <TextField {...params}
+          />}
+          >
+          </Autocomplete>
 
             <Controller 
             control={control}
@@ -94,25 +98,22 @@ export const TODOForm = () => {
             </Controller>
 
 
+
             <Controller 
             control={control}
             name="isChoosenField"
-            render={({ field: { onBlur, onChange } }) => (
+            render={({ field: { onBlur, onChange} }) => (
                 <Checkbox
                 onChange={(e) => {
                     onChange(e.target.checked);
-                    // dispatch(udpateForm('isChoosen', e.target.checked));
                     dispatch(updateForm('isChoosen', !isChoosenStatus));
                   }}
-                // onChange={() => dispatch(udpateForm('isChoosen', !isChoosenStatus ))}
                 onBlur={onBlur}
                 checked={isChoosenStatus}
                 autoFocus
                 required
                 margin="dense"
                 id="isChoosen-field"
-                label="isChoosen"
-                variant="standard"
                 />
               )}
             >
@@ -123,7 +124,7 @@ export const TODOForm = () => {
             <Controller 
             control={control}
             name="isChoosenField"
-            render={({ field: { onBlur, onChange } }) => (
+            render={({ field: { onBlur ,onChange } }) => (
                 <Checkbox
                 onChange={(e) => {
                     onChange(e.target.checked);
@@ -135,8 +136,6 @@ export const TODOForm = () => {
                 required
                 margin="dense"
                 id="isChoosen-field"
-                label="isChoosen"
-                variant="standard"
                 />
               )}
             >

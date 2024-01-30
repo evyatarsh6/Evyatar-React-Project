@@ -12,12 +12,14 @@ import { addTODO, closeForm, updateForm } from '../actions/actions';
 import { useForm, Controller } from "react-hook-form"
 import { useAddSingleTODO } from '../hooks/useMutateTODOS';
 import { Checkbox } from '@mui/material';
+import {Autocomplete} from '@mui/material';
 
 export const TODOForm = () => {
     const FormDetails = useSelector(GetFormDetails)
     const dispatch = useDispatch()
     const isChoosenStatus = FormDetails.isChoosen
     const isDeleteStatus = FormDetails.isDelete
+    const TODOKind  = FormDetails.TODOKind
 
 
     const { handleSubmit, reset, control } = useForm();
@@ -54,12 +56,21 @@ export const TODOForm = () => {
     // }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-
         <DialogTitle>create new Avi Berger</DialogTitle>
         <DialogContent>
           <DialogContentText>
             To create new Avi Berger TODO to this website, please enter the wanted info here.
           </DialogContentText>
+
+        <Autocomplete
+        disabled
+        disablePortal
+        inputValue={TODOKind}
+        sx={{ width: '60%', margin:5}}
+        renderInput={(params) => <TextField {...params}
+        />}
+        >
+        </Autocomplete>
 
             <Controller 
             control={control}

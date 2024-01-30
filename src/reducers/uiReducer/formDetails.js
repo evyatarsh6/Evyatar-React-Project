@@ -13,8 +13,8 @@ export const formDetails = ( state = initialState , action) => {
         const updateForm = {
             ...state,
            ['isFormVisble']: true,
-           ["TODOKind"]: action.TODOID,
-           ["TODOID"]: action.TODOKind,
+           ["TODOKind"]: action.TODOKind,
+           ["TODOID"]: action.TODOID 
 
         }
 

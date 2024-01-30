@@ -6,11 +6,23 @@ export const openForm = (_id,TODOKind) => {
     }
 }
 
+export const udpateForm = (field,fieldUpdateValue) => {
+    if (field!== 'TODOID' && field!== 'TODOKind' ) {
+        return {
+            type: 'UpdateForm',
+            field: field,
+            fieldUpdateValue: fieldUpdateValue
+        }
+        
+    }
+}
+
 export const closeForm = () => {
     return {
         type: 'closeForm'
     }
 }
+
 
 export const submitForm = props => {
     return {

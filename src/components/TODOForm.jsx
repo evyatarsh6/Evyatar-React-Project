@@ -1,8 +1,3 @@
-
-
-
-
-
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -13,71 +8,134 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetFormDetails } from '../selectors';
-import { closeForm } from '../actions/actions';
-import { useForm } from 'react-hook-form';
+import { addTODO, closeForm, udpateForm } from '../actions/actions';
+import { useForm, Controller } from "react-hook-form"
+import { useAddSingleTODO } from '../hooks/useMutateTODOS';
+import { Checkbox } from '@mui/material';
 
 export const TODOForm = () => {
     const FormDetails = useSelector(GetFormDetails)
     const dispatch = useDispatch()
-    const { handleSubmit,register, reset } = useForm();
+    const isChoosenStatus = FormDetails.isChoosen
 
-  const handleClose = () => {
+    const { handleSubmit, reset, control } = useForm();
+    const postSingleTODO = useAddSingleTODO()
+
+  const handleClose = (event) => {
+    event.preventDefault()
     dispatch(dispatch(closeForm))
   };
 
   const onSubmit = () => {
-    
+    console.log('avi')
+    // dispatch(addTODO(inputRef.current, cardID));
+    // postSingleTODO.mutate(
+    //   {TODOKind: inputRef.current, wantedID: cardID})
+
   }
-
-
-    <form style = {style} onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("firstName", { required: true, maxLength: 20 })} />
-        <input {...register("lastName", { pattern: /^[A-Za-z]+$/i })} />
-        <input type="number" {...register("age", { min: 18, max: 99 })} />
-        <input type="submit" />
-        <button onClick={handleClose}> </button>
-        Avi
-    </form>
 
   return (
     <React.Fragment>
       <Dialog
         open={FormDetails.isFormVisble}
         onClose={handleClose}
-        PaperProps={{
-          component: 'form',
-          onSubmit: (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries(formData.entries());
-            const email = formJson.email;
-            console.log(email);
-            handleClose();
-        },
-    }}
+        // PaperProps={{
+        //   component: 'form',
+        //   onSubmit: (event) => {
+        //     event.preventDefault();
+        //     const formData = new FormData(event.currentTarget);
+        //     const formJson = Object.fromEntries(formData.entries());
+        //     const email = formJson.email;
+        //     console.log(email);
+        //     handleClose();
+        // },
+    // }}
       >
-        <DialogTitle>Subscribe</DialogTitle>
+        <form onSubmit={handleSubmit(onSubmit)}>
+
+        <DialogTitle>create new Avi Berger</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
+            To create new Avi Berger TODO to this website, please enter the wanted info here.
+          </DialogContentText>
+
+            <Controller 
+            control={control}
+            name="description-field"
+            render={({ field: { onChange, onBlur, value } }) => (
+                <TextField
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  selected={value}
+                  autoFocus
+                  required
+                  margin="dense"
+                  id="description-field"
+                  label="description"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                />
+              )}
+            >
+            </Controller>
+
+
+            <Controller 
+            control={control}
+            name="isChoosenField"
+            render={({ field: { onBlur, onChange } }) => (
+                <Checkbox
+                onChange={(e) => {
+                    onChange(e.target.checked);
+                    // dispatch(udpateForm('isChoosen', e.target.checked));
+                    dispatch(udpateForm('isChoosen', !isChoosenStatus));
+                  }}
+                // onChange={() => dispatch(udpateForm('isChoosen', !isChoosenStatus ))}
+                onBlur={onBlur}
+                checked={isChoosenStatus}
+                autoFocus
+                required
+                margin="dense"
+                id="isChoosen-field"
+                label="isChoosen"
+                variant="standard"
+                />
+              )}
+            >
+            </Controller>
+
+            </DialogContent>
+
+
+        {/* <input {...register("firstName", { required: true, maxLength: 20 })} />
+        <input {...register("lastName", { pattern: /^[A-Za-z]+$/i })} />
+        <input type="number" {...register("age", { min: 18, max: 99 })} />
+        <input type="submit" />
+        <button onClick={handleClose}> </button>
+        <DialogTitle>create new Avi Berger</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To create new Avi Berger TODO to this website, please enter the wanted info here.
           </DialogContentText>
           <TextField
+          {...register("firstName", { required: true, maxLength: 20 })} 
             autoFocus
             required
             margin="dense"
-            id="name"
-            name="email"
-            label="Email Address"
-            type="email"
+            id="description-field"
+            name="description"
+            label="description"
+            type="text"
             fullWidth
             variant="standard"
-          />
+            />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit">Subscribe</Button>
-        </DialogActions>
+        </DialogActions> */}
+        </form>
       </Dialog>
     </React.Fragment>
   );

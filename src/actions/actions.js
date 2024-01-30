@@ -6,10 +6,10 @@ export const openForm = (_id,TODOKind) => {
     }
 }
 
-export const udpateForm = (field,fieldUpdateValue) => {
+export const updateForm = (field,fieldUpdateValue) => {
     if (field!== 'TODOID' && field!== 'TODOKind' ) {
         return {
-            type: 'UpdateForm',
+            type: 'updateForm',
             field: field,
             fieldUpdateValue: fieldUpdateValue
         }

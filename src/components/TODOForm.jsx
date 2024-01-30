@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetFormDetails } from '../selectors';
-import { addTODO, closeForm, udpateForm } from '../actions/actions';
+import { addTODO, closeForm, updateForm } from '../actions/actions';
 import { useForm, Controller } from "react-hook-form"
 import { useAddSingleTODO } from '../hooks/useMutateTODOS';
 import { Checkbox } from '@mui/material';
@@ -17,13 +17,15 @@ export const TODOForm = () => {
     const FormDetails = useSelector(GetFormDetails)
     const dispatch = useDispatch()
     const isChoosenStatus = FormDetails.isChoosen
+    const isDeleteStatus = FormDetails.isDelete
+
 
     const { handleSubmit, reset, control } = useForm();
     const postSingleTODO = useAddSingleTODO()
 
   const handleClose = (event) => {
     event.preventDefault()
-    dispatch(dispatch(closeForm))
+    dispatch(closeForm)
   };
 
   const onSubmit = () => {
@@ -89,7 +91,7 @@ export const TODOForm = () => {
                 onChange={(e) => {
                     onChange(e.target.checked);
                     // dispatch(udpateForm('isChoosen', e.target.checked));
-                    dispatch(udpateForm('isChoosen', !isChoosenStatus));
+                    dispatch(updateForm('isChoosen', !isChoosenStatus));
                   }}
                 // onChange={() => dispatch(udpateForm('isChoosen', !isChoosenStatus ))}
                 onBlur={onBlur}
@@ -104,6 +106,32 @@ export const TODOForm = () => {
               )}
             >
             </Controller>
+
+
+
+            <Controller 
+            control={control}
+            name="isChoosenField"
+            render={({ field: { onBlur, onChange } }) => (
+                <Checkbox
+                onChange={(e) => {
+                    onChange(e.target.checked);
+                    dispatch(updateForm('isDelete', !isDeleteStatus));
+                  }}
+                onBlur={onBlur}
+                checked={isDeleteStatus}
+                autoFocus
+                required
+                margin="dense"
+                id="isChoosen-field"
+                label="isChoosen"
+                variant="standard"
+                />
+              )}
+            >
+            </Controller>
+
+
 
             </DialogContent>
 

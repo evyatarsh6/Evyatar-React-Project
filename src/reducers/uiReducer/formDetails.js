@@ -21,7 +21,7 @@ export const formDetails = ( state = initialState , action) => {
         return updateForm 
     }
 
-    else if (action.type === "udpateForm"){
+    else if (action.type === "updateForm"){
         const updateForm = {
             ...state,
             [action.field]: action.fieldUpdateValue

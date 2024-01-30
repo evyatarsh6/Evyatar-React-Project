@@ -24,12 +24,12 @@ export const closeForm = () => {
 }
 
 
-export const submitForm = props => {
-    return {
-        type: 'closeForm',
-        props:props
-    }
-}
+// export const submitForm = props => {
+//     return {
+//         type: 'closeForm',
+//         props:props
+//     }
+// }
 
 
 

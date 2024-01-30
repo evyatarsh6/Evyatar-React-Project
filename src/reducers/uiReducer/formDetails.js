@@ -33,19 +33,19 @@ export const formDetails = ( state = initialState , action) => {
     else if (action.type === "closeForm"){
         return initialState
     }
-    // else if (action.type ==="submitForm") {
+    else if (action.type ==="submitForm") {
         
-    //     const updateForm = {
-    //         ...state,
-    //        ['isFormVisble']: false,
-    //        ['TODOKind']: action.props.TODOKind,
-    //        ['initIsChoosen']: action.props.isChoosen,
-    //        ['initIsDelete']: action.props.isDelete,
-    //        ['initDescription']: action.props.description
-    //     }
+        const updateForm = {
+            ...state,
+           ['isFormVisble']: false,
+           ['TODOKind']: action.props.TODOKind,
+           ['initIsChoosen']: action.props.isChoosen,
+           ['initIsDelete']: action.props.isDelete,
+           ['initDescription']: action.props.description
+        }
 
-    //     return updateForm 
-    // }
+        return updateForm 
+    }
     else{
         return state
     }

@@ -99,6 +99,9 @@ export const TODOForm = () => {
 
 
 
+            <DialogContentText marginTop={5}>
+            isChoosen field
+            </DialogContentText>
             <Controller 
             control={control}
             name="isChoosenField"
@@ -121,6 +124,10 @@ export const TODOForm = () => {
 
 
 
+
+            <DialogContentText marginTop={5}>
+            isDelete field
+            </DialogContentText>
             <Controller 
             control={control}
             name="isChoosenField"
@@ -140,9 +147,16 @@ export const TODOForm = () => {
               )}
             >
             </Controller>
-
-
-
+            
+            <Button
+            size='large'
+            sx = {{
+              backgroundColor : 'rgba(25, 118, 210, 0.04)',
+              alignContent: 'flex-end'
+            }}
+            >
+              submit Button
+            </Button>
             </DialogContent>
 
 

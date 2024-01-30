@@ -11,8 +11,8 @@ export const HeaderBar = () => {
 
   const inputVal = useSelector(GetMainInput).inputValue
   const filterKind = useSelector(GetFilterKind)
-  const FormDetails = useSelector(GetFormDetails)
-  const formDisplay = FormDetails.formDisplay
+  // const FormDetails = useSelector(GetFormDetails)
+  // const formDisplay = FormDetails.formDisplay
 
     useEffect(() => {
       console.log(generateChangeValueLogs('filter kind', filterKind))   
@@ -37,11 +37,6 @@ export const HeaderBar = () => {
       }}>
           <MainInput/>
           <ButtonsContainer/>
-          <TODOForm/>
-
-
-
-          {/* <TODOForm style={{display:formDisplay}}/> */}
         </div>
       </div>
     )

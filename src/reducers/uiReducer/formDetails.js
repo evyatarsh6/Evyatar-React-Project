@@ -1,11 +1,10 @@
 const initialState  =  {
-    isFormExist: false,
-    formDisplay: 'none', 
+    isFormVisble: false, 
     TODOKind: null,
     TODOID: null,
-    initIsChoosen: false,
-    initIsDelete: false,
-    initDescription: "Avi Berger is a god"
+    isChoosen: false,
+    isDelete: false,
+    description: "Avi Berger is a god"
 }
 
 export const formDetails = ( state = initialState , action) => {
@@ -13,8 +12,7 @@ export const formDetails = ( state = initialState , action) => {
     if(action.type === "openForm"){
         const updateForm = {
             ...state,
-           ['isFormExist']: true,
-           ['formDisplay']: 'block',
+           ['isFormVisble']: true,
            ["TODOKind"]: action.TODOID,
            ["TODOID"]: action.TODOKind,
 
@@ -23,20 +21,20 @@ export const formDetails = ( state = initialState , action) => {
         return updateForm 
     }
     else if (action.type === "closeForm"){
-        const updateForm = {
-            ...state,
-           ['isFormExist']: false,
-           ['formDisplay']: 'none', 
-        }
+        // const updateForm = {
+        //     ...state,
+        //    ['isFormVisble']: false,
+        // }
 
-        return updateForm 
+        // return updateForm 
+
+        return initialState
     }
     else if (action.type ==="submitForm") {
         
         const updateForm = {
             ...state,
-           ['isFormExist']: false,
-           ['formDisplay']: 'none', 
+           ['isFormVisble']: false,
            ['TODOKind']: action.props.TODOKind,
            ['initIsChoosen']: action.props.isChoosen,
            ['initIsDelete']: action.props.isDelete,
@@ -46,6 +44,6 @@ export const formDetails = ( state = initialState , action) => {
         return updateForm 
     }
     else{
-        return initialState
+        return state
     }
 }

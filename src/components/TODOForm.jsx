@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetFormDetails } from '../selectors';
-import { addTODOFromDB, closeForm, updateForm } from '../actions/actions';
+import { addTODO, closeForm } from '../actions/actions';
 import { useForm, Controller } from "react-hook-form"
 import { useAddSingleTODO } from '../hooks/useMutateTODOS';
 import { Checkbox, Container, FormControlLabel } from '@mui/material';
@@ -77,7 +77,7 @@ export const TODOForm = () => {
       isPinBtnDisable : false
     }
 
-    dispatch(addTODOFromDB(TODO))
+    dispatch(addTODO(TODO))
     postSingleTODO.mutate(TODO)
     dispatch(closeForm())
     returnFieldsToDefualt()

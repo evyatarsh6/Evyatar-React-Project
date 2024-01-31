@@ -2,7 +2,7 @@ const initialState  = {}
 
 export const TODOS = ( state = initialState , action) => {
 
-    if( action.type ==='addTODOFromDB'){
+    if( action.type ==='addTODO'){
 
         const TODOList = {
             ...state,

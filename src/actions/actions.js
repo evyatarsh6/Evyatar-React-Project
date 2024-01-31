@@ -22,9 +22,9 @@ export const closeForm = () => {
         type: 'closeForm'
     }
 }
-export const addTODOFromDB = TODO => {
+export const addTODO = TODO => {
     return {
-        type:  'addTODOFromDB',
+        type:  'addTODO',
         TODO: TODO
     }
 }

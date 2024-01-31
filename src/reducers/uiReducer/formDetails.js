@@ -1,10 +1,8 @@
 const initialState  =  {
-    isFormVisble: false, 
+    isFormVisble:false,
     TODOKind: null,
     TODOID: null,
-    isChoosen: false,
-    isDelete: false,
-    description: "Avi Berger is a god"
+
 }
 
 export const formDetails = ( state = initialState , action) => {
@@ -21,31 +19,10 @@ export const formDetails = ( state = initialState , action) => {
         return updateForm 
     }
 
-    else if (action.type === "updateForm"){
-        const updateForm = {
-            ...state,
-            [action.field]: action.fieldUpdateValue
-        }
-
-        return updateForm 
-    }
-
     else if (action.type === "closeForm"){
         return initialState
     }
-    else if (action.type ==="submitForm") {
-        
-        const updateForm = {
-            ...state,
-           ['isFormVisble']: false,
-           ['TODOKind']: action.props.TODOKind,
-           ['initIsChoosen']: action.props.isChoosen,
-           ['initIsDelete']: action.props.isDelete,
-           ['initDescription']: action.props.description
-        }
 
-        return updateForm 
-    }
     else{
         return state
     }

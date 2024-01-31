@@ -4,8 +4,8 @@ import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef} from "react";
 import { openForm } from "../../actions/actions";
 import {bergerPhotos} from '../../shared/photos';
-import * as React from 'react';
 import { TODOForm } from "../TODOForm";
+import { Fragment } from "react";
 
 
 
@@ -32,7 +32,7 @@ export const AddTODOBtn = ({style}) => {
 
     
     return (
-      <React.Fragment>
+      <Fragment>
         <Button variant="contained"
         className='save-btn'
         onClick={handleAddTODO}
@@ -41,6 +41,6 @@ export const AddTODOBtn = ({style}) => {
         save Avi Berger
         </Button>
         <TODOForm/>
-    </React.Fragment>
+    </Fragment>
     )
 }

@@ -6,11 +6,12 @@ import { FormActions } from "../../actions/actions";
 import {bergerPhotos} from '../../shared/photos';
 import { TODOForm } from "../TODOForm";
 import { Fragment } from "react";
+import { useDeleteAllWantedCollection } from "../../hooks/useMutateTODOS";
 
 
 
 export const AddTODOBtn = ({style}) => {
-  
+
   const dispatch = useDispatch()
   const {inputValue, isEmpty } = useSelector(GetMainInput)
   const inputRef = useRef(inputValue)
@@ -18,7 +19,6 @@ export const AddTODOBtn = ({style}) => {
   useEffect(() => {
     inputRef.current = inputValue
   },[inputValue])
-
 
   const handleAddTODO = useCallback(() => {
     const validateInputVal = () => Object.keys(bergerPhotos).some(option => option === inputRef.current);

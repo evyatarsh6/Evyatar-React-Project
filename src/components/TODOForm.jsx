@@ -2,7 +2,6 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -11,7 +10,7 @@ import { GetFormDetails } from '../selectors';
 import { addTODO, closeForm, updateForm } from '../actions/actions';
 import { useForm, Controller } from "react-hook-form"
 import { useAddSingleTODO } from '../hooks/useMutateTODOS';
-import { Checkbox, Container, ThemeProvider, createTheme } from '@mui/material';
+import { Checkbox, Container, FormControlLabel } from '@mui/material';
 import {Autocomplete} from '@mui/material';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -24,25 +23,23 @@ export const TODOForm = () => {
     const TODOKind  = FormDetails.TODOKind
 
 
-    const { handleSubmit, reset, control } = useForm();
+    const { handleSubmit, reset, control, register, formState  } = useForm();
     const postSingleTODO = useAddSingleTODO()
 
-    const clickResetBtn = () => {
+    const clickResetBtn = () => reset()
 
-      reset(formValues => ({
-        ...formValues,
-        descriptionField: '',
-        isChoosenField: false,
-        isDeleteField: false,
-      }))
-    }
     const handleClose = (event) => {
       event.preventDefault()
       dispatch(closeForm())
     };
 
   const onSubmit = () => {
-    console.log('avi')
+
+    console.log(formState.isDirty)
+    console.log(formState.touchedFields)
+    // console.log(formState.dirtyFields)
+
+
     // dispatch(addTODO(inputRef.current, cardID));
     // postSingleTODO.mutate(
     //   {TODOKind: inputRef.current, wantedID: cardID})
@@ -88,74 +85,75 @@ export const TODOForm = () => {
         >
         </Autocomplete>
 
-          <Controller 
-          control={control}
-          name="descriptionField"
-          render={({ field: { onChange, onBlur, value } }) => (
-              <TextField
-                onChange={onChange}
-                onBlur={onBlur}
-                selected={value}
-                autoFocus
-                required
-                margin="dense"
-                id="description-field"
-                label="description"
-                type="text"
-                fullWidth
-                variant="standard"
-              />
-            )}
-          >
-          </Controller>
-
-          <DialogContentText marginTop={5}>
-          isChoosen field
-          </DialogContentText>
-          <Controller 
-          control={control}
-          name="isChoosenField"
-          render={({ field: { onBlur, onChange} }) => (
-              <Checkbox
-              onChange={(e) => {
-                  onChange(e.target.checked);
-                  dispatch(updateForm('isChoosen', !isChoosenStatus));
-                }}
+        <Controller 
+        control={control}
+        name="descriptionFieldController"
+        render={({ field: { onChange, onBlur, value } }) => (
+            <TextField
+            {...register("descriptionField", {
+                maxLength: 20,
+              required: false
+            })}
+              onChange={onChange}
               onBlur={onBlur}
-              checked={isChoosenStatus}
-              autoFocus
-              required
+              selected={value}
               margin="dense"
-              id="isChoosen-field"
-              />
-            )}
-          >
-          </Controller>
+              id="description-field"
+              label="description"
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+          )}
+        >
+        </Controller>
 
+        <Controller
+        name="myCheckbox"
+        control={control}
+        defaultValue={true}
+        render={() => (
+          <FormControlLabel
+          sx={{
+            marginTop: 3 
+          }}
+          control={
+            <Checkbox
+            onChange={() => dispatch(updateForm('isChoosen', !isChoosenStatus))}
+            checked={isChoosenStatus}
+            id="isChoosen-field"
+            />
+          }
+          label="isChoosen field"
+          />
+        )}
+        />
 
-          <DialogContentText marginTop={5}>
-          isDelete field
-          </DialogContentText>
-          <Controller 
-          control={control}
-          name="isChoosenField"
-          render={({ field: { onBlur ,onChange } }) => (
-              <Checkbox
-              onChange={(e) => {
-                  onChange(e.target.checked);
-                  dispatch(updateForm('isDelete', !isDeleteStatus));
-                }}
-              onBlur={onBlur}
-              checked={isDeleteStatus}
-              autoFocus
-              required
-              margin="dense"
-              id="isChoosen-field"
-              />
-            )}
-            >
-            </Controller> 
-      
+        
+        <Controller
+        name="myCheckbox"
+        control={control}
+        defaultValue={true}
+        render={() => (
+          <FormControlLabel
+          sx={{
+            display: 'block',
+            marginTop:2,
+            marginBottom: 2
+          }}
+          control={
+            <Checkbox
+            onChange={() => dispatch(updateForm('isDelete', !isDeleteStatus))}
+            checked={isDeleteStatus}
+            id="isDelete-field"
+            />
+          }
+          label="isDelete field"
+          />
+        )}
+        />
+
+        
 
           <Container sx={{
               flexDirection: 'row',
@@ -204,8 +202,6 @@ export const TODOForm = () => {
             >
 
           </Controller>
-
-
           </Container>
         </DialogContent>
         </form>

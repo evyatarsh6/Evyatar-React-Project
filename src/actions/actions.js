@@ -1,7 +1,6 @@
 
 
-export const FormActions = () => {
-    const FormActions = {
+export const FormActions =  {
         openForm: (_id,TODOKind) => {
             return {
                 type: 'openForm',
@@ -16,12 +15,8 @@ export const FormActions = () => {
             }
         }
     }
-    return FormActions
-}
 
-export const TODOListActions = () => {
-
-    const TODOListActions = {
+export const TODOListActions = {
 
         addTODO: TODO => {
             return {
@@ -46,9 +41,6 @@ export const TODOListActions = () => {
         }
     }
 
-    return  TODOListActions
-}
-
 export const changeFilterKind = (filterKind) => {
     return {
         type:"switchFilterKind",
@@ -64,9 +56,7 @@ export const handleInputType = updateInputValue => {
 }
 
 
-export const MapActions = () => {
-
-    const MapActions = {
+export const MapActions = {
 
         mapPinTODOMode: {
             activeMode: id => {
@@ -113,10 +103,7 @@ export const MapActions = () => {
             }
         }  
     }
-    
-    return MapActions
 
-}
 
 export const updateTooltipStatus= (tooltipStatus) => {
     return {

@@ -8,18 +8,10 @@ export const useUpdateDB = () => {
 
   const TODOList = useSelector(GetTODOList)
 
-  const postTODO = useCallback(async (wantedID, TODOKind) => {
+  const postTODO = useCallback(async (TODO) => {
     try {
        const response = await axios.post(`http://localhost:3000/postTODO`,
-        {
-            '_id': wantedID,
-            description : "Avi Berger is a god", 
-            kind: TODOKind,
-            isChoosen: false,
-            isDeleted:false, 
-            location: {},
-            isPinBtnDisable : false
-        },
+       TODO,
         {
           headers: {}
         }

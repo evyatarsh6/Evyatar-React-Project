@@ -51,7 +51,7 @@ export const useAddSingleTODO = () => {
 
     const {postTODO} = useUpdateDB()
 
-    const wantedFunc = async ({TODOKind, wantedID}) =>  await postTODO(wantedID, TODOKind);  
+    const wantedFunc = async (TODO) =>  await postTODO(TODO);  
     
     const onErrorFunc =  () => onErrorMessage()
     

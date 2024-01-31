@@ -3,7 +3,7 @@ import { GetMainInput} from "../../selectors"
 import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef, useState } from "react";
 import { addTODO, openForm } from "../../actions/actions";
-import { useAddSingleTODO } from '../../hooks/useMutateTODOS';
+import { useAddSingleTODO, useDeleteAllWantedCollection } from '../../hooks/useMutateTODOS';
 import {bergerPhotos} from '../../shared/photos';
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
@@ -18,7 +18,7 @@ import { TODOForm } from "../TODOForm";
 
 
 export const AddTODOBtn = ({style}) => {
-  
+
   const dispatch = useDispatch()
   const {inputValue, isEmpty } = useSelector(GetMainInput)
   const inputRef = useRef(inputValue)
@@ -26,7 +26,6 @@ export const AddTODOBtn = ({style}) => {
   useEffect(() => {
     inputRef.current = inputValue
   },[inputValue])
-
 
   const handleAddTODO = useCallback(async () => {
     const validateInputVal = () => Object.keys(bergerPhotos).some(option => option === inputRef.current);

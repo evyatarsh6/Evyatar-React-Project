@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetFormDetails } from '../selectors';
-import { addTODO, closeForm, updateForm } from '../actions/actions';
+import { addTODOFromDB, closeForm, updateForm } from '../actions/actions';
 import { useForm, Controller } from "react-hook-form"
 import { useAddSingleTODO } from '../hooks/useMutateTODOS';
 import { Checkbox, Container, FormControlLabel } from '@mui/material';
@@ -20,13 +20,13 @@ export const TODOForm = () => {
 
   const FormDetails = useSelector(GetFormDetails)
   const dispatch = useDispatch()
-  // const isChoosenStatus = FormDetails.isChoosen
-  // const isDeleteStatus = FormDetails.isDelete
+
   const TODOKind  = FormDetails.TODOKind
+  const TODOID = FormDetails.TODOID
   
   const { handleSubmit, reset, control, formState, resetField, watch, setValue } = useForm({
       defaultValues: {
-        descriptionField: '',     
+        descriptionField: 'Avi Berger is a god !!!!',     
         isChoosenCheckbox: false,  
         isDeleteCheckbox: false,  
       }
@@ -60,15 +60,24 @@ export const TODOForm = () => {
       dispatch(closeForm())
     };
 
-  const onSubmit = () => {
+  const onSubmit = (event) => {
 
+    const TODO = {
+      _id: TODOID,
+      description: descriptionFieldValue,  
+      kind: TODOKind,
+      isChoosen: isChoosenCheckboxValue,
+      isDeleted:isDeleteCheckboxValue, 
+      location: {},
+      isPinBtnDisable : false
+    }
 
-    // dispatch(addTODO(inputRef.current, cardID));
-    // postSingleTODO.mutate(
-    //   {TODOKind: inputRef.current, wantedID: cardID})
+    dispatch(addTODOFromDB(TODO))
 
-    // event.preventDefault()
-    // dispatch(closeForm())
+    postSingleTODO.mutate(TODO)
+
+    event.preventDefault()
+    dispatch(closeForm())
 
   }
 

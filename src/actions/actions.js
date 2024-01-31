@@ -24,22 +24,10 @@ export const closeForm = () => {
 }
 
 
-// export const submitForm = props => {
-//     return {
-//         type: 'closeForm',
-//         props:props
-//     }
-// }
-
-
-
-
-
-export const addTODO = (inputValue, cardID) => {
+export const addTODO = (TODO) => {
     return {
         type:  'addTODOMenual',
-        value: inputValue,
-        _id: cardID
+        TODO: TODO
     }
 }
 

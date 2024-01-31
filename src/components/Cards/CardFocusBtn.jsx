@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux';
 import { IconButton } from '@mui/material';
 import ParaglidingIcon from '@mui/icons-material/Paragliding';
 import { isLocationExist } from '../../utils/generalUtils';
-import { focusWantedTODO } from '../../actions/actions';
+import { MapActions } from '../../actions/actions';
 
 export const CardFocusBtn = ({info}) => {
 
     const dispatch = useDispatch();
 
-    const clickFocusBtn = () => dispatch(focusWantedTODO(info.location))
+    const clickFocusBtn = () => dispatch(  MapActions.focusWantedTODO(info.location))
     
 
        return (  

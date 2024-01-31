@@ -2,7 +2,7 @@ import { IconButton } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
-import {  editTODO} from '../../actions/actions';
+import {  TODOListActions} from '../../actions/actions';
 import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';
 
@@ -23,7 +23,7 @@ export const CardChooseBtn = ({info}) => {
                 wantedField : 'isChoosen',
                 wantedFieldUpdateVal : newCheckedtatus
             })
-        dispatch(editTODO(
+        dispatch(TODOListActions.editTODO(
             {
             _id : info._id,
             fieldKey : 'isChoosen',

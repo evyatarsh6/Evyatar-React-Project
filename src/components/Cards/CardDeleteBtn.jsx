@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { IconButton } from '@mui/material';
 import DeleteIcon  from '@mui/icons-material/Delete';
 import RecyclingIcon from '@mui/icons-material/Recycling';
-import { editTODO } from '../../actions/actions';
+import { TODOListActions } from '../../actions/actions';
 import { useDispatch } from 'react-redux';
 import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 
@@ -25,7 +25,7 @@ export const CardDeleteBtn = ({info}) => {
                 wantedFieldUpdateVal : newDeleteStatus
             })
             
-        dispatch(editTODO(
+        dispatch(TODOListActions.editTODO(
             {
             _id : info._id,
             fieldKey : 'isDeleted',

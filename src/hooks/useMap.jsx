@@ -9,7 +9,7 @@ import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import Overlay from 'ol/Overlay.js';
-import { MapActions, updatePoint, updateTooltipStatus } from '../actions/actions';
+import { MapActions, updateTooltipStatus } from '../actions/actions';
 import { isShownTODO } from "../utils/generalUtils";
 
 

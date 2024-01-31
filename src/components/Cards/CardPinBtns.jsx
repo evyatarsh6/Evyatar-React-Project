@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux"
 import { GetMapPoints } from "../../selectors";
 import { IconButton } from '@mui/material';
-import { activeMapPinTODOMode, editTODO, editAllTODOS, cancelMapPinTODOMode, updateTooltipStatus}
-from '../../actions/actions';
+import { TODOListActions, MapActions, updateTooltipStatus} from '../../actions/actions';
+
+// activeMapPinTODOMode, editTODO, editAllTODOS, cancelMapPinTODOMode, updateTooltipStatus
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -22,14 +23,14 @@ export const CardPinBtn = ({info}) => {
 
     const UpdateTODOSAfterClickPinBtn = () => {
 
-        dispatch(editAllTODOS(
+        dispatch(TODOListActions.editAllTODOS(
             {
             fieldKey : 'isPinBtnDisable',
             fieldUpdateValue: true 
             }
         ))
         
-        dispatch(editTODO(
+        dispatch(TODOListActions.editTODO(
             {
             _id : info._id,
             fieldKey : 'isPinBtnDisable',
@@ -43,7 +44,7 @@ export const CardPinBtn = ({info}) => {
         UpdateTODOSAfterClickPinBtn()
 
         setIsPinActive(true)
-        dispatch(activeMapPinTODOMode(info._id))
+        dispatch(MapActions.mapPinTODOMode.activeMode(info._id))
 
 
     }
@@ -51,10 +52,10 @@ export const CardPinBtn = ({info}) => {
 
         setIsPinActive(false)
 
-        dispatch(cancelMapPinTODOMode())
+        dispatch(MapActions.mapPinTODOMode.cancelMode())
         dispatch(updateTooltipStatus(false))
       
-        dispatch(editAllTODOS(
+        dispatch(TODOListActions.editAllTODOS(
                 {
                     fieldKey: 'isPinBtnDisable',
                     fieldUpdateValue: false
@@ -75,7 +76,7 @@ export const CardPinBtn = ({info}) => {
             }
         )
 
-        dispatch(editTODO(
+        dispatch(TODOListActions.editTODO(
             {
             _id : info._id,
             fieldKey : 'location',

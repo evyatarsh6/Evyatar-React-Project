@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
-import { editTODO } from '../../actions/actions';
+import { TODOListActions } from '../../actions/actions';
 import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 import { useDispatch } from 'react-redux';
 
@@ -43,7 +43,7 @@ const handleInputType =  event => setMessage(event.target.value);
         }
         else {
             setIsFreezeMode(!isFreezeMode)
-            dispatch(editTODO(
+            dispatch(TODOListActions.editTODO(
                 {
                 _id : info._id,
                 fieldKey : 'description',

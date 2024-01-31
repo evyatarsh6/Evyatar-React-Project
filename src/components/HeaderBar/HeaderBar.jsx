@@ -1,19 +1,15 @@
 import React, {useEffect } from 'react';
 import { generateChangeValueLogs } from '../../constans/generalLogs';
-import { GetFilterKind, GetMainInput, GetFormDetails} from '../../selectors';
+import { GetFilterKind, GetMainInput} from '../../selectors';
 import { MainInput } from './MainInput';
 import { ButtonsContainer } from './ButtonsContainer';
 import { useSelector } from 'react-redux';
-import {TODOForm} from '../TODOForm'
-import { openForm } from '../../actions/actions';
+
 
 export const HeaderBar = () => {
 
   const inputVal = useSelector(GetMainInput).inputValue
   const filterKind = useSelector(GetFilterKind)
-  // const FormDetails = useSelector(GetFormDetails)
-  // const formDisplay = FormDetails.formDisplay
-
     useEffect(() => {
       console.log(generateChangeValueLogs('filter kind', filterKind))   
     }, [filterKind])

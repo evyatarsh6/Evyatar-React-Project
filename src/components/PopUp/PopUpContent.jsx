@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { GetMapPinMode, GetTODOList} from '../../selectors';
+import { GetMapPinMode, GetMapPoints, GetTODOList} from '../../selectors';
 
 
 
@@ -8,6 +8,7 @@ import { GetMapPinMode, GetTODOList} from '../../selectors';
 export const PopUpContent = ({id}) => {
 
     const TODOList = useSelector(GetTODOList)
+    const mapPoints = useSelector(GetMapPoints)
     const pinModeStatus = useSelector(GetMapPinMode)
 
     let selectedTODOID = id || ''
@@ -18,8 +19,8 @@ export const PopUpContent = ({id}) => {
     
     const currCardInfo = TODOList[selectedTODOID]
 
-    const locationLong = currCardInfo?.location[0]
-    const locationLat =  currCardInfo?.location[1]
+    const locationLong = mapPoints[selectedTODOID]?.location[0]
+    const locationLat =  mapPoints[selectedTODOID]?.location[1]
 
     if (currCardInfo) {
         return (

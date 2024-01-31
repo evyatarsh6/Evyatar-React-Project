@@ -26,7 +26,18 @@ export const TODOForm = () => {
     const { handleSubmit, reset, control, register, formState  } = useForm();
     const postSingleTODO = useAddSingleTODO()
 
-    const clickResetBtn = () => reset()
+    const clickResetBtn = () => 
+    reset(
+      {descriptionField : "avi berger"},
+      {
+      keepDirtyValues: true,
+      keepDefaultValues: true,
+    })
+    
+    // reset( undefined,{
+    //   keepDirtyValues: true,
+    //   keepDefaultValues: true,
+    // })
 
     const handleClose = (event) => {
       event.preventDefault()
@@ -35,7 +46,7 @@ export const TODOForm = () => {
 
   const onSubmit = () => {
 
-    console.log(formState.isDirty)
+    console.log(formState.dirtyFields)
     console.log(formState.touchedFields)
     // console.log(formState.dirtyFields)
 
@@ -87,13 +98,14 @@ export const TODOForm = () => {
 
         <Controller 
         control={control}
-        name="descriptionFieldController"
+        name="descriptionField"
+        defaultValue=''
         render={({ field: { onChange, onBlur, value } }) => (
             <TextField
-            {...register("descriptionField", {
-                maxLength: 20,
-              required: false
-            })}
+            // {...register("descriptionField", {
+            //     maxLength: 20,
+            //   required: false
+            // })}
               onChange={onChange}
               onBlur={onBlur}
               selected={value}
@@ -109,7 +121,7 @@ export const TODOForm = () => {
         </Controller>
 
         <Controller
-        name="myCheckbox"
+        name="isChoosenCheckbox"
         control={control}
         defaultValue={true}
         render={() => (
@@ -131,7 +143,7 @@ export const TODOForm = () => {
 
         
         <Controller
-        name="myCheckbox"
+        name="isDelete"
         control={control}
         defaultValue={true}
         render={() => (

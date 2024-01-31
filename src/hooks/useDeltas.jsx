@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useQueryTemplate } from "./useQueryTemplate";
 import { useFetchData } from "./useFetchData";
 import { useDispatch } from "react-redux";
-import { addTODO, editTODO, updatePoint } from "../actions/actions";
+import { TODOListActions,MapActions } from "../actions/actions";
 
 
 export const useDeltas = () => {
@@ -24,18 +24,18 @@ export const useDeltas = () => {
   const deltasLogic = useCallback ((info) => {
 
     if (info.changeType === 'PATCH') {
-      dispatch(editTODO({
+      dispatch(TODOListActions.editTODO({
         _id: info.TODOID,
         fieldKey: info.changedField,
         fieldUpdateValue: info.values.newValue
       }))
 
       if (info.changedField ==='location') {
-        dispatch(updatePoint(info.TODOID,info.values.newValue))
+        dispatch(MapActions.updatePoint(info.TODOID,info.values.newValue))
       }
     }
     else if (info.changeType === 'POST') {
-     dispatch(addTODO(info))
+     dispatch(TODOListActions.addTODO(info))
     }
   },[dispatch])
   

@@ -2,7 +2,7 @@ import { useFetchData } from "./useFetchData";
 import { useCallback } from "react";
 import { useQueryTemplate } from "./useQueryTemplate";
 import { useDispatch } from "react-redux";
-import { addTODO, updatePoint } from "../actions/actions";
+import { TODOListActions,MapActions } from "../actions/actions";
 
 export const useAllTODOSQuery = () => {
 
@@ -28,8 +28,8 @@ export const useAllTODOSQuery = () => {
 
         if (isSuccess){
             TODOS.forEach(TODO => {
-                dispatch(addTODO(TODO))
-                dispatch(updatePoint(TODO._id,TODO.location))
+                dispatch(TODOListActions.addTODO(TODO))
+                dispatch(MapActions.updatePoint(TODO._id,TODO.location))
             });
         }
 

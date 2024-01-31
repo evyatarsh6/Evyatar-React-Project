@@ -20,16 +20,17 @@ export const TODOForm = () => {
 
   const FormDetails = useSelector(GetFormDetails)
   const dispatch = useDispatch()
-
   const TODOKind  = FormDetails.TODOKind
   const TODOID = FormDetails.TODOID
+
+  const defaultFieldsValues = {
+    descriptionField: 'Avi Berger is a god !!!!',     
+    isChoosenCheckbox: false,  
+    isDeleteCheckbox: false,  
+  } 
   
-  const { handleSubmit, reset, control, formState, resetField, watch, setValue } = useForm({
-      defaultValues: {
-        descriptionField: 'Avi Berger is a god !!!!',     
-        isChoosenCheckbox: false,  
-        isDeleteCheckbox: false,  
-      }
+  const {handleSubmit, reset, control, formState, resetField, watch, setValue } = useForm({
+      defaultValues: defaultFieldsValues
     });
 
     const descriptionFieldValue = watch("descriptionField")
@@ -41,6 +42,8 @@ export const TODOForm = () => {
     const updateIsDeleteCheckboxValue = () => setValue("isDeleteCheckbox",  !isDeleteCheckboxValue )
 
     const postSingleTODO = useAddSingleTODO()
+
+    const returnFieldsToDefualt = () => reset(defaultFieldsValues)
   
     const clickResetBtn = () => {
       reset({
@@ -55,12 +58,14 @@ export const TODOForm = () => {
   }
 
     const handleClose = (event) => {
-      resetField("descriptionField", {defaultValue:  ''})
+      returnFieldsToDefualt()
       event.preventDefault()
       dispatch(closeForm())
     };
 
-  const onSubmit = (event) => {
+    const onError = (errors) => console.log(errors)
+
+  const onSubmit = () => {
 
     const TODO = {
       _id: TODOID,
@@ -73,11 +78,9 @@ export const TODOForm = () => {
     }
 
     dispatch(addTODOFromDB(TODO))
-
     postSingleTODO.mutate(TODO)
-
-    event.preventDefault()
     dispatch(closeForm())
+    returnFieldsToDefualt()
 
   }
 
@@ -91,7 +94,7 @@ export const TODOForm = () => {
           alignItems: 'flex-start'
         }}
         >
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
 
           <IconButton onClick={handleClose} style={{scale:"1.5"}}>
             <CloseIcon/>
@@ -121,7 +124,7 @@ export const TODOForm = () => {
         control={control}
         name="descriptionField"
         rules={{
-          pattern : /AVI/
+          pattern : [/avi/i]
         }}
         render= {() => (
           <TextField

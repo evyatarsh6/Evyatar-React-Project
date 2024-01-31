@@ -43,7 +43,6 @@ export const TODOForm = () => {
     const postSingleTODO = useAddSingleTODO()
   
     const clickResetBtn = () => {
-      // resetField("descriptionField", {defaultValue:  "New Avi"})
       reset({
         descriptionField: 'even if you want, you cant get rid of Avi',     
         isChoosenCheckbox: false,  
@@ -56,19 +55,12 @@ export const TODOForm = () => {
   }
 
     const handleClose = (event) => {
+      resetField("descriptionField", {defaultValue:  ''})
       event.preventDefault()
       dispatch(closeForm())
     };
 
   const onSubmit = () => {
-
-    // console.log(formState.dirtyFields)
-    // console.log(formState.touchedFields)
-    // console.log(formState.defaultValues)
-
-    console.log(descriptionFieldValue)
-    console.log(isChoosenCheckboxValue)
-    console.log(isDeleteCheckboxValue)
 
 
     // dispatch(addTODO(inputRef.current, cardID));
@@ -119,6 +111,9 @@ export const TODOForm = () => {
         <Controller 
         control={control}
         name="descriptionField"
+        rules={{
+          pattern : /AVI/
+        }}
         render= {() => (
           <TextField
           value={descriptionFieldValue}

@@ -124,7 +124,10 @@ export const TODOForm = () => {
         control={control}
         name="descriptionField"
         rules={{
-          pattern : [/avi/i]
+          pattern: {
+            value: /avi/i,
+            message: "Description must contain 'avi' (case-insensitive)",
+          },
         }}
         render= {() => (
           <TextField

@@ -22,15 +22,6 @@ export const closeForm = () => {
         type: 'closeForm'
     }
 }
-
-
-export const addTODO = (TODO) => {
-    return {
-        type:  'addTODOMenual',
-        TODO: TODO
-    }
-}
-
 export const addTODOFromDB = TODO => {
     return {
         type:  'addTODOFromDB',
@@ -104,14 +95,6 @@ export const updatePoint = (TODOID, location) => {
         location: location
     }
 }
-
-
-// export const currMapLocation = (location) => {
-//     return {
-//         type:"currMapLocation",
-//         location: location
-//     }
-// }
 
 export const focusWantedTODO = (location) => {
     return {

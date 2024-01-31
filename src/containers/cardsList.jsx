@@ -23,7 +23,7 @@ export const CardList = () => {
                     
                     <Card
                     info = {TODO}
-                    key={TODO._id}
+                    key={TODO['_id']}
                     />
                     ))
                 }

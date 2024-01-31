@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useQueryTemplate } from "./useQueryTemplate";
 import { useFetchData } from "./useFetchData";
 import { useDispatch } from "react-redux";
-import { addTODO, editTODO, updatePoint } from "../actions/actions";
+import { addTODOFromDB, editTODO, updatePoint } from "../actions/actions";
 
 
 export const useDeltas = () => {
@@ -35,7 +35,7 @@ export const useDeltas = () => {
       }
     }
     else if (info.changeType === 'POST') {
-      dispatch(addTODO( info.TODOKind,info.TODOID))
+     dispatch(addTODOFromDB(info))
     }
   },[dispatch])
   

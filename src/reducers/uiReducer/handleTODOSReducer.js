@@ -2,23 +2,6 @@ const initialState  = {}
 
 export const TODOS = ( state = initialState , action) => {
 
-
-    if(action.type === "addTODOMenual"){
-        const TODOList = {
-            ...state,
-            [action.TODO._id]: {
-            _id: action.TODO._id,
-            description : action.TODO.description,
-            kind: action.TODO.kind,
-            isChoosen: action.TODO.isChoosen,
-            isDeleted:action.TODO.isDeleted, 
-            location: [],
-            isPinBtnDisable : false
-            }
-        }
-        return TODOList
-    }
-
     if( action.type ==='addTODOFromDB'){
 
         const TODOList = {

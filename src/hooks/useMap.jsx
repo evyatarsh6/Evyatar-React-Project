@@ -9,7 +9,7 @@ import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import Overlay from 'ol/Overlay.js';
-import { currMapLocation, updatePoint, updateTooltipStatus } from '../actions/actions';
+import { updatePoint, updateTooltipStatus } from '../actions/actions';
 import { isShownTODO } from "../utils/generalUtils";
 
 
@@ -203,7 +203,6 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       )
 
       dispatch(updatePoint(selectedTODOID, evt.coordinate))
-      dispatch(currMapLocation(evt.coordinate))
 
       if (!showPointsMode) {
         layerRef.current.getSource().clear();

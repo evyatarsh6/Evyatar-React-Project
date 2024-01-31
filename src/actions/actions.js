@@ -106,12 +106,12 @@ export const updatePoint = (TODOID, location) => {
 }
 
 
-export const currMapLocation = (location) => {
-    return {
-        type:"currMapLocation",
-        location: location
-    }
-}
+// export const currMapLocation = (location) => {
+//     return {
+//         type:"currMapLocation",
+//         location: location
+//     }
+// }
 
 export const focusWantedTODO = (location) => {
     return {

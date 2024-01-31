@@ -12,7 +12,7 @@ export const TODOS = ( state = initialState , action) => {
             kind: action.TODO.kind,
             isChoosen: action.TODO.isChoosen,
             isDeleted:action.TODO.isDeleted, 
-            location: {},
+            location: [],
             isPinBtnDisable : false
             }
         }

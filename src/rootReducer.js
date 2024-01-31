@@ -5,7 +5,7 @@ import { mapPinMode } from "./reducers/uiReducer/mapReducer/mapPinMode";
 import { mainInput } from "./reducers/uiReducer/mainInputReducer/mainInput";
 import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPointsMode";
 import { currViewInfo } from "./reducers/uiReducer/mapReducer/viewInfo";
-import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation";
+// import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation";
 import { tooltipStatus } from "./reducers/uiReducer/mapReducer/mapTooltipStatus";
 import { TODOSIDChanges } from "./reducers/uiReducer/todosUpdateChanges";
 import { TODOS } from "./reducers/uiReducer/handleTODOSReducer";
@@ -22,7 +22,7 @@ const mapReducer = combineReducers({
     mode: mapModeReducer,
     points: mapPoints,
     currViewInfo: currViewInfo,
-    currLocation: currLocation
+    // currLocation: currLocation
 })
 
 const uiReducer = combineReducers({

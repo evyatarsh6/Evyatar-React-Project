@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { GetMapShowPointsMode  } from "../../selectors";
 import {Button} from '@mui/material';
-import { activeClearMapPointsMode, activeShowMapPointsMode} from "../../actions/actions";
+import { MapActions} from "../../actions/actions";
 
 
 export const PointsOnMapBtn = ({style}) => {
@@ -12,10 +12,10 @@ export const PointsOnMapBtn = ({style}) => {
 
     const clickPointsBtn = () => {
       if (showPointsMode) {
-        dispatch(activeClearMapPointsMode())
+        dispatch(MapActions.mapShowPointsMode.cancelMode())
       }
       else{
-        dispatch(activeShowMapPointsMode())
+        dispatch(MapActions.mapShowPointsMode.activeMode())
       }
       }
     

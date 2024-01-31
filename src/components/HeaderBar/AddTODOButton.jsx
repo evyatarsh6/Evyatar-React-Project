@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { GetMainInput} from "../../selectors"
 import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef} from "react";
-import { openForm } from "../../actions/actions";
+import { FormActions } from "../../actions/actions";
 import {bergerPhotos} from '../../shared/photos';
 import { TODOForm } from "../TODOForm";
 import { Fragment } from "react";
@@ -25,7 +25,7 @@ export const AddTODOBtn = ({style}) => {
     const isValid = validateInputVal();  
     if (isValid) {
       const cardID = Date.now();
-      dispatch(openForm(cardID,inputRef.current))
+      dispatch(FormActions.openForm(cardID,inputRef.current))
 
     }}, [inputRef, dispatch]);
 

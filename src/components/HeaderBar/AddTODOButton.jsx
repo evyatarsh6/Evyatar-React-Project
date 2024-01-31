@@ -18,7 +18,7 @@ import { TODOForm } from "../TODOForm";
 
 
 export const AddTODOBtn = ({style}) => {
-
+  
   const dispatch = useDispatch()
   const {inputValue, isEmpty } = useSelector(GetMainInput)
   const inputRef = useRef(inputValue)
@@ -26,6 +26,7 @@ export const AddTODOBtn = ({style}) => {
   useEffect(() => {
     inputRef.current = inputValue
   },[inputValue])
+
 
   const handleAddTODO = useCallback(async () => {
     const validateInputVal = () => Object.keys(bergerPhotos).some(option => option === inputRef.current);

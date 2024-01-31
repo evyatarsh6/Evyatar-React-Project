@@ -1,7 +1,6 @@
-// import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { GetMapPinMode, GetMapLocation, GetTODOList} from '../../selectors';
-// import { useFetchData } from "../../hooks/useFetchData";
 
 
 
@@ -13,7 +12,7 @@ export const PopUpContent = ({id}) => {
     const currLocation = useSelector(GetMapLocation).location
     const locationLong = currLocation[0]
     const locationLat =  currLocation[1]
-    let selectedTODOID = id ||''
+    let selectedTODOID = id || ''
 
     if (pinModeStatus.PinMode && !id) {
         selectedTODOID = pinModeStatus.activeTODOID

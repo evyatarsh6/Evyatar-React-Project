@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -14,30 +14,46 @@ import { Checkbox, Container, FormControlLabel } from '@mui/material';
 import {Autocomplete} from '@mui/material';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { Fragment, useState } from 'react';
 
 export const TODOForm = () => {
-    const FormDetails = useSelector(GetFormDetails)
-    const dispatch = useDispatch()
-    const isChoosenStatus = FormDetails.isChoosen
-    const isDeleteStatus = FormDetails.isDelete
-    const TODOKind  = FormDetails.TODOKind
 
+  const FormDetails = useSelector(GetFormDetails)
+  const dispatch = useDispatch()
+  // const isChoosenStatus = FormDetails.isChoosen
+  // const isDeleteStatus = FormDetails.isDelete
+  const TODOKind  = FormDetails.TODOKind
+  
+  const { handleSubmit, reset, control, formState, resetField, watch, setValue } = useForm({
+      defaultValues: {
+        descriptionField: '',     
+        isChoosenCheckbox: false,  
+        isDeleteCheckbox: false,  
+      }
+    });
 
-    const { handleSubmit, reset, control, register, formState  } = useForm();
+    const descriptionFieldValue = watch("descriptionField")
+    const isChoosenCheckboxValue = watch("isChoosenCheckbox")
+    const isDeleteCheckboxValue = watch("isDeleteCheckbox")
+
+    const updateDescriptionFieldValue = (e) => setValue("descriptionField",  e.target.value)
+    const updateIsChoosenCheckboxValue = () => setValue("isChoosenCheckbox", !isChoosenCheckboxValue)
+    const updateIsDeleteCheckboxValue = () => setValue("isDeleteCheckbox",  !isDeleteCheckboxValue )
+
     const postSingleTODO = useAddSingleTODO()
-
-    const clickResetBtn = () => 
-    reset(
-      {descriptionField : "avi berger"},
-      {
-      keepDirtyValues: true,
-      keepDefaultValues: true,
-    })
-    
-    // reset( undefined,{
-    //   keepDirtyValues: true,
-    //   keepDefaultValues: true,
-    // })
+  
+    const clickResetBtn = () => {
+      // resetField("descriptionField", {defaultValue:  "New Avi"})
+      reset({
+        descriptionField: 'even if you want, you cant get rid of Avi',     
+        isChoosenCheckbox: false,  
+        isDeleteCheckbox: false,           
+      },
+        {
+        keepDirtyValues: true,
+        keepDefaultValues: true,
+      })
+  }
 
     const handleClose = (event) => {
       event.preventDefault()
@@ -46,9 +62,13 @@ export const TODOForm = () => {
 
   const onSubmit = () => {
 
-    console.log(formState.dirtyFields)
-    console.log(formState.touchedFields)
     // console.log(formState.dirtyFields)
+    // console.log(formState.touchedFields)
+    // console.log(formState.defaultValues)
+
+    console.log(descriptionFieldValue)
+    console.log(isChoosenCheckboxValue)
+    console.log(isDeleteCheckboxValue)
 
 
     // dispatch(addTODO(inputRef.current, cardID));
@@ -61,7 +81,7 @@ export const TODOForm = () => {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Dialog
         open={FormDetails.isFormVisble}
         onClose={handleClose}
@@ -99,31 +119,26 @@ export const TODOForm = () => {
         <Controller 
         control={control}
         name="descriptionField"
-        defaultValue=''
-        render={({ field: { onChange, onBlur, value } }) => (
-            <TextField
-            // {...register("descriptionField", {
-            //     maxLength: 20,
-            //   required: false
-            // })}
-              onChange={onChange}
-              onBlur={onBlur}
-              selected={value}
-              margin="dense"
-              id="description-field"
-              label="description"
-              type="text"
-              fullWidth
-              variant="standard"
-            />
-          )}
+        render= {() => (
+          <TextField
+          value={descriptionFieldValue}
+          onChange={updateDescriptionFieldValue}
+          margin="dense"
+          id="description-field"
+          label="description"
+          type="text"
+          fullWidth
+          variant="standard"
+          />
+        )
+        }
         >
+
         </Controller>
 
         <Controller
         name="isChoosenCheckbox"
         control={control}
-        defaultValue={true}
         render={() => (
           <FormControlLabel
           sx={{
@@ -131,8 +146,9 @@ export const TODOForm = () => {
           }}
           control={
             <Checkbox
-            onChange={() => dispatch(updateForm('isChoosen', !isChoosenStatus))}
-            checked={isChoosenStatus}
+            onChange={updateIsChoosenCheckboxValue}
+  
+            checked={isChoosenCheckboxValue}
             id="isChoosen-field"
             />
           }
@@ -143,9 +159,8 @@ export const TODOForm = () => {
 
         
         <Controller
-        name="isDelete"
+        name="isDeleteCheckbox"
         control={control}
-        defaultValue={true}
         render={() => (
           <FormControlLabel
           sx={{
@@ -155,8 +170,8 @@ export const TODOForm = () => {
           }}
           control={
             <Checkbox
-            onChange={() => dispatch(updateForm('isDelete', !isDeleteStatus))}
-            checked={isDeleteStatus}
+            onChange={updateIsDeleteCheckboxValue}
+            checked={isDeleteCheckboxValue}
             id="isDelete-field"
             />
           }
@@ -218,6 +233,6 @@ export const TODOForm = () => {
         </DialogContent>
         </form>
       </Dialog>
-    </React.Fragment>
+    </Fragment>
   );
 }

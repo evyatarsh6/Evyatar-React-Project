@@ -1,49 +1,52 @@
-export const openForm = (_id,TODOKind) => {
-    return {
-        type: 'openForm',
-        TODOID: _id,
-        TODOKind: TODOKind 
-    }
-}
 
-export const updateForm = (field,fieldUpdateValue) => {
-    if (field!== 'TODOID' && field!== 'TODOKind' ) {
-        return {
-            type: 'updateForm',
-            field: field,
-            fieldUpdateValue: fieldUpdateValue
+
+export const FormActions = () => {
+    const FormActions = {
+        openForm: (_id,TODOKind) => {
+            return {
+                type: 'openForm',
+                TODOID: _id,
+                TODOKind: TODOKind 
+            }
+        },
+
+        closeForm : () => {
+            return {
+                type: 'closeForm'
+            }
         }
-        
     }
+    return FormActions
 }
 
-export const closeForm = () => {
-    return {
-        type: 'closeForm'
-    }
-}
-export const addTODO = TODO => {
-    return {
-        type:  'addTODO',
-        TODO: TODO
-    }
-}
+export const TODOListActions = () => {
+    const TODOListActions = {
 
-export const editTODO = (props) => {
-    return {
-        type: "editTODO",
-        props
+        addTODO: TODO => {
+            return {
+                type:  'addTODO',
+                TODO: TODO
+            }
+        },
+
+        editTODO : props => {
+            return {
+                type: "editTODO",
+                props
+            }
+        },
+
+        editAllTODOS : props => {
+            return {
+                type: "editAllTODOS",
+                fieldUpdateValue: props.fieldUpdateValue,
+                fieldKey: props.fieldKey
+            } 
+        }
     }
-} 
 
-export const editAllTODOS = (props) => {
-    return {
-        type: "editAllTODOS",
-        fieldUpdateValue: props.fieldUpdateValue,
-        fieldKey: props.fieldKey
-    } 
+    return  TODOListActions
 }
-
 
 export const changeFilterKind = (filterKind) => {
     return {
@@ -59,48 +62,59 @@ export const handleInputType = updateInputValue => {
     }
 }
 
-export const activeMapPinTODOMode = id => {
-    return {
-        type:"activeMapPinMode",
-        activeTODOID: id
-    }
-}
 
-export const cancelMapPinTODOMode = () => {
-    return {
-        type:"cancelMapPinMode",
-    }
-}
+export const MapActions = () => {
 
+    const MapActions = {
 
-export const activeShowMapPointsMode = () => {
-    return {
-        type:"activeShowMapPointsMode"
-    }
-}
+        mapPinTODOMode: {
+            activeMode: id => {
+                return {
+                    type:"activeMapPinMode",
+                    activeTODOID: id
+                }
+            },
 
-export const activeClearMapPointsMode = () => {
+            cancelMode:  () => {
+                return {
+                    type:"cancelMapPinMode",
+                }
+            }
+        },
 
-    return {
-        type:"activeClearMapPointsMode"
-    }
-}
+        mapShowPointsMode: {
+            activeMode: () => {
+                return {
+                    type:"activeShowMapPointsMode"
+                }
+            },
 
+            cancelMode: () => {
+                return {
+                    type:"activeClearMapPointsMode"
+                }
+            }
+        },
 
-export const updatePoint = (TODOID, location) => {
+        updatePoint: (TODOID, location) => {
     
-    return {
-        type:"updatePoint",
-        TODOID:TODOID,
-        location: location
-    }
-}
+            return {
+                type:"updatePoint",
+                TODOID:TODOID,
+                location: location
+            }
+        },
 
-export const focusWantedTODO = (location) => {
-    return {
-        type:"focusWantedTODO",
-        location: location
+        focusWantedTODO:  location => {
+            return {
+                type:"focusWantedTODO",
+                location: location
+            }
+        }  
     }
+    
+    return MapActions
+
 }
 
 export const updateTooltipStatus= (tooltipStatus) => {

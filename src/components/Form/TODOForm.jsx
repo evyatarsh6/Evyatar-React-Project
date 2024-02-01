@@ -17,7 +17,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Fragment } from 'react';
 import { CustomAlert } from './CustomAlert';
 
-export const TODOForm = () => {
+export const TODOForm = ({setAlertMessage}) => {
 
   const FormDetails = useSelector(GetFormDetails)
   const dispatch = useDispatch()
@@ -30,7 +30,7 @@ export const TODOForm = () => {
     isDeleteCheckbox: false,  
   } 
   
-  const {handleSubmit, reset, control, getFieldState, resetField, watch, setValue }=
+  const {handleSubmit, reset, control, watch, setValue }=
   useForm({
       defaultValues: defaultFieldsValues
   });
@@ -67,8 +67,21 @@ export const TODOForm = () => {
 
     const onError = (errors) => {
       // the only field with certion validation
-      return <CustomAlert message = {errors['descriptionField'].message}/>
+      setAlertMessage(errors['descriptionField'].message)
+      
+      //backup
+      // return alert(errors['descriptionField'].message)
+
     }
+
+
+    // const onError = (errors) => {
+    //   // Check if there is an error on the 'descriptionField'
+    //   if (errors && errors['descriptionField']) {
+    //     return <CustomAlert message={errors['descriptionField'].message} />;
+    //   }
+    //   return null;
+    // }
 
   const onSubmit = () => {
 

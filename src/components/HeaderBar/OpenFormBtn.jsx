@@ -1,3 +1,4 @@
+import {useState} from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { GetMainInput, GetMainInputIsEmpty, GetMainInputValue} from "../../selectors"
 import {Button} from '@mui/material';
@@ -6,10 +7,12 @@ import { FormActions } from "../../actions/actions";
 import {bergerPhotos} from '../../shared/photos';
 import { TODOForm } from "../Form/TODOForm";
 import { Fragment } from "react";
+import { CustomAlert } from "../Form/CustomAlert";
 
 
 export const OpenFormBtn = ({style}) => {
 
+  const [alertMessage, setAlertMessage] = useState(null)
   const dispatch = useDispatch()
   const inputValue = useSelector(GetMainInputValue)
   const isEmpty = useSelector(GetMainInputIsEmpty)
@@ -39,7 +42,8 @@ export const OpenFormBtn = ({style}) => {
         style={style}>
         save Avi Berger
         </Button>
-        <TODOForm/>
+        <TODOForm setAlertMessage = {setAlertMessage}/>
+        <CustomAlert message ={alertMessage} />
      </Fragment>
     )
 }

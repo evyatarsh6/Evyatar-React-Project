@@ -67,10 +67,6 @@ export const TODOForm = ({setAlertMessage}) => {
     const onError = (errors) => {
       // the only field with certion validation
       setAlertMessage(errors['descriptionField'].message)
-      
-      //backup
-      // return alert(errors['descriptionField'].message)
-
     }
 
 

@@ -1,6 +1,6 @@
 
 import React, { useCallback, useMemo} from "react";
-import { GetMapPoints, GetMapShowPointsMode, GetMapPinMode, GetTooltipStatus, GetTODOList, GetFilterKind} from "../selectors";
+import { GetMapPoints, GetMapShowPointsMode, GetMapPinMode, GetTooltipStatus, GetTODOList, GetFilterKind, GetCurrViewInfo} from "../selectors";
 import "ol/ol.css";
 import Feature from 'ol/Feature';
 import { Point } from "ol/geom";
@@ -21,6 +21,7 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     const isTooltipExist = useSelector(GetTooltipStatus)
     const TODOS = useSelector(GetTODOList)
     const filterKind = useSelector(GetFilterKind)
+    const currMapViewInfo = useSelector(GetCurrViewInfo)
 
     const pinModeStatus = useSelector(GetMapPinMode)
     const selectedTODOID = pinModeStatus.activeTODOID
@@ -120,23 +121,27 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
         const c = Math.sqrt( a*a + b*b )
 
         return c
-
       }
-        const findTODOConditinal = (ID) => {
+
+
+      //should find another conditinal related to the OL zoom property - not working great when comes large zoom attribute
+      
+      const findTODOConditinal = (ID) => {
 
           const currDistance = getDistance(getShownTODOSPoints[ID], coordinate)
-          if (currDistance<=500000) {
+          const distanceView = currDistance * Math.pow( currMapViewInfo.zoom,  currMapViewInfo.zoom)
+          if (distanceView<= 500000 ) {
             return true
           }
           return false
         }
 
-        const wantedPointID = shownTODOSPointsIDS.find(findTODOConditinal) || null
+        const wantedPointID = shownTODOSPointsIDS.find(findTODOConditinal)
         
         return wantedPointID
         
     }
-    ,[getShownTODOSPoints, shownTODOSPointsIDS])
+    ,[getShownTODOSPoints, shownTODOSPointsIDS, currMapViewInfo.zoom])
 
 
     const createTooltipByHover = useCallback((evt, setHoverID, currTooltip,setCurrTooltip) => {

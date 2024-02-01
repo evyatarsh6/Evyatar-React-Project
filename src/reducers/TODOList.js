@@ -1,6 +1,6 @@
 const initialState  = {}
 
-export const TODOS = ( state = initialState , action) => {
+export const TODOList = ( state = initialState , action) => {
 
     if( action.type ==='addTODO'){
 

@@ -27,7 +27,6 @@ function App() {
         flexDirection: 'column',
       }}>
           <HeaderBar/>
-          {/* <TODOForm style={{display:formDisplay}}/> */}
           <MapContainer/>
           <CardList/> 
       </body>

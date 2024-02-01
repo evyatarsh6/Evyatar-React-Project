@@ -8,7 +8,7 @@ import { TODOForm } from "../TODOForm";
 import { Fragment } from "react";
 
 
-export const AddTODOBtn = ({style}) => {
+export const OpenFormBtn = ({style}) => {
 
   const dispatch = useDispatch()
   const {inputValue, isEmpty } = useSelector(GetMainInput)

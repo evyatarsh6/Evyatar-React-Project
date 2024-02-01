@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState } from 'react';
-import { AddTODOBtn } from './AddTODOButton';
+import { OpenFormBtn } from './OpenFormBtn';
 import { ChoosenTODOSBtn } from './ChoosenTODOSBtn';
 import { DeleteTODOSBtn } from './DeleteTODOSBtn';
 import { PointsOnMapBtn } from './PointsOnMapBtn';
@@ -14,7 +14,7 @@ export const ButtonsContainer = () => {
 
     return (
         <div className='buttonContainer'>
-          <AddTODOBtn style = {muiButtonStyle} ></AddTODOBtn>
+          <OpenFormBtn style = {muiButtonStyle} ></OpenFormBtn>
           <ChoosenTODOSBtn style = {muiButtonStyle}></ChoosenTODOSBtn>
           <DeleteTODOSBtn style = {muiButtonStyle}></DeleteTODOSBtn>
           <PointsOnMapBtn style = {muiButtonStyle}></PointsOnMapBtn>

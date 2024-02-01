@@ -110,19 +110,28 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
     const getHoverID = useCallback((coordinate) => {
 
+      const getDistance = (pointA, pointB ) => {
+
+        const [x1, y1]= pointA
+        const [x2,y2] = pointB
+
+        const a = x1 - x2
+        const b = y1 - y2
+        const c = Math.sqrt( a*a + b*b )
+
+        return c
+
+      }
         const findTODOConditinal = (ID) => {
 
-            const xvalue = Math.abs(getShownTODOSPoints[ID][0] ) - Math.abs(coordinate[0])
-            const yvalue = Math.abs(getShownTODOSPoints[ID][1] )- Math.abs(coordinate[1])
-            const xvalueContidinal = Math.abs(xvalue)<500000
-            const yvalueContidinal = Math.abs(yvalue)<500000
-            
-              return (
-                xvalueContidinal && yvalueContidinal
-            )
+          const currDistance = getDistance(getShownTODOSPoints[ID], coordinate)
+          if (currDistance<=500000) {
+            return true
+          }
+          return false
         }
 
-        const wantedPointID = shownTODOSPointsIDS.find(findTODOConditinal)
+        const wantedPointID = shownTODOSPointsIDS.find(findTODOConditinal) || null
         
         return wantedPointID
         

@@ -18,7 +18,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   const pinModeStatus = useSelector(GetMapPinMode)
   const PinMode = pinModeStatus.PinMode
   const activeTODOID =pinModeStatus.activeTODOID
-
+  
   const mapFunctions = useMap(mapContainer, layerRef,featuresRef, PopUpRef) 
 
   const createPointByClick = useCallback((evt) => 
@@ -60,13 +60,15 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   useEffect(() => {
     if (mapContainer.current) {
       mapContainer.current.on('pointermove', createTooltipByHover)
+      
       if (PinMode&& activeTODOID) {
          mapContainer.current.on('click', createPointByClick)
-      }
-
-      return () => {
-        mapContainer.current.un('pointermove', createTooltipByHover)
-        mapContainer.current.un('click', createPointByClick);
+        }
+        
+        return () => {
+          mapContainer.current.un('pointermove', createTooltipByHover)
+          mapContainer.current.un('click', createPointByClick);
+          
       } 
   
     }

@@ -73,7 +73,7 @@ export const TODOForm = () => {
       kind: TODOKind,
       isChoosen: isChoosenCheckboxValue,
       isDeleted:isDeleteCheckboxValue, 
-      location: {},
+      location: [],
       isPinBtnDisable : false
     }
 

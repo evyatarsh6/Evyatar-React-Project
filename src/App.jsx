@@ -3,12 +3,12 @@ import './App.css';
 import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { MapContainer } from './containers/MapContainer';
 import { CardList } from './containers/cardsList';
-import { useAllTODOSQuery } from './hooks/useAllTODOS';
+import { useGetAllTODOSQuery } from './hooks/useGetAllTODOS';
 import { useDeltas } from './hooks/useDeltas';
 
 
 function App() {
-  const {getAllTODDOSData} = useAllTODOSQuery()
+  const {getAllTODDOSData} = useGetAllTODOSQuery()
   const {getDeltas} = useDeltas()
 
   useEffect(()=> {

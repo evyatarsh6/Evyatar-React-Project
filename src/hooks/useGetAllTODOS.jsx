@@ -4,7 +4,7 @@ import { useQueryTemplate } from "./useQueryTemplate";
 import { useDispatch } from "react-redux";
 import { TODOListActions,MapActions } from "../actions/actions";
 
-export const useAllTODOSQuery = () => {
+export const useGetAllTODOSQuery = () => {
 
     const {fetchAllTodos} = useFetchData()
     const dispatch = useDispatch()

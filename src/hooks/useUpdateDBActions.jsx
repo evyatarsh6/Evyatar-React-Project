@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { GetTODOList } from "../selectors";
 
-export const useUpdateDB = () => {
+export const useUpdateDBActions = () => {
 
   const TODOList = useSelector(GetTODOList)
 
@@ -106,7 +106,9 @@ export const useUpdateDB = () => {
     patchFieldWantedTODO: patchFieldWantedTODO,
     patchFieldAllTODOS: patchFieldAllTODOS,
     putWantedTODO :putWantedTODO,
-    deleteAllWantedDocuments:deleteAllWantedDocuments, 
+    
+    deleteAllWantedDocuments:deleteAllWantedDocuments,
+    //just so i could delete TODOS data through my work
 
   };
 };

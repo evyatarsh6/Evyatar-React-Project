@@ -10,19 +10,4 @@ export const useQueryTemplate = ( quaryKey, qauryFunc, ...attr) => {
     })
 
     return { data: dataTarget, error, isLoading, isSuccess, refetch}
-
     }
-
-
-
-// import { useQuery } from "react-query";
-
-// export const useQueryTemplate = (quaryKey, qauryFunc, ...attr) => {
-//   const queryResult = useQuery({
-//     queryKey: quaryKey,
-//     queryFn: qauryFunc,
-//     ...attr
-//   });
-
-//   return queryResult;
-// };

@@ -1,23 +1,15 @@
-import { useMutation } from "react-query";
-import { useUpdateDB } from "./useUpdateDB";
-import { useFetchData } from "./useFetchData";
+
+import { useMutateTemplate } from "./useMutateTemplate";
+import { useUpdateDBActions } from "./useUpdateDBActions";
 
 const onErrorMessage =  () => console.error(`Error updating`)
 
 const onSuccessMessage = () => console.log('done updating')
 
-export const useMutateTemplate = (wantedFunc, onError, onSuccess) => {
-
-    return useMutation({
-        mutationFn : wantedFunc,
-        onError: onError,
-        onSuccess: onSuccess
-    })
-};
 
 export const useMutateFieldSingle = () => {
 
-    const {patchFieldWantedTODO} = useUpdateDB()
+    const {patchFieldWantedTODO} = useUpdateDBActions()
 
     const wantedFunc = async ({wantedID, wantedField, wantedFieldUpdateVal}) => await patchFieldWantedTODO(wantedID, wantedField, wantedFieldUpdateVal);  
         
@@ -34,7 +26,7 @@ export const useMutateFieldSingle = () => {
 
 export const useMutateFieldAllDocu = () => {
 
-    const {patchFieldAllTODOS} = useUpdateDB()
+    const {patchFieldAllTODOS} = useUpdateDBActions()
 
     const wantedFunc = async ({wantedField, wantedFieldUpdateVal}) => await patchFieldAllTODOS(wantedField, wantedFieldUpdateVal);  
         
@@ -49,7 +41,7 @@ export const useMutateFieldAllDocu = () => {
 
 export const useAddSingleTODO = () => {
 
-    const {postTODO} = useUpdateDB()
+    const {postTODO} = useUpdateDBActions()
 
     const wantedFunc = async (TODO) =>  await postTODO(TODO);  
     
@@ -62,9 +54,10 @@ export const useAddSingleTODO = () => {
     return useMutateTemplate(wantedFunc,onErrorFunc,onSuccessFunc) 
 } 
 
+//just so i could delete TODOS data through my work
 export const useDeleteAllWantedCollection = () => {
 
-    const {deleteAllWantedDocuments} = useUpdateDB()
+    const {deleteAllWantedDocuments} = useUpdateDBActions()
 
     const wantedFunc = async (wantedCollection) =>  await deleteAllWantedDocuments(wantedCollection);  
     

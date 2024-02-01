@@ -18,10 +18,6 @@ export const isShownTODO = (TODO = {},filterKind) =>  {
   }
 }
 
-export const getLongLat = coordinate => {
-    return {Long: coordinate[0], Lat: coordinate[1]}
-  }
-
 export const genID = () => {
     return Date.now()
   }

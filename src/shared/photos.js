@@ -1,5 +1,4 @@
  export const bergerPhotos = {
-
     "calling his mother": "src/images/calling-his-mother.jpeg",
     "stabbing himself": "src/images/stabbing-himself.jpeg",
     "eating a cracker": "src/images/eating-a-cracer.jpeg",

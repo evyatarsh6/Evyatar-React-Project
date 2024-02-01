@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { GetMapPinModeActiveTODOID, GetMapPinModeData, GetMapPinModeIsActive, GetMapPoints, GetTODOList} from '../../selectors';
+import { GetMapPinModeActiveTODOID, GetMapPinModeIsActive, GetMapPoints, GetTODOList} from '../../selectors';
 
 
 

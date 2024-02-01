@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { GetMainInput} from "../../selectors"
+import { GetMainInput, GetMainInputIsEmpty, GetMainInputValue} from "../../selectors"
 import {Button} from '@mui/material';
 import { useCallback, useEffect, useRef} from "react";
 import { FormActions } from "../../actions/actions";
@@ -11,7 +11,8 @@ import { Fragment } from "react";
 export const OpenFormBtn = ({style}) => {
 
   const dispatch = useDispatch()
-  const {inputValue, isEmpty } = useSelector(GetMainInput)
+  const inputValue = useSelector(GetMainInputValue)
+  const isEmpty = useSelector(GetMainInputIsEmpty)
   const inputRef = useRef(inputValue)
 
   useEffect(() => {

@@ -6,10 +6,7 @@ import useFilterKind from "../../hooks/useFilterKind";
 export const ChoosenTODOSBtn = ({style}) => {
 
     const {updateFilterKind,filterKindBtnStatus} = useFilterKind()
-
-
-
-
+    
     return (
 
         <Button

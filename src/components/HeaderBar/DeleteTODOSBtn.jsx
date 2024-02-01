@@ -6,7 +6,6 @@ export const DeleteTODOSBtn = ({style}) => {
 
     const {updateFilterKind,filterKindBtnStatus} = useFilterKind()
 
-
     return (
 
         <Button

@@ -1,9 +1,8 @@
-import { useState } from "react"
+import React from "react";
 import { PopUpContent } from "./PopUpContent"
 import { useDispatch, useSelector } from "react-redux"
 import { GetTooltipStatus } from "../../selectors"
 import { updateTooltipStatus } from "../../actions/actions"
-import useMap from "../../hooks/useMap"
 
 
 export const PopUp = ({ PopUpRef, hoverID}) => {

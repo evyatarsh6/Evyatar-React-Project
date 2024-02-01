@@ -4,7 +4,7 @@ import { Map, View } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import { OSM, Vector as VectorSource } from "ol/source";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { GetMapPinModeData, GetCurrViewInfo } from '../../selectors';
+import { GetMapPinModeData, GetCurrViewInfo, GetMapPinModeActiveTODOID, GetMapPinModeIsActive } from '../../selectors';
 import useMap from "../../hooks/useMap";
 
 export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) => {
@@ -15,9 +15,8 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   const layerRef = useRef()
   
   const currViewInfo = useSelector(GetCurrViewInfo)
-  const pinModeStatus = useSelector(GetMapPinModeData)
-  const PinMode = pinModeStatus.PinMode
-  const activeTODOID =pinModeStatus.activeTODOID
+  const isPinModeActive = useSelector(GetMapPinModeIsActive)
+  const activeTODOID = useSelector(GetMapPinModeActiveTODOID)
   
   const mapFunctions = useMap(mapContainer, layerRef,featuresRef, PopUpRef) 
 
@@ -61,7 +60,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
     if (mapContainer.current) {
       mapContainer.current.on('pointermove', createTooltipByHover)
       
-      if (PinMode&& activeTODOID) {
+      if (isPinModeActive&& activeTODOID) {
          mapContainer.current.on('click', createPointByClick)
         }
         
@@ -72,7 +71,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
       } 
   
     }
-  },[createPointByClick,PinMode, createTooltipByHover, activeTODOID])
+  },[createPointByClick,isPinModeActive, createTooltipByHover, activeTODOID])
 
 
   useEffect(()=> {

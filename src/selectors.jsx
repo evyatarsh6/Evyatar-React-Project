@@ -5,6 +5,11 @@ export const GetFilterKind = state => state.filterKind
 
 export const GetMainInput = state => state.mainInput
 
+export const GetMainInputValue = state => GetMainInput(state).inputValue
+
+export const GetMainInputIsEmpty = state => GetMainInput(state).isEmpty
+
+
 export const GetFormDetails = state => state.formDetails
 
 export const GetFormTODOKind = state => GetFormDetails(state).TODOKind

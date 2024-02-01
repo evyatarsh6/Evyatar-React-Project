@@ -6,15 +6,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetFormDetails, GetFormTODOID, GetFormTODOKind } from '../selectors';
-import { FormActions, TODOListActions} from '../actions/actions';
+import { GetFormDetails, GetFormTODOID, GetFormTODOKind } from '../../selectors';
+import { FormActions, TODOListActions} from '../../actions/actions';
 import { useForm, Controller } from "react-hook-form"
-import { useAddSingleTODO } from '../hooks/useMutateData';
+import { useAddSingleTODO } from '../../hooks/useMutateData';
 import { Checkbox, Container, FormControlLabel } from '@mui/material';
 import {Autocomplete} from '@mui/material';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Fragment } from 'react';
+import { CustomAlert } from './CustomAlert';
 
 export const TODOForm = () => {
 
@@ -65,8 +66,8 @@ export const TODOForm = () => {
     };
 
     const onError = (errors) => {
-      // the only field with certion validation
-      alert(errors['descriptionField'].message)
+        // the only field with certion validation
+      <CustomAlert message = {errors['descriptionField'].message}/>
     }
 
   const onSubmit = () => {

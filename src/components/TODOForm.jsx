@@ -29,9 +29,10 @@ export const TODOForm = () => {
     isDeleteCheckbox: false,  
   } 
   
-  const {handleSubmit, reset, control, formState, resetField, watch, setValue } = useForm({
+  const {handleSubmit, reset, control, getFieldState, resetField, watch, setValue }=
+  useForm({
       defaultValues: defaultFieldsValues
-    });
+  });
 
     const descriptionFieldValue = watch("descriptionField")
     const isChoosenCheckboxValue = watch("isChoosenCheckbox")
@@ -44,7 +45,7 @@ export const TODOForm = () => {
     const postSingleTODO = useAddSingleTODO()
 
     const returnFieldsToDefualt = () => reset(defaultFieldsValues)
-  
+                                                                       
     const clickResetBtn = () => {
       reset({
         descriptionField: 'even if you want, you cant get rid of Avi',     
@@ -63,7 +64,10 @@ export const TODOForm = () => {
       dispatch(FormActions.closeForm())
     };
 
-    const onError = (errors) => console.log(errors)
+    const onError = (errors) => {
+      // the only field with certion validation
+      alert(errors['descriptionField'].message)
+    }
 
   const onSubmit = () => {
 
@@ -126,7 +130,7 @@ export const TODOForm = () => {
         rules={{
           pattern: {
             value: /avi/i,
-            message: "Description must contain 'avi' (case-insensitive)",
+            message: "Description must contain AVI",
           },
         }}
         render= {() => (

@@ -8,7 +8,7 @@ import { useCallback } from 'react';
 
 
 
-export const CardChooseBtn = ({info}) => {
+export const CardChooseBtn = ({_id, isChoosen}) => {
     
     const dispatch = useDispatch()
 
@@ -16,22 +16,22 @@ export const CardChooseBtn = ({info}) => {
       
     const checkChoosenCheckbox = useCallback(async () => {
         
-        const newCheckedtatus = !info.isChoosen
+        const newCheckedtatus = !isChoosen
         mutateSingleUpdateChoosenStatus.mutate(
             {
-                wantedID : info._id ,
+                wantedID : _id ,
                 wantedField : 'isChoosen',
                 wantedFieldUpdateVal : newCheckedtatus
             })
         dispatch(TODOListActions.editTODO(
             {
-            _id : info._id,
+            _id : _id,
             fieldKey : 'isChoosen',
             fieldUpdateValue: newCheckedtatus 
             }
         ))
 
-    },[dispatch,info._id, info.isChoosen,mutateSingleUpdateChoosenStatus])
+    },[dispatch,_id, isChoosen,mutateSingleUpdateChoosenStatus])
 
     return (
 
@@ -39,7 +39,7 @@ export const CardChooseBtn = ({info}) => {
         style={{scale:"1.5"}} 
         onClick={checkChoosenCheckbox}>
                 {
-                info.isChoosen ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
+                isChoosen ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
                 }
         </IconButton>
             

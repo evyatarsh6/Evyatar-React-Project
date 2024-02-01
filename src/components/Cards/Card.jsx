@@ -39,8 +39,7 @@ export const Card = ({ info }) => {
             <CardTitle kind={info.kind}/>
             <CardLocationField location={info.location} />
             <CardImage kind={info.kind}/>
-            <CardDescriptionField info = {info}/>
-            {/* <CardDescriptionField info={info}/> */}
+            <CardDescriptionField _id = {info._id} description={info.description}/>
             <CardChooseDelete info={info}/>
         </div>
     )

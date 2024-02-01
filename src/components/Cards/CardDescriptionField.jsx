@@ -6,7 +6,7 @@ import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 import { useDispatch } from 'react-redux';
 
 
-export const CardDescriptionField = ({info}) => {
+export const CardDescriptionField = ({_id, description}) => {
 
     
     const currInputValue = useRef(null)
@@ -14,19 +14,19 @@ export const CardDescriptionField = ({info}) => {
     const dispatch = useDispatch()
     
     const [isFreezeMode,setIsFreezeMode] = useState(true)
-    const [message, setMessage] = useState(info.description)
+    const [message, setMessage] = useState(description)
 
     
     useEffect(() => {
         const timer = setInterval(() => {
-            if (isFreezeMode && info.description!== message ) {
-                setMessage(info.description)   
+            if (isFreezeMode && description!== message ) {
+                setMessage(description)   
             }
         }, 1000);
         return () => {
             clearInterval(timer);
         }
-    }, [info.description, message, isFreezeMode]);
+    }, [description, message, isFreezeMode]);
 
 
 const mutateSingleUpdateDescription = useMutateFieldSingle()
@@ -45,20 +45,20 @@ const handleInputType =  event => setMessage(event.target.value);
             setIsFreezeMode(!isFreezeMode)
             dispatch(TODOListActions.editTODO(
                 {
-                _id : info._id,
+                _id : _id,
                 fieldKey : 'description',
                 fieldUpdateValue: message 
                 }
             ))
             mutateSingleUpdateDescription.mutate(
                 {
-                    wantedID : info._id ,
+                    wantedID : _id ,
                     wantedField : 'description',
                     wantedFieldUpdateVal : message
                 }
             )
         }
-    },[dispatch, info._id, isFreezeMode, message, mutateSingleUpdateDescription])
+    },[dispatch, _id, isFreezeMode, message, mutateSingleUpdateDescription])
 
     return (
         <div className='description-edit-Btn-container'>

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 
 
-export const CardDeleteBtn = ({info}) => {
+export const CardDeleteBtn = ({_id, isDeleted}) => {
 
     
     const dispatch = useDispatch()
@@ -17,29 +17,29 @@ export const CardDeleteBtn = ({info}) => {
     const clickDeleteRestoreBtn = useCallback( async (event) => {
         event.preventDefault()
         
-        const newDeleteStatus = !info.isDeleted
+        const newDeleteStatus = !isDeleted
         mutateSingleUpdateDeleteStatus.mutate(
             {
-                wantedID : info._id ,
+                wantedID : _id ,
                 wantedField : 'isDeleted',
                 wantedFieldUpdateVal : newDeleteStatus
             })
             
         dispatch(TODOListActions.editTODO(
             {
-            _id : info._id,
+            _id : _id,
             fieldKey : 'isDeleted',
             fieldUpdateValue: newDeleteStatus 
             }
         ))
         
         
-        },[dispatch, info._id, info.isDeleted, mutateSingleUpdateDeleteStatus])
+        },[dispatch, _id, isDeleted, mutateSingleUpdateDeleteStatus])
     
         return (
             <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5"}}>
             {
-                info.isDeleted ? <RecyclingIcon/>: <DeleteIcon/>  
+                isDeleted ? <RecyclingIcon/>: <DeleteIcon/>  
             }
             </IconButton>
     

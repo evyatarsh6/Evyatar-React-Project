@@ -66,8 +66,8 @@ export const TODOForm = () => {
     };
 
     const onError = (errors) => {
-        // the only field with certion validation
-      <CustomAlert message = {errors['descriptionField'].message}/>
+      // the only field with certion validation
+      return <CustomAlert message = {errors['descriptionField'].message}/>
     }
 
   const onSubmit = () => {

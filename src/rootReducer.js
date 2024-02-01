@@ -1,15 +1,14 @@
 import {combineReducers} from "redux";
-import { filterKind } from "./reducers/uiReducer/handleFilterKindReducer";
-import { mapPoints } from "./reducers/uiReducer/mapReducer/mapPoints";
-import { mapPinMode } from "./reducers/uiReducer/mapReducer/mapPinMode";
-import { mainInput } from "./reducers/uiReducer/mainInputReducer/mainInput";
-import { mapShowPointsMode } from "./reducers/uiReducer/mapReducer/mapShowPointsMode";
-import { currViewInfo } from "./reducers/uiReducer/mapReducer/viewInfo";
-// import { currLocation } from "./reducers/uiReducer/mapReducer/mapCurrLocation";
-import { tooltipStatus } from "./reducers/uiReducer/mapReducer/mapTooltipStatus";
-import { TODOSIDChanges } from "./reducers/uiReducer/todosUpdateChanges";
-import { TODOS } from "./reducers/uiReducer/handleTODOSReducer";
-import { formDetails } from "./reducers/uiReducer/formDetails";
+import { filterKind } from "./reducers/handleFilterKindReducer";
+import { mapPoints } from "./reducers/mapReducer/mapPoints";
+import { mapPinMode } from "./reducers/mapReducer/mapPinMode";
+import { mainInput } from "./reducers/mainInputReducer/mainInput";
+import { mapShowPointsMode } from "./reducers/mapReducer/mapShowPointsMode";
+import { currViewInfo } from "./reducers/mapReducer/viewInfo";
+import { tooltipStatus } from "./reducers/mapReducer/mapTooltipStatus";
+import { TODOSIDChanges } from "./reducers/todosUpdateChanges";
+import { TODOS } from "./reducers/handleTODOSReducer";
+import { formDetails } from "./reducers/formDetails";
 
 
 const mapModeReducer = combineReducers({
@@ -22,21 +21,16 @@ const mapReducer = combineReducers({
     mode: mapModeReducer,
     points: mapPoints,
     currViewInfo: currViewInfo,
-    // currLocation: currLocation
 })
 
-const uiReducer = combineReducers({
+
+const rootReducer = combineReducers({
     TODOList: TODOS,
     formDetails: formDetails,
     TODOSChanges : TODOSIDChanges,
     filterKind: filterKind,
     Map : mapReducer,
     mainInput: mainInput
-})
-
-
-const rootReducer = combineReducers({
-    UI: uiReducer,
 });
 
 export default rootReducer

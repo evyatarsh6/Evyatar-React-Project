@@ -1,5 +1,5 @@
 import {Button} from '@mui/material';
-import { deleteFilterKind } from "../../constans/constans";
+import { constans } from '../../constans/constans';
 import useFilterKind from "../../hooks/useFilterKind";
 
 export const DeleteTODOSBtn = ({style}) => {
@@ -13,10 +13,10 @@ export const DeleteTODOSBtn = ({style}) => {
         variant="contained"
         id = {`show-delete-items-btn`}
         className= 'show-delete-items-btn'
-        onClick={() => updateFilterKind(deleteFilterKind)}
+        onClick={() => updateFilterKind(constans.deleteFilterKind)}
         style={style}
         >
-        {`${filterKindBtnStatus(deleteFilterKind)} show delete items`}
+        {`${filterKindBtnStatus(constans.deleteFilterKind)} show delete items`}
         </Button>
     )
 }

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { GetFilterKind } from "../selectors";
 import { changeFilterKind } from "../actions/actions";
-import { normalFilterKind } from "../constans/constans";
+import { constans } from "../constans/constans";
 
 const useFilterKind = () => {
 
@@ -15,7 +15,7 @@ const useFilterKind = () => {
             SwitchFilterKind(wantedFilterKind)    
         }
         else{
-            SwitchFilterKind(normalFilterKind)
+            SwitchFilterKind(constans.normalFilterKind)
         }
         
     }

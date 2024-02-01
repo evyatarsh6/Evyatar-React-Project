@@ -1,5 +1,5 @@
 import {Button} from '@mui/material';
-import {choosenFilterKind} from "../../constans/constans";
+import { constans } from '../../constans/constans';
 import useFilterKind from "../../hooks/useFilterKind";
 
 
@@ -16,9 +16,9 @@ export const ChoosenTODOSBtn = ({style}) => {
         variant="contained"
         id = {`show-choosen-items-btn`}
         className= 'show-choosen-items-btn'
-        onClick={() => updateFilterKind(choosenFilterKind)}
+        onClick={() => updateFilterKind(constans.choosenFilterKind)}
         style={style}>
-        {`${filterKindBtnStatus(choosenFilterKind)} show choosen items`}
+        {`${filterKindBtnStatus(constans.choosenFilterKind)} show choosen items`}
         </Button>
     )
 }

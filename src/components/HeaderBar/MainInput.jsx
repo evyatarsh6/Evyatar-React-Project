@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState } from 'react';
 import { bergerPhotos } from '../../shared/photos';
 import {Autocomplete} from '@mui/material';
 import {TextField} from '@mui/material'
-import { mainInputPlaceHolder } from '../../constans/constans';
+import { constans } from '../../constans/constans';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleInputType } from '../../actions/actions';
 import { GetMainInput } from '../../selectors';
@@ -26,7 +26,7 @@ export const MainInput = () => {
         onInputChange={(event, newInputValue) => InputType(event, newInputValue)}
         inputValue={inputValue}
         sx={{ width: '60%', margin:5}}
-        renderInput={(params) => <TextField {...params} label= {mainInputPlaceHolder}
+        renderInput={(params) => <TextField {...params} label= {constans.mainInputPlaceHolder}
         />}
         >
         </Autocomplete>

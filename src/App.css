@@ -58,6 +58,16 @@ flex-direction: row;
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+
+.card-image{
+    width : 50% ;
+    height :50%;
+    border-color : black;
+    border-style : solid;
+    background-color: black;
+
+}
+
 .card-title{
   margin-top: 0px;
 }

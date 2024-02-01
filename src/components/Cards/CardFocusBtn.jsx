@@ -7,9 +7,10 @@ import { MapActions } from '../../actions/actions';
 
 export const CardFocusBtn = ({location}) => {
 
+
     const dispatch = useDispatch();
 
-    const clickFocusBtn = () => dispatch(  MapActions.focusWantedTODO(location))
+    const clickFocusBtn = () => dispatch(MapActions.focusWantedTODO(location))
     
 
        return (  
@@ -19,8 +20,7 @@ export const CardFocusBtn = ({location}) => {
                     disabled = {!isLocationExist(location)}
                     >
                         <ParaglidingIcon/>
-                    </IconButton>
-                    
+                    </IconButton>                   
                 </div>
 )
 }

@@ -125,7 +125,6 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
 
       //should find another conditinal related to the OL zoom property - not working great when comes large zoom attribute
-      
       const findTODOConditinal = (ID) => {
 
           const currDistance = getDistance(getShownTODOSPoints[ID], coordinate)
@@ -147,6 +146,7 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     const createTooltipByHover = useCallback((evt, setHoverID, currTooltip,setCurrTooltip) => {
       if (showPointsMode) {
         const wantedPointID = getHoverID(evt.coordinate)
+
         if (wantedPointID) {
           removeOverlay(currTooltip,setCurrTooltip)
           updateOverLay(getShownTODOSPoints[wantedPointID], setCurrTooltip)

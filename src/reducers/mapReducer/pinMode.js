@@ -3,7 +3,7 @@ const initialState = {
     activeTODOID: null
 }
 
-export const mapPinMode = (state = initialState, action) => {
+export const pinMode = (state = initialState, action) => {
     switch (action.type) {
       case 'activeMapPinMode':
       return (

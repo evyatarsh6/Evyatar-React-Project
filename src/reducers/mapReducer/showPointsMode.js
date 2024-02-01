@@ -1,6 +1,6 @@
 const initialState = true
 
-export const mapShowPointsMode = (state = initialState, action) => {
+export const showPointsMode = (state = initialState, action) => {
     switch (action.type) {
         case 'activeShowMapPointsMode':
         return true

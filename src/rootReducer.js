@@ -1,19 +1,18 @@
 import {combineReducers} from "redux";
 import { filterKind } from "./reducers/handleFilterKindReducer";
 import { mapPoints } from "./reducers/mapReducer/mapPoints";
-import { mapPinMode } from "./reducers/mapReducer/mapPinMode";
+import { pinMode } from "./reducers/mapReducer/pinMode";
 import { mainInput } from "./reducers/mainInputReducer/mainInput";
-import { mapShowPointsMode } from "./reducers/mapReducer/mapShowPointsMode";
-import { currViewInfo } from "./reducers/mapReducer/viewInfo";
-import { tooltipStatus } from "./reducers/mapReducer/mapTooltipStatus";
-import { TODOSIDChanges } from "./reducers/todosUpdateChanges";
+import { showPointsMode } from "./reducers/mapReducer/showPointsMode";
+import { currViewInfo } from "./reducers/mapReducer/currViewInfo";
+import { tooltipStatus } from "./reducers/mapReducer/tooltipStatus";
 import { TODOS } from "./reducers/handleTODOSReducer";
 import { formDetails } from "./reducers/formDetails";
 
 
 const mapModeReducer = combineReducers({
-    pinMode: mapPinMode,
-    showPointsMode: mapShowPointsMode,
+    pinMode: pinMode,
+    showPointsMode: showPointsMode,
     tooltipStatus: tooltipStatus,
 })
 
@@ -27,7 +26,6 @@ const mapReducer = combineReducers({
 const rootReducer = combineReducers({
     TODOList: TODOS,
     formDetails: formDetails,
-    TODOSChanges : TODOSIDChanges,
     filterKind: filterKind,
     Map : mapReducer,
     mainInput: mainInput

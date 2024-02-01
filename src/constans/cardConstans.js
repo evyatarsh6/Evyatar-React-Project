@@ -1,5 +1,7 @@
-export const choosenFilterKind = 'choosen'
-export const deleteFilterKind = 'delete'
-export const normalFilterKind = 'normal'
+export const cardConstans = {
+     choosenFilterKind : 'choosen',
+     deleteFilterKind : 'delete',
+     normalFilterKind : 'normal',
+     mainInputPlaceHolder : "Bergers' actions in the office",
 
-export const mainInputPlaceHolder = "Bergers' actions in the office"
+}

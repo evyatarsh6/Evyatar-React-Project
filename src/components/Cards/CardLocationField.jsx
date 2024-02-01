@@ -15,7 +15,7 @@ export const CardLocationField = ({info}) => {
         return null
     },[info.location])
 
-    if (isLocationExist(info.location)) {
+    if (isLocationExist(info?.location)) {
             return (
                 <p className='location-description'>
                     {showLocationAsString}

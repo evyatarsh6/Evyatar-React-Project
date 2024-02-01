@@ -131,7 +131,7 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
 
     const createTooltipByHover = useCallback((evt, setHoverID, currTooltip,setCurrTooltip) => {
-
+      if (showPointsMode) {
         const wantedPointID = getHoverID(evt.coordinate)
         if (wantedPointID) {
           removeOverlay(currTooltip,setCurrTooltip)
@@ -142,8 +142,8 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
           removeOverlay(currTooltip,setCurrTooltip)
           setHoverID(null)
         }
-      },
-      [getHoverID,getShownTODOSPoints,updateOverLay,removeOverlay])
+      }
+    }, [getHoverID,getShownTODOSPoints,updateOverLay,removeOverlay, showPointsMode])
     
 
     const handleShowPointsMode = useCallback(() => {
@@ -175,7 +175,7 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
           else{
             layerRef.current.getSource().clear()
           }
-      },[ handleShowPointsMode, layerRef, showPointsMode])
+      },[handleShowPointsMode, layerRef, showPointsMode])
 
       const tooltipLogic = useCallback((coordinate, currTooltip,setCurrTooltip) => {
 
@@ -201,25 +201,26 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       evt.coordinate,
     )
 
-      dispatch(MapActions.updatePoint(selectedTODOID, evt.coordinate))
+    dispatch(MapActions.updatePoint(selectedTODOID, evt.coordinate))
 
-      if (!showPointsMode) {
-        layerRef.current.getSource().clear();
-      }
-
+    if (!showPointsMode) {
+      layerRef.current.getSource().clear();
+    }
+    else{
       tooltipLogic(evt.coordinate, currTooltip,setCurrTooltip)
-    },
-    [
-      showPointsMode,
-      layerRef,
-      featuresRef,
-      tooltipLogic,
-      selectedTODOID,
-      dispatch,
-      createPoint,
-      removePoint
-    ]
-    );
+    }
+  },
+  [
+    showPointsMode,
+    layerRef,
+    featuresRef,
+    tooltipLogic,
+    selectedTODOID,
+    dispatch,
+    createPoint,
+    removePoint
+  ]
+  );
 
     
     return (

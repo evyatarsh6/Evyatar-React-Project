@@ -1,8 +1,8 @@
 import {combineReducers} from "redux";
-import { filterKind } from "./reducers/handleFilterKindReducer";
+import { filterKind } from "./reducers/filterKind";
 import { points } from "./reducers/mapReducer/points";
 import { pinMode } from "./reducers/mapReducer/pinMode";
-import { mainInput } from "./reducers/mainInputReducer/mainInput";
+import { mainInput } from "./reducers/mainInput";
 import { showPointsMode } from "./reducers/mapReducer/showPointsMode";
 import { currViewInfo } from "./reducers/mapReducer/currViewInfo";
 import { tooltipStatus } from "./reducers/mapReducer/tooltipStatus";

@@ -1,14 +1,10 @@
- const bergerPhotos = {
-
-    try: "../../../images/calling-his-mother.jpg",
-    "calling his mother": "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/calling-his-mother.jpe",
-    "stabbing himself": "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/stabbing-himself",
-    "eating a cracer": "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/eating-a-cracer",
-    "throwing the ball against the wall": "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/throwing-the-ball-against-the-wall",
-    "watching a funny TICTOK video": "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/watching-a-funny-TICTOK-video",
-    "watching out the window when standing": "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/watching-out-the-window-when-standing",
-    "watching out the window when sitting": "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/watching-out-the-window-when-sitting",
-    "shaking marks arm": "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/shaking-marks-arm",
+ export const bergerPhotos = {
+    "calling his mother": "src/images/calling-his-mother.jpeg",
+    "stabbing himself": "src/images/stabbing-himself.jpeg",
+    "eating a cracker": "src/images/eating-a-cracer.jpeg",
+    "throwing the ball against the wall": "src/images/throwing-the-ball-against-the-wall.jpeg",
+    "watching a funny TIkTOK video": "src/images/watching-a-funny-TIKTOK-video.jpeg",
+    "looking out the window when standing": "src/images/watching-out-the-window-when-standing.jpeg",
+    "looking out the window when sitting": "src/images/watching-out-the-window-when-sitting.jpeg",
+    "shaking marks' arm": "src/images/shaking-marks-arm.jpeg",
 }
-
-export default bergerPhotos

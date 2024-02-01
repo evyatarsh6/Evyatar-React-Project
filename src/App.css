@@ -1,112 +1,155 @@
 
 #root {
-  margin: 0 auto;
-  padding: 2rem;
+  padding: 5rem; 
   text-align: center;
-  background-image: url('https://pic1.calcalist.co.il/picserver3/crop_images/2023/09/21/BJrpnTt1a/BJrpnTt1a_0_0_2443_1629_0_x-large.jpg');
+  background-image: url('https://pic1.calcalist.co.il/picserver3/crop_images/2023/09/21/BJrpnTt1a/BJrpnTt1a_0_0_2443_1629_0_x-large.jpg'); 
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
+  width: 100%; 
+}
+
+body{
+  display: flex;
   width: 100%;
 }
 
-.card {
-  text-align: center;
-  justify-content: space-between;
-  background-color: aliceblue;
-  position: inherit;
-
-  
-
-}
-
-.item {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: flex; /* This makes the container a flex container*/
-  flex-direction: row; /* Items are arranged in a horizontal row */
-  align-items: center; /* Vertically center items within the container */
-  text-align: center;
-  justify-content: space-between; /* Items are spaced evenly along the row */
-  
-}
-
-
-.choose-item-checkbox {
-  margin-right: 10px; /* Adjust the value to control the space between items */
-  /* Additional styles for individual items */
-}
-
-.item-body {
-  margin-right: 10px; /* Adjust the value to control the space between items */
-  /* Additional styles for individual items */
-  padding: 10px;
-}
-
-input {
-  width: 50%;
-  height: 60%;
-  
-}
-
-button {
-
-  width: 60%;
-  height: 60%;
-  margin-right: 10%;
-  text-align: center;
-  color: orange;
-  background-color: black;
-  border-color: red;
-
-}
-
-#header-main-input {
-  display: flex;
-  justify-content: center;
+.description-edit-Btn-container{
+  display:flex;
   align-items: center;
   height: 100%;
+  width: 100%; 
+  justify-content: space-around;
+}
+
+.chooseDeleteContainer, .buttonContainer, .map-btns {
+display: flex;
+flex-direction: row;
+}
+
+
+.chooseDeleteContainer, .buttonContainer {
+  align-items: center;
+  justify-content: space-around;
+}
+
+.map-btns{
+  justify-content: space-between;
+  width: 100%;
+}
+
+.card{
+  border-color : black;
+  border-style : solid;
+  padding: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width : 450px;
+  height :450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: rgba(255, 255, 255,0.2);
+  border-radius: 16px;   
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+.card-image{
+    width : 50% ;
+    height :50%;
+    border-color : black;
+    border-style : solid;
+    background-color: black;
+    
+}
+
+.card-title{
+  margin-top: 0px;
+}
+
+.location-description{
+  margin: 1px;
+  margin-bottom: 10px;
+}
+
+
+.chooseDeleteContainer {
+
   width: 100%;
 }
 
 .buttonContainer{
-  /* align-items: center; */
-  display: flex; /* This makes the container a flex container */
-  flex-direction: row; /* Items are arranged in a horizontal row */
-  align-items: center; /* Vertically center items within the container */
-  justify-content: space-between; /* Items are spaced evenly along the row */  
-}
 
-#main-react-select-field {
-
-  width: 30%;
-  margin-right: 5%;
-  /* margin-right: 50px; */
+  justify-content: space-between;
+  
 }
-img {
+ img {
   z-index: 1;
-  /* max-width: '100%'; */
-  display: 'block' ;
+  display: block;
 }
 
-.item {
-  border: width 100px;;
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
 }
 
-.item-checked-true-and-active {
-  background-color: green;
+div[class*="ol-zoom"]{
+  width: 10;
+  pointer-events: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
 }
 
-.item-checked-false-and-active {
-  background-color: gray;
+div[class*="ol-zoom"] button{
+  margin-top: 5px;
 }
 
-.item-checked-true-and-not-active {
-  background-color: red;
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 280px;
 }
-
-.item-checked-false-and-not-active {
-  background-color: blue;
+.ol-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+.ol-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+.ol-popup-closer:after {
+  content: "✖";
 }

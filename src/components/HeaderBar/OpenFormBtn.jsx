@@ -13,6 +13,7 @@ import { CustomAlert } from "../Form/CustomAlert";
 export const OpenFormBtn = ({style}) => {
 
   const [alertMessage, setAlertMessage] = useState(null)
+
   const dispatch = useDispatch()
   const inputValue = useSelector(GetMainInputValue)
   const isEmpty = useSelector(GetMainInputIsEmpty)
@@ -43,7 +44,7 @@ export const OpenFormBtn = ({style}) => {
         save Avi Berger
         </Button>
         <TODOForm setAlertMessage = {setAlertMessage}/>
-        <CustomAlert message ={alertMessage} />
+        <CustomAlert message ={alertMessage} setMessage = {setAlertMessage}/>
      </Fragment>
     )
 }

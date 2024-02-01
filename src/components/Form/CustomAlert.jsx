@@ -1,20 +1,32 @@
-import { Alert } from '@mui/material';
+import { Alert, Snackbar, Collapse, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
-export const CustomAlert = ({ message }) => {
+export const CustomAlert = ({ message, setMessage }) => {
     
-    if (!message) {
-        return null
-    }
-    else{
+    if (message) {
         return (
-    
-            <Alert severity="error" color="error" sx={
-                {
-                    textAlign: 'center'
-                }
-            }>
-                {message}
-            </Alert> 
+            <Snackbar>
+                <Collapse in={open}>
+                    <Alert
+                    action={
+                    <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                        onClick={() => {
+                            setMessage(null);
+                        }}
+                    >
+                    <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                    }
+                    sx={{ mb: 2 }}
+                >
+                    {message}
+                    </Alert>
+                </Collapse>
+            </Snackbar>
         )
     }
+
 }

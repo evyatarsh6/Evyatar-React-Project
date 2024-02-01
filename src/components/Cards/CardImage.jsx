@@ -1,6 +1,6 @@
 import {bergerPhotos} from '../../shared/photos';
 
-export const CardImage = ({info}) => {
+export const CardImage = ({kind}) => {
 
     
     const imgStyle = {
@@ -14,7 +14,7 @@ export const CardImage = ({info}) => {
 
     return (
         <img
-        src={bergerPhotos[info.kind]}
+        src={bergerPhotos[kind]}
         className="card-image"
         style= { imgStyle }
     />

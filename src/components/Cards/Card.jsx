@@ -36,10 +36,11 @@ export const Card = ({ info }) => {
             
         <div className ={"card"} id={info._id} style={cardStyle}>
             <CardMapBtns info={info} />
-            <CardTitle info={info}/>
-            <CardLocationField info={info} />
-            <CardImage info={info}/>
-            <CardDescriptionField info={info}/>
+            <CardTitle kind={info.kind}/>
+            <CardLocationField location={info.location} />
+            <CardImage kind={info.kind}/>
+            <CardDescriptionField info = {info}/>
+            {/* <CardDescriptionField info={info}/> */}
             <CardChooseDelete info={info}/>
         </div>
     )

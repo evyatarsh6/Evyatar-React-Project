@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetFormDetails } from '../selectors';
+import { GetFormDetails, GetFormTODOID, GetFormTODOKind } from '../selectors';
 import { FormActions, TODOListActions} from '../actions/actions';
 import { useForm, Controller } from "react-hook-form"
 import { useAddSingleTODO } from '../hooks/useMutateData';
@@ -20,8 +20,8 @@ export const TODOForm = () => {
 
   const FormDetails = useSelector(GetFormDetails)
   const dispatch = useDispatch()
-  const TODOKind  = FormDetails.TODOKind
-  const TODOID = FormDetails.TODOID
+  const TODOKind  = useSelector(GetFormTODOKind)
+  const TODOID  = useSelector(GetFormTODOID)
 
   const defaultFieldsValues = {
     descriptionField: 'Avi Berger is a god !!!!',     

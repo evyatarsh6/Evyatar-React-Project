@@ -4,7 +4,7 @@ import { Map, View } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import { OSM, Vector as VectorSource } from "ol/source";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { GetMapPinMode, GetCurrViewInfo } from '../../selectors';
+import { GetMapPinModeData, GetCurrViewInfo } from '../../selectors';
 import useMap from "../../hooks/useMap";
 
 export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) => {
@@ -15,7 +15,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   const layerRef = useRef()
   
   const currViewInfo = useSelector(GetCurrViewInfo)
-  const pinModeStatus = useSelector(GetMapPinMode)
+  const pinModeStatus = useSelector(GetMapPinModeData)
   const PinMode = pinModeStatus.PinMode
   const activeTODOID =pinModeStatus.activeTODOID
   

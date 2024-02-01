@@ -1,6 +1,6 @@
 
 import React, { useCallback, useMemo} from "react";
-import { GetMapPoints, GetMapShowPointsMode, GetMapPinMode, GetTooltipStatus, GetTODOList, GetFilterKind, GetCurrViewInfo} from "../selectors";
+import { GetMapPoints, GetMapShowPointsMode, GetMapPinModeData, GetTooltipStatus, GetTODOList, GetFilterKind, GetCurrViewInfo} from "../selectors";
 import "ol/ol.css";
 import Feature from 'ol/Feature';
 import { Point } from "ol/geom";
@@ -23,7 +23,7 @@ const useMap = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     const filterKind = useSelector(GetFilterKind)
     const currMapViewInfo = useSelector(GetCurrViewInfo)
 
-    const pinModeStatus = useSelector(GetMapPinMode)
+    const pinModeStatus = useSelector(GetMapPinModeData)
     const selectedTODOID = pinModeStatus.activeTODOID
   
     const dispatch = useDispatch()

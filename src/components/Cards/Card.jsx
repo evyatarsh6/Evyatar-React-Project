@@ -12,7 +12,7 @@ export const Card = ({ info }) => {
 
     return (
         
-        <div className ={"card"} id={info._id}>
+        <div className ="card" id={info._id}>
             <CardMapBtns info={info} />
             <CardTitle kind={info.kind}/>
             <CardLocationField location={info.location} />

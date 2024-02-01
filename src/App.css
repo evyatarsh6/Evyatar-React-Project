@@ -14,6 +14,7 @@ body{
   display: flex;
   width: 100%;
 }
+
 .description-edit-Btn-container{
   display:flex;
   align-items: center;
@@ -65,7 +66,7 @@ flex-direction: row;
     border-color : black;
     border-style : solid;
     background-color: black;
-
+    
 }
 
 .card-title{
@@ -110,15 +111,6 @@ div[class*="ol-zoom"]{
 div[class*="ol-zoom"] button{
   margin-top: 5px;
 }
-
-
-
-
-
-
-
-
-
 
 .ol-popup {
   position: absolute;

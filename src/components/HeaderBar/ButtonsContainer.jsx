@@ -5,6 +5,8 @@ import { DeleteTODOSBtn } from './DeleteTODOSBtn';
 import { PointsOnMapBtn } from './PointsOnMapBtn';
 
 export const ButtonsContainer = () => {
+  
+  //for some reason didnt work as a class style  in the App.css file
 
   const muiButtonStyle = {
     margin: 10,

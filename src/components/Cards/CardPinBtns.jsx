@@ -4,22 +4,20 @@ import { useSelector } from "react-redux"
 import { GetMapPoints } from "../../selectors";
 import { IconButton } from '@mui/material';
 import { TODOListActions, MapActions, updateTooltipStatus} from '../../actions/actions';
-
-// activeMapPinTODOMode, editTODO, editAllTODOS, cancelMapPinTODOMode, updateTooltipStatus
 import PushPinIcon from '@mui/icons-material/PushPin';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
 import { useCallback } from 'react';
 
-export const CardPinBtn = ({info}) => {
+export const CardPinBtn = ({isPinBtnDisable, _id}) => {
 
     const dispatch = useDispatch();
     
     const  mapPoints = useSelector(GetMapPoints)
     const mutateSingleUpdateLocation = useMutateFieldSingle()
 
-    const [isPinActive, setIsPinActive] = useState(info.isPinBtnDisable);
+    const [isPinActive, setIsPinActive] = useState(isPinBtnDisable);
 
     const UpdateTODOSAfterClickPinBtn = () => {
 
@@ -32,7 +30,7 @@ export const CardPinBtn = ({info}) => {
         
         dispatch(TODOListActions.editTODO(
             {
-            _id : info._id,
+            _id : _id,
             fieldKey : 'isPinBtnDisable',
             fieldUpdateValue: false 
             }
@@ -44,7 +42,7 @@ export const CardPinBtn = ({info}) => {
         UpdateTODOSAfterClickPinBtn()
 
         setIsPinActive(true)
-        dispatch(MapActions.mapPinTODOMode.activeMode(info._id))
+        dispatch(MapActions.mapPinTODOMode.activeMode(_id))
 
 
     }
@@ -70,21 +68,21 @@ export const CardPinBtn = ({info}) => {
 
         mutateSingleUpdateLocation.mutate(
             {
-                wantedID : info._id ,
+                wantedID : _id ,
                 wantedField : 'location',
-                wantedFieldUpdateVal :  mapPoints[info._id]?.location || []
+                wantedFieldUpdateVal :  mapPoints[_id]?.location || []
             }
         )
 
         dispatch(TODOListActions.editTODO(
             {
-            _id : info._id,
+            _id : _id,
             fieldKey : 'location',
-            fieldUpdateValue: mapPoints[info._id].location
+            fieldUpdateValue: mapPoints[_id].location
             }
         ))
 
-    },[clickCancelPin, dispatch, info._id, mapPoints,  mutateSingleUpdateLocation])
+    },[clickCancelPin, dispatch, _id, mapPoints,  mutateSingleUpdateLocation])
 
        return (  
         isPinActive ? (
@@ -106,7 +104,7 @@ export const CardPinBtn = ({info}) => {
         (
             <div className='handle-pin-btns'>
                 <IconButton className= 'pin-btn' style={{scale:"1.5"}}
-                onClick={clickPinBtn} disabled={info.isPinBtnDisable}>
+                onClick={clickPinBtn} disabled={isPinBtnDisable}>
                     <PushPinIcon/>
                 </IconButton>
             </div>

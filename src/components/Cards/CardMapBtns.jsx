@@ -5,8 +5,8 @@ import { CardFocusBtn } from './CardFocusBtn';
 export const CardMapBtns = ({info}) => {
     return (
         <div className='map-btns'> 
-            <CardPinBtn info={info}/>
-            <CardFocusBtn info= {info}/>
+            <CardPinBtn _id={info._id} isPinBtnDisable={info.isPinBtnDisable}/>
+            <CardFocusBtn location= {info.location}/>
         </div>
 
 

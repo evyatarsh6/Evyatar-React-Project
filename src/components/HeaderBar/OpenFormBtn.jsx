@@ -12,7 +12,7 @@ import { CustomAlert } from "../Form/CustomAlert";
 
 export const OpenFormBtn = ({style}) => {
 
-  const [alertMessage, setAlertMessage] = useState(null)
+  const [alertMessage, setAlertMessage] = useState('')
 
   const dispatch = useDispatch()
   const inputValue = useSelector(GetMainInputValue)

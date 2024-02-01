@@ -2,8 +2,9 @@ import { Alert, Snackbar, Collapse, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 export const CustomAlert = ({ message, setMessage }) => {
-    
+
     if (message) {
+        const open = message.length >0
         return (
             <Snackbar>
                 <Collapse in={open}>
@@ -14,7 +15,7 @@ export const CustomAlert = ({ message, setMessage }) => {
                         color="inherit"
                         size="small"
                         onClick={() => {
-                            setMessage(null);
+                            setMessage('');
                         }}
                     >
                     <CloseIcon fontSize="inherit" />

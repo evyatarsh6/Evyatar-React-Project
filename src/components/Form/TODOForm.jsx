@@ -15,7 +15,6 @@ import {Autocomplete} from '@mui/material';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Fragment } from 'react';
-import { CustomAlert } from './CustomAlert';
 
 export const TODOForm = ({setAlertMessage}) => {
 
@@ -74,14 +73,6 @@ export const TODOForm = ({setAlertMessage}) => {
 
     }
 
-
-    // const onError = (errors) => {
-    //   // Check if there is an error on the 'descriptionField'
-    //   if (errors && errors['descriptionField']) {
-    //     return <CustomAlert message={errors['descriptionField'].message} />;
-    //   }
-    //   return null;
-    // }
 
   const onSubmit = () => {
 

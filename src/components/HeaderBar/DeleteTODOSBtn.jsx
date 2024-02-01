@@ -1,5 +1,5 @@
 import {Button} from '@mui/material';
-import { deleteFilterKind } from "../../constans/cardConstans";
+import { deleteFilterKind } from "../../constans/constans";
 import useFilterKind from "../../hooks/useFilterKind";
 
 export const DeleteTODOSBtn = ({style}) => {

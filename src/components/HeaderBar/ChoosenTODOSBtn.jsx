@@ -1,5 +1,5 @@
 import {Button} from '@mui/material';
-import {choosenFilterKind} from "../../constans/cardConstans";
+import {choosenFilterKind} from "../../constans/constans";
 import useFilterKind from "../../hooks/useFilterKind";
 
 

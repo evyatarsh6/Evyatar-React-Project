@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { GetFilterKind } from "../selectors";
 import { changeFilterKind } from "../actions/actions";
-import { normalFilterKind } from "../constans/cardConstans";
+import { normalFilterKind } from "../constans/constans";
 
 const useFilterKind = () => {
 

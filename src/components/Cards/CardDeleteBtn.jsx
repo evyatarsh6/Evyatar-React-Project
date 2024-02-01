@@ -4,7 +4,7 @@ import DeleteIcon  from '@mui/icons-material/Delete';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import { TODOListActions } from '../../actions/actions';
 import { useDispatch } from 'react-redux';
-import { useMutateFieldSingle } from '../../hooks/useMutateTODOS';
+import { useMutateFieldSingle } from '../../hooks/useMutateData';
 
 
 export const CardDeleteBtn = ({_id, isDeleted}) => {

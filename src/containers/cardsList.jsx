@@ -22,7 +22,7 @@ export const CardList = () => {
                 FilterdArr.map( TODO => (
                     
                     <Card
-                    info = {TODO}
+                    TODO = {TODO}
                     key={TODO['_id']}
                     />
                     ))

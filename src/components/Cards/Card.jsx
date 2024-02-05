@@ -7,18 +7,19 @@ import { CardChooseDelete } from './CardChooseDeleteContainer';
 
 
 
-export const Card = ({ info }) => {
+export const Card = ({ TODO }) => {
 
+    const {_id, kind, location, description} = TODO
 
     return (
         
-        <div className ="card" id={info._id}>
-            <CardMapBtns info={info} />
-            <CardTitle kind={info.kind}/>
-            <CardLocationField location={info.location} />
-            <CardImage kind={info.kind}/>
-            <CardDescriptionField _id = {info._id} description={info.description}/>
-            <CardChooseDelete info={info}/>
+        <div className ="card" id={_id}>
+            <CardMapBtns TODO={TODO} />
+            <CardTitle TODOKind={kind}/>
+            <CardLocationField location={location} />
+            <CardImage TODOKind={kind}/>
+            <CardDescriptionField _id = {_id} description={description}/>
+            <CardChooseDelete TODO={TODO}/>
         </div>
     )
 }; 

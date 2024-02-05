@@ -1,10 +1,10 @@
 import {bergerPhotos} from '../../shared/photos';
 
-export const CardImage = ({kind}) => {
+export const CardImage = ({TODOKind}) => {
     
     return (
         <img
-        src={bergerPhotos[kind]}
+        src={bergerPhotos[TODOKind]}
         className="card-image"
     />
     )

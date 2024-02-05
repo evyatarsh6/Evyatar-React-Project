@@ -1,6 +1,6 @@
-export const CardTitle = ({kind}) => {
+export const CardTitle = ({TODOKind}) => {
 
     return (
-        <h3 className="card-title">{kind}</h3>
+        <h3 className="card-title">{TODOKind}</h3>
     )
 }

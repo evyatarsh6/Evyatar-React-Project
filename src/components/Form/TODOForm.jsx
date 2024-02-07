@@ -25,7 +25,7 @@ export const TODOForm = ({setAlertMessage}) => {
   const TODOID  = useSelector(GetFormTODOID)
 
 
-  const {defaultFormFieldsValues} = constans
+  const {defaultFormFieldsValues, resetFormFieldsValues} = constans
 
   const {handleSubmit, reset, control, watch, setValue }=
   useForm({
@@ -42,24 +42,21 @@ export const TODOForm = ({setAlertMessage}) => {
 
     const postSingleTODO = useAddSingleTODO()
 
-    const returnFieldsToDefualt = () => reset(defaultFieldsValues)
+    const returnFieldsToDefualt = () => reset(defaultFormFieldsValues)
                                                                        
     const clickResetBtn = () => {
-      reset({
-        descriptionField: 'even if you want, you cant get rid of Avi',     
-        isChoosenCheckbox: false,  
-        isDeleteCheckbox: false,           
-      },
-        {
+      reset(resetFormFieldsValues,
+      {
         keepDirtyValues: true,
         keepDefaultValues: true,
-      })
+      }
+      )
   }
 
     const handleClose = (event) => {
+      dispatch(FormActions.closeForm())
       returnFieldsToDefualt()
       event.preventDefault()
-      dispatch(FormActions.closeForm())
     };
 
     const onError = (errors) => {

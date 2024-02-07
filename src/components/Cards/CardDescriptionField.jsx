@@ -18,16 +18,16 @@ export const CardDescriptionField = ({_id, description}) => {
     const [message, setMessage] = useState(description)
 
     
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     const timer = setTimeout(() => {
-    //         if (isFreezeMode && description!== message ) {
-    //             setMessage(description)   
-    //         }
-    //     }, 1000);
-    //     return () => {
-    //         clearTimeout(timer);
-    //     }
+        const timer = setTimeout(() => {
+            if (isFreezeMode && description!== message ) {
+                setMessage(description)   
+            }
+        }, 1000);
+        return () => {
+            clearTimeout(timer);
+        }
 
     //     // const timer = setInterval(() => {
     //     //     if (isFreezeMode && description!== message ) {
@@ -37,7 +37,7 @@ export const CardDescriptionField = ({_id, description}) => {
     //     // return () => {
     //     //     clearInterval(timer);
     //     // }
-    // }, [description, message, isFreezeMode]);
+    }, [description, message, isFreezeMode]);
 
 
 const mutateSingleUpdateDescription = useMutateFieldSingle()
@@ -72,12 +72,12 @@ const handleInputType =  event => setMessage(event.target.value);
             onChange={handleInputType} disabled = {isFreezeMode}
             inputProps={{
                 style: {
-                    textAlign:"center",
+                textAlign:"center",
                 }
             }}
             sx={{
                 width: "80%",
-                height: "30%",
+                height: "40%",
                 marginBottom: 3,
             }}>
 

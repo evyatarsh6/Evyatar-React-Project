@@ -37,7 +37,7 @@ export const CardDeleteBtn = ({_id, isDeleted}) => {
         },[dispatch, _id, isDeleted, mutateSingleUpdateDeleteStatus])
     
         return (
-            <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5"}}>
+            <IconButton onClick={clickDeleteRestoreBtn} style={{scale:"1.5" }}>
             {
                 isDeleted ? <RecyclingIcon/>: <DeleteIcon/>  
             }

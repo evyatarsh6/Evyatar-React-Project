@@ -8,6 +8,7 @@ import {bergerPhotos} from '../../shared/photos';
 import { TODOForm } from "../Form/TODOForm";
 import { Fragment } from "react";
 import { CustomAlert } from "../Form/CustomAlert";
+import { useDeleteAllWantedCollection } from "../../hooks/useMutateData";
 
 
 export const OpenFormBtn = ({style}) => {
@@ -19,18 +20,24 @@ export const OpenFormBtn = ({style}) => {
   const isEmpty = useSelector(GetMainInputIsEmpty)
   const inputRef = useRef(inputValue)
 
+  const deleteAllTODOS = useDeleteAllWantedCollection()
+
   useEffect(() => {
     inputRef.current = inputValue
   },[inputValue])
 
-  const handleAddTODO = useCallback(() => {
-    const validateInputVal = () => Object.keys(bergerPhotos).some(option => option === inputRef.current);
-    const isValid = validateInputVal();  
-    if (isValid) {
-      const cardID = Date.now();
-      dispatch(FormActions.openForm(cardID,inputRef.current))
+  // const handleAddTODO = useCallback(() => {
+  //   const validateInputVal = () => Object.keys(bergerPhotos).some(option => option === inputRef.current);
+  //   const isValid = validateInputVal();  
+  //   if (isValid) {
+  //     const cardID = Date.now();
+  //     dispatch(FormActions.openForm(cardID,inputRef.current))
 
-    }}, [inputRef, dispatch]);
+  //   }}, [inputRef, dispatch]);
+
+  const handleAddTODO = useCallback(() => {
+    deleteAllTODOS.mutate('TODOS')
+  },[deleteAllTODOS])
 
     const isOpen = alertMessage.length > 0
 

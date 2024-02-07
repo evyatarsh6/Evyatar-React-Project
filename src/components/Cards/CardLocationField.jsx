@@ -18,11 +18,14 @@ export const CardLocationField = ({location}) => {
         
     },[location])
 
-    if (isLocationExist(location)) {
-            return (
-                <p className='location-description'>
-                    {showLocationAsString}
-                </p>
-            )
-        }
+    if (!isLocationExist(location)) {
+        return null
+    }
+    else{
+        return (
+            <p className='location-description'>
+                {showLocationAsString}
+            </p>
+        )
+    }
 }

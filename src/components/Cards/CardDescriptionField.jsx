@@ -4,6 +4,7 @@ import { Edit } from '@mui/icons-material';
 import { TODOListActions } from '../../actions/actions';
 import { useMutateFieldSingle } from '../../hooks/useMutateData';
 import { useDispatch } from 'react-redux';
+import TextField from '@mui/material/TextField';
 
 
 export const CardDescriptionField = ({_id, description}) => {
@@ -17,26 +18,26 @@ export const CardDescriptionField = ({_id, description}) => {
     const [message, setMessage] = useState(description)
 
     
-    useEffect(() => {
+    // useEffect(() => {
 
-        const timer = setTimeout(() => {
-            if (isFreezeMode && description!== message ) {
-                setMessage(description)   
-            }
-        }, 1000);
-        return () => {
-            clearTimeout(timer);
-        }
+    //     const timer = setTimeout(() => {
+    //         if (isFreezeMode && description!== message ) {
+    //             setMessage(description)   
+    //         }
+    //     }, 1000);
+    //     return () => {
+    //         clearTimeout(timer);
+    //     }
 
-        // const timer = setInterval(() => {
-        //     if (isFreezeMode && description!== message ) {
-        //         setMessage(description)   
-        //     }
-        // }, 1000);
-        // return () => {
-        //     clearInterval(timer);
-        // }
-    }, [description, message, isFreezeMode]);
+    //     // const timer = setInterval(() => {
+    //     //     if (isFreezeMode && description!== message ) {
+    //     //         setMessage(description)   
+    //     //     }
+    //     // }, 1000);
+    //     // return () => {
+    //     //     clearInterval(timer);
+    //     // }
+    // }, [description, message, isFreezeMode]);
 
 
 const mutateSingleUpdateDescription = useMutateFieldSingle()
@@ -67,16 +68,20 @@ const handleInputType =  event => setMessage(event.target.value);
 
     return (
         <div className='description-edit-Btn-container'>
-        <input ref = {currInputValue} value={message}
-            className="card-description" type="text" placeholder='card description'
+            <TextField ref ={currInputValue} value={message} placeholder='card description'
             onChange={handleInputType} disabled = {isFreezeMode}
-            style={{
-                textAlign: "center",
-                width: "80%",
-                height: "20%",
-                
+            inputProps={{
+                style: {
+                    textAlign:"center",
+                }
             }}
-        />
+            sx={{
+                width: "80%",
+                height: "30%",
+                marginBottom: 3,
+            }}>
+
+            </TextField>
 
         
         <IconButton className= { `${FreezeBtnStatus()}- btn`} style={{scale:"1.5"}}

@@ -15,6 +15,7 @@ import {Autocomplete} from '@mui/material';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Fragment } from 'react';
+import { constans } from '../../constans/constans';
 
 export const TODOForm = ({setAlertMessage}) => {
 
@@ -23,15 +24,12 @@ export const TODOForm = ({setAlertMessage}) => {
   const TODOKind  = useSelector(GetFormTODOKind)
   const TODOID  = useSelector(GetFormTODOID)
 
-  const defaultFieldsValues = {
-    descriptionField: 'Avi Berger is a god !!!!',     
-    isChoosenCheckbox: false,  
-    isDeleteCheckbox: false,  
-  } 
-  
+
+  const {defaultFormFieldsValues} = constans
+
   const {handleSubmit, reset, control, watch, setValue }=
   useForm({
-      defaultValues: defaultFieldsValues
+      defaultValues: defaultFormFieldsValues
   });
 
     const descriptionFieldValue = watch("descriptionField")

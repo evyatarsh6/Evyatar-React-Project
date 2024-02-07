@@ -1,15 +1,13 @@
 import { Alert, Snackbar, Collapse, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-export const CustomAlert = ({ message, setMessage }) => {
-    const open = message.length > 0;
-
+export const CustomAlert = ({ isOpen, message, setMessage }) => {
     return (
-        <Snackbar open={open} 
+        <Snackbar open={isOpen} 
         anchorOrigin = {{vertical: 'top', horizontal: 'center' }}
         autoHideDuration={6000}
         onClose={() => setMessage('')}>
-            <Collapse in={open}>
+            <Collapse in={isOpen}>
                 <Alert
                 color='error'
                     action={

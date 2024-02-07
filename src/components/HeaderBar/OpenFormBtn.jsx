@@ -32,6 +32,8 @@ export const OpenFormBtn = ({style}) => {
 
     }}, [inputRef, dispatch]);
 
+    const isOpen = alertMessage.length > 0
+
 
     
     return (
@@ -44,7 +46,7 @@ export const OpenFormBtn = ({style}) => {
         save Avi Berger
         </Button>
         <TODOForm setAlertMessage = {setAlertMessage}/>
-        <CustomAlert message ={alertMessage} setMessage = {setAlertMessage}/>
+        <CustomAlert isOpen={isOpen} message ={alertMessage} setMessage = {setAlertMessage}/>
      </Fragment>
     )
 }

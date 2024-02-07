@@ -23,27 +23,25 @@ export const useMapTooltip = ( mapContainer, PopUpRef) => {
 
     const {addOverlay, createNewOverlay, removeOverlay} = useMapOverlay()
 
-    const tooltipLogic = useCallback((coordinate, currTooltip,setCurrTooltip) => {
+    const removeTooltip = useCallback((currTooltip, setCurrTooltip) => {
+        removeOverlay(mapContainer, currTooltip)
+        setCurrTooltip(null)
+        dispatch(updateTooltipStatus(false))
 
-        const overlay = createNewOverlay(PopUpRef, coordinate)
-        
-        if(isTooltipExist){
-          removeOverlay(mapContainer, overlay)
-        }
-
-        addOverlay(mapContainer, overlay)
+      }, [mapContainer, dispatch])
     
-        }
-        ,[
-            PopUpRef,
-            addOverlay,
-          removeOverlay,
-          isTooltipExist,
-        ])
+      const createTooltip = useCallback((coordinate, setCurrTooltip) => {
+        const overlay = createNewOverlay(PopUpRef, coordinate)
+        const newTooltip = addOverlay(mapContainer, overlay)
+        setCurrTooltip(newTooltip)
+        dispatch(updateTooltipStatus(true))
+      }, [mapContainer, popUpOverlay, dispatch])
 
 
     return (
     {
+        createTooltip: createTooltip,
+        removeTooltip: removeTooltip
     }
     )
 }

@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import Overlay from 'ol/Overlay.js';
 import { MapActions, updateTooltipStatus } from '../../actions/actions';
 import { isShownTODO } from "../../utils/generalUtils";
+import { useMapTooltip } from "./useMapTooltip";
 
 
 
@@ -26,6 +27,11 @@ export const useMapLogic = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
     const pinModeStatus = useSelector(GetMapPinModeData)
     const selectedTODOID = pinModeStatus.activeTODOID
+
+    const {createTooltip, removeTooltip} = useMapTooltip()
+
+
+
     const getHoverID = useCallback((coordinate) => {
 
         const getDistance = (pointA, pointB ) => {
@@ -63,9 +69,9 @@ export const useMapLogic = (mapContainer, layerRef, featuresRef, PopUpRef) => {
   const tooltipLogic = useCallback((coordinate, currTooltip,setCurrTooltip) => {
 
     if(isTooltipExist){
-      removeOverlay(currTooltip, setCurrTooltip)
+      removeTooltip(currTooltip, setCurrTooltip)
     }
-    updateOverLay(coordinate, setCurrTooltip)
+    createTooltip(coordinate, setCurrTooltip)
 
     }
     ,[
@@ -79,7 +85,7 @@ export const useMapLogic = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     return (
     {
         getHoverID: getHoverID,
-        // tooltipLogic:tooltipLogic
+        tooltipLogic:tooltipLogic
     }
     )
 }

@@ -22,10 +22,7 @@ function App() {
   return (
 
     <div className='App'>
-      <body style={{
-        width:"100%",
-        flexDirection: 'column',
-      }}>
+      <body>
           <HeaderBar/>
           <MapContainer/>
           <CardList/> 

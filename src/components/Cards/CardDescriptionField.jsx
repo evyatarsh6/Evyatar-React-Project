@@ -18,14 +18,24 @@ export const CardDescriptionField = ({_id, description}) => {
 
     
     useEffect(() => {
-        const timer = setInterval(() => {
+
+        const timer = setTimeout(() => {
             if (isFreezeMode && description!== message ) {
                 setMessage(description)   
             }
         }, 1000);
         return () => {
-            clearInterval(timer);
+            clearTimeout(timer);
         }
+
+        // const timer = setInterval(() => {
+        //     if (isFreezeMode && description!== message ) {
+        //         setMessage(description)   
+        //     }
+        // }, 1000);
+        // return () => {
+        //     clearInterval(timer);
+        // }
     }, [description, message, isFreezeMode]);
 
 
@@ -34,15 +44,10 @@ const handleInputType =  event => setMessage(event.target.value);
 
     const FreezeBtnStatus = () => isFreezeMode ? 'edit' : 'save' 
     
-    const clickFreezeBtn =  useCallback( async (event) => {
+    const clickFreezeBtn =  async (event) => {
         event.preventDefault()
-        
-        if (isFreezeMode) {
-            setIsFreezeMode(false)
-
-        }
-        else {
-            setIsFreezeMode(!isFreezeMode)
+        setIsFreezeMode(prevIsFreezeMode => !prevIsFreezeMode)
+        if (!isFreezeMode) {
             dispatch(TODOListActions.editTODO(
                 {
                 _id : _id,
@@ -58,7 +63,7 @@ const handleInputType =  event => setMessage(event.target.value);
                 }
             )
         }
-    },[dispatch, _id, isFreezeMode, message, mutateSingleUpdateDescription])
+    }
 
     return (
         <div className='description-edit-Btn-container'>

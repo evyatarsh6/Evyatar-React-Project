@@ -5,7 +5,7 @@ import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import { OSM, Vector as VectorSource } from "ol/source";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { GetCurrViewInfo, GetMapPinModeActiveTODOID, GetMapPinModeIsActive } from '../../selectors';
-import useMap from "../../hooks/useMap";
+import { useMapPoints } from "../../hooks/useMap/useMapPoints";
 
 export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) => {
 
@@ -17,11 +17,10 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   const currViewInfo = useSelector(GetCurrViewInfo)
   const isPinModeActive = useSelector(GetMapPinModeIsActive)
   const activeTODOID = useSelector(GetMapPinModeActiveTODOID)
-  
-  const mapFunctions = useMap(mapContainer, layerRef,featuresRef, PopUpRef) 
 
-  const createPointByClick = useCallback((evt) => 
-    mapFunctions.points.createPointByClick(evt,currTooltip,setCurrTooltip,activeTODOID)
+
+  const createPointByClickAction = useCallback((evt) => 
+  createPointByClick(evt,currTooltip,setCurrTooltip,activeTODOID)
     ,[mapFunctions.points, currTooltip,setCurrTooltip, activeTODOID]);
 
   const createTooltipByHover  =
@@ -61,12 +60,12 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
       mapContainer.current.on('pointermove', createTooltipByHover)
       
       if (isPinModeActive&& activeTODOID) {
-         mapContainer.current.on('click', createPointByClick)
+         mapContainer.current.on('click', createPointByClickAction)
         }
         
         return () => {
           mapContainer.current.un('pointermove', createTooltipByHover)
-          mapContainer.current.un('click', createPointByClick);
+          mapContainer.current.un('click', createPointByClickAction);
           
       } 
   
@@ -87,7 +86,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
 
   useEffect(() => {
     if (mapContainer.current) {
-      mapFunctions.points.pointsOnMap()
+      pointsOnMap()
     }
   },
   [mapFunctions.points])

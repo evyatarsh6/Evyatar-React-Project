@@ -27,18 +27,20 @@ export const TODOForm = ({setAlertMessage}) => {
 
   const {defaultFormFieldsValues, resetFormFieldsValues} = constans
 
-  const {handleSubmit, reset, control, watch, setValue }=
+  const {handleSubmit, reset, control, getValues, setValue }=
   useForm({
       defaultValues: defaultFormFieldsValues
   });
 
-    const descriptionFieldValue = watch("descriptionField")
-    const isChoosenCheckboxValue = watch("isChoosenCheckbox")
-    const isDeleteCheckboxValue = watch("isDeleteCheckbox")
+    const descriptionFieldValue = getValues("descriptionField")
+    const isChoosenCheckboxValue = getValues("isChoosenCheckbox")
+    const isDeleteCheckboxValue = getValues("isDeleteCheckbox")
 
-    const updateDescriptionFieldValue = (e) => setValue("descriptionField",  e.target.value)
-    const updateIsChoosenCheckboxValue = () => setValue("isChoosenCheckbox", !isChoosenCheckboxValue)
-    const updateIsDeleteCheckboxValue = () => setValue("isDeleteCheckbox",  !isDeleteCheckboxValue )
+    const updateFieldValue = (wantedField, updateValue) => setValue(`${wantedField}`,  updateValue) 
+
+    const updateDescriptionFieldValue = (e) => updateFieldValue("descriptionField",  e.target.value)
+    const updateIsChoosenCheckboxValue = () => updateFieldValue("isChoosenCheckbox", !isChoosenCheckboxValue)
+    const updateIsDeleteCheckboxValue = () => updateFieldValue("isDeleteCheckbox",  !isDeleteCheckboxValue )
 
     const postSingleTODO = useAddSingleTODO()
 

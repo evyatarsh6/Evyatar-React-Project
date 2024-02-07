@@ -20,24 +20,18 @@ export const OpenFormBtn = ({style}) => {
   const isEmpty = useSelector(GetMainInputIsEmpty)
   const inputRef = useRef(inputValue)
 
-  const deleteAllTODOS = useDeleteAllWantedCollection()
-
   useEffect(() => {
     inputRef.current = inputValue
   },[inputValue])
 
-  // const handleAddTODO = useCallback(() => {
-  //   const validateInputVal = () => Object.keys(bergerPhotos).some(option => option === inputRef.current);
-  //   const isValid = validateInputVal();  
-  //   if (isValid) {
-  //     const cardID = Date.now();
-  //     dispatch(FormActions.openForm(cardID,inputRef.current))
-
-  //   }}, [inputRef, dispatch]);
-
   const handleAddTODO = useCallback(() => {
-    deleteAllTODOS.mutate('TODOS')
-  },[deleteAllTODOS])
+    const validateInputVal = () => Object.keys(bergerPhotos).some(option => option === inputRef.current);
+    const isValid = validateInputVal();  
+    if (isValid) {
+      const cardID = Date.now();
+      dispatch(FormActions.openForm(cardID,inputRef.current))
+
+    }}, [inputRef, dispatch]);
 
     const isOpen = alertMessage.length > 0
 

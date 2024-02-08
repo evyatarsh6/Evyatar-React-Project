@@ -44,22 +44,24 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
         });
       
         newFeature.setStyle(iconStyle);
+
+        return newFeature
       },[iconStyle])
 
     
     const createPoint = useCallback((layerRef,featuresRef, ID, coordinate) => {
       
-      pointTemplate(coordinate)
+      const newFeature = pointTemplate(coordinate)
       createFeature(layerRef,featuresRef, ID,newFeature)
 
-    },[iconStyle])
+    },[pointTemplate, createFeature])
 
     const removePoint = useCallback((layerRef,featuresRef, ID) => {
       removeFeature(layerRef,featuresRef, ID)
     },[])
 
-    const createPointByClick = useCallback((evt,currTooltip,setCurrTooltip,ID) => {
 
+    const createPointByClick = useCallback((evt,currTooltip,setCurrTooltip,ID) => {
       removePoint(layerRef,featuresRef, ID)
       createPoint(
         layerRef,
@@ -77,17 +79,25 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
         }
       },
       [
-        showPointsMode,
+        removePoint,
+        createPoint,
         layerRef,
         featuresRef,
+        dispatch,
+        showPointsMode,
         tooltipLogic,
         selectedTODOID,
-        dispatch,
-        createPoint,
-        removePoint
       ]
       );
+      
 
+
+
+      const shownTODOSPointsFunc = useCallback(() => {
+        return filterShownTODOSPoints()
+      }, [filterShownTODOSPoints])
+
+      const getShownTODOSPoints = shownTODOSPointsFunc()
 
       const handleShowPointsMode = useCallback(() => {
         if (!selectedTODOID) {
@@ -99,32 +109,18 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
               pointID,
               getShownTODOSPoints[pointID]
               )          
-          })
+            })
         }
-        },
-        [
-          createPoint,
-          layerRef,
-          featuresRef,
-          getShownTODOSPoints,
-          selectedTODOID
-        ]
-        );
+      },
+      [
+        createPoint,
+        layerRef,
+        featuresRef,
+        getShownTODOSPoints,
+        selectedTODOID
+      ]
+      );
 
-
-        const pointsOnMap = useCallback(() => {
-            if (showPointsMode) {
-                handleShowPointsMode()
-              }
-              else{
-                layerRef.current.getSource().clear()
-              }
-          },[handleShowPointsMode, layerRef, showPointsMode])
-
-
-
-
-          
       const filterShownTODOSPoints = useCallback(() => {
         const shownPoints = {}
         const allMapPointsIDS =  Object.keys(mapPoints)
@@ -137,11 +133,6 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       },[TODOS, filterKind,mapPoints])
 
 
-      const shownTODOSPointsFunc = useCallback(() => {
-        return filterShownTODOSPoints()
-      }, [filterShownTODOSPoints])
-
-      const getShownTODOSPoints = shownTODOSPointsFunc()
 
       const shownTODOSPointsIDSFunc = useCallback(() => {
         return Object.keys(getShownTODOSPoints)
@@ -149,6 +140,19 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
       
       const shownTODOSPointsIDS = shownTODOSPointsIDSFunc()
+
+
+        
+
+        
+        const pointsOnMap = useCallback(() => {
+            if (showPointsMode) {
+                handleShowPointsMode()
+              }
+              else{
+                layerRef.current.getSource().clear()
+              }
+          },[handleShowPointsMode, layerRef, showPointsMode])
     
 
 
@@ -157,8 +161,9 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     {
         createPointOnMap: createPoint,
         removePoint:removePoint,
-
         createPointByClick: createPointByClick,
+
+        
         handleShowPointsMode: handleShowPointsMode,
         pointsOnMap:pointsOnMap
     }

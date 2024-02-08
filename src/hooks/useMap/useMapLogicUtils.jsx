@@ -1,23 +1,29 @@
 
-import React, { useCallback } from "react"
+import { useCallback } from "react"
 import { useSelector } from "react-redux/es/hooks/useSelector"
-import { GetMapPoints, GetMapShowPointsMode, GetMapPinModeData, GetTODOList, GetFilterKind, GetCurrViewInfo } from "../../selectors"
-import "ol/ol.css"
+import { GetMapPoints, GetTODOList, GetFilterKind, GetCurrViewInfo } from "../../selectors"
 import { isShownTODO } from "../../utils/generalUtils"
-import { useMapFeatures } from "./useMapFeatures"
-import { useMapTooltip } from "./useMapTooltip"
-import { useMapHover } from "./useMapHover"
-import { useDispatch } from "react-redux"
 
 
-const mapPoints = useSelector(GetMapPoints)
-const TODOS = useSelector(GetTODOList)
-const filterKind = useSelector(GetFilterKind)
-const dispatch = useDispatch()
 
 export const useMapLogicUtils = () => {
 
+  const mapPoints = useSelector(GetMapPoints)
+  const TODOS = useSelector(GetTODOList)
+  const filterKind = useSelector(GetFilterKind)
   const currMapViewInfo = useSelector(GetCurrViewInfo)
+
+  const getDistance = (pointA, pointB) => {
+
+    const [x1, y1] = pointA
+    const [x2, y2] = pointB
+
+    const a = x1 - x2
+    const b = y1 - y2
+    const c = Math.sqrt(a * a + b * b)
+
+    return c
+  }
 
 
   const filterShownTODOSPoints = useCallback(() => {
@@ -32,24 +38,17 @@ export const useMapLogicUtils = () => {
   }, [TODOS, filterKind, mapPoints])
 
 
+  const getShownTODOSPoints = filterShownTODOSPoints()
+
+  const shownTODOSPointsIDSFunc = useCallback(() => {
+    Object.keys(getShownTODOSPoints)
+  },[getShownTODOSPoints])
 
 
+  const shownTODOSPointsIDS = shownTODOSPointsIDSFunc()
 
 
   const getHoverID = useCallback(coordinate => {
-
-    const getDistance = (pointA, pointB) => {
-
-      const [x1, y1] = pointA
-      const [x2, y2] = pointB
-
-      const a = x1 - x2
-      const b = y1 - y2
-      const c = Math.sqrt(a * a + b * b)
-
-      return c
-    }
-
 
     const findTODOConditinal = ID => {
       const currDistance = getDistance(getShownTODOSPoints[ID], coordinate)

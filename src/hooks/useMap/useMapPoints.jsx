@@ -30,7 +30,7 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
   const selectedTODOID = pinModeStatus.activeTODOID
 
   const { createFeature, removeFeature } = useMapFeatures()
-  const { createTooltip, removeTooltip } = useMapTooltip()
+  // const { createTooltip, removeTooltip } = useMapTooltip()
   const { tooltipLogic } = useMapHover(mapContainer, PopUpRef)
 
   const iconStyle = useMemo(() => new Style({
@@ -92,9 +92,20 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     ]
   )
 
-  const shownTODOSPointsFunc = useCallback(() => filterShownTODOSPoints(), [filterShownTODOSPoints])
 
-  const getShownTODOSPoints = shownTODOSPointsFunc()
+
+  const filterShownTODOSPoints = useCallback(() => {
+    const shownPoints = {}
+    const allMapPointsIDS = Object.keys(mapPoints)
+    allMapPointsIDS.forEach(pointID => {
+      if (isShownTODO(TODOS[pointID], filterKind)) {
+        shownPoints[pointID] = TODOS[pointID].location
+      }
+    })
+    return shownPoints
+  }, [TODOS, filterKind, mapPoints])
+
+  const getShownTODOSPoints = filterShownTODOSPoints()
 
   const handleShowPointsMode = useCallback(() => {
     if (!selectedTODOID) {
@@ -117,25 +128,6 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       selectedTODOID
     ]
   )
-
-  const filterShownTODOSPoints = useCallback(() => {
-    const shownPoints = {}
-    const allMapPointsIDS = Object.keys(mapPoints)
-    allMapPointsIDS.forEach(pointID => {
-      if (isShownTODO(TODOS[pointID], filterKind)) {
-        shownPoints[pointID] = TODOS[pointID].location
-      }
-    })
-    return shownPoints
-  }, [TODOS, filterKind, mapPoints])
-
-
-
-  const shownTODOSPointsIDSFunc = useCallback(() => Object.keys(getShownTODOSPoints), [getShownTODOSPoints])
-
-
-  const shownTODOSPointsIDS = shownTODOSPointsIDSFunc()
-
 
 
 

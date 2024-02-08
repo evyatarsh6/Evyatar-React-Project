@@ -1,13 +1,13 @@
 
-import React, { useCallback } from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { GetMapPoints, GetMapShowPointsMode, GetMapPinModeData, GetTODOList, GetFilterKind, GetCurrViewInfo } from "../../selectors";
-import "ol/ol.css";
-import { isShownTODO } from "../../utils/generalUtils";
-import { useMapFeatures } from "./useMapFeatures";
-import { useMapTooltip } from "./useMapTooltip";
-import { useMapHover } from "./useMapHover";
-import { useDispatch } from "react-redux";
+import React, { useCallback } from "react"
+import { useSelector } from "react-redux/es/hooks/useSelector"
+import { GetMapPoints, GetMapShowPointsMode, GetMapPinModeData, GetTODOList, GetFilterKind, GetCurrViewInfo } from "../../selectors"
+import "ol/ol.css"
+import { isShownTODO } from "../../utils/generalUtils"
+import { useMapFeatures } from "./useMapFeatures"
+import { useMapTooltip } from "./useMapTooltip"
+import { useMapHover } from "./useMapHover"
+import { useDispatch } from "react-redux"
 
 
 const mapPoints = useSelector(GetMapPoints)
@@ -27,7 +27,7 @@ export const useMapLogicUtils = () => {
       if (isShownTODO(TODOS[pointID], filterKind)) {
         shownPoints[pointID] = TODOS[pointID].location
       }
-    });
+    })
     return shownPoints
   }, [TODOS, filterKind, mapPoints])
 
@@ -36,7 +36,7 @@ export const useMapLogicUtils = () => {
 
 
 
-  const getHoverID = useCallback((coordinate) => {
+  const getHoverID = useCallback(coordinate => {
 
     const getDistance = (pointA, pointB) => {
 
@@ -51,7 +51,7 @@ export const useMapLogicUtils = () => {
     }
 
 
-    const findTODOConditinal = (ID) => {
+    const findTODOConditinal = ID => {
       const currDistance = getDistance(getShownTODOSPoints[ID], coordinate)
       const distanceView = currDistance * Math.pow(currMapViewInfo.zoom, currMapViewInfo.zoom)
       if (distanceView <= 500000) {

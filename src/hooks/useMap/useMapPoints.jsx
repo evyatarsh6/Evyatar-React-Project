@@ -40,7 +40,7 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     }),
   }), [])
 
-  const pointTemplate = useCallback((coordinate) => {
+  const pointTemplate = useCallback(coordinate => {
     const newFeature = new Feature({
       geometry: new Point(coordinate),
     })
@@ -92,12 +92,7 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     ]
   )
 
-
-
-
-  const shownTODOSPointsFunc = useCallback(() => {
-    return filterShownTODOSPoints()
-  }, [filterShownTODOSPoints])
+  const shownTODOSPointsFunc = useCallback(() => filterShownTODOSPoints(), [filterShownTODOSPoints])
 
   const getShownTODOSPoints = shownTODOSPointsFunc()
 
@@ -136,9 +131,7 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
 
 
 
-  const shownTODOSPointsIDSFunc = useCallback(() => {
-    return Object.keys(getShownTODOSPoints)
-  }, [getShownTODOSPoints])
+  const shownTODOSPointsIDSFunc = useCallback(() => Object.keys(getShownTODOSPoints), [getShownTODOSPoints])
 
 
   const shownTODOSPointsIDS = shownTODOSPointsIDSFunc()

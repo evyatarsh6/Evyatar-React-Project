@@ -39,10 +39,11 @@ export const useMapLogicUtils = () => {
 
   const getHoverID = useCallback(coordinate => {
 
-    const shownTODOSPointsIDS = Object.keys(filterShownTODOSPoints())
-
+    const shownTODOSPoints = filterShownTODOSPoints()
+    const shownTODOSPointsIDS = Object.keys(shownTODOSPoints)
+    
     const findTODOConditinal = ID => {
-      const currDistance = getDistance(shownTODOSPointsIDS[ID], coordinate)
+      const currDistance = getDistance(shownTODOSPoints[ID], coordinate)
       const distanceView = currDistance * Math.pow(currMapViewInfo.zoom, currMapViewInfo.zoom)
       if (distanceView <= 500000) {
         return true
@@ -55,7 +56,7 @@ export const useMapLogicUtils = () => {
 
     return wantedPointID
   }
-    , [currMapViewInfo.zoom])
+    , [currMapViewInfo.zoom, mapPoints])
 
   return (
     {

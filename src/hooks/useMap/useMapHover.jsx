@@ -17,11 +17,13 @@ export const useMapHover = (mapContainer, PopUpRef) => {
   const createTooltipByHover = useCallback((evt, currTooltip, setCurrTooltip, setHoverID) => {
 
     if (showPointsMode) {
-      const wantedPointID = getHoverID(evt.coordinate)
+      const wantedCoordinate = evt.coordinate
+
+      const wantedPointID = getHoverID(wantedCoordinate)
 
       if (wantedPointID) {
         removeTooltip(currTooltip, setCurrTooltip)
-        createTooltip(PopUpRef, coordinate, setCurrTooltip)
+        createTooltip(PopUpRef, wantedCoordinate, setCurrTooltip)
         setHoverID(wantedPointID)
       }
       else {

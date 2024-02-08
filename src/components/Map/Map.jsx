@@ -1,35 +1,35 @@
-import React, { useCallback, useEffect, useRef} from "react";
-import "ol/ol.css";
-import { Map, View } from "ol";
-import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
-import { OSM, Vector as VectorSource } from "ol/source";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { GetCurrViewInfo, GetMapPinModeActiveTODOID, GetMapPinModeIsActive } from '../../selectors';
-import { useMapPoints } from "../../hooks/useMap/useMapPoints";
-import { useMapHover } from "../../hooks/useMap/useMapHover";
+import React, { useCallback, useEffect, useRef } from "react"
+import "ol/ol.css"
+import { Map, View } from "ol"
+import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer"
+import { OSM, Vector as VectorSource } from "ol/source"
+import { useSelector } from "react-redux/es/hooks/useSelector"
+import { GetCurrViewInfo, GetMapPinModeActiveTODOID, GetMapPinModeIsActive } from '../../selectors'
+import { useMapPoints } from "../../hooks/useMap/useMapPoints"
+import { useMapHover } from "../../hooks/useMap/useMapHover"
 
-export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) => {
+export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID }) => {
 
-  const mapRef = useRef();
-  const mapContainer = useRef();
-  const featuresRef = useRef({});
+  const mapRef = useRef()
+  const mapContainer = useRef()
+  const featuresRef = useRef({})
   const layerRef = useRef()
-  
+
   const currViewInfo = useSelector(GetCurrViewInfo)
   const isPinModeActive = useSelector(GetMapPinModeIsActive)
   const activeTODOID = useSelector(GetMapPinModeActiveTODOID)
 
-  const { createTooltipByHover} = useMapHover(mapContainer,PopUpRef)
-  const {createPointByClick, pointsOnMap} = useMapPoints()
+  const { createTooltipByHover } = useMapHover(mapContainer, PopUpRef)
+  const { createPointByClick, pointsOnMap } = useMapPoints(mapContainer, layerRef, featuresRef, PopUpRef)
 
-  const createTooltipByHoverAction = useCallback((evt) => {
+  const createTooltipByHoverAction = useCallback(evt => {
     createTooltipByHover(evt, currTooltip, setCurrTooltip, setHoverID)
-  }, [createTooltipByHover, currTooltip, setCurrTooltip, setHoverID]) 
+  }, [createTooltipByHover, currTooltip, setCurrTooltip, setHoverID])
 
 
-  const createPointByClickAction = useCallback((evt) => {
-    createPointByClick(evt,currTooltip,setCurrTooltip,activeTODOID)
-  } ,[createPointByClick, currTooltip,setCurrTooltip, activeTODOID]);
+  const createPointByClickAction = useCallback(evt => {
+    createPointByClick(evt, currTooltip, setCurrTooltip, activeTODOID)
+  }, [createPointByClick, currTooltip, setCurrTooltip, activeTODOID])
 
 
   useEffect(() => {
@@ -49,43 +49,43 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
           maxZoom: 10,
         }),
         overlays: [],
-      });
+      })
 
       layerRef.current = new VectorLayer({
         source: new VectorSource()
-      });
+      })
 
-      mapContainer.current.addLayer(layerRef.current);
+      mapContainer.current.addLayer(layerRef.current)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (mapContainer.current) {
       mapContainer.current.on('pointermove', createTooltipByHoverAction)
-      
-      if (isPinModeActive&& activeTODOID) {
-         mapContainer.current.on('click', createPointByClickAction)
-        }
-        
-        return () => {
-          mapContainer.current.un('pointermove', createTooltipByHoverAction)
-          mapContainer.current.un('click', createPointByClickAction);
-          
-      } 
-  
+
+      if (isPinModeActive && activeTODOID) {
+        mapContainer.current.on('click', createPointByClickAction)
+      }
+
+      return () => {
+        mapContainer.current.un('pointermove', createTooltipByHoverAction)
+        mapContainer.current.un('click', createPointByClickAction)
+
+      }
+
     }
-  },[createPointByClick,isPinModeActive, createTooltipByHover, activeTODOID])
+  }, [createPointByClick, isPinModeActive, createTooltipByHover, activeTODOID])
 
 
-  useEffect(()=> {
+  useEffect(() => {
 
     if (mapContainer.current) {
       mapContainer.current.getView().setCenter(currViewInfo.center)
       mapContainer.current.getView().setZoom(currViewInfo.zoom)
     }
 
-  
-  },[currViewInfo])
+
+  }, [currViewInfo])
 
 
   useEffect(() => {
@@ -93,20 +93,20 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
       pointsOnMap()
     }
   },
-  [mapFunctions.points])
+    [pointsOnMap])
 
 
   return (
-      <div
-        ref={mapRef}
-        style={{
-          margin: 0,
-          width: '100%',
-          fontFamily: 'sans-serif',
-          height: '400px',
+    <div
+      ref={mapRef}
+      style={{
+        margin: 0,
+        width: '100%',
+        fontFamily: 'sans-serif',
+        height: '400px',
       }}
-      > 
-      </div>
+    >
+    </div>
 
-  );
-};
+  )
+}

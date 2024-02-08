@@ -10,7 +10,6 @@ import { useSelector } from "react-redux/es/hooks/useSelector"
 import { MapActions } from '../../actions/actions'
 import { isShownTODO } from "../../utils/generalUtils"
 import { useMapFeatures } from "./useMapFeatures"
-import { useMapTooltip } from "./useMapTooltip"
 import { useMapHover } from "./useMapHover"
 import { useDispatch } from "react-redux"
 
@@ -30,7 +29,6 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
   const selectedTODOID = pinModeStatus.activeTODOID
 
   const { createFeature, removeFeature } = useMapFeatures()
-  // const { createTooltip, removeTooltip } = useMapTooltip()
   const { tooltipLogic } = useMapHover(mapContainer, PopUpRef)
 
   const iconStyle = useMemo(() => new Style({

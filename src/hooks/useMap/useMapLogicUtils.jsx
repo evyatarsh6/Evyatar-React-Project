@@ -4,8 +4,6 @@ import { useSelector } from "react-redux/es/hooks/useSelector"
 import { GetMapPoints, GetTODOList, GetFilterKind, GetCurrViewInfo } from "../../selectors"
 import { isShownTODO } from "../../utils/generalUtils"
 
-
-
 export const useMapLogicUtils = () => {
 
   const mapPoints = useSelector(GetMapPoints)
@@ -38,15 +36,11 @@ export const useMapLogicUtils = () => {
   }, [TODOS, filterKind, mapPoints])
 
 
-  const getShownTODOSPoints = filterShownTODOSPoints()
+  const getShownTODOSPoints = useCallback(() => {
+    filterShownTODOSPoints()
+  },[filterShownTODOSPoints])
 
-  const shownTODOSPointsIDSFunc = useCallback(() => {
-    Object.keys(getShownTODOSPoints)
-  },[getShownTODOSPoints])
-
-
-  const shownTODOSPointsIDS = shownTODOSPointsIDSFunc()
-
+  const shownTODOSPointsIDS = Object.keys(getShownTODOSPoints)
 
   const getHoverID = useCallback(coordinate => {
 

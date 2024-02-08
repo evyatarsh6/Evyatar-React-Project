@@ -1,33 +1,35 @@
-import React, { useCallback} from "react";
-import { updateTooltipStatus } from '../../actions/actions';
-import { useMapOverlay } from "./useMapOverlay";
+import React, { useCallback } from "react"
+import { updateTooltipStatus } from '../../actions/actions'
+import { useMapOverlay } from "./useMapOverlay"
+import { useDispatch } from "react-redux"
 
-export const useMapTooltip = ({mapContainer}) => {
+export const useMapTooltip = ({ mapContainer }) => {
 
-    const {addOverlay, createNewOverlay, removeOverlay} = useMapOverlay()
+  const dispatch = useDispatch()
+  const { addOverlay, createNewOverlay, removeOverlay } = useMapOverlay()
 
-    const createTooltip = useCallback((PopUpRef, coordinate, setCurrTooltip) => {
-      const overlay = createNewOverlay(PopUpRef, coordinate)
-      const newTooltip = addOverlay(mapContainer, overlay)
-      setCurrTooltip(newTooltip)
-      dispatch(updateTooltipStatus(true))
-    
-    }, [mapContainer, dispatch, addOverlay , createNewOverlay])
+  const createTooltip = useCallback((PopUpRef, coordinate, setCurrTooltip) => {
+    const overlay = createNewOverlay(PopUpRef, coordinate)
+    const newTooltip = addOverlay(mapContainer, overlay)
+    setCurrTooltip(newTooltip)
+    dispatch(updateTooltipStatus(true))
 
-    
-    const removeTooltip = useCallback((currTooltip, setCurrTooltip) => {
-        removeOverlay(mapContainer, currTooltip)
-        setCurrTooltip(null)
-        dispatch(updateTooltipStatus(false))
-
-      }, [mapContainer, dispatch , removeOverlay])
-    
+  }, [mapContainer, dispatch, addOverlay, createNewOverlay])
 
 
-    return (
+  const removeTooltip = useCallback((currTooltip, setCurrTooltip) => {
+    removeOverlay(mapContainer, currTooltip)
+    setCurrTooltip(null)
+    dispatch(updateTooltipStatus(false))
+
+  }, [mapContainer, dispatch, removeOverlay])
+
+
+
+  return (
     {
-        createTooltip: createTooltip,
-        removeTooltip: removeTooltip
+      createTooltip: createTooltip,
+      removeTooltip: removeTooltip
     }
-    )
+  )
 }

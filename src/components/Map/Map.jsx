@@ -6,6 +6,7 @@ import { OSM, Vector as VectorSource } from "ol/source";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { GetCurrViewInfo, GetMapPinModeActiveTODOID, GetMapPinModeIsActive } from '../../selectors';
 import { useMapPoints } from "../../hooks/useMap/useMapPoints";
+import { useMapHover } from "../../hooks/useMap/useMapHover";
 
 export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) => {
 
@@ -18,15 +19,18 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   const isPinModeActive = useSelector(GetMapPinModeIsActive)
   const activeTODOID = useSelector(GetMapPinModeActiveTODOID)
 
+  const { createTooltipByHover, tooltipLogic} = useMapHover(mapContainer,PopUpRef)
+  const {createPointByClick, pointsOnMap} = useMapPoints()
 
-  const createPointByClickAction = useCallback((evt) => 
-  createPointByClick(evt,currTooltip,setCurrTooltip,activeTODOID)
-    ,[mapFunctions.points, currTooltip,setCurrTooltip, activeTODOID]);
+  const createTooltipByHoverAction = useCallback((evt) => {
+    createTooltipByHover(evt, currTooltip, setCurrTooltip, setHoverID)
+  }, [createTooltipByHover, currTooltip, setCurrTooltip, setHoverID]) 
 
-  const createTooltipByHover  =
-  useCallback((evt) => mapFunctions.hover.
-  createTooltipByHover(evt,setHoverID,currTooltip,setCurrTooltip)
-  ,[mapFunctions.hover, setHoverID,currTooltip, setCurrTooltip]) 
+
+  const createPointByClickAction = useCallback((evt) => {
+    createPointByClick(evt,currTooltip,setCurrTooltip,activeTODOID)
+  } ,[createPointByClick, currTooltip,setCurrTooltip, activeTODOID]);
+
 
   useEffect(() => {
     if (!mapContainer.current) {
@@ -57,14 +61,14 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
 
   useEffect(() => {
     if (mapContainer.current) {
-      mapContainer.current.on('pointermove', createTooltipByHover)
+      mapContainer.current.on('pointermove', createTooltipByHoverAction)
       
       if (isPinModeActive&& activeTODOID) {
          mapContainer.current.on('click', createPointByClickAction)
         }
         
         return () => {
-          mapContainer.current.un('pointermove', createTooltipByHover)
+          mapContainer.current.un('pointermove', createTooltipByHoverAction)
           mapContainer.current.un('click', createPointByClickAction);
           
       } 

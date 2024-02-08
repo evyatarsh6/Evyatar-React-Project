@@ -1,66 +1,54 @@
 
-import React, { useCallback, useMemo} from "react";
-import { GetMapPoints, GetMapShowPointsMode, GetMapPinModeData, GetTooltipStatus, GetTODOList, GetFilterKind, GetCurrViewInfo} from "../../selectors";
-import "ol/ol.css";
-import Feature from 'ol/Feature';
-import { Point } from "ol/geom";
-import { Icon, Style } from "ol/style";
-import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
+import React, { useCallback} from "react";
+import { GetMapShowPointsMode,  GetTooltipStatus} from "../../selectors";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { useDispatch } from "react-redux";
-import Overlay from 'ol/Overlay.js';
-import { MapActions, updateTooltipStatus } from '../../actions/actions';
-import { isShownTODO } from "../../utils/generalUtils";
-import { useMapLogic } from "./useMapLogicUtils";
+import { useMapTooltip } from "./useMapTooltip";
 
 
 
-export const useMapHover = (mapContainer, layerRef, featuresRef, PopUpRef) => {
+export const useMapHover = ({mapContainer , PopUpRef}) => {
 
-
-    const mapPoints = useSelector(GetMapPoints)
     const showPointsMode = useSelector(GetMapShowPointsMode)
     const isTooltipExist = useSelector(GetTooltipStatus)
-    const TODOS = useSelector(GetTODOList)
-    const filterKind = useSelector(GetFilterKind)
-    const currMapViewInfo = useSelector(GetCurrViewInfo)
-
-    const pinModeStatus = useSelector(GetMapPinModeData)
-    const selectedTODOID = pinModeStatus.activeTODOID
 
     const { getHoverID } = useMapLogicUtils()
+    const {createTooltip,removeTooltip} = useMapTooltip(mapContainer)
 
-
-  const createTooltipByHover = useCallback((evt, setHoverID, currTooltip,setCurrTooltip) => {
+  const createTooltipByHover = useCallback((evt, currTooltip,setCurrTooltip, setHoverID) => {
     if (showPointsMode) {
       const wantedPointID = getHoverID(evt.coordinate)
 
       if (wantedPointID) {
-        removeOverlay(currTooltip,setCurrTooltip)
-        updateOverLay(getShownTODOSPoints[wantedPointID], setCurrTooltip)
+        removeTooltip(currTooltip,setCurrTooltip)
+        createTooltip(PopUpRef, coordinate, setCurrTooltip)
         setHoverID(wantedPointID)
       }
       else{
-        removeOverlay(currTooltip,setCurrTooltip)
+        removeTooltip(currTooltip,setCurrTooltip)
         setHoverID(null)
       }
     }
-  }, [getHoverID,getShownTODOSPoints,updateOverLay,removeOverlay, showPointsMode])
+  }, [mapContainer , PopUpRef, getHoverID, createTooltip, removeTooltip, showPointsMode])
 
 
 
-  const tooltipLogic = useCallback((coordinate, currTooltip,setCurrTooltip) => {
+  const tooltipLogic = useCallback((evt, currTooltip,setCurrTooltip) => {
+  // const tooltipLogic = useCallback((coordinate, currTooltip,setCurrTooltip) => {
+
+    const wantedCoordinate = evt.coordinate
 
     if(isTooltipExist){
-      removeTooltip(currTooltip, setCurrTooltip)
+      removeTooltip(currTooltip,setCurrTooltip)
     }
-    createTooltip(coordinate, setCurrTooltip)
+    createTooltip(PopUpRef, wantedCoordinate, setCurrTooltip)
+    // createTooltip(PopUpRef, coordinate, setCurrTooltip)
 
     }
     ,[
-      updateOverLay,
-      removeOverlay,
+      PopUpRef,
       isTooltipExist,
+      createTooltip, 
+      removeTooltip
     ])
 
 

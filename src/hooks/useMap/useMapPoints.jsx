@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import Overlay from 'ol/Overlay.js';
 import { MapActions, updateTooltipStatus } from '../../actions/actions';
 import { isShownTODO } from "../../utils/generalUtils";
+import { useMapFeatures } from "./useMapFeatures";
 
 
 
@@ -27,6 +28,7 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     const pinModeStatus = useSelector(GetMapPinModeData)
     const selectedTODOID = pinModeStatus.activeTODOID
 
+    const { createFeature, removeFeature} = useMapFeatures()
 
     const iconStyle = useMemo(() => new Style({
         image: new Icon({
@@ -35,36 +37,41 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
         }),
       }), []);
 
-    
-    const createPoint = useCallback((layerRef,featuresRef, ID, coordinate) => {
+      const pointTemplate = useCallback((coordinate) => {
         const newFeature = new Feature({
           geometry: new Point(coordinate),
         });
       
         newFeature.setStyle(iconStyle);
+      },[iconStyle])
+
+    
+    const createPoint = useCallback((layerRef,featuresRef, ID, coordinate) => {
       
-        featuresRef.current[ID] = newFeature;
-        layerRef.current.getSource().addFeature(newFeature);
+      pointTemplate(coordinate)
+      createFeature(layerRef,featuresRef, ID,newFeature)
 
     },[iconStyle])
 
-    const removePoint = useCallback((layerRef,featuresRef, ID) => {
-      const wantedFeature = featuresRef.current[ID] ;
-      layerRef.current.getSource().removeFeature(wantedFeature);
-    },[])
+    // const removePoint = useCallback((layerRef,featuresRef, ID) => {
+
+
+    //   removeFeature(layerRef,featuresRef, ID)
+    //   // const wantedFeature = featuresRef.current[ID] ;
+    //   // layerRef.current.getSource().removeFeature(wantedFeature);
+    // },[])
 
     const createPointByClick = useCallback((evt,currTooltip,setCurrTooltip,ID) => {
-        removePoint(layerRef, featuresRef, ID)
-    
-        createPoint(
-          layerRef,
-          featuresRef,
-          ID,
-          evt.coordinate,
-        )
-    
-        dispatch(MapActions.updatePoint(selectedTODOID, evt.coordinate))
-    
+
+      removeFeature(layerRef,featuresRef, ID)
+      createPoint(
+        layerRef,
+        featuresRef,
+        ID,
+        evt.coordinate,
+      )
+      dispatch(MapActions.updatePoint(selectedTODOID, evt.coordinate))
+      
         if (!showPointsMode) {
           layerRef.current.getSource().clear();
         }

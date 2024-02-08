@@ -147,8 +147,6 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       createPointOnMap: createPoint,
       removePoint: removePoint,
       createPointByClick: createPointByClick,
-
-
       handleShowPointsMode: handleShowPointsMode,
       pointsOnMap: pointsOnMap
     }

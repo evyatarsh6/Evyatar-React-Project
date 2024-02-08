@@ -3,8 +3,8 @@ import { updateTooltipStatus } from '../../actions/actions'
 import { useMapOverlay } from "./useMapOverlay"
 import { useDispatch } from "react-redux"
 
-export const useMapTooltip = ({ mapContainer }) => {
-
+export const useMapTooltip = mapContainer => {
+  
   const dispatch = useDispatch()
   const { addOverlay, createNewOverlay, removeOverlay } = useMapOverlay()
 

@@ -1,4 +1,3 @@
-
 import React, { useCallback} from "react";
 import { GetMapShowPointsMode,  GetTooltipStatus} from "../../selectors";
 import { useSelector } from "react-redux/es/hooks/useSelector";
@@ -33,7 +32,6 @@ export const useMapHover = ({mapContainer , PopUpRef}) => {
 
 
   const tooltipLogic = useCallback((evt, currTooltip,setCurrTooltip) => {
-  // const tooltipLogic = useCallback((coordinate, currTooltip,setCurrTooltip) => {
 
     const wantedCoordinate = evt.coordinate
 
@@ -41,7 +39,6 @@ export const useMapHover = ({mapContainer , PopUpRef}) => {
       removeTooltip(currTooltip,setCurrTooltip)
     }
     createTooltip(PopUpRef, wantedCoordinate, setCurrTooltip)
-    // createTooltip(PopUpRef, coordinate, setCurrTooltip)
 
     }
     ,[

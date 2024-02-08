@@ -19,7 +19,7 @@ export const BaseMap = ({ PopUpRef, currTooltip, setCurrTooltip, setHoverID}) =>
   const isPinModeActive = useSelector(GetMapPinModeIsActive)
   const activeTODOID = useSelector(GetMapPinModeActiveTODOID)
 
-  const { createTooltipByHover, tooltipLogic} = useMapHover(mapContainer,PopUpRef)
+  const { createTooltipByHover} = useMapHover(mapContainer,PopUpRef)
   const {createPointByClick, pointsOnMap} = useMapPoints()
 
   const createTooltipByHoverAction = useCallback((evt) => {

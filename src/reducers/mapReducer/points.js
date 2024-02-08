@@ -1,7 +1,7 @@
 const initialState = {}
 
-export const points = ( state = initialState , action) => {
-    
+export const points = (state = initialState, action) => {
+
     switch (action.type) {
         case "updatePoint": {
             return {
@@ -14,5 +14,5 @@ export const points = ( state = initialState , action) => {
         }
         default:
             return state
-     }
     }
+}

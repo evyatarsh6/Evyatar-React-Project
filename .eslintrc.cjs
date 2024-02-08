@@ -1,4 +1,3 @@
-
 module.exports = {
   env: {
     browser: true,
@@ -6,7 +5,7 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
-    // 'standard'
+    'standard'
   ],
   overrides: [
   ],
@@ -18,11 +17,11 @@ module.exports = {
     'react'
   ],
   rules: {
-    "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
-    "react/prop-types": "off",
-    "arrow-parens": ['error', 'as-needed'],
-    "eol-last": ['error', 'always'],
+    'no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
+    'react/prop-types': 'off',
+    // 'arrow-parens': ['error', 'as-needed'],
+    'eol-last': ['error', 'always'],
     'arrow-body-style': ['error', 'as-needed'],
-    "semi": ['error', 'never']
+    semi: ['error', 'never']
   }
 }

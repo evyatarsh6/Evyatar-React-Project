@@ -9,7 +9,7 @@ import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-
 import { useSelector } from "react-redux/es/hooks/useSelector"
 import { MapActions } from '../../actions/actions'
 import { isShownTODO } from "../../utils/generalUtils"
-import { useMapFeatures } from "./useMapFeatures"
+import { useMapFeatures } from "./useMapGeneric/useMapFeatures"
 import { useMapHover } from "./useMapHover"
 import { useDispatch } from "react-redux"
 

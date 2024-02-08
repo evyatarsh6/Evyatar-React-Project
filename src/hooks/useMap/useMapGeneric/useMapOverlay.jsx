@@ -1,5 +1,5 @@
 
-import React, { useCallback } from "react"
+import { useCallback } from "react"
 import Overlay from 'ol/Overlay.js'
 
 export const useMapOverlay = () => {

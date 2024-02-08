@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import { updateTooltipStatus } from '../../actions/actions'
-import { useMapOverlay } from "./useMapOverlay"
+import { useMapOverlay } from "./useMapGeneric/useMapOverlay"
 import { useDispatch } from "react-redux"
 
 export const useMapTooltip = mapContainer => {

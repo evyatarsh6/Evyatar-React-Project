@@ -11,23 +11,19 @@ export const useMapLogicUtils = () => {
   const filterKind = useSelector(GetFilterKind)
   const currMapViewInfo = useSelector(GetCurrViewInfo)
 
-  
-  const allMapPointsIDSFunc = useCallback(() => Object.keys(mapPoints), [mapPoints])
-  
   const filterShownTODOSPoints = useCallback(() => {
     const shownPoints = {}
-    // const allMapPointsIDS = Object.keys(mapPoints)
-    const allMapPointsIDS = allMapPointsIDSFunc()
+    const allMapPointsIDS = Object.keys(mapPoints)
     allMapPointsIDS.forEach(pointID => {
       if (isShownTODO(TODOS[pointID], filterKind)) {
         shownPoints[pointID] = TODOS[pointID].location
       }
     })
     return shownPoints
-  }, [TODOS, filterKind, allMapPointsIDSFunc])
-  // }, [TODOS, filterKind, mapPoints])
-  
-  
+  }, [TODOS, filterKind, mapPoints])
+
+
+
   const getDistance = (pointA, pointB) => {
 
     const [x1, y1] = pointA
@@ -39,11 +35,6 @@ export const useMapLogicUtils = () => {
 
     return c
   }
-
-  
-  // const getShownTODOSPoints = useCallback(() => {
-  //   filterShownTODOSPoints()
-  // },[filterShownTODOSPoints])
 
 
   const getHoverID = useCallback(coordinate => {
@@ -65,35 +56,6 @@ export const useMapLogicUtils = () => {
     return wantedPointID
   }
     , [currMapViewInfo.zoom])
-
-
-
-  //   const getHoverID = useCallback((coordinate) => {
-  //     const TODOSIDS =  Object.keys(mapPoints)
-
-  //     const findTODOConditinal = (ID) => {
-
-  //         const xvalue = Math.abs(mapPoints[ID].location[0] ) - Math.abs(coordinate[0])
-  //         const yvalue = Math.abs(mapPoints[ID].location[1] )- Math.abs(coordinate[1])
-  //         const xvalueContidinal = Math.abs(xvalue)<500000
-  //         const yvalueContidinal = Math.abs(yvalue)<500000
-
-  //           return (
-  //             xvalueContidinal && yvalueContidinal
-  //         )
-  //     }
-
-  //     const wantedPointID = TODOSIDS.find(findTODOConditinal)
-
-  //     return wantedPointID
-
-  // }
-  // ,[mapPoints])
-
-
-
-
-
 
   return (
     {

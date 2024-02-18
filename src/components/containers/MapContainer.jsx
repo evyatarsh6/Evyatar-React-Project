@@ -1,9 +1,8 @@
 import { BaseMap } from '../Map/Map'
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { PopUp } from '../PopUp/PopUpContainer'
 
 export const MapContainer = () => {
-
   const PopUpRef = useRef()
   const [currTooltip, setCurrTooltip] = useState(null)
   const [hoverID, setHoverID] = useState(null)

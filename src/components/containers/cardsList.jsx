@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Card } from '../Cards/Card'
 import { GetFilterKind, GetTODOList } from '../../selectors'
 import { useSelector } from 'react-redux'

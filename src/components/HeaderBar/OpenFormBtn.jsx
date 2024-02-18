@@ -1,18 +1,16 @@
-import {useState} from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { GetMainInput, GetMainInputIsEmpty, GetMainInputValue} from "../../selectors"
-import {Button} from '@mui/material';
-import { useCallback, useEffect, useRef} from "react";
-import { FormActions } from "../../actions/actions";
-import {bergerPhotos} from '../../shared/photos';
-import { TODOForm } from "../Form/TODOForm";
-import { Fragment } from "react";
-import { CustomAlert } from "../Form/CustomAlert";
-import { useDeleteAllWantedCollection } from "../../hooks/useMutateData";
+import React, { useState, useCallback, useEffect, useRef, Fragment } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetMainInput, GetMainInputIsEmpty, GetMainInputValue } from '../../selectors'
+import { Button } from '@mui/material'
 
+import { FormActions } from '../../actions/actions'
+import { bergerPhotos } from '../../shared/photos'
+import { TODOForm } from '../Form/TODOForm'
 
-export const OpenFormBtn = ({style}) => {
+import { CustomAlert } from '../Form/CustomAlert'
+import { useDeleteAllWantedCollection } from '../../hooks/useMutateData'
 
+export const OpenFormBtn = ({ style }) => {
   const [alertMessage, setAlertMessage] = useState('')
 
   const dispatch = useDispatch()
@@ -22,32 +20,30 @@ export const OpenFormBtn = ({style}) => {
 
   useEffect(() => {
     inputRef.current = inputValue
-  },[inputValue])
+  }, [inputValue])
 
   const handleAddTODO = useCallback(() => {
-    const validateInputVal = () => Object.keys(bergerPhotos).some(option => option === inputRef.current);
-    const isValid = validateInputVal();  
+    const validateInputVal = () => Object.keys(bergerPhotos).some(option => option === inputRef.current)
+    const isValid = validateInputVal()
     if (isValid) {
-      const cardID = Date.now();
-      dispatch(FormActions.openForm(cardID,inputRef.current))
+      const cardID = Date.now()
+      dispatch(FormActions.openForm(cardID, inputRef.current))
+    }
+  }, [inputRef, dispatch])
 
-    }}, [inputRef, dispatch]);
+  const isOpen = alertMessage.length > 0
 
-    const isOpen = alertMessage.length > 0
-
-
-    
-    return (
-      <Fragment>
-        <Button variant="contained"
+  return (
+    <Fragment>
+      <Button variant="contained"
         className='save-btn'
         onClick={handleAddTODO}
-        disabled = {isEmpty}
+        disabled={isEmpty}
         style={style}>
         save Avi Berger
-        </Button>
-        <TODOForm setAlertMessage = {setAlertMessage}/>
-        <CustomAlert isOpen={isOpen} message ={alertMessage} setMessage = {setAlertMessage}/>
-     </Fragment>
-    )
+      </Button>
+      <TODOForm setAlertMessage={setAlertMessage} />
+      <CustomAlert isOpen={isOpen} message={alertMessage} setMessage={setAlertMessage} />
+    </Fragment>
+  )
 }

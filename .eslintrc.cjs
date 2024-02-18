@@ -17,11 +17,13 @@ module.exports = {
     'react'
   ],
   rules: {
+    // 'react/react-in-jsx-scope': 'off',
     'no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
     'react/prop-types': 'off',
-    // 'arrow-parens': ['error', 'as-needed'],
+    'arrow-parens': ['error', 'as-needed'],
     'eol-last': ['error', 'always'],
     'arrow-body-style': ['error', 'as-needed'],
-    semi: ['error', 'never']
+    semi: ['error', 'never'],
+    indent: 'off'
   }
 }

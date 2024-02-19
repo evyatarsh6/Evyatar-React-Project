@@ -1,10 +1,9 @@
-import React, { useCallback } from "react"
+import React, { useCallback } from 'react'
 import { updateTooltipStatus } from '../../actions/actions'
-import { useMapOverlay } from "./useMapGeneric/useMapOverlay"
-import { useDispatch } from "react-redux"
+import { useMapOverlay } from './useMapGeneric/useMapOverlay'
+import { useDispatch } from 'react-redux'
 
 export const useMapTooltip = mapContainer => {
-  
   const dispatch = useDispatch()
   const { addOverlay, createNewOverlay, removeOverlay } = useMapOverlay()
 
@@ -13,23 +12,18 @@ export const useMapTooltip = mapContainer => {
     const newTooltip = addOverlay(mapContainer, overlay)
     setCurrTooltip(newTooltip)
     dispatch(updateTooltipStatus(true))
-
   }, [mapContainer, dispatch, addOverlay, createNewOverlay])
-
 
   const removeTooltip = useCallback((currTooltip, setCurrTooltip) => {
     removeOverlay(mapContainer, currTooltip)
     setCurrTooltip(null)
     dispatch(updateTooltipStatus(false))
-
   }, [mapContainer, dispatch, removeOverlay])
-
-
 
   return (
     {
-      createTooltip: createTooltip,
-      removeTooltip: removeTooltip
+      createTooltip,
+      removeTooltip
     }
   )
 }

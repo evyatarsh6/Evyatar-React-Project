@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { GetMapShowPointsMode, GetTooltipStatus } from '../../selectors'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { useMapTooltip } from './useMapTooltip'

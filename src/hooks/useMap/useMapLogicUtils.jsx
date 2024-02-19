@@ -1,11 +1,9 @@
-
-import { useCallback } from "react"
-import { useSelector } from "react-redux/es/hooks/useSelector"
-import { GetMapPoints, GetTODOList, GetFilterKind, GetCurrViewInfo } from "../../selectors"
-import { isShownTODO } from "../../utils/generalUtils"
+import { useCallback } from 'react'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
+import { GetMapPoints, GetTODOList, GetFilterKind, GetCurrViewInfo } from '../../selectors'
+import { isShownTODO } from '../../utils/generalUtils'
 
 export const useMapLogicUtils = () => {
-
   const mapPoints = useSelector(GetMapPoints)
   const TODOS = useSelector(GetTODOList)
   const filterKind = useSelector(GetFilterKind)
@@ -22,10 +20,7 @@ export const useMapLogicUtils = () => {
     return shownPoints
   }, [TODOS, filterKind, mapPoints])
 
-
-
   const getDistance = (pointA, pointB) => {
-
     const [x1, y1] = pointA
     const [x2, y2] = pointB
 
@@ -36,12 +31,10 @@ export const useMapLogicUtils = () => {
     return c
   }
 
-
   const getHoverID = useCallback(coordinate => {
-
     const shownTODOSPoints = filterShownTODOSPoints()
     const shownTODOSPointsIDS = Object.keys(shownTODOSPoints)
-    
+
     const findTODOConditinal = ID => {
       const currDistance = getDistance(shownTODOSPoints[ID], coordinate)
       const distanceView = currDistance * Math.pow(currMapViewInfo.zoom, currMapViewInfo.zoom)
@@ -51,17 +44,16 @@ export const useMapLogicUtils = () => {
       return false
     }
 
-
     const wantedPointID = shownTODOSPointsIDS.find(findTODOConditinal)
 
     return wantedPointID
   }
-    , [currMapViewInfo.zoom, mapPoints])
+    , [currMapViewInfo.zoom, mapPoints, filterShownTODOSPoints])
 
   return (
     {
-      getHoverID: getHoverID,
-      filterShownTODOSPoints: filterShownTODOSPoints
+      getHoverID,
+      filterShownTODOSPoints
     }
   )
 }

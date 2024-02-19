@@ -1,9 +1,8 @@
 const initialState = {}
 
 export const points = (state = initialState, action) => {
-
     switch (action.type) {
-        case "updatePoint": {
+        case 'updatePoint': {
             return {
                 ...state,
                 [action.TODOID]:

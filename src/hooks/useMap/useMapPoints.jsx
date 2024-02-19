@@ -1,29 +1,23 @@
-
-import { useCallback, useMemo } from "react"
-import { GetMapPoints, GetMapShowPointsMode, GetMapPinModeData, GetTODOList, GetFilterKind } from "../../selectors"
-import "ol/ol.css"
+import { useCallback, useMemo } from 'react'
+import { GetMapPoints, GetMapShowPointsMode, GetMapPinModeData, GetTODOList, GetFilterKind } from '../../selectors'
+import 'ol/ol.css'
 import Feature from 'ol/Feature'
 import { Point } from 'ol/geom'
-import { Icon, Style } from "ol/style"
-import LocationPin from "C:/Users/evyas/OneDrive/Documents/GitHub/Evyatar-React-Project/src/assets/marker-icon.png"
-import { useSelector } from "react-redux/es/hooks/useSelector"
+import { Icon, Style } from 'ol/style'
+import LocationPin from '../../../../Evyatar-React-Project/src/assets/marker-icon.png'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { MapActions } from '../../actions/actions'
-import { isShownTODO } from "../../utils/generalUtils"
-import { useMapFeatures } from "./useMapGeneric/useMapFeatures"
-import { useMapHover } from "./useMapHover"
-import { useDispatch } from "react-redux"
-
-
+import { isShownTODO } from '../../utils/generalUtils'
+import { useMapFeatures } from './useMapGeneric/useMapFeatures'
+import { useMapHover } from './useMapHover'
+import { useDispatch } from 'react-redux'
 
 export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
-
-
   const mapPoints = useSelector(GetMapPoints)
   const showPointsMode = useSelector(GetMapShowPointsMode)
   const TODOS = useSelector(GetTODOList)
   const filterKind = useSelector(GetFilterKind)
   const dispatch = useDispatch()
-
 
   const pinModeStatus = useSelector(GetMapPinModeData)
   const selectedTODOID = pinModeStatus.activeTODOID
@@ -34,13 +28,13 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
       src: LocationPin,
-      anchor: [0.5, 1],
-    }),
+      anchor: [0.5, 1]
+    })
   }), [])
 
   const pointTemplate = useCallback(coordinate => {
     const newFeature = new Feature({
-      geometry: new Point(coordinate),
+      geometry: new Point(coordinate)
     })
 
     newFeature.setStyle(iconStyle)
@@ -48,18 +42,14 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     return newFeature
   }, [iconStyle])
 
-
   const createPoint = useCallback((layerRef, featuresRef, ID, coordinate) => {
-
     const newFeature = pointTemplate(coordinate)
     createFeature(layerRef, featuresRef, ID, newFeature)
-
   }, [pointTemplate, createFeature])
 
   const removePoint = useCallback((layerRef, featuresRef, ID) => {
     removeFeature(layerRef, featuresRef, ID)
   }, [removeFeature])
-
 
   const createPointByClick = useCallback((evt, currTooltip, setCurrTooltip, ID) => {
     removePoint(layerRef, featuresRef, ID)
@@ -67,14 +57,13 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       layerRef,
       featuresRef,
       ID,
-      evt.coordinate,
+      evt.coordinate
     )
     dispatch(MapActions.updatePoint(selectedTODOID, evt.coordinate))
 
     if (!showPointsMode) {
       layerRef.current.getSource().clear()
-    }
-    else {
+    } else {
       tooltipLogic(evt, currTooltip, setCurrTooltip)
     }
   },
@@ -86,11 +75,9 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       dispatch,
       showPointsMode,
       tooltipLogic,
-      selectedTODOID,
+      selectedTODOID
     ]
   )
-
-
 
   const filterShownTODOSPoints = useCallback(() => {
     const shownPoints = {}
@@ -127,28 +114,21 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
     ]
   )
 
-
-
-
   const pointsOnMap = useCallback(() => {
     if (showPointsMode) {
       handleShowPointsMode()
-    }
-    else {
+    } else {
       layerRef.current.getSource().clear()
     }
   }, [handleShowPointsMode, layerRef, showPointsMode])
 
-
-
-
   return (
     {
       createPointOnMap: createPoint,
-      removePoint: removePoint,
-      createPointByClick: createPointByClick,
-      handleShowPointsMode: handleShowPointsMode,
-      pointsOnMap: pointsOnMap
+      removePoint,
+      createPointByClick,
+      handleShowPointsMode,
+      pointsOnMap
     }
   )
 }

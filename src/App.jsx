@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import { HeaderBar } from './components/HeaderBar/HeaderBar'
 import { MapContainer } from './components/containers/MapContainer'
@@ -6,7 +6,7 @@ import { CardList } from './components/containers/cardsList'
 import { useGetAllTODOSQuery } from './hooks/useGetAllTODOS'
 import { useDeltas } from './hooks/useDeltas'
 
-function App() {
+function App () {
   const { getAllTODDOSData } = useGetAllTODOSQuery()
   const { getDeltas } = useDeltas()
 

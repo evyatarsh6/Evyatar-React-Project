@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { GetMapPoints } from '../../selectors'
@@ -13,7 +13,8 @@ export const CardPinBtn = ({ isPinBtnDisable, _id }) => {
     const dispatch = useDispatch()
 
     const mapPoints = useSelector(GetMapPoints)
-    const { mutateSingleUpdateLocation } = useMutateFieldSingle()
+    const mutateSingleUpdateField = useMutateFieldSingle()
+    const mutateFieldFunc = mutateSingleUpdateField.mutate
 
     const [isPinActive, setIsPinActive] = useState(isPinBtnDisable)
 
@@ -56,8 +57,7 @@ export const CardPinBtn = ({ isPinBtnDisable, _id }) => {
 
     const clickSavePin = useCallback(async () => {
         clickCancelPin()
-
-        mutateSingleUpdateLocation.mutate(
+        mutateFieldFunc(
             {
                 wantedID: _id,
                 wantedField: 'location',
@@ -72,7 +72,7 @@ export const CardPinBtn = ({ isPinBtnDisable, _id }) => {
                 fieldUpdateValue: mapPoints[_id].location
             }
         ))
-    }, [clickCancelPin, dispatch, _id, mapPoints, mutateSingleUpdateLocation])
+    }, [clickCancelPin, dispatch, _id, mapPoints, mutateFieldFunc])
 
     return (
         isPinActive

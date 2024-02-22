@@ -14,6 +14,8 @@ export const useGetAllTODOSQuery = () => {
     const { data: TODOS, error, isLoading, isSuccess, refetch } =
         useQueryTemplate(queryKey, queryFn)
 
+    const { updatePoint } = MapActions
+
     const getAllTODDOSData = useCallback(async () => {
         if (isLoading) {
             console.log('leading')
@@ -27,7 +29,7 @@ export const useGetAllTODOSQuery = () => {
         if (isSuccess) {
             TODOS.forEach(TODO => {
                 dispatch(TODOListActions.addTODO(TODO))
-                dispatch(MapActions.updatePoint(TODO._id, TODO.location))
+                dispatch(updatePoint(TODO._id, TODO.location))
             })
         }
 

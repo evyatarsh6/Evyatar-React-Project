@@ -1,41 +1,41 @@
-import { useDispatch, useSelector } from "react-redux"
-import { GetMapShowPointsMode  } from "../../selectors";
-import {Button} from '@mui/material';
-import { MapActions} from "../../actions/actions";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetMapShowPointsMode } from '../../selectors'
+import { Button } from '@mui/material'
+import { MapActions } from '../../actions/actions'
 
+export const PointsOnMapBtn = ({ style }) => {
+  const dispatch = useDispatch()
 
-export const PointsOnMapBtn = ({style}) => {
+  const showPointsMode = useSelector(GetMapShowPointsMode)
+  const { activeMode, cancelMode } = MapActions.mapPinTODOMode
 
-    const dispatch = useDispatch();
+  const clickPointsBtn = () => {
+    // should return and refactor
 
-    const showPointsMode = useSelector(GetMapShowPointsMode);
+    if (showPointsMode) {
+      dispatch(cancelMode())
+    } else {
+      dispatch(activeMode())
+    }
+  }
 
-    const clickPointsBtn = () => {
-      if (showPointsMode) {
-        dispatch(MapActions.mapShowPointsMode.cancelMode())
-      }
-      else{
-        dispatch(MapActions.mapShowPointsMode.activeMode())
-      }
-      }
-    
-      const pointsOnMapStatus = () => {
-        if (!showPointsMode) {
-            return 'Show'
-        }
-        return 'Hide'
-      }
-    
-      
-    return (
+  const pointsOnMapStatus = () => {
+    if (!showPointsMode) {
+      return 'Show'
+    }
+    return 'Hide'
+  }
 
-        <Button variant="contained"
-                id = {`all-points-on-map-btn`}
-                className= 'all-points-on-map-btn'
-                onClick={clickPointsBtn}
-                style={style}
-                >
-                {` ${pointsOnMapStatus()} points on map`}
-        </Button>
-    )
+  return (
+
+    <Button variant="contained"
+      id={'all-points-on-map-btn'}
+      className='all-points-on-map-btn'
+      onClick={clickPointsBtn}
+      style={style}
+    >
+      {` ${pointsOnMapStatus()} points on map`}
+    </Button>
+  )
 }

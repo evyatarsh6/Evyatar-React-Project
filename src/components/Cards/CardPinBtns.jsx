@@ -15,6 +15,7 @@ export const CardPinBtn = ({ isPinBtnDisable, _id }) => {
     const mapPoints = useSelector(GetMapPoints)
     const mutateSingleUpdateField = useMutateFieldSingle()
     const mutateFieldFunc = mutateSingleUpdateField.mutate
+    const { activeMode, cancelMode } = MapActions.mapPinTODOMode
 
     const [isPinActive, setIsPinActive] = useState(isPinBtnDisable)
 
@@ -39,12 +40,12 @@ export const CardPinBtn = ({ isPinBtnDisable, _id }) => {
         UpdateTODOSAfterClickPinBtn()
 
         setIsPinActive(true)
-        dispatch(MapActions.mapPinTODOMode.activeMode(_id))
+        dispatch(activeMode(_id))
     }
     const clickCancelPin = useCallback(async () => {
         setIsPinActive(false)
 
-        dispatch(MapActions.mapPinTODOMode.cancelMode())
+        dispatch(cancelMode())
         dispatch(updateTooltipStatus(false))
 
         dispatch(TODOListActions.editAllTODOS(

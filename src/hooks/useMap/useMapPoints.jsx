@@ -25,6 +25,8 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
   const { createFeature, removeFeature } = useMapFeatures()
   const { tooltipLogic } = useMapHover(mapContainer, PopUpRef)
 
+  const { updatePoint } = MapActions
+
   const iconStyle = useMemo(() => new Style({
     image: new Icon({
       src: LocationPin,
@@ -59,7 +61,7 @@ export const useMapPoints = (mapContainer, layerRef, featuresRef, PopUpRef) => {
       ID,
       evt.coordinate
     )
-    dispatch(MapActions.updatePoint(selectedTODOID, evt.coordinate))
+    dispatch(updatePoint(selectedTODOID, evt.coordinate))
 
     if (!showPointsMode) {
       layerRef.current.getSource().clear()

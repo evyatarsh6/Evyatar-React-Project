@@ -2,11 +2,9 @@ import React, { useState, useCallback, useEffect, useRef, Fragment } from 'react
 import { useDispatch, useSelector } from 'react-redux'
 import { GetMainInput, GetMainInputIsEmpty, GetMainInputValue } from '../../selectors'
 import { Button } from '@mui/material'
-
 import { FormActions } from '../../actions/actions'
 import { bergerPhotos } from '../../shared/photos'
 import { TODOForm } from '../Form/TODOForm'
-
 import { CustomAlert } from '../Form/CustomAlert'
 import { useDeleteAllWantedCollection } from '../../hooks/useMutateData'
 
@@ -17,6 +15,7 @@ export const OpenFormBtn = ({ style }) => {
   const inputValue = useSelector(GetMainInputValue)
   const isEmpty = useSelector(GetMainInputIsEmpty)
   const inputRef = useRef(inputValue)
+  const { openForm } = FormActions
 
   useEffect(() => {
     inputRef.current = inputValue
@@ -27,7 +26,7 @@ export const OpenFormBtn = ({ style }) => {
     const isValid = validateInputVal()
     if (isValid) {
       const cardID = Date.now()
-      dispatch(FormActions.openForm(cardID, inputRef.current))
+      dispatch(openForm(cardID, inputRef.current))
     }
   }, [inputRef, dispatch])
 

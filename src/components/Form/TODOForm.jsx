@@ -21,6 +21,7 @@ export const TODOForm = ({ setAlertMessage }) => {
   const TODOKind = useSelector(GetFormTODOKind)
   const TODOID = useSelector(GetFormTODOID)
   const { addTODO } = TODOListActions
+  const { closeForm } = FormActions
 
   const { defaultFormFieldsValues, resetFormFieldsValues } = constans
 
@@ -53,7 +54,7 @@ export const TODOForm = ({ setAlertMessage }) => {
   }
 
   const handleClose = event => {
-    dispatch(FormActions.closeForm())
+    dispatch(closeForm())
     returnFieldsToDefualt()
     event.preventDefault()
   }
@@ -76,7 +77,7 @@ export const TODOForm = ({ setAlertMessage }) => {
 
     dispatch(addTODO(TODO))
     postSingleTODO.mutate(TODO)
-    dispatch(FormActions.closeForm())
+    dispatch(closeForm())
     returnFieldsToDefualt()
   }
 

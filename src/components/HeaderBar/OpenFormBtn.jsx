@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef, Fragment } from 'react'
+import React, { useState, useCallback, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetMainInput, GetMainInputIsEmpty, GetMainInputValue } from '../../selectors'
 import { Button } from '@mui/material'
@@ -21,8 +21,9 @@ export const OpenFormBtn = ({ style }) => {
     inputRef.current = inputValue
   }, [inputValue])
 
+  const validateInputVal = useCallback(() => Object.keys(bergerPhotos).some(option => option === inputRef.current), [inputRef])
+
   const handleAddTODO = useCallback(() => {
-    const validateInputVal = () => Object.keys(bergerPhotos).some(option => option === inputRef.current)
     const isValid = validateInputVal()
     if (isValid) {
       const cardID = Date.now()
@@ -33,7 +34,7 @@ export const OpenFormBtn = ({ style }) => {
   const isOpen = alertMessage.length > 0
 
   return (
-    <Fragment>
+    <>
       <Button variant="contained"
         className='save-btn'
         onClick={handleAddTODO}
@@ -43,6 +44,6 @@ export const OpenFormBtn = ({ style }) => {
       </Button>
       <TODOForm setAlertMessage={setAlertMessage} />
       <CustomAlert isOpen={isOpen} message={alertMessage} setMessage={setAlertMessage} />
-    </Fragment>
+    </>
   )
 }

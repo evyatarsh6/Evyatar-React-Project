@@ -10,22 +10,9 @@ export const PointsOnMapBtn = ({ style }) => {
   const showPointsMode = useSelector(GetMapShowPointsMode)
   const { activeMode, cancelMode } = MapActions.mapPinTODOMode
 
-  const clickPointsBtn = () => {
-    // should return and refactor
+  const clickPointsBtn = () => showPointsMode ? dispatch(cancelMode()) : dispatch(activeMode())
 
-    if (showPointsMode) {
-      dispatch(cancelMode())
-    } else {
-      dispatch(activeMode())
-    }
-  }
-
-  const pointsOnMapStatus = () => {
-    if (!showPointsMode) {
-      return 'Show'
-    }
-    return 'Hide'
-  }
+  const pointsOnMapStatus = () => (!showPointsMode) ? 'Show' : 'Hide'
 
   return (
 

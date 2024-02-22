@@ -1,30 +1,23 @@
-import { isLocationExist } from '../../utils/generalUtils';
-import { useMemo } from 'react';
+import { isLocationExist } from '../../utils/generalUtils'
+import React, { useMemo } from 'react'
 
-
-export const CardLocationField = ({location}) => {
-
+export const CardLocationField = ({ location }) => {
     const showLocationAsString = useMemo(() => {
-        if (!Object.values(location)) {
-        // if (!location.length) {
+        if (!location.length) {
             return null
-        }
-        else{
+        } else {
             const locationValues = Object.values(location)
             if (locationValues.length) {
                 const locationLong = locationValues[0]
-                const locationLat =  locationValues[1]
+                const locationLat = locationValues[1]
                 return ` ${locationLong}: ${locationLat} `
-                
             }
         }
-        
-    },[location])
+    }, [location])
 
     if (!isLocationExist(location)) {
         return null
-    }
-    else{
+    } else {
         return (
             <p className='location-description' style={{
                 marginTop: '-10px'

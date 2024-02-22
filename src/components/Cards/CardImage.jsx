@@ -1,11 +1,9 @@
-import {bergerPhotos} from '../../shared/photos';
+import React from 'react'
+import { bergerPhotos } from '../../shared/photos'
 
-export const CardImage = ({TODOKind}) => {
-    
-    return (
-        <img
+export const CardImage = ({ TODOKind }) => (
+    <img
         src={bergerPhotos[TODOKind]}
         className="card-image"
     />
-    )
-}
+)

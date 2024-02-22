@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import { bergerPhotos } from '../../shared/photos'
 import { Autocomplete, TextField } from '@mui/material'
 

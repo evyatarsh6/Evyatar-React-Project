@@ -12,7 +12,7 @@ import { useAddSingleTODO } from '../../hooks/useMutateData'
 import { Checkbox, Container, FormControlLabel, Autocomplete, IconButton } from '@mui/material'
 
 import CloseIcon from '@mui/icons-material/Close'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { constans } from '../../constans/constans'
 
 export const TODOForm = ({ setAlertMessage }) => {
@@ -82,7 +82,7 @@ export const TODOForm = ({ setAlertMessage }) => {
   }
 
   return (
-    <Fragment>
+    <>
       <Dialog
         open={FormDetails.isFormVisble}
         onClose={handleClose}
@@ -236,6 +236,6 @@ export const TODOForm = ({ setAlertMessage }) => {
           </DialogContent>
         </form>
       </Dialog>
-    </Fragment>
+    </>
   )
 }

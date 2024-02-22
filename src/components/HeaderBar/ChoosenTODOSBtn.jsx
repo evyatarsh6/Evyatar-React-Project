@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '@mui/material'
-import { constans } from '../../constans/constans'
+import { constants } from '../../constants/constants'
 import useFilterKind from '../../hooks/useFilterKind'
 
 export const ChoosenTODOSBtn = ({ style }) => {
@@ -12,9 +12,9 @@ export const ChoosenTODOSBtn = ({ style }) => {
             variant="contained"
             id={'show-choosen-items-btn'}
             className='show-choosen-items-btn'
-            onClick={() => updateFilterKind(constans.choosenFilterKind)}
+            onClick={() => updateFilterKind(constants.choosenFilterKind)}
             style={style}>
-            {`${filterKindBtnStatus(constans.choosenFilterKind)} show choosen items`}
+            {`${filterKindBtnStatus(constants.choosenFilterKind)} show choosen items`}
         </Button>
     )
 }

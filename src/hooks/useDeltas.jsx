@@ -59,7 +59,6 @@ export const useDeltas = () => {
 
   return {
     getDeltas,
-    refetch,
-    deltasLogic
+    refetch
   }
 }

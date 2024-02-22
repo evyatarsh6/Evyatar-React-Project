@@ -33,8 +33,6 @@ export const useGetAllTODOSQuery = () => {
                 dispatch(updatePoint(TODO._id, TODO.location))
             })
         }
-
-        return []
     }, [dispatch, TODOS, isLoading, error, isSuccess])
 
     return {

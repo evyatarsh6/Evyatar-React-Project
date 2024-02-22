@@ -3,13 +3,12 @@ const initialState = true
 export const showPointsMode = (state = initialState, action) => {
     switch (action.type) {
         case 'activeShowMapPointsMode':
-        return true
+            return true
 
         case 'activeClearMapPointsMode':
-        return false
+            return false
 
         default:
-        return state;
+            return state
     }
-  };
-  
+}

@@ -13,7 +13,7 @@ import { Checkbox, Container, FormControlLabel, Autocomplete, IconButton } from 
 
 import CloseIcon from '@mui/icons-material/Close'
 import React from 'react'
-import { constans } from '../../constans/constans'
+import { constants } from '../../constants/constants'
 
 export const TODOForm = ({ setAlertMessage }) => {
   const FormDetails = useSelector(GetFormDetails)
@@ -23,7 +23,7 @@ export const TODOForm = ({ setAlertMessage }) => {
   const { addTODO } = TODOListActions
   const { closeForm } = FormActions
 
-  const { defaultFormFieldsValues, resetFormFieldsValues } = constans
+  const { defaultFormFieldsValues, resetFormFieldsValues } = constants
 
   const { handleSubmit, reset, control, getValues, setValue } =
     useForm({

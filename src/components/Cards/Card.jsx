@@ -1,25 +1,23 @@
-import { CardDescriptionField } from './CardDescriptionField';
-import { CardMapBtns } from './CardMapBtns';
-import { CardTitle } from './CardTitle';
-import { CardLocationField } from './CardLocationField';
-import { CardImage } from './CardImage';
-import { CardChooseDelete } from './CardChooseDeleteContainer';
-
-
+import { CardDescriptionField } from './CardDescriptionField'
+import { CardMapBtns } from './CardMapBtns'
+import { CardTitle } from './CardTitle'
+import { CardLocationField } from './CardLocationField'
+import { CardImage } from './CardImage'
+import { CardChooseDelete } from './CardChooseDeleteContainer'
+import React from 'react'
 
 export const Card = ({ TODO }) => {
-
-    const {_id, kind, location, description} = TODO
+    const { _id, kind, location, description } = TODO
 
     return (
-        
-        <div className ="card" id={_id}>
+
+        <div className="card" id={_id}>
             <CardMapBtns TODO={TODO} />
-            <CardTitle TODOKind={kind}/>
+            <CardTitle TODOKind={kind} />
             <CardLocationField location={location} />
-            <CardImage TODOKind={kind}/>
-            <CardDescriptionField _id = {_id} description={description}/>
-            <CardChooseDelete TODO={TODO}/>
+            <CardImage TODOKind={kind} />
+            <CardDescriptionField _id={_id} description={description} />
+            <CardChooseDelete TODO={TODO} />
         </div>
     )
-}; 
+}

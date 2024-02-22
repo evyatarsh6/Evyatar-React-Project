@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField'
 
 export const CardDescriptionField = ({ _id, description }) => {
     const currInputValue = useRef(null)
+    const { editTODO } = TODOListActions
 
     const dispatch = useDispatch()
 
@@ -43,7 +44,7 @@ export const CardDescriptionField = ({ _id, description }) => {
         event.preventDefault()
         setIsFreezeMode(prevIsFreezeMode => !prevIsFreezeMode)
         if (!isFreezeMode) {
-            dispatch(TODOListActions.editTODO(
+            dispatch(editTODO(
                 {
                     _id,
                     fieldKey: 'description',

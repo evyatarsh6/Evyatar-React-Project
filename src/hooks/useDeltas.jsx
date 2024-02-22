@@ -6,6 +6,7 @@ import { TODOListActions, MapActions } from '../actions/actions'
 
 export const useDeltas = () => {
   const dispatch = useDispatch()
+  const { addTODO, editTODO } = TODOListActions
 
   const { fetchCurrDeltas } = useFetchData()
   const queryKey = ['updateDeltas']
@@ -22,7 +23,7 @@ export const useDeltas = () => {
 
   const deltasLogic = useCallback(info => {
     if (info.changeType === 'PATCH') {
-      dispatch(TODOListActions.editTODO({
+      dispatch(editTODO({
         _id: info.TODOID,
         fieldKey: info.changedField,
         fieldUpdateValue: info.values.newValue
@@ -32,7 +33,7 @@ export const useDeltas = () => {
         dispatch(updatePoint(info.TODOID, info.values.newValue))
       }
     } else if (info.changeType === 'POST') {
-      dispatch(TODOListActions.addTODO(info))
+      dispatch(addTODO(info))
     }
   }, [dispatch])
 

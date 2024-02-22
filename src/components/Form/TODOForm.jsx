@@ -20,6 +20,7 @@ export const TODOForm = ({ setAlertMessage }) => {
   const dispatch = useDispatch()
   const TODOKind = useSelector(GetFormTODOKind)
   const TODOID = useSelector(GetFormTODOID)
+  const { addTODO } = TODOListActions
 
   const { defaultFormFieldsValues, resetFormFieldsValues } = constans
 
@@ -73,7 +74,7 @@ export const TODOForm = ({ setAlertMessage }) => {
       isPinBtnDisable: false
     }
 
-    dispatch(TODOListActions.addTODO(TODO))
+    dispatch(addTODO(TODO))
     postSingleTODO.mutate(TODO)
     dispatch(FormActions.closeForm())
     returnFieldsToDefualt()

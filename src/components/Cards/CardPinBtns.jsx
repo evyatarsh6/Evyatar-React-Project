@@ -16,18 +16,19 @@ export const CardPinBtn = ({ isPinBtnDisable, _id }) => {
     const mutateSingleUpdateField = useMutateFieldSingle()
     const mutateFieldFunc = mutateSingleUpdateField.mutate
     const { activeMode, cancelMode } = MapActions.mapPinTODOMode
+    const { editTODO, editAllTODOS } = TODOListActions
 
     const [isPinActive, setIsPinActive] = useState(isPinBtnDisable)
 
     const UpdateTODOSAfterClickPinBtn = () => {
-        dispatch(TODOListActions.editAllTODOS(
+        dispatch(editAllTODOS(
             {
                 fieldKey: 'isPinBtnDisable',
                 fieldUpdateValue: true
             }
         ))
 
-        dispatch(TODOListActions.editTODO(
+        dispatch(editTODO(
             {
                 _id,
                 fieldKey: 'isPinBtnDisable',
@@ -48,7 +49,7 @@ export const CardPinBtn = ({ isPinBtnDisable, _id }) => {
         dispatch(cancelMode())
         dispatch(updateTooltipStatus(false))
 
-        dispatch(TODOListActions.editAllTODOS(
+        dispatch(editAllTODOS(
             {
                 fieldKey: 'isPinBtnDisable',
                 fieldUpdateValue: false
@@ -66,7 +67,7 @@ export const CardPinBtn = ({ isPinBtnDisable, _id }) => {
             }
         )
 
-        dispatch(TODOListActions.editTODO(
+        dispatch(editTODO(
             {
                 _id,
                 fieldKey: 'location',

@@ -7,13 +7,16 @@ import DialogTitle from '@mui/material/DialogTitle'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetFormDetails, GetFormTODOID, GetFormTODOKind } from '../../selectors'
 import { FormActions, TODOListActions } from '../../actions/actions'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, FormProvider } from 'react-hook-form'
 import { useAddSingleTODO } from '../../hooks/useMutateData'
 import { Checkbox, Container, FormControlLabel, Autocomplete, IconButton } from '@mui/material'
 
 import CloseIcon from '@mui/icons-material/Close'
 import React from 'react'
 import { constants } from '../../constants/constants'
+import { FormStaticFields } from '../Form/FormSpecificFields/FormStaticFields'
+import { FormDescriptionField } from './FormSpecificFields/FormDescriptionField'
+import { FormIsChoosenCheckBoxField } from './FormSpecificFields/FormIsChoosenCheckBoxField'
 
 export const TODOForm = ({ setAlertMessage }) => {
   const FormDetails = useSelector(GetFormDetails)
@@ -25,10 +28,11 @@ export const TODOForm = ({ setAlertMessage }) => {
 
   const { defaultFormFieldsValues, resetFormFieldsValues } = constants
 
-  const { handleSubmit, reset, control, getValues, setValue } =
-    useForm({
-      defaultValues: defaultFormFieldsValues
-    })
+  const methods = useForm({
+    defaultValues: defaultFormFieldsValues
+  })
+
+  const { handleSubmit, reset, control, getValues, setValue } = methods
 
   const descriptionFieldValue = getValues('descriptionField')
   const isChoosenCheckboxValue = getValues('isChoosenCheckbox')
@@ -91,33 +95,17 @@ export const TODOForm = ({ setAlertMessage }) => {
           alignItems: 'flex-start'
         }}
       >
-        <form onSubmit={handleSubmit(onSubmit, onError)}>
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit, onError)}>
 
-          <IconButton onClick={handleClose} style={{ scale: '1.5' }}>
-            <CloseIcon />
-          </IconButton>
+            <IconButton onClick={handleClose} style={{ scale: '1.5' }}>
+              <CloseIcon />
+            </IconButton>
 
-          <DialogTitle>CREATE NEW AVI BERGER</DialogTitle>
-          <DialogContent>
-            <DialogContentText margin={1}>
-              To create new Avi Berger TODO to this website, enter the wanted info .
-            </DialogContentText>
-
-            <DialogContentText marginTop={5} marginBottom={0.5}>
-              TODO kind
-            </DialogContentText>
-
-            <Autocomplete
-              margin={5}
-              disabled
-              disablePortal
-              inputValue={TODOKind}
-              renderInput={params => <TextField {...params}
-              />}
-            >
-            </Autocomplete>
-
-            <Controller
+            <DialogTitle>CREATE NEW AVI BERGER</DialogTitle>
+            <DialogContent>
+              <FormStaticFields />
+              {/* <Controller
               control={control}
               name="descriptionField"
               rules={{
@@ -141,100 +129,101 @@ export const TODOForm = ({ setAlertMessage }) => {
               }
             >
 
-            </Controller>
-
-            <Controller
-              name="isChoosenCheckbox"
-              control={control}
-              render={() => (
-                <FormControlLabel
-                  sx={{
-                    marginTop: 3
-                  }}
-                  control={
-                    <Checkbox
-                      onChange={updateIsChoosenCheckboxValue}
-
-                      checked={isChoosenCheckboxValue}
-                      id="isChoosen-field"
-                    />
-                  }
-                  label="isChoosen field"
-                />
-              )}
-            />
-
-            <Controller
-              name="isDeleteCheckbox"
-              control={control}
-              render={() => (
-                <FormControlLabel
-                  sx={{
-                    display: 'block',
-                    marginTop: 2,
-                    marginBottom: 2
-                  }}
-                  control={
-                    <Checkbox
-                      onChange={updateIsDeleteCheckboxValue}
-                      checked={isDeleteCheckboxValue}
-                      id="isDelete-field"
-                    />
-                  }
-                  label="isDelete field"
-                />
-              )}
-            />
-
-            <Container sx={{
-              flexDirection: 'row',
-              textAlign: 'center',
-              justifyContent: 'end',
-              justifyItems: 'flex-end'
-
-            }}>
-              <Controller
+            </Controller> */}
+              <FormDescriptionField control={control} />
+              <FormIsChoosenCheckBoxField control={control} />
+              {/* <Controller
+                name="isChoosenCheckbox"
                 control={control}
-                name="submit-btn"
                 render={() => (
-                  <Button
-                    type="submit"
-                    size='large'
+                  <FormControlLabel
                     sx={{
-                      marginRight: 3,
-                      backgroundColor: 'rgba(25, 118, 210, 0.04)'
+                      marginTop: 3
                     }}
-                  >
-                    submit Button
-                  </Button>
+                    control={
+                      <Checkbox
+                        onChange={updateIsChoosenCheckboxValue}
+                        checked={isChoosenCheckboxValue}
+                        id="isChoosen-field"
+                      />
+                    }
+                    label="isChoosen field"
+                  />
                 )}
-              >
-
-              </Controller>
+              /> */}
 
               <Controller
+                name="isDeleteCheckbox"
                 control={control}
-                name="reset-btn"
-                render={({ field: { onBlur, onChange } }) => (
-                  <Button
-                    onClick={clickResetBtn}
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    size='large'
+                render={() => (
+                  <FormControlLabel
                     sx={{
-                      marginRight: 3,
-                      backgroundColor: 'rgba(25, 118, 210, 0.04)'
+                      display: 'block',
+                      marginTop: 2,
+                      marginBottom: 2
                     }}
-                  >
-                    reset Button
-                  </Button>
+                    control={
+                      <Checkbox
+                        onChange={updateIsDeleteCheckboxValue}
+                        checked={isDeleteCheckboxValue}
+                        id="isDelete-field"
+                      />
+                    }
+                    label="isDelete field"
+                  />
                 )}
-              >
+              />
 
-              </Controller>
-            </Container>
-          </DialogContent>
-        </form>
+              <Container sx={{
+                flexDirection: 'row',
+                textAlign: 'center',
+                justifyContent: 'end',
+                justifyItems: 'flex-end'
+
+              }}>
+                <Controller
+                  control={control}
+                  name="submit-btn"
+                  render={() => (
+                    <Button
+                      type="submit"
+                      size='large'
+                      sx={{
+                        marginRight: 3,
+                        backgroundColor: 'rgba(25, 118, 210, 0.04)'
+                      }}
+                    >
+                      submit Button
+                    </Button>
+                  )}
+                >
+
+                </Controller>
+
+                <Controller
+                  control={control}
+                  name="reset-btn"
+                  render={({ field: { onBlur, onChange } }) => (
+                    <Button
+                      onClick={clickResetBtn}
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      size='large'
+                      sx={{
+                        marginRight: 3,
+                        backgroundColor: 'rgba(25, 118, 210, 0.04)'
+                      }}
+                    >
+                      reset Button
+                    </Button>
+                  )}
+                >
+
+                </Controller>
+              </Container>
+            </DialogContent>
+          </form>
+        </FormProvider>
       </Dialog>
     </>
   )

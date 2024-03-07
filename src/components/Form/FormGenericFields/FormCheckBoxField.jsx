@@ -1,38 +1,25 @@
 import React, { useState } from 'react'
-import { useController, useFormContext } from 'react-hook-form'
-import { FormControlLabel, Checkbox } from '@mui/material'
+import { useController } from 'react-hook-form'
+import { Checkbox } from '@mui/material'
 
-export const FormCheckBoxField = ({ name, control, options }) => {
-    const { setValue } = useFormContext()
-
+export const FormCheckBoxField = ({ name, control }) => {
     const { field } = useController({
-        name,
-        control
+        control,
+        name
     })
-
-    const updateFieldValue = (wantedField, updateValue) => setValue(`${wantedField}`, updateValue)
-
-    const updateCheckBoxValue = () => updateFieldValue(`${name}`, !field.value)
+    const [value, setValue] = useState(!field.value)
 
     return (
-        <>
-            {/* {options.map((option, index) => ( */}
-
-            <FormControlLabel
-                key={`${field.name}`}
-                sx={{
-                    marginTop: 3
-                }}
-                control={
-                    <Checkbox
-                        onChange={updateCheckBoxValue}
-                        checked={field.value}
-                        id="isChoosen-field"
-                    />
-                }
-                label={`${field.name} field`}
-            />
-            {/* ))} */}
-        </>
+        <Checkbox
+            onChange={() => {
+                field.onChange(!value)
+                setValue(!value)
+            }}
+            key={field.name}
+            checked={value}
+            type="checkbox"
+            value={value}
+        >
+        </Checkbox>
     )
 }

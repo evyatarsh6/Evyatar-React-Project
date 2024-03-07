@@ -17,6 +17,9 @@ import { constants } from '../../constants/constants'
 import { FormStaticFields } from '../Form/FormSpecificFields/FormStaticFields'
 import { FormDescriptionField } from './FormSpecificFields/FormDescriptionField'
 import { FormIsChoosenCheckBoxField } from './FormSpecificFields/FormIsChoosenCheckBoxField'
+import { FormIsDeleteCheckBoxField } from './FormSpecificFields/FormIsDeleteCheckBoxField'
+import { FormSubmitBtn } from './FormSpecificFields/FormSubmitBtn'
+import { FormResetBtn } from './FormSpecificFields/FormResetBtn'
 
 export const TODOForm = ({ setAlertMessage }) => {
   const FormDetails = useSelector(GetFormDetails)
@@ -38,24 +41,24 @@ export const TODOForm = ({ setAlertMessage }) => {
   const isChoosenCheckboxValue = getValues('isChoosenCheckbox')
   const isDeleteCheckboxValue = getValues('isDeleteCheckbox')
 
-  const updateFieldValue = (wantedField, updateValue) => setValue(`${wantedField}`, updateValue)
+  // const updateFieldValue = (wantedField, updateValue) => setValue(`${wantedField}`, updateValue)
 
-  const updateDescriptionFieldValue = e => updateFieldValue('descriptionField', e.target.value)
-  const updateIsChoosenCheckboxValue = () => updateFieldValue('isChoosenCheckbox', !isChoosenCheckboxValue)
-  const updateIsDeleteCheckboxValue = () => updateFieldValue('isDeleteCheckbox', !isDeleteCheckboxValue)
+  // const updateDescriptionFieldValue = e => updateFieldValue('descriptionField', e.target.value)
+  // const updateIsChoosenCheckboxValue = () => updateFieldValue('isChoosenCheckbox', !isChoosenCheckboxValue)
+  // const updateIsDeleteCheckboxValue = () => updateFieldValue('isDeleteCheckbox', !isDeleteCheckboxValue)
 
   const postSingleTODO = useAddSingleTODO()
 
   const returnFieldsToDefualt = () => reset(defaultFormFieldsValues)
 
-  const clickResetBtn = () => {
-    reset(resetFormFieldsValues,
-      {
-        keepDirtyValues: true,
-        keepDefaultValues: true
-      }
-    )
-  }
+  // const clickResetBtn = () => {
+  //   reset(resetFormFieldsValues,
+  //     {
+  //       keepDirtyValues: true,
+  //       keepDefaultValues: true
+  //     }
+  //   )
+  // }
 
   const handleClose = event => {
     dispatch(closeForm())
@@ -132,6 +135,7 @@ export const TODOForm = ({ setAlertMessage }) => {
             </Controller> */}
               <FormDescriptionField control={control} />
               <FormIsChoosenCheckBoxField control={control} />
+              <FormIsDeleteCheckBoxField control={control} />
               {/* <Controller
                 name="isChoosenCheckbox"
                 control={control}
@@ -152,7 +156,7 @@ export const TODOForm = ({ setAlertMessage }) => {
                 )}
               /> */}
 
-              <Controller
+              {/* <Controller
                 name="isDeleteCheckbox"
                 control={control}
                 render={() => (
@@ -172,7 +176,7 @@ export const TODOForm = ({ setAlertMessage }) => {
                     label="isDelete field"
                   />
                 )}
-              />
+              /> */}
 
               <Container sx={{
                 flexDirection: 'row',
@@ -181,7 +185,9 @@ export const TODOForm = ({ setAlertMessage }) => {
                 justifyItems: 'flex-end'
 
               }}>
-                <Controller
+                <FormSubmitBtn control={control} name={'submit-btn'}/>
+                <FormResetBtn control={control} name={'submit-btn'}/>
+                {/* <Controller
                   control={control}
                   name="submit-btn"
                   render={() => (
@@ -198,9 +204,9 @@ export const TODOForm = ({ setAlertMessage }) => {
                   )}
                 >
 
-                </Controller>
+                </Controller> */}
 
-                <Controller
+                {/* <Controller
                   control={control}
                   name="reset-btn"
                   render={({ field: { onBlur, onChange } }) => (
@@ -219,7 +225,7 @@ export const TODOForm = ({ setAlertMessage }) => {
                   )}
                 >
 
-                </Controller>
+                </Controller> */}
               </Container>
             </DialogContent>
           </form>

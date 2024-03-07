@@ -34,7 +34,7 @@ export const FormResetBtn = ({ name, control, rulesObj }) => {
                 backgroundColor: 'rgba(25, 118, 210, 0.04)'
             }}
         >
-            submit Button
+            reset Button
         </Button>
     )
 }

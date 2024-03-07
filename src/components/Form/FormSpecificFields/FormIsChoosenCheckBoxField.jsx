@@ -1,6 +1,17 @@
 import React from 'react'
 import { FormCheckBoxField } from '../FormGenericFields/FormCheckBoxField'
+import { FormControlLabel } from '@mui/material'
 
 export const FormIsChoosenCheckBoxField = ({ control }) => (
-    <FormCheckBoxField control={control} name={'isChoosen'} />
+    <FormControlLabel
+        sx={{
+            marginTop: 3
+        }}
+
+        control={
+            <FormCheckBoxField control={control} name={'isChoosen'} />
+        }
+        label="isChoosen"
+    />
+
 )

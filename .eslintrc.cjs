@@ -1,22 +1,29 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
-  ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh'],
-  rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
-    "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
-    "react/prop-types": "off"
+  env: {
+    browser: true,
+    es2021: true
   },
+  extends: [
+    'plugin:react/recommended',
+    'standard'
+  ],
+  overrides: [
+  ],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module'
+  },
+  plugins: [
+    'react'
+  ],
+  rules: {
+    // 'react/react-in-jsx-scope': 'off',
+    'no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
+    'react/prop-types': 'off',
+    'arrow-parens': ['error', 'as-needed'],
+    'eol-last': ['error', 'always'],
+    'arrow-body-style': ['error', 'as-needed'],
+    semi: ['error', 'never'],
+    indent: 'off'
+  }
 }

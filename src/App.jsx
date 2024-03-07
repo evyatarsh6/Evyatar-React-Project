@@ -1,20 +1,33 @@
-import { useState } from 'react';
-import './App.css';
-import { HeaderInput } from './components/HeaderMainInput.';
-import { ItemList} from './containers/ItemList.'
-import { AppWrapper } from './containers/AppWrapper';
+import React, { useEffect } from 'react'
+import './App.css'
+import { HeaderBar } from './components/HeaderBar/HeaderBar'
+import { MapContainer } from './components/containers/MapContainer'
+import { CardList } from './components/containers/cardsList'
+import { useGetAllTODOSQuery } from './hooks/useGetAllTODOS'
+import { useDeltas } from './hooks/useDeltas'
 
-function App() {
+function App () {
+  const { getAllTODDOSData } = useGetAllTODOSQuery()
+  const { getDeltas } = useDeltas()
 
-  const [status,setStatus] = useState('active')
+  useEffect(() => {
+    getAllTODDOSData()
+  }, [getAllTODDOSData])
+
+  useEffect(() => {
+    getDeltas()
+  }, [getDeltas])
 
   return (
-    <div className="App">
-      <h1>Avi Berger Pressents - My Dear Son</h1>
-      <AppWrapper>
 
-      </AppWrapper>
+    <div className='App'>
+      <body>
+        <HeaderBar />
+        <MapContainer />
+        <CardList />
+      </body>
     </div>
-  );
+
+  )
 }
-export default App;
+export default App

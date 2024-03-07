@@ -121,7 +121,7 @@ export const TODOForm = ({ setAlertMessage }) => {
 
               }}>
                 <FormSubmitBtn control={control} name={'submit-btn'} />
-                <FormResetBtn control={control} name={'submit-btn'} />
+                <FormResetBtn control={control} name={'reset-btn'} />
               </Container>
             </DialogContent>
           </form>

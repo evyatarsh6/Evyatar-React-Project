@@ -1,24 +1,26 @@
-import React, { useState } from 'react'
-import { useController } from 'react-hook-form'
+import React from 'react'
+import { useController, useFormContext } from 'react-hook-form'
 import { Checkbox } from '@mui/material'
 
 export const FormCheckBoxField = ({ name, control }) => {
+    const { setValue } = useFormContext()
+
     const { field } = useController({
         control,
         name
     })
-    const [value, setValue] = useState(!field.value)
+
+    const updateFieldValue = updateValue => setValue(`${field.name}`, updateValue)
 
     return (
         <Checkbox
             onChange={() => {
-                field.onChange(!value)
-                setValue(!value)
+                updateFieldValue(!field.value)
             }}
             key={field.name}
-            checked={value}
+            checked={field.value}
             type="checkbox"
-            value={value}
+            value={field.value}
         >
         </Checkbox>
     )

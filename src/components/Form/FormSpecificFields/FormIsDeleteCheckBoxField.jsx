@@ -11,7 +11,7 @@ export const FormIsDeleteCheckBoxField = ({ control }) => (
             marginBottom: 2
         }}
         control={
-            <FormCheckBoxField control={control} name={'isDelete'} />
+            <FormCheckBoxField control={control} name={'isDeleteCheckbox'} />
         }
         label="isDelete"
     />

@@ -9,7 +9,7 @@ export const FormIsChoosenCheckBoxField = ({ control }) => (
         }}
 
         control={
-            <FormCheckBoxField control={control} name={'isChoosen'} />
+            <FormCheckBoxField control={control} name={'isChoosenCheckbox'} />
         }
         label="isChoosen"
     />

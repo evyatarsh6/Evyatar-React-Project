@@ -1,16 +1,12 @@
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetFormDetails, GetFormTODOID, GetFormTODOKind } from '../../selectors'
 import { FormActions, TODOListActions } from '../../actions/actions'
-import { useForm, Controller, FormProvider } from 'react-hook-form'
+import { useForm, FormProvider, useWatch } from 'react-hook-form'
 import { useAddSingleTODO } from '../../hooks/useMutateData'
-import { Checkbox, Container, FormControlLabel, Autocomplete, IconButton } from '@mui/material'
-
+import { Container, IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import React from 'react'
 import { constants } from '../../constants/constants'
@@ -29,36 +25,35 @@ export const TODOForm = ({ setAlertMessage }) => {
   const { addTODO } = TODOListActions
   const { closeForm } = FormActions
 
-  const { defaultFormFieldsValues, resetFormFieldsValues } = constants
+  const { defaultFormFieldsValues } = constants
 
   const methods = useForm({
     defaultValues: defaultFormFieldsValues
   })
 
-  const { handleSubmit, reset, control, getValues, setValue } = methods
+  const { handleSubmit, reset, control, getValues } = methods
 
-  const descriptionFieldValue = getValues('descriptionField')
-  const isChoosenCheckboxValue = getValues('isChoosenCheckbox')
-  const isDeleteCheckboxValue = getValues('isDeleteCheckbox')
+  const descriptionFieldValue = useWatch({
+    control,
+    name: 'descriptionField',
+    defaultValue: defaultFormFieldsValues.descriptionField
+  })
 
-  // const updateFieldValue = (wantedField, updateValue) => setValue(`${wantedField}`, updateValue)
+  const isChoosenCheckboxValue = useWatch({
+    control,
+    name: 'isChoosenCheckbox',
+    defaultValue: defaultFormFieldsValues.isChoosenCheckbox
+  })
 
-  // const updateDescriptionFieldValue = e => updateFieldValue('descriptionField', e.target.value)
-  // const updateIsChoosenCheckboxValue = () => updateFieldValue('isChoosenCheckbox', !isChoosenCheckboxValue)
-  // const updateIsDeleteCheckboxValue = () => updateFieldValue('isDeleteCheckbox', !isDeleteCheckboxValue)
+  const isDeleteCheckboxValue = useWatch({
+    control,
+    name: 'isDeleteCheckbox',
+    defaultValue: defaultFormFieldsValues.isDeleteCheckbox
+  })
 
   const postSingleTODO = useAddSingleTODO()
 
   const returnFieldsToDefualt = () => reset(defaultFormFieldsValues)
-
-  // const clickResetBtn = () => {
-  //   reset(resetFormFieldsValues,
-  //     {
-  //       keepDirtyValues: true,
-  //       keepDefaultValues: true
-  //     }
-  //   )
-  // }
 
   const handleClose = event => {
     dispatch(closeForm())
@@ -72,6 +67,12 @@ export const TODOForm = ({ setAlertMessage }) => {
   }
 
   const onSubmit = () => {
+    // also an optional approch - using getValues instead of useWatch
+
+    // const descriptionFieldValue = getValues('descriptionField')
+    // const isChoosenCheckboxValue = getValues('isChoosenCheckbox')
+    // const isDeleteCheckboxValue = getValues('isDeleteCheckbox')
+
     const TODO = {
       _id: TODOID,
       description: descriptionFieldValue,
@@ -108,75 +109,9 @@ export const TODOForm = ({ setAlertMessage }) => {
             <DialogTitle>CREATE NEW AVI BERGER</DialogTitle>
             <DialogContent>
               <FormStaticFields />
-              {/* <Controller
-              control={control}
-              name="descriptionField"
-              rules={{
-                pattern: {
-                  value: /avi/i,
-                  message: 'Description must contain AVI'
-                }
-              }}
-              render={() => (
-                <TextField
-                  value={descriptionFieldValue}
-                  onChange={updateDescriptionFieldValue}
-                  margin="dense"
-                  id="description-field"
-                  label="description"
-                  type="text"
-                  fullWidth
-                  variant="standard"
-                />
-              )
-              }
-            >
-
-            </Controller> */}
               <FormDescriptionField control={control} />
               <FormIsChoosenCheckBoxField control={control} />
               <FormIsDeleteCheckBoxField control={control} />
-              {/* <Controller
-                name="isChoosenCheckbox"
-                control={control}
-                render={() => (
-                  <FormControlLabel
-                    sx={{
-                      marginTop: 3
-                    }}
-                    control={
-                      <Checkbox
-                        onChange={updateIsChoosenCheckboxValue}
-                        checked={isChoosenCheckboxValue}
-                        id="isChoosen-field"
-                      />
-                    }
-                    label="isChoosen field"
-                  />
-                )}
-              /> */}
-
-              {/* <Controller
-                name="isDeleteCheckbox"
-                control={control}
-                render={() => (
-                  <FormControlLabel
-                    sx={{
-                      display: 'block',
-                      marginTop: 2,
-                      marginBottom: 2
-                    }}
-                    control={
-                      <Checkbox
-                        onChange={updateIsDeleteCheckboxValue}
-                        checked={isDeleteCheckboxValue}
-                        id="isDelete-field"
-                      />
-                    }
-                    label="isDelete field"
-                  />
-                )}
-              /> */}
 
               <Container sx={{
                 flexDirection: 'row',
@@ -185,47 +120,8 @@ export const TODOForm = ({ setAlertMessage }) => {
                 justifyItems: 'flex-end'
 
               }}>
-                <FormSubmitBtn control={control} name={'submit-btn'}/>
-                <FormResetBtn control={control} name={'submit-btn'}/>
-                {/* <Controller
-                  control={control}
-                  name="submit-btn"
-                  render={() => (
-                    <Button
-                      type="submit"
-                      size='large'
-                      sx={{
-                        marginRight: 3,
-                        backgroundColor: 'rgba(25, 118, 210, 0.04)'
-                      }}
-                    >
-                      submit Button
-                    </Button>
-                  )}
-                >
-
-                </Controller> */}
-
-                {/* <Controller
-                  control={control}
-                  name="reset-btn"
-                  render={({ field: { onBlur, onChange } }) => (
-                    <Button
-                      onClick={clickResetBtn}
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      size='large'
-                      sx={{
-                        marginRight: 3,
-                        backgroundColor: 'rgba(25, 118, 210, 0.04)'
-                      }}
-                    >
-                      reset Button
-                    </Button>
-                  )}
-                >
-
-                </Controller> */}
+                <FormSubmitBtn control={control} name={'submit-btn'} />
+                <FormResetBtn control={control} name={'submit-btn'} />
               </Container>
             </DialogContent>
           </form>
